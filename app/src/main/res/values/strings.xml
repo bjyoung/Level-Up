@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Level Up</string>
-    <string name="placeholder_name">Username</string>
-    <string name="level_acronym">Lvl</string>
+    <string name="username_level_header">Lvl %1$d %2$s</string>
+    <string name="placeholder_username">Username</string>
+    <string name="placeholder_level">\?\?\?</string>
     <string name="placeholder_quest_name">\?\?\?</string>
 </resources>
