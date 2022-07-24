@@ -13,7 +13,7 @@ Level Up is an Android app for tracking to-do tasks with a classic arcade game a
 1. Download and install [Android Studio](https://developer.android.com/studio)
 1. Clone the [repository](https://github.com/bjyoung/Level-Up)
     1. Open Android Studio
-    1. Click on 'Get from VCS' option > GitHub > Use token... 
+    1. Click on 'Get from VCS' option > GitHub > Use token...
     1. Have an existing repo admin generate a token with repo, workflow and read:org access
     1. Paste the token in the 'Token' field
     1. Choose 'Level-Up' project > Clone
