@@ -1,7 +1,41 @@
 <resources>
     <string name="app_name">Level Up</string>
+
+    <!-- Quest List strings -->
     <string name="username_level_header">Lvl %1$d %2$s</string>
-    <string name="placeholder_username">Username</string>
-    <string name="placeholder_level">\?\?\?</string>
-    <string name="placeholder_quest_name">\?\?\?</string>
+    <string name="username_placeholder">Username</string>
+    <string name="level_placeholder">\?\?\?</string>
+    <string name="quest_placeholder">\?\?\?</string>
+
+    <!-- New Quest strings -->
+    <string name="new_quest_page_label">New Quest</string>
+    <string name="name_label">Name</string>
+    <string name="difficulty_selector_label">Difficulty</string>
+    <string name="icon_input_label">Icon</string>
+
+    <!-- Shop strings -->
+    <string name="shop_page_label">Shop</string>
+    <string name="price_column_label">Price</string>
+    <string name="reward_amount">%1$d %2$s</string>
+    <string name="reward_acronym">RT</string>
+    <string name="reward_acronym_default">RT</string>
+
+    <!-- New Item strings -->
+    <string name="new_item_page_label">New Item</string>
+    <string name="cost_input_label">Cost (%1$s)</string>
+
+    <!-- Difficulty strings -->
+    <string name="easy_label">Easy</string>
+    <string name="medium_label">Medium</string>
+    <string name="hard_label">Hard</string>
+    <string name="expert_label">Expert</string>
+
+    <!-- Settings strings -->
+    <string name="settings_page_label">Settings</string>
+    <string name="font_size_selector_label">Font Size</string>
+    <string name="small_size_label">Small</string>
+    <string name="medium_size_label">Medium</string>
+    <string name="large_size_label">Large</string>
+    <string name="reward_acronym_input_label">Reward Acronym</string>
+    <string name="backup_button_label">Backup</string>
 </resources>
