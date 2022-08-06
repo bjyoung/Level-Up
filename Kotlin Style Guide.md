@@ -270,9 +270,11 @@ val defaultExtension: String get() = "kt"
   - Between consecutive members of a class (properties, constructors, functions, etc.)
   - Between statements, as needed to organize code into logical subsections
 - Avoid using multiple blank lines in a row
+- No blank lines at the start or end of a file
 
 ### Horizontal
 
+- No trailing spaces at the end of statements
 - Separate keywords from an open parenthesis (`(`) or curly braces (`{`, `}`)
 
 ```kotlin
