@@ -7,6 +7,19 @@
     android:background="@color/background_primary"
     tools:context=".QuestList">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/SettingsButton"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/background_secondary"
+        android:clickable="true"
+        android:contentDescription="@string/settings_button_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Username"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/gear_icon" />
+
     <TextView
         android:id="@+id/Username"
         android:layout_width="wrap_content"
@@ -37,13 +50,13 @@
         android:id="@+id/AddNewQuestButton"
         android:layout_width="54dp"
         android:layout_height="54dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/background_secondary"
         android:clickable="true"
         android:contentDescription="@string/new_quest_button_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ProgressBar"
         app:srcCompat="@drawable/plus_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
