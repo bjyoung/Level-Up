@@ -7,10 +7,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class QuestList : Fragment(R.layout.quest_list) {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     private fun addNavigation(view: View){
         val addNewQuestButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
 
