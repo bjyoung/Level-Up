@@ -13,6 +13,12 @@ class QuestList : Fragment(R.layout.quest_list) {
         addNewQuestButton.setOnClickListener{
             findNavController().navigate(R.id.action_questList_to_newQuest)
         }
+
+        val settingsButton = view.findViewById<FloatingActionButton>(R.id.SettingsButton)
+
+        settingsButton.setOnClickListener{
+            findNavController().navigate(R.id.action_questList_to_settings)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_questList_to_newQuest"
             app:destination="@id/newQuest" />
+        <action
+            android:id="@+id/action_questList_to_settings"
+            app:destination="@id/settings" />
     </fragment>
     <fragment
         android:id="@+id/newQuest"
@@ -20,6 +23,15 @@
         tools:layout="@layout/new_quest">
         <action
             android:id="@+id/action_newQuest_to_questList"
+            app:destination="@id/questList" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.brandonjamesyoung.levelup.Settings"
+        android:label="Settings"
+        tools:layout="@layout/settings">
+        <action
+            android:id="@+id/action_settings_to_questList"
             app:destination="@id/questList" />
     </fragment>
 </navigation>
