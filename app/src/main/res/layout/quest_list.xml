@@ -8,6 +8,19 @@
     tools:context=".QuestList">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ShopButton"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/background_secondary"
+        android:clickable="true"
+        android:contentDescription="@string/shop_button_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ProgressBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/star_icon" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/SettingsButton"
         android:layout_width="54dp"
         android:layout_height="54dp"

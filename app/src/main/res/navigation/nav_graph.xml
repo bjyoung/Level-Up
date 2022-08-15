@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_questList_to_settings"
             app:destination="@id/settings" />
+        <action
+            android:id="@+id/action_questList_to_shop"
+            app:destination="@id/shop" />
     </fragment>
     <fragment
         android:id="@+id/newQuest"
@@ -32,6 +35,15 @@
         tools:layout="@layout/settings">
         <action
             android:id="@+id/action_settings_to_questList"
+            app:destination="@id/questList" />
+    </fragment>
+    <fragment
+        android:id="@+id/shop"
+        android:name="com.brandonjamesyoung.levelup.Shop"
+        android:label="Shop"
+        tools:layout="@layout/shop">
+        <action
+            android:id="@+id/action_shop_to_questList"
             app:destination="@id/questList" />
     </fragment>
 </navigation>

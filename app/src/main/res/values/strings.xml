@@ -9,6 +9,7 @@
     <string name="quest_placeholder">\?\?\?</string>
     <string name="new_quest_button_description">Navigate to the New Quest page</string>
     <string name="settings_button_description">Navigate to the Settings page</string>
+    <string name="shop_button_description">Navigate to the Shop page</string>
 
     <!-- New Quest strings -->
     <string name="new_quest_label">New Quest</string>
