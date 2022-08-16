@@ -72,4 +72,20 @@
         app:layout_constraintStart_toEndOf="@+id/ProgressBar"
         app:srcCompat="@drawable/plus_icon" />
 
+    <EditText
+        android:id="@+id/PointsLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:autofillHints="points"
+        android:ems="10"
+        android:hint="@string/placeholder_text"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/reward_amount"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toStartOf="@+id/Username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

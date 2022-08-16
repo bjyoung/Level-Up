@@ -4,9 +4,7 @@
     <!-- Quest List strings -->
     <string name="quest_list_label">Quest List</string>
     <string name="username_level_header">Lvl %1$d %2$s</string>
-    <string name="username_placeholder">Username</string>
-    <string name="level_placeholder">\?\?\?</string>
-    <string name="quest_placeholder">\?\?\?</string>
+    <string name="placeholder_text">\?\?\?</string>
     <string name="new_quest_button_description">Navigate to the New Quest page</string>
     <string name="settings_button_description">Navigate to the Settings page</string>
     <string name="shop_button_description">Navigate to the Shop page</string>
