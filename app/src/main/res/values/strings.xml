@@ -3,7 +3,7 @@
 
     <!-- Quest List strings -->
     <string name="quest_list_label">Quest List</string>
-    <string name="username_level_header">Lvl %1$d %2$s</string>
+    <string name="username_level_header">Lvl %1$s %2$s</string>
     <string name="placeholder_text">\?\?\?</string>
     <string name="new_quest_button_description">Navigate to the New Quest page</string>
     <string name="settings_button_description">Navigate to the Settings page</string>
@@ -18,9 +18,9 @@
     <!-- Shop strings -->
     <string name="shop_label">Shop</string>
     <string name="price_column_label">Price</string>
-    <string name="reward_amount">%1$d %2$s</string>
-    <string name="reward_acronym">RT</string>
-    <string name="reward_acronym_default">RT</string>
+    <string name="points_amount">%1$s %2$s</string>
+    <string name="points_acronym">RT</string>
+    <string name="points_acronym_default">RT</string>
 
     <!-- New Item strings -->
     <string name="new_item_label">New Item</string>

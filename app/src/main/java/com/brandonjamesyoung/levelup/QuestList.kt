@@ -2,8 +2,10 @@ package com.brandonjamesyoung.levelup
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
+import com.brandonjamesyoung.levelup.shared.StringHelper
 
 class QuestList : Fragment(R.layout.quest_list) {
     private fun addNavigation(view: View){
@@ -25,8 +27,17 @@ class QuestList : Fragment(R.layout.quest_list) {
         }
     }
 
+    private fun substitutePlaceholderText(view: View){
+        val placeholderText = getString(R.string.placeholder_text)
+        val pointsAcronym = getString(R.string.points_acronym)
+        val stringHelper = StringHelper()
+        stringHelper.substituteText(view, R.id.Username, placeholderText, placeholderText)
+        stringHelper.substituteText(view, R.id.PointsLabel, placeholderText, pointsAcronym)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addNavigation(view)
+        substitutePlaceholderText(view)
     }
 }
