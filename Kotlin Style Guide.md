@@ -122,7 +122,7 @@ val nonEmptyArray = arrayOf("these", "can", "change")
 - Includes types, functions, properties or type aliases at the top-level
 - File contents should serve one purpose
 - Minimize public declarations in a single file
-- Declarations that appear earlier in the file should help explain those farther down, but not vice-versa
+- Declarations that appear earlier in the file should help explain those farther down
 - Declarations should follow some logical order (not chronological)
 
 ### Class Member Ordering
@@ -165,7 +165,7 @@ val value = if (string.isEmpty()) { // Okay
 
 - Braces follow the Kernighan and Richie (K&R) style for blocks and block-like constructs
   - No line break before the opening brace
-  - Line brak after the opening brace
+  - Line break after the opening brace
   - Line break before the closing brace
   - Line break after the closing brace, only if that brace terminates a statement, body of a function, constructor or named class
 
