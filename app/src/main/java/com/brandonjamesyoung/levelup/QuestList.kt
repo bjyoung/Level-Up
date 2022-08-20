@@ -2,7 +2,6 @@ package com.brandonjamesyoung.levelup
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.shared.StringHelper
@@ -18,12 +17,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         )
 
         for ((buttonId, navId) in buttonNavMap) {
-            navHelper.addNavigationToView(
-                buttonId = buttonId,
-                navActionId = navId,
-                pageView = view,
-                fragment = this,
-            )
+            navHelper.addNavigationToView(this, view, buttonId, navId)
         }
     }
 

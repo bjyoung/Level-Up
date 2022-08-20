@@ -4,17 +4,17 @@ import android.view.View
 import android.widget.TextView
 
 class StringHelper {
-    fun substituteText(pageView: View, viewId: Int, placeholderText: String){
-        val view = pageView.findViewById<TextView>(viewId)
+    fun substituteText(pageView: View, textViewId: Int, placeholderText: String){
+        val view = pageView.findViewById<TextView>(textViewId)
         val viewText = view.text.toString()
         val substitutedViewText = String.format(viewText, placeholderText)
         view.text = substitutedViewText
     }
 
-    fun substituteText(pageView: View, viewId: Int, placeholderTextFirst: String, placeholderTextSecond: String){
-        val view = pageView.findViewById<TextView>(viewId)
+    fun substituteText(pageView: View, textViewId: Int, firstText: String, secondText: String){
+        val view = pageView.findViewById<TextView>(textViewId)
         val viewText = view.text.toString()
-        val substitutedViewText = String.format(viewText, placeholderTextFirst, placeholderTextSecond)
+        val substitutedViewText = String.format(viewText, firstText, secondText)
         view.text = substitutedViewText
     }
 }
