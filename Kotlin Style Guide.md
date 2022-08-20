@@ -16,10 +16,9 @@ When in doubt, follow existing code base conventions.
 
 ### Source File Names
 
-- For Kotlin files, use PascalCase and the `.kt` extension
+- Use PascalCase and the `.kt` extension
   - If there is only one top-level class in the file, then name the file after the class
   - If there are multiple top-level declarations, then choose an applicable name
-- For resource files, use lowercase alphanumeric and underscores only
 
 ### Package Names
 
