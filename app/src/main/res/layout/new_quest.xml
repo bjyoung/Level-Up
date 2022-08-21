@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,9 +21,10 @@
         android:id="@+id/NameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
         android:text="@string/name_label"
         android:textColor="@color/text_primary"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/NameInput"
         app:layout_constraintHorizontal_bias="0.0"
@@ -34,17 +34,21 @@
 
     <EditText
         android:id="@+id/NameInput"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:autofillHints="event_name"
         android:background="@color/background_secondary"
         android:ems="10"
+        android:fontFamily="@font/press_start_2p"
         android:hint="@string/name_hint"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
         android:textColorHint="@color/text_hint"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NameLabel" />
 </androidx.constraintlayout.widget.ConstraintLayout>
