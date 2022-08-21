@@ -13,6 +13,7 @@
     <!-- New Quest strings -->
     <string name="new_quest_label">New Quest</string>
     <string name="name_label">Name</string>
+    <string name="name_hint">Enter name here</string>
     <string name="difficulty_selector_label">Difficulty</string>
     <string name="icon_input_label">Icon</string>
 

@@ -12,10 +12,12 @@
     <color name="background_primary">#FF000000</color>
     <color name="background_primary_default">#FF000000</color>
     <color name="background_secondary">#FFD9DADB</color>
+    <color name="background_secondary_default">#FFD9DADB</color>
     <color name="text_primary">#FFFFFFFF</color>
     <color name="text_primary_default">#FFFFFFFF</color>
     <color name="text_secondary">#FF000000</color>
     <color name="text_secondary_default">#FF000000</color>
+    <color name="text_hint">#474747</color>
     <color name="easy">#FF09FF00</color>
     <color name="easy_default">#FF09FF00</color>
     <color name="medium">#FFFFFF00</color>
