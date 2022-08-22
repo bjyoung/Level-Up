@@ -16,6 +16,7 @@
     <string name="name_hint">Enter name here</string>
     <string name="difficulty_selector_label">Difficulty</string>
     <string name="icon_input_label">Icon</string>
+    <string name="icon_input_content_description">Rounded button for selecting an icon</string>
 
     <!-- Shop strings -->
     <string name="shop_label">Shop</string>
