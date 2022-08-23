@@ -158,4 +158,34 @@
         app:layout_constraintTop_toBottomOf="@+id/Icon"
         app:srcCompat="@drawable/question_mark_icon" />
 
+    <Button
+        android:id="@+id/CancelButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/background_secondary"
+        android:contentDescription="@string/cancel_button_content_description"
+        app:icon="@drawable/times_icon_red"
+        app:iconGravity="textStart"
+        app:iconTint="@color/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <Button
+        android:id="@+id/ConfirmButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/background_secondary"
+        android:contentDescription="@string/confirm_button_content_description"
+        app:icon="@drawable/check_icon_green"
+        app:iconGravity="textStart"
+        app:iconTint="@color/confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/CancelButton"
+        app:layout_constraintTop_toTopOf="@+id/CancelButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
