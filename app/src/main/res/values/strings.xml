@@ -19,6 +19,7 @@
     <string name="icon_input_content_description">Icon selector</string>
     <string name="cancel_button_content_description">Red cross</string>
     <string name="confirm_button_content_description">Green check</string>
+    <string name="difficulty_select_box_content_description">White box</string>
 
     <!-- Shop strings -->
     <string name="shop_label">Shop</string>
