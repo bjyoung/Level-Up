@@ -19,7 +19,12 @@ class NewQuest : Fragment(R.layout.new_quest) {
     )
 
     private fun addNavigation(view: View){
-        NavigationHelper().addNavigationToView(this, view, R.id.CancelButton, R.id.action_newQuest_to_questList)
+        NavigationHelper().addNavigationToView(
+            this,
+            view,
+            R.id.CancelButton,
+            R.id.action_newQuest_to_questList
+        )
     }
 
     // Move box to given button
