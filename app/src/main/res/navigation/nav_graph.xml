@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/settings"
-        android:name="com.brandonjamesyoung.levelup.Settings"
+        android:name="com.brandonjamesyoung.levelup.SettingsPage"
         android:label="Settings"
         tools:layout="@layout/settings">
         <action
