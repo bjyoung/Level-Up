@@ -7,15 +7,17 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
+import com.brandonjamesyoung.levelup.shared.Settings
 
 class NewQuest : Fragment(R.layout.new_quest) {
     private var selectedDifficulty: String? = null
-    private var difficultyButtonIds = arrayOf(
-        R.id.EasyButton,
-        R.id.MediumButton,
-        R.id.HardButton,
-        R.id.ExpertButton
+    private var difficultyMap = mapOf(
+        Difficulty.EASY to R.id.EasyButton,
+        Difficulty.MEDIUM to R.id.MediumButton,
+        Difficulty.HARD to R.id.HardButton,
+        Difficulty.EXPERT to R.id.ExpertButton
     )
 
     private fun addNavigation(view: View){
@@ -49,7 +51,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     }
 
     private fun setDifficultyButtonListeners(view: View){
-        for (id in difficultyButtonIds) {
+        for (id in difficultyMap.values) {
             val button = view.findViewById<AppCompatButton>(id)
 
             button.setOnClickListener{
@@ -58,9 +60,17 @@ class NewQuest : Fragment(R.layout.new_quest) {
         }
     }
 
+    private fun selectDefaultDifficulty(view: View){
+        val settingsObj = Settings()
+        val difficultyButtonId = difficultyMap[settingsObj.DefaultDifficulty]!!
+        val defaultDifficultyButton = view.findViewById<AppCompatButton>(difficultyButtonId)
+        setSelectedDifficulty(defaultDifficultyButton, view)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addNavigation(view)
         setDifficultyButtonListeners(view)
+        selectDefaultDifficulty(view)
     }
 }

@@ -1,12 +1,13 @@
 package com.brandonjamesyoung.levelup.shared
 
+// TODO Need to persist setting data
 class Settings {
-    val Volume = 50
-    val DefaultDifficulty = Constants.Difficulty.EASY
-    val EasyReward = 1
-    val MediumReward = 3
-    val HardReward = 8
-    val ExpertReward = 15
-    val FontSizeSetting = Constants.FontSize.MEDIUM
-    val RewardAcronym = "RP"
+    var Volume = 50
+    var DefaultDifficulty = Difficulty.EASY
+    var EasyReward = 1
+    var MediumReward = 3
+    var HardReward = 8
+    var ExpertReward = 15
+    var FontSizeSetting = FontSize.MEDIUM
+    var RewardAcronym = "RP"
 }
