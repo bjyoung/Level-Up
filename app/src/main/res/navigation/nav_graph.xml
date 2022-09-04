@@ -6,7 +6,7 @@
     app:startDestination="@id/questList">
     <fragment
         android:id="@+id/questList"
-        android:name="com.brandonjamesyoung.levelup.QuestList"
+        android:name="com.brandonjamesyoung.levelup.fragments.QuestList"
         android:label="quest_list"
         tools:layout="@layout/quest_list" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/newQuest"
-        android:name="com.brandonjamesyoung.levelup.NewQuest"
+        android:name="com.brandonjamesyoung.levelup.fragments.NewQuest"
         android:label="NewQuest"
         tools:layout="@layout/new_quest">
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/settings"
-        android:name="com.brandonjamesyoung.levelup.SettingsPage"
+        android:name="com.brandonjamesyoung.levelup.fragments.SettingsPage"
         android:label="Settings"
         tools:layout="@layout/settings">
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/shop"
-        android:name="com.brandonjamesyoung.levelup.Shop"
+        android:name="com.brandonjamesyoung.levelup.fragments.Shop"
         android:label="Shop"
         tools:layout="@layout/shop">
         <action

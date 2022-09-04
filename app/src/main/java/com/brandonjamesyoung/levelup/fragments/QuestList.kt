@@ -1,8 +1,9 @@
-package com.brandonjamesyoung.levelup
+package com.brandonjamesyoung.levelup.fragments
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.shared.StringHelper
 
