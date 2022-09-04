@@ -42,7 +42,8 @@ class NewQuest : Fragment(R.layout.new_quest) {
         constraintSet.applyTo(constraintLayout)
     }
 
-    private fun setSelectedDifficulty(button: AppCompatButton, view: View){
+    private fun setSelectedDifficulty(buttonId: Int, view: View){
+        val button = view.findViewById<AppCompatButton>(buttonId)
         selectedDifficulty = button.text as String
         val selectBox = view.findViewById<ImageView>(R.id.DifficultySelectBox)
         selectBox.visibility = ImageView.INVISIBLE
@@ -55,16 +56,16 @@ class NewQuest : Fragment(R.layout.new_quest) {
             val button = view.findViewById<AppCompatButton>(id)
 
             button.setOnClickListener{
-                setSelectedDifficulty(button, view)
+                setSelectedDifficulty(id, view)
             }
         }
     }
 
     private fun selectDefaultDifficulty(view: View){
+        // TODO Persist settings in app data
         val settingsObj = Settings()
         val difficultyButtonId = difficultyMap[settingsObj.DefaultDifficulty]!!
-        val defaultDifficultyButton = view.findViewById<AppCompatButton>(difficultyButtonId)
-        setSelectedDifficulty(defaultDifficultyButton, view)
+        setSelectedDifficulty(difficultyButtonId, view)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
