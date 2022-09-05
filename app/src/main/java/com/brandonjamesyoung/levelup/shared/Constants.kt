@@ -7,3 +7,5 @@ enum class Difficulty {
 enum class FontSize {
     SMALL, MEDIUM, LARGE
 }
+
+const val DATABASE_NAME = "levelup-db"

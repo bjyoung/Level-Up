@@ -12,6 +12,7 @@ This document tracks all notables changes to the Level Up app.
   - Add name, difficulty selector and placeholder icon selector fields
   - Add confirm and cancel buttons
   - Update cancel button to bring user back to Quest List
+  - Select default difficulty (easy) when creating a new quest
 - In Quest List page
   - Add username, user level and experience bar UI
   - Add New Quest, Settings and Shop nav buttons
