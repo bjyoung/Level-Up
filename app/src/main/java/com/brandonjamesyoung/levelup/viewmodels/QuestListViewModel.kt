@@ -1,9 +1,6 @@
 package com.brandonjamesyoung.levelup.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.data.QuestRepository
 import kotlinx.coroutines.launch
@@ -13,5 +10,15 @@ class QuestListViewModel (private val repository: QuestRepository) : ViewModel()
 
     fun delete(quest: Quest) = viewModelScope.launch {
         repository.delete(quest)
+    }
+}
+
+class QuestListViewModelFactory(private val repository: QuestRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(QuestListViewModel::class.java)) {
+            return QuestListViewModel(repository) as T
+        }
+
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
