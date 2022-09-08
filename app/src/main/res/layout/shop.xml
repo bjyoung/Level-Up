@@ -10,7 +10,7 @@
         android:id="@+id/ShopLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/screen_padding"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/shop_label"
         android:textColor="@color/text_primary"

@@ -10,28 +10,30 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ShopButton"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="@dimen/round_button"
+        android:layout_height="@dimen/round_button"
         android:backgroundTint="@color/background_secondary"
         android:clickable="true"
         android:contentDescription="@string/shop_button_description"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ProgressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97"
         app:srcCompat="@drawable/star_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/SettingsButton"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="@dimen/round_button"
+        android:layout_height="@dimen/round_button"
         android:backgroundTint="@color/background_secondary"
         android:clickable="true"
         android:contentDescription="@string/settings_button_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Username"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/AddNewQuestButton"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01999998"
         app:srcCompat="@drawable/gear_icon" />
 
     <TextView
@@ -62,15 +64,15 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/AddNewQuestButton"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="@dimen/round_button"
+        android:layout_height="@dimen/round_button"
         android:backgroundTint="@color/background_secondary"
         android:clickable="true"
         android:contentDescription="@string/new_quest_button_description"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ShopButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ProgressBar"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toEndOf="@+id/ShopButton"
         app:srcCompat="@drawable/plus_icon" />
 
     <TextView

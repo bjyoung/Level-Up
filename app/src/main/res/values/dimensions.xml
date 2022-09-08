@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="difficulty_button_width">60dp</dimen>
+    <dimen name="difficulty_button_height">48dp</dimen>
+    <dimen name="round_button">54dp</dimen>
+    <dimen name="action_button_width">150dp</dimen>
+    <dimen name="screen_padding">16dp</dimen>
+</resources>
