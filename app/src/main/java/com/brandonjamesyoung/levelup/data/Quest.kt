@@ -7,8 +7,8 @@ import com.brandonjamesyoung.levelup.shared.Difficulty
 
 @Entity
 data class Quest(
-    @PrimaryKey val id: Int,
-    @ColumnInfo val name: String?,
-    @ColumnInfo val difficulty: Difficulty,
-    @ColumnInfo val iconId: Int?,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo val name: String? = null,
+    @ColumnInfo val difficulty: Difficulty = Difficulty.EASY,
+    @ColumnInfo val iconName: String? = null,
 )
