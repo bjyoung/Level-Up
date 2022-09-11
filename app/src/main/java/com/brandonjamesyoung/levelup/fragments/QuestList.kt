@@ -9,8 +9,6 @@ import com.brandonjamesyoung.levelup.shared.StringHelper
 
 class QuestList : Fragment(R.layout.quest_list) {
     private fun addNavigation(view: View){
-        val navHelper = NavigationHelper()
-
         val buttonNavMap = mapOf(
             R.id.AddNewQuestButton to R.id.action_questList_to_newQuest,
             R.id.SettingsButton to R.id.action_questList_to_settings,
@@ -18,16 +16,15 @@ class QuestList : Fragment(R.layout.quest_list) {
         )
 
         for ((buttonId, navId) in buttonNavMap) {
-            navHelper.addNavigationToView(this, view, buttonId, navId)
+            NavigationHelper.addNavigationToView(this, view, buttonId, navId)
         }
     }
 
     private fun substitutePlaceholderText(view: View){
         val placeholderText = getString(R.string.placeholder_text)
         val pointsAcronym = getString(R.string.points_acronym)
-        val stringHelper = StringHelper()
-        stringHelper.substituteText(view, R.id.Username, placeholderText, placeholderText)
-        stringHelper.substituteText(view, R.id.PointsLabel, placeholderText, pointsAcronym)
+        StringHelper.substituteText(view, R.id.Username, placeholderText, placeholderText)
+        StringHelper.substituteText(view, R.id.PointsLabel, placeholderText, pointsAcronym)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

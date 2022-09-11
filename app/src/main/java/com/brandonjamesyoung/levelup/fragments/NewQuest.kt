@@ -22,7 +22,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     )
 
     private fun addNavigation(view: View){
-        NavigationHelper().addNavigationToView(
+        NavigationHelper.addNavigationToView(
             this,
             view,
             R.id.CancelButton,
