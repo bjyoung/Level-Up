@@ -6,10 +6,20 @@ import com.brandonjamesyoung.levelup.data.QuestRepository
 import kotlinx.coroutines.launch
 
 class QuestListViewModel (private val repository: QuestRepository) : ViewModel() {
-    val allQuests: LiveData<List<Quest>> = repository.getAll().asLiveData()
+    val questList: LiveData<List<Quest>> = repository.getAll().asLiveData()
+
+    fun findById(id: Int): LiveData<Quest> = repository.findById(id).asLiveData()
 
     fun delete(quest: Quest) = viewModelScope.launch {
         repository.delete(quest)
+    }
+
+    fun insert(quest: Quest) = viewModelScope.launch {
+        repository.insert(quest)
+    }
+
+    fun update(quest: Quest) = viewModelScope.launch {
+        repository.update(quest)
     }
 }
 
