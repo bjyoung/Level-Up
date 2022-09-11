@@ -3,11 +3,15 @@ package com.brandonjamesyoung.levelup.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.shared.StringHelper
+import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 
 class QuestList : Fragment(R.layout.quest_list) {
+    private val viewModel: QuestListViewModel by activityViewModels()
+
     private fun addNavigation(view: View){
         val buttonNavMap = mapOf(
             R.id.AddNewQuestButton to R.id.action_questList_to_newQuest,

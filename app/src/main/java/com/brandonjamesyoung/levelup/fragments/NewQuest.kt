@@ -7,12 +7,15 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.shared.Settings
+import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 
 class NewQuest : Fragment(R.layout.new_quest) {
+    private val viewModel: QuestListViewModel by viewModels()
     private var selectedDifficulty: String? = null
     private var difficultyMap = mapOf(
         Difficulty.EASY to R.id.EasyButton,
@@ -30,7 +33,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
         )
     }
 
-    // Move box to given button
+    // Move selected difficulty box to the given button
     private fun moveDifficultySelectBox(button: AppCompatButton, parentView: View){
         val constraintLayout = parentView.findViewById<ConstraintLayout>(R.id.NewQuest)
         val constraintSet = ConstraintSet()
