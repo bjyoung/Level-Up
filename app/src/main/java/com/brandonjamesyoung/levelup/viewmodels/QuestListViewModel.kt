@@ -3,9 +3,14 @@ package com.brandonjamesyoung.levelup.viewmodels
 import androidx.lifecycle.*
 import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.data.QuestRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class QuestListViewModel (private val repository: QuestRepository) : ViewModel() {
+@HiltViewModel
+class QuestListViewModel @Inject constructor(
+    private val repository: QuestRepository
+) : ViewModel() {
     val questList: LiveData<List<Quest>> = repository.getAll().asLiveData()
 
     fun findById(id: Int): LiveData<Quest> = repository.findById(id).asLiveData()
@@ -20,15 +25,5 @@ class QuestListViewModel (private val repository: QuestRepository) : ViewModel()
 
     fun update(quest: Quest) = viewModelScope.launch {
         repository.update(quest)
-    }
-}
-
-class QuestListViewModelFactory(private val repository: QuestRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(QuestListViewModel::class.java)) {
-            return QuestListViewModel(repository) as T
-        }
-
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

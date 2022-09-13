@@ -8,7 +8,9 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.shared.StringHelper
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class QuestList : Fragment(R.layout.quest_list) {
     private val viewModel: QuestListViewModel by activityViewModels()
 
