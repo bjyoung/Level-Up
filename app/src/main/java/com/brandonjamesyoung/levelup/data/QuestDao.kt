@@ -12,11 +12,11 @@ interface QuestDao {
     fun findById(id: Int): Flow<Quest>
 
     @Insert
-    fun insert(quest: Quest)
+    suspend fun insert(quest: Quest)
 
     @Update
-    fun update(quest: Quest)
+    suspend fun update(quest: Quest)
 
     @Delete
-    fun delete(quest: Quest)
+    suspend fun delete(quest: Quest)
 }

@@ -78,18 +78,16 @@ class NewQuest : Fragment(R.layout.new_quest) {
     }
 
     private fun createQuest(view: View) {
-        // Get quest data
         val nameTextView = view.findViewById<TextView>(R.id.NameInput)
         val questName = nameTextView.text.toString()
 
-        // TODO get icon file here and store in saved quest
+        // TODO get icon file name here and store in saved quest
 
         val quest = Quest(
             name = questName,
             difficulty = selectedDifficulty!!
         )
 
-        // Save quest to database
         viewModel.insert(quest)
     }
 
