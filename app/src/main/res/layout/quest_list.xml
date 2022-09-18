@@ -10,41 +10,45 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ShopButton"
-        android:layout_width="@dimen/round_button"
-        android:layout_height="@dimen/round_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/background_secondary"
         android:clickable="true"
         android:contentDescription="@string/shop_button_description"
+        android:gravity="center"
+        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97"
+        app:layout_constraintTop_toTopOf="@+id/BottomBorder"
         app:srcCompat="@drawable/star_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/SettingsButton"
-        android:layout_width="@dimen/round_button"
-        android:layout_height="@dimen/round_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/background_secondary"
         android:clickable="true"
         android:contentDescription="@string/settings_button_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/AddNewQuestButton"
+        android:gravity="center"
+        app:fabCustomSize="@dimen/round_button"
+        app:layout_constraintBottom_toTopOf="@+id/UpperBorder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01999998"
         app:srcCompat="@drawable/gear_icon" />
 
     <TextView
         android:id="@+id/Username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/username_level_header"
         android:textColor="@color/text_primary"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/UpperBorder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,30 +68,47 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/AddNewQuestButton"
-        android:layout_width="@dimen/round_button"
-        android:layout_height="@dimen/round_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/background_secondary"
         android:clickable="true"
         android:contentDescription="@string/new_quest_button_description"
-        app:layout_constraintBottom_toBottomOf="@+id/ShopButton"
+        android:gravity="center"
+        app:fabCustomSize="@dimen/round_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toEndOf="@+id/ShopButton"
+        app:layout_constraintTop_toTopOf="@+id/BottomBorder"
         app:srcCompat="@drawable/plus_icon" />
 
     <TextView
         android:id="@+id/PointsLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="73dp"
+        android:layout_height="25dp"
         android:autofillHints="points"
         android:ems="10"
         android:hint="@string/placeholder_text"
         android:minHeight="48dp"
         android:text="@string/points_amount"
         android:textColor="@color/text_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintBottom_toTopOf="@+id/UpperBorder"
+        app:layout_constraintEnd_toStartOf="@+id/Username"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/UpperBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10259918" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/BottomBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
