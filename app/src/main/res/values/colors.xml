@@ -13,6 +13,7 @@
     <color name="background_primary_default">#FF000000</color>
     <color name="background_secondary">#FFD9DADB</color>
     <color name="background_secondary_default">#FFD9DADB</color>
+    <color name="quest_card_icon_background">#FFFFFFFF</color>
     <color name="text_primary">#FFFFFFFF</color>
     <color name="text_primary_default">#FFFFFFFF</color>
     <color name="text_secondary">#FF000000</color>

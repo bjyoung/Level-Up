@@ -35,6 +35,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.brandonjamesyoung.levelup'
 }
 
 dependencies {
@@ -47,7 +48,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
 
     // Navigation dependencies
-    def fragment_version = "1.5.2"
+    def fragment_version = "1.5.3"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     def nav_version = "2.5.2"

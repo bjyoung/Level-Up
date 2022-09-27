@@ -10,7 +10,7 @@
         android:id="@+id/DifficultyLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/difficulty_selector_label"
         android:textColor="@color/text_primary"
@@ -22,7 +22,7 @@
         android:id="@+id/Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/icon_input_label"
         android:textColor="@color/text_primary"
@@ -37,11 +37,10 @@
         android:fontFamily="@font/press_start_2p"
         android:text="@string/new_quest_label"
         android:textColor="@color/text_primary"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/NewQuestTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.050000012" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/NameLabel"
@@ -55,8 +54,8 @@
         app:layout_constraintEnd_toEndOf="@+id/NameInput"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/NameInput"
-        app:layout_constraintTop_toBottomOf="@+id/NewQuestLabel"
-        app:layout_constraintVertical_bias="0.050000012" />
+        app:layout_constraintTop_toTopOf="@+id/NewQuestTopGuideline"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/NameInput"
@@ -158,12 +157,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/IconButton"
-        android:layout_width="@dimen/round_button"
-        android:layout_height="@dimen/round_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/background_secondary"
         android:clickable="true"
         android:contentDescription="@string/icon_input_content_description"
+        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintStart_toStartOf="@+id/Icon"
         app:layout_constraintTop_toBottomOf="@+id/Icon"
         app:srcCompat="@drawable/question_mark_icon" />
@@ -183,8 +183,7 @@
         app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintTop_toTopOf="@+id/NewQuestBottomGuideline" />
 
     <Button
         android:id="@+id/ConfirmButton"
@@ -197,9 +196,24 @@
         app:iconGravity="textStart"
         app:iconSize="24dp"
         app:iconTint="@color/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/CancelButton"
-        app:layout_constraintTop_toTopOf="@+id/CancelButton" />
+        app:layout_constraintTop_toTopOf="@+id/NewQuestBottomGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/NewQuestTopGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/NewQuestBottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

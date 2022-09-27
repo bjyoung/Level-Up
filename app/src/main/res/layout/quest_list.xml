@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/BottomBorder"
+        app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline"
         app:srcCompat="@drawable/star_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -33,7 +33,7 @@
         android:contentDescription="@string/settings_button_description"
         android:gravity="center"
         app:fabCustomSize="@dimen/round_button"
-        app:layout_constraintBottom_toTopOf="@+id/UpperBorder"
+        app:layout_constraintBottom_toTopOf="@+id/QuestListTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
         android:text="@string/username_level_header"
         android:textColor="@color/text_primary"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/UpperBorder"
+        app:layout_constraintBottom_toTopOf="@+id/QuestListTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -79,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toEndOf="@+id/ShopButton"
-        app:layout_constraintTop_toTopOf="@+id/BottomBorder"
+        app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline"
         app:srcCompat="@drawable/plus_icon" />
 
     <TextView
@@ -92,23 +92,41 @@
         android:minHeight="48dp"
         android:text="@string/points_amount"
         android:textColor="@color/text_primary"
-        app:layout_constraintBottom_toTopOf="@+id/UpperBorder"
+        app:layout_constraintBottom_toBottomOf="@+id/ProgressBar"
         app:layout_constraintEnd_toStartOf="@+id/Username"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/Username" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/UpperBorder"
+        android:id="@+id/QuestListTopGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.10259918" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/BottomBorder"
+        android:id="@+id/QuestListBottomGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
+
+    <ScrollView
+        android:id="@+id/QuestScrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/QuestListTopGuideline">
+
+        <LinearLayout
+            android:id="@+id/QuestLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
