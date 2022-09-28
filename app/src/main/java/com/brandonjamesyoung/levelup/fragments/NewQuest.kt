@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.shared.Difficulty
@@ -96,6 +97,8 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
         saveButton.setOnClickListener {
             createQuest(view)
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_newQuest_to_questList)
         }
     }
 
