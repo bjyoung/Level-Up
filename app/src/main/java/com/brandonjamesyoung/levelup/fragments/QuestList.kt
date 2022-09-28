@@ -226,14 +226,16 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun addCardView(
         view: View,
-        questName: String = resources.getString(R.string.placeholder_text),
+        questName: String? = resources.getString(R.string.placeholder_text),
         difficulty: Difficulty = Difficulty.EASY,
-        questIconFileName: String = "question_mark_icon",
+        questIconFileName: String? = "question_mark_icon",
     ) {
         val difficultyColorId = difficultyColorMap[difficulty]
             ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
 
-        val newCard = createQuestCard(view, questName, difficultyColorId, questIconFileName)
+        val name = questName ?: resources.getString(R.string.placeholder_text)
+        val iconName = questIconFileName ?: "question_mark_icon"
+        val newCard = createQuestCard(view, name, difficultyColorId, iconName)
         val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
         questListLayout.addView(newCard)
     }
@@ -243,46 +245,15 @@ class QuestList : Fragment(R.layout.quest_list) {
         addNavigation(view)
         substitutePlaceholderText(view)
 
-        // TODO Remove below when done testing
-        // Below code to show how to add card to view given quest data
-        addCardView(
-            view = view,
-            difficulty = Difficulty.EASY,
-        )
-
-        addCardView(
-            view = view,
-            questName = "New Quest",
-            difficulty = Difficulty.MEDIUM,
-        )
-
-        addCardView(
-            view = view,
-            questName = "Very extremely long quest name asdfsadfa",
-            difficulty = Difficulty.HARD,
-            questIconFileName = "times_icon_red"
-        )
-
-        addCardView(
-            view = view,
-            difficulty = Difficulty.EXPERT,
-            questIconFileName = "plus_icon"
-        )
-
-        addCardView(
-            view = view,
-        )
-
-        addCardView(
-            view = view,
-            questName = "Coin Tricks",
-            difficulty = Difficulty.MEDIUM,
-            questIconFileName = "plus_icon"
-        )
-
-        addCardView(
-            view = view,
-            questName = "Advance Wars",
-        )
+        viewModel.questList.observe(viewLifecycleOwner) { questList ->
+            for (quest in questList) {
+                addCardView(
+                    view = view,
+                    questName = quest.name,
+                    difficulty = quest.difficulty,
+                    questIconFileName = quest.iconName
+                )
+            }
+        }
     }
 }
