@@ -246,6 +246,9 @@ class QuestList : Fragment(R.layout.quest_list) {
         substitutePlaceholderText(view)
 
         viewModel.questList.observe(viewLifecycleOwner) { questList ->
+            val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
+            questListLayout.removeAllViews()
+
             for (quest in questList) {
                 addCardView(
                     view = view,
