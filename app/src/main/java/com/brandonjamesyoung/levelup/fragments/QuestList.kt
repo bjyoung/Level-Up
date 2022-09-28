@@ -226,9 +226,9 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun addCardView(
         view: View,
-        questName: String,
-        difficulty: Difficulty,
-        questIconFileName: String,
+        questName: String = resources.getString(R.string.placeholder_text),
+        difficulty: Difficulty = Difficulty.EASY,
+        questIconFileName: String = "question_mark_icon",
     ) {
         val difficultyColorId = difficultyColorMap[difficulty]
             ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
@@ -247,51 +247,42 @@ class QuestList : Fragment(R.layout.quest_list) {
         // Below code to show how to add card to view given quest data
         addCardView(
             view = view,
-            questName = getString(R.string.placeholder_text),
             difficulty = Difficulty.EASY,
-            questIconFileName = "question_mark_icon.png"
         )
 
         addCardView(
             view = view,
             questName = "New Quest",
             difficulty = Difficulty.MEDIUM,
-            questIconFileName = "question_mark_icon.png"
         )
 
         addCardView(
             view = view,
             questName = "Very extremely long quest name asdfsadfa",
             difficulty = Difficulty.HARD,
-            questIconFileName = "question_mark_icon.png"
+            questIconFileName = "times_icon_red"
         )
 
         addCardView(
             view = view,
-            questName = getString(R.string.placeholder_text),
             difficulty = Difficulty.EXPERT,
-            questIconFileName = "question_mark_icon.png"
+            questIconFileName = "plus_icon"
         )
 
         addCardView(
             view = view,
-            questName = getString(R.string.placeholder_text),
-            difficulty = Difficulty.EASY,
-            questIconFileName = "question_mark_icon.png"
         )
 
         addCardView(
             view = view,
-            questName = getString(R.string.placeholder_text),
-            difficulty = Difficulty.EASY,
-            questIconFileName = "question_mark_icon.png"
+            questName = "Coin Tricks",
+            difficulty = Difficulty.MEDIUM,
+            questIconFileName = "plus_icon"
         )
 
         addCardView(
             view = view,
-            questName = getString(R.string.placeholder_text),
-            difficulty = Difficulty.EASY,
-            questIconFileName = "question_mark_icon.png"
+            questName = "Advance Wars",
         )
     }
 }
