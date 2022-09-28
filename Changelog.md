@@ -2,6 +2,19 @@
 
 This document tracks all notables changes to the Level Up app.
 
+## 0.2.0
+
+### Added
+
+- In New Quest page
+  - Pressing checkmark button saves quest data to a database and sends user to Quest List
+- In Quest List page
+  - Display quest data in a scrollable list of cards
+
+### Improved
+
+- Improve UI alignment in Quest List and New Quest pages
+
 ---
 
 ## 0.1.0
@@ -12,6 +25,7 @@ This document tracks all notables changes to the Level Up app.
   - Add name, difficulty selector and placeholder icon selector fields
   - Add confirm and cancel buttons
   - Update cancel button to bring user back to Quest List
+  - Selected difficulty is shown with a white rectangle
   - Select default difficulty (easy) when creating a new quest
 - In Quest List page
   - Add username, user level and experience bar UI
