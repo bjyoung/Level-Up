@@ -28,7 +28,7 @@
         android:textColor="@color/text_primary"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/DifficultyLabel"
-        app:layout_constraintTop_toBottomOf="@+id/EasyButton" />
+        app:layout_constraintTop_toBottomOf="@+id/HardButton" />
 
     <TextView
         android:id="@+id/NewQuestLabel"
@@ -50,7 +50,7 @@
         android:text="@string/name_label"
         android:textColor="@color/text_primary"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/NewQuestBottomGuideline"
         app:layout_constraintEnd_toEndOf="@+id/NameInput"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/NameInput"
@@ -80,8 +80,8 @@
 
     <ImageView
         android:id="@+id/DifficultySelectBox"
-        android:layout_width="75dp"
-        android:layout_height="63dp"
+        android:layout_width="@dimen/select_box_width"
+        android:layout_height="@dimen/select_box_height"
         android:adjustViewBounds="false"
         android:contentDescription="@string/difficulty_select_box_content_description"
         android:visibility="invisible"
@@ -95,30 +95,33 @@
         android:id="@+id/EasyButton"
         android:layout_width="@dimen/difficulty_button_width"
         android:layout_height="@dimen/difficulty_button_height"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/easy"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/easy_label"
         android:textAllCaps="false"
         android:textColor="@color/text_secondary"
-        android:textSize="8sp"
-        app:layout_constraintStart_toStartOf="@+id/NameInput"
+        android:textSize="@dimen/difficulty_font_size"
+        app:layout_constraintEnd_toStartOf="@+id/MediumButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/DifficultySelectBox"
+        app:layout_constraintStart_toStartOf="@+id/DifficultyLabel"
         app:layout_constraintTop_toBottomOf="@+id/DifficultyLabel" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/MediumButton"
         android:layout_width="@dimen/difficulty_button_width"
         android:layout_height="@dimen/difficulty_button_height"
-        android:layout_marginStart="30dp"
         android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/medium"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/medium_label"
         android:textAllCaps="false"
         android:textColor="@color/text_secondary"
-        android:textSize="8sp"
+        android:textSize="@dimen/difficulty_font_size"
         app:layout_constraintBottom_toBottomOf="@+id/EasyButton"
+        app:layout_constraintEnd_toEndOf="@+id/NameInput"
         app:layout_constraintStart_toEndOf="@+id/EasyButton"
         app:layout_constraintTop_toTopOf="@+id/EasyButton" />
 
@@ -126,17 +129,16 @@
         android:id="@+id/HardButton"
         android:layout_width="@dimen/difficulty_button_width"
         android:layout_height="@dimen/difficulty_button_height"
-        android:layout_marginStart="30dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/hard"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/hard_label"
         android:textAllCaps="false"
         android:textColor="@color/text_secondary"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="@+id/MediumButton"
-        app:layout_constraintStart_toEndOf="@+id/MediumButton"
-        app:layout_constraintTop_toTopOf="@+id/MediumButton" />
+        android:textSize="@dimen/difficulty_font_size"
+        app:layout_constraintStart_toStartOf="@+id/EasyButton"
+        app:layout_constraintTop_toBottomOf="@+id/EasyButton" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ExpertButton"
@@ -148,12 +150,11 @@
         android:text="@string/expert_label"
         android:textAllCaps="false"
         android:textColor="@color/text_secondary"
-        android:textSize="8sp"
+        android:textSize="@dimen/difficulty_font_size"
         app:layout_constraintBottom_toBottomOf="@+id/HardButton"
-        app:layout_constraintEnd_toEndOf="@+id/NameInput"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/HardButton"
-        app:layout_constraintTop_toTopOf="@+id/HardButton" />
+        app:layout_constraintEnd_toEndOf="@+id/MediumButton"
+        app:layout_constraintTop_toTopOf="@+id/HardButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/IconButton"

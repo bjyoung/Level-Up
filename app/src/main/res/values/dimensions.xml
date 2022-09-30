@@ -16,6 +16,9 @@
 
     <!-- New Quest -->
     <dimen name="form_element_margin">45dp</dimen>
-    <dimen name="difficulty_button_width">60dp</dimen>
+    <dimen name="difficulty_button_width">120dp</dimen>
     <dimen name="difficulty_button_height">48dp</dimen>
+    <dimen name="difficulty_font_size">11sp</dimen>
+    <dimen name="select_box_width">145dp</dimen>
+    <dimen name="select_box_height">73dp</dimen>
 </resources>
