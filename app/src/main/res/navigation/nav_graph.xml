@@ -11,13 +11,25 @@
         tools:layout="@layout/quest_list" >
         <action
             android:id="@+id/action_questList_to_newQuest"
-            app:destination="@id/newQuest" />
+            app:destination="@id/newQuest"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_questList_to_settings"
-            app:destination="@id/settings" />
+            app:destination="@id/settings"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
         <action
             android:id="@+id/action_questList_to_shop"
-            app:destination="@id/shop" />
+            app:destination="@id/shop"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/newQuest"
@@ -26,7 +38,11 @@
         tools:layout="@layout/new_quest">
         <action
             android:id="@+id/action_newQuest_to_questList"
-            app:destination="@id/questList" />
+            app:destination="@id/questList"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/settings"
@@ -35,7 +51,11 @@
         tools:layout="@layout/settings">
         <action
             android:id="@+id/action_settings_to_questList"
-            app:destination="@id/questList" />
+            app:destination="@id/questList"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
     </fragment>
     <fragment
         android:id="@+id/shop"
@@ -44,6 +64,10 @@
         tools:layout="@layout/shop">
         <action
             android:id="@+id/action_shop_to_questList"
-            app:destination="@id/questList" />
+            app:destination="@id/questList"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 </navigation>
