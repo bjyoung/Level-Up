@@ -8,12 +8,16 @@ This document tracks all notables changes to the Level Up app.
 
 - In New Quest page
   - Pressing checkmark button saves quest data to a database and sends user to Quest List
+  - A new quest is not created if the name is not valid and an error message appears next to the field instead
+    - Name must be less than 40 characters
+    - Name must only use alphanumeric characters and some punctuation: !#$%&:?()@_+/,.-
+    - Empty names are allowed
 - In Quest List page
   - Display quest data in a scrollable list of cards
 
 ### Improved
 
-- Improve UI alignment in Quest List and New Quest pages
+- Adjust UI alignment in Quest List and New Quest pages
 
 ---
 
