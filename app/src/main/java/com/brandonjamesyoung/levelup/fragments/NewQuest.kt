@@ -2,6 +2,7 @@ package com.brandonjamesyoung.levelup.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
@@ -16,7 +17,11 @@ import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.shared.Settings
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
+
+const val MAX_QUEST_NAME_LENGTH = 40
+val NAME_VALIDATION_REGEX = Regex("^[0-9a-zA-Z'\"!#$%&:?,.()@_+/*-]+$")
 
 @AndroidEntryPoint
 class NewQuest : Fragment(R.layout.new_quest) {
@@ -80,9 +85,16 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
     private fun createQuest(view: View) {
         val nameTextView = view.findViewById<TextView>(R.id.NameInput)
-        val questName = nameTextView.text.toString()
+        var questName: String? = nameTextView.text.trim().toString()
+
+        if (questName == "") {
+            questName = null
+        }
 
         // TODO get icon file name here and store in saved quest
+        val iconButton = view.findViewById<FloatingActionButton>(R.id.IconButton)
+        val iconDrawable = iconButton.drawable
+        val iconFileName = resources.getResourceEntryName(R.drawable.question_mark_icon)
 
         val quest = Quest(
             name = questName,
@@ -92,13 +104,51 @@ class NewQuest : Fragment(R.layout.new_quest) {
         viewModel.insert(quest)
     }
 
+    private fun validate(nameField : EditText) : Boolean {
+        val name = nameField.text.trim().toString()
+        val hasValidLength = name.length <= MAX_QUEST_NAME_LENGTH
+
+        if (name == "") {
+            return true
+        }
+
+        if (!hasValidLength) {
+            nameField.error = resources.getString(R.string.name_length_error)
+            return false
+        }
+
+        val hasValidCharacters = NAME_VALIDATION_REGEX.matches(name)
+
+        if (!hasValidCharacters) {
+            nameField.error = resources.getString(R.string.name_invalid_char_error)
+            return false
+        }
+
+        return true
+    }
+
+    private fun validateInput(view: View) : Boolean {
+        val nameView = view.findViewById<EditText>(R.id.NameInput)
+
+        if (!validate(nameView)) {
+            return false
+        }
+
+        // TODO Check if icon is a valid icon name
+        // val iconView = view.findViewById<FloatingActionButton>(R.id.IconButton)
+
+        return true
+    }
+
     private fun setSaveButtonListener(view: View) {
         val saveButton = view.findViewById<AppCompatButton>(R.id.ConfirmButton)
 
         saveButton.setOnClickListener {
-            createQuest(view)
-            NavHostFragment.findNavController(this)
-                .navigate(R.id.action_newQuest_to_questList)
+            if (validateInput(view)){
+                createQuest(view)
+                NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_newQuest_to_questList)
+            }
         }
     }
 
