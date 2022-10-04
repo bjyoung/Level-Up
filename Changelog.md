@@ -2,6 +2,12 @@
 
 This document tracks all notables changes to the Level Up app.
 
+## 0.2.1
+
+### Added
+
+- Adds animated slide transitions when navigating between pages
+
 ## 0.2.0
 
 ### Added
