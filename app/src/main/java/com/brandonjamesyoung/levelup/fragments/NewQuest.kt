@@ -21,7 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
 const val MAX_QUEST_NAME_LENGTH = 40
-val NAME_VALIDATION_REGEX = Regex("^[0-9a-zA-Z'\"!#$%&:?,.()@_+/*-]+$")
+val NAME_VALIDATION_REGEX = Regex("^[0-9a-zA-Z'\"!#$%&:?,.() @_+/*-]+$")
 
 @AndroidEntryPoint
 class NewQuest : Fragment(R.layout.new_quest) {
