@@ -72,6 +72,7 @@
         android:minHeight="48dp"
         android:paddingHorizontal="15dp"
         android:paddingVertical="10dp"
+        android:textColor="@color/text_secondary"
         android:textColorHint="@color/text_hint"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
