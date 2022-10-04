@@ -8,6 +8,10 @@ This document tracks all notables changes to the Level Up app.
 
 - Adds animated slide transitions when navigating between pages
 
+### Changed
+
+- Quest name field text color changed to black color
+
 ## 0.2.0
 
 ### Added
@@ -21,7 +25,7 @@ This document tracks all notables changes to the Level Up app.
 - In Quest List page
   - Display quest data in a scrollable list of cards
 
-### Improved
+### Changed
 
 - Adjust UI alignment in Quest List and New Quest pages
 
