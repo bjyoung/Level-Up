@@ -1,12 +1,14 @@
 package com.brandonjamesyoung.levelup.fragments
 
 import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -16,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.shared.Difficulty
+import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.shared.StringHelper
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
@@ -24,7 +27,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class QuestList : Fragment(R.layout.quest_list) {
-    private val viewModel: QuestListViewModel by activityViewModels()
+    private val questListViewModel: QuestListViewModel by activityViewModels()
+    private val selectedQuestIDs: MutableSet<Int> = mutableSetOf()
+    private var mode: Mode = Mode.DEFAULT
 
     private val difficultyColorMap = mapOf(
         Difficulty.EASY to R.color.easy,
@@ -52,7 +57,156 @@ class QuestList : Fragment(R.layout.quest_list) {
         StringHelper.substituteText(view, R.id.PointsLabel, placeholderText, pointsAcronym)
     }
 
-    private fun createQuestIcon(view: View, iconFileName: String) : FloatingActionButton {
+    private fun showToast(message: String) {
+        val toast = Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_SHORT
+        )
+
+        toast.show()
+    }
+
+    private fun isSelected(questId: Int) : Boolean {
+        return selectedQuestIDs.contains(questId)
+    }
+
+    private fun getQuestDrawable(view: View, iconFileName : String) : Drawable? {
+        val iconId = resources.getIdentifier(
+            iconFileName,
+            "drawable",
+            view.context.packageName
+        )
+
+        val drawable = if (iconId == 0) {
+            ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.question_mark_icon,
+                view.context.theme
+            )
+        } else {
+            ResourcesCompat.getDrawable(resources, iconId, view.context.theme)
+        }
+
+        return drawable
+    }
+
+    private fun completeQuests(questIds: Set<Int>) {
+        // TODO Remove below when done testing
+        var questIdsString = "Quests to complete: "
+        for (questId in questIds) questIdsString += "$questId, "
+        showToast(questIdsString)
+
+        // TODO Complete quests here
+
+    }
+
+    private fun deleteQuests(questIds: Set<Int>) {
+        // TODO Remove below when done testing
+        var questIdsString = "Quests to delete: "
+        for (questId in questIds) questIdsString += "$questId, "
+        showToast(questIdsString)
+
+        // TODO delete quests here
+    }
+
+    private fun activateSelectMode(view: View) {
+        // Change New Quest button to Complete Quests button
+        val newQuestButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
+
+        val checkIcon = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.check_icon_green,
+            view.context.theme
+        )
+
+        newQuestButton.setImageDrawable(checkIcon)
+
+        val confirmColor : Int = resources.getColor(
+            R.color.confirm,
+            view.context.theme
+        )
+
+        newQuestButton.imageTintList = ColorStateList.valueOf(confirmColor)
+
+        newQuestButton.setOnClickListener{
+            completeQuests(selectedQuestIDs)
+        }
+
+        // Change Shop button to Delete button
+        val shopButton = view.findViewById<FloatingActionButton>(R.id.ShopButton)
+
+        val deleteIcon = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.trash_bin_icon,
+            view.context.theme
+        )
+
+        shopButton.setImageDrawable(deleteIcon)
+
+        val deleteColor : Int = resources.getColor(
+            R.color.cancel,
+            view.context.theme
+        )
+
+        shopButton.imageTintList = ColorStateList.valueOf(deleteColor)
+
+        shopButton.setOnClickListener{
+            deleteQuests(selectedQuestIDs)
+        }
+    }
+
+    private fun activateDefaultMode(view: View) {
+        // Change Complete Quests button to New Quest button
+        val completeQuestsButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
+
+        val newQuestIcon = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.plus_icon,
+            view.context.theme
+        )
+
+        completeQuestsButton.setImageDrawable(newQuestIcon)
+
+        val primaryIconColor : Int = resources.getColor(
+            R.color.icon_primary,
+            view.context.theme
+        )
+
+        completeQuestsButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
+
+        NavigationHelper.addNavigationToView(
+            this,
+            view,
+            R.id.AddNewQuestButton,
+            R.id.action_questList_to_newQuest
+        )
+
+        // Change Delete button to Shop button
+        val deleteButton = view.findViewById<FloatingActionButton>(R.id.ShopButton)
+
+        val shopIcon = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.star_icon,
+            view.context.theme
+        )
+
+        deleteButton.setImageDrawable(shopIcon)
+        deleteButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
+
+        NavigationHelper.addNavigationToView(
+            this,
+            view,
+            R.id.ShopButton,
+            R.id.action_questList_to_shop
+        )
+    }
+
+    private fun createQuestIcon(
+        view: View,
+        iconFileName: String,
+        questId: Int
+    ) : FloatingActionButton {
         val context = view.context
         val icon = FloatingActionButton(context)
         icon.id = View.generateViewId()
@@ -64,23 +218,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         icon.layoutParams = iconLayoutParams
         icon.contentDescription = resources.getString(R.string.quest_icon_description)
-
-        val iconID = resources.getIdentifier(
-            iconFileName,
-            "drawable",
-            context.packageName
-        )
-
-        val iconDrawable = if (iconID == 0) {
-            ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.question_mark_icon,
-                context.theme
-            )
-        } else {
-            ResourcesCompat.getDrawable(resources, iconID, context.theme)
-        }
-
+        val iconDrawable = getQuestDrawable(view, iconFileName)
         icon.setImageDrawable(iconDrawable)
         icon.compatElevation = 0f
         val pxCustomFABSize = resources.getDimension(R.dimen.big_round_button).toInt()
@@ -92,6 +230,28 @@ class QuestList : Fragment(R.layout.quest_list) {
         )
 
         icon.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+
+        icon.setOnClickListener{
+            if (!isSelected(questId)) {
+                selectedQuestIDs.add(questId)
+
+                val selectIcon = ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.check_icon_green,
+                    context.theme
+                )
+
+                icon.setImageDrawable(selectIcon)
+            } else {
+                selectedQuestIDs.remove(questId)
+                val originalDrawable = getQuestDrawable(view, iconFileName)
+                icon.setImageDrawable(originalDrawable)
+            }
+
+            mode = if (selectedQuestIDs.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
+            if (mode == Mode.SELECT) activateSelectMode(view) else activateDefaultMode(view)
+        }
+
         return icon
     }
 
@@ -122,6 +282,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun createQuestCard(
         view: View,
+        questId: Int,
         questName: String,
         questColorId: Int,
         questIconFileName: String,
@@ -152,7 +313,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         newCard.addView(cardConstraintLayout)
 
         // Create icon and link to the constraint layout
-        val cardIcon = createQuestIcon(view, questIconFileName)
+        val cardIcon = createQuestIcon(view, questIconFileName, questId)
         cardConstraintLayout.addView(cardIcon)
         val cardConstraintSet = ConstraintSet()
         cardConstraintSet.clone(cardConstraintLayout)
@@ -224,8 +385,9 @@ class QuestList : Fragment(R.layout.quest_list) {
         return newCard
     }
 
-    private fun addCardView(
+    private fun addCard(
         view: View,
+        questId: Int,
         questName: String? = resources.getString(R.string.placeholder_text),
         difficulty: Difficulty = Difficulty.EASY,
         questIconFileName: String? = "question_mark_icon",
@@ -235,7 +397,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         val name = questName ?: resources.getString(R.string.placeholder_text)
         val iconName = questIconFileName ?: "question_mark_icon"
-        val newCard = createQuestCard(view, name, difficultyColorId, iconName)
+        val newCard = createQuestCard(view, questId, name, difficultyColorId, iconName)
         val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
         questListLayout.addView(newCard)
     }
@@ -245,13 +407,14 @@ class QuestList : Fragment(R.layout.quest_list) {
         addNavigation(view)
         substitutePlaceholderText(view)
 
-        viewModel.questList.observe(viewLifecycleOwner) { questList ->
+        questListViewModel.questList.observe(viewLifecycleOwner) { questList ->
             val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
             questListLayout.removeAllViews()
 
             for (quest in questList) {
-                addCardView(
+                addCard(
                     view = view,
+                    questId = quest.id,
                     questName = quest.name,
                     difficulty = quest.difficulty,
                     questIconFileName = quest.iconName
