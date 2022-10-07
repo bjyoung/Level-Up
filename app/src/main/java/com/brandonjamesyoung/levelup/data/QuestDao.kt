@@ -17,6 +17,6 @@ interface QuestDao {
     @Update
     suspend fun update(quest: Quest)
 
-    @Delete
-    suspend fun delete(quest: Quest)
+    @Query("DELETE FROM Quest WHERE id IN (:ids)")
+    suspend fun delete(ids: Set<Int>)
 }

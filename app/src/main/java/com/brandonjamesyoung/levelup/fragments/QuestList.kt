@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class QuestList : Fragment(R.layout.quest_list) {
     private val questListViewModel: QuestListViewModel by activityViewModels()
-    private val selectedQuestIDs: MutableSet<Int> = mutableSetOf()
+    private val selectedQuestIds: MutableSet<Int> = mutableSetOf()
     private var mode: Mode = Mode.DEFAULT
 
     private val difficultyColorMap = mapOf(
@@ -68,7 +68,7 @@ class QuestList : Fragment(R.layout.quest_list) {
     }
 
     private fun isSelected(questId: Int) : Boolean {
-        return selectedQuestIDs.contains(questId)
+        return selectedQuestIds.contains(questId)
     }
 
     private fun getQuestDrawable(view: View, iconFileName : String) : Drawable? {
@@ -91,27 +91,27 @@ class QuestList : Fragment(R.layout.quest_list) {
         return drawable
     }
 
-    private fun completeQuests(questIds: Set<Int>) {
-        // TODO Remove below when done testing
-        var questIdsString = "Quests to complete: "
-        for (questId in questIds) questIdsString += "$questId, "
-        showToast(questIdsString)
-
-        // TODO Complete quests here
-
+    private fun completeQuests() {
+        // TODO sum exp and RP earned for each quest completed
+        // TODO grant user the exp and the RP
+        val idCopies = selectedQuestIds.toSet()
+        questListViewModel.delete(idCopies)
+        selectedQuestIds.clear()
+        mode = Mode.DEFAULT
+        activateDefaultMode()
     }
 
-    private fun deleteQuests(questIds: Set<Int>) {
-        // TODO Remove below when done testing
-        var questIdsString = "Quests to delete: "
-        for (questId in questIds) questIdsString += "$questId, "
-        showToast(questIdsString)
-
-        // TODO delete quests here
+    private fun deleteQuests() {
+        val idCopies = selectedQuestIds.toSet()
+        questListViewModel.delete(idCopies)
+        selectedQuestIds.clear()
+        mode = Mode.DEFAULT
+        activateDefaultMode()
     }
 
-    private fun activateSelectMode(view: View) {
+    private fun activateSelectMode() {
         // Change New Quest button to Complete Quests button
+        val view = this.requireView()
         val newQuestButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
 
         val checkIcon = ResourcesCompat.getDrawable(
@@ -130,7 +130,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         newQuestButton.imageTintList = ColorStateList.valueOf(confirmColor)
 
         newQuestButton.setOnClickListener{
-            completeQuests(selectedQuestIDs)
+            completeQuests()
         }
 
         // Change Shop button to Delete button
@@ -152,12 +152,13 @@ class QuestList : Fragment(R.layout.quest_list) {
         shopButton.imageTintList = ColorStateList.valueOf(deleteColor)
 
         shopButton.setOnClickListener{
-            deleteQuests(selectedQuestIDs)
+            deleteQuests()
         }
     }
 
-    private fun activateDefaultMode(view: View) {
+    private fun activateDefaultMode() {
         // Change Complete Quests button to New Quest button
+        val view = this.requireView()
         val completeQuestsButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
 
         val newQuestIcon = ResourcesCompat.getDrawable(
@@ -233,7 +234,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         icon.setOnClickListener{
             if (!isSelected(questId)) {
-                selectedQuestIDs.add(questId)
+                selectedQuestIds.add(questId)
 
                 val selectIcon = ResourcesCompat.getDrawable(
                     resources,
@@ -243,13 +244,13 @@ class QuestList : Fragment(R.layout.quest_list) {
 
                 icon.setImageDrawable(selectIcon)
             } else {
-                selectedQuestIDs.remove(questId)
+                selectedQuestIds.remove(questId)
                 val originalDrawable = getQuestDrawable(view, iconFileName)
                 icon.setImageDrawable(originalDrawable)
             }
 
-            mode = if (selectedQuestIDs.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
-            if (mode == Mode.SELECT) activateSelectMode(view) else activateDefaultMode(view)
+            mode = if (selectedQuestIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
+            if (mode == Mode.SELECT) activateSelectMode() else activateDefaultMode()
         }
 
         return icon

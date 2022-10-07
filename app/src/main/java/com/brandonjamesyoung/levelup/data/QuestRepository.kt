@@ -20,7 +20,7 @@ class QuestRepository @Inject constructor(private val questDao: QuestDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun delete(quest: Quest) = questDao.delete(quest)
+    suspend fun delete(ids: Set<Int>) = questDao.delete(ids)
 
     companion object {
         @Volatile private var instance: QuestRepository? = null

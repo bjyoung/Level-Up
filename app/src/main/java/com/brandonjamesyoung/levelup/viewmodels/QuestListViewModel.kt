@@ -15,8 +15,8 @@ class QuestListViewModel @Inject constructor(
 
     fun findById(id: Int): LiveData<Quest> = repository.findById(id).asLiveData()
 
-    fun delete(quest: Quest) = viewModelScope.launch {
-        repository.delete(quest)
+    fun delete(ids: Set<Int>) = viewModelScope.launch {
+        repository.delete(ids)
     }
 
     fun insert(quest: Quest) = viewModelScope.launch {
