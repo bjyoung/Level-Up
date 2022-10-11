@@ -1,6 +1,8 @@
 package com.brandonjamesyoung.levelup.viewmodels
 
 import androidx.lifecycle.*
+import com.brandonjamesyoung.levelup.data.Player
+import com.brandonjamesyoung.levelup.data.PlayerRepository
 import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.data.QuestRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,21 +11,32 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuestListViewModel @Inject constructor(
-    private val repository: QuestRepository
+    private val questRepository: QuestRepository,
+    private val playerRepository: PlayerRepository
 ) : ViewModel() {
-    val questList: LiveData<List<Quest>> = repository.getAll().asLiveData()
+    val questList: LiveData<List<Quest>> = questRepository.getAll().asLiveData()
 
-    fun findById(id: Int): LiveData<Quest> = repository.findById(id).asLiveData()
+    fun getQuest(id: Int): LiveData<Quest> = questRepository.findById(id).asLiveData()
 
-    fun delete(ids: Set<Int>) = viewModelScope.launch {
-        repository.delete(ids)
+    fun deleteQuests(ids: Set<Int>) = viewModelScope.launch {
+        questRepository.delete(ids)
     }
 
     fun insert(quest: Quest) = viewModelScope.launch {
-        repository.insert(quest)
+        questRepository.insert(quest)
     }
 
     fun update(quest: Quest) = viewModelScope.launch {
-        repository.update(quest)
+        questRepository.update(quest)
+    }
+
+    fun getPlayer(id: Int): LiveData<Player> = playerRepository.findById(id).asLiveData()
+
+    fun insert(player: Player) = viewModelScope.launch {
+        playerRepository.insert(player)
+    }
+
+    fun update(player: Player) = viewModelScope.launch {
+        playerRepository.update(player)
     }
 }

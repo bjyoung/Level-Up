@@ -13,3 +13,5 @@ enum class Mode {
 }
 
 const val DATABASE_NAME = "levelup-db"
+
+const val BASE_EXP = 2500

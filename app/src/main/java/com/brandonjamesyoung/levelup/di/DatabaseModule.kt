@@ -2,6 +2,7 @@ package com.brandonjamesyoung.levelup.di
 
 import android.content.Context
 import com.brandonjamesyoung.levelup.data.AppDatabase
+import com.brandonjamesyoung.levelup.data.PlayerDao
 import com.brandonjamesyoung.levelup.data.QuestDao
 import dagger.Module
 import dagger.Provides
@@ -15,12 +16,19 @@ import javax.inject.Singleton
 class DatabaseModule {
     @Singleton
     @Provides
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
+    fun provideAppDatabase(
+        @ApplicationContext context: Context,
+    ): AppDatabase {
         return AppDatabase.getInstance(context)
     }
 
     @Provides
-    fun providePlantDao(appDatabase: AppDatabase): QuestDao {
+    fun provideQuestDao(appDatabase: AppDatabase): QuestDao {
         return appDatabase.questDao()
+    }
+
+    @Provides
+    fun providePlayerDao(appDatabase: AppDatabase): PlayerDao {
+        return appDatabase.playerDao()
     }
 }

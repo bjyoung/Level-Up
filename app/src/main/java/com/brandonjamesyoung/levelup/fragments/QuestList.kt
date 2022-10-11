@@ -95,7 +95,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         // TODO sum exp and RP earned for each quest completed
         // TODO grant user the exp and the RP
         val idCopies = selectedQuestIds.toSet()
-        questListViewModel.delete(idCopies)
+        questListViewModel.deleteQuests(idCopies)
         selectedQuestIds.clear()
         mode = Mode.DEFAULT
         activateDefaultMode()
@@ -103,7 +103,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun deleteQuests() {
         val idCopies = selectedQuestIds.toSet()
-        questListViewModel.delete(idCopies)
+        questListViewModel.deleteQuests(idCopies)
         selectedQuestIds.clear()
         mode = Mode.DEFAULT
         activateDefaultMode()
