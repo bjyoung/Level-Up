@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -17,6 +18,7 @@ import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
@@ -48,13 +50,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         for ((buttonId, navId) in buttonNavMap) {
             NavigationHelper.addNavigationToView(this, view, buttonId, navId)
         }
-    }
-
-    private fun substitutePlaceholderText(view: View) {
-        val placeholderText = getString(R.string.placeholder_text)
-        val pointsAcronym = getString(R.string.points_acronym)
-        StringHelper.substituteText(view, R.id.Username, placeholderText, placeholderText)
-        StringHelper.substituteText(view, R.id.PointsLabel, placeholderText, pointsAcronym)
     }
 
     private fun showToast(message: String) {
@@ -403,10 +398,27 @@ class QuestList : Fragment(R.layout.quest_list) {
         questListLayout.addView(newCard)
     }
 
+    private fun updateUsername(view: View, player: Player) {
+        val placeholderText = getString(R.string.placeholder_text)
+        val name = player.name ?: placeholderText
+        StringHelper.substituteText(view, R.id.Username, player.lvl.toString(), name)
+    }
+
+    private fun updatePoints(view: View, player: Player) {
+        val pointsAcronym = getString(R.string.points_acronym)
+        StringHelper.substituteText(view, R.id.PointsLabel, player.rp.toString(), pointsAcronym)
+    }
+
+    private fun updateProgressBar(view: View, player: Player) {
+        val progressBar =  view.findViewById<ProgressBar>(R.id.ProgressBar)
+        val progressPercent = player.exp.toDouble() / player.expToLvlUp.toDouble()
+        val progressInt = (progressPercent * 100).toInt()
+        progressBar.progress = progressInt
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addNavigation(view)
-        substitutePlaceholderText(view)
 
         questListViewModel.questList.observe(viewLifecycleOwner) { questList ->
             val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
@@ -421,6 +433,12 @@ class QuestList : Fragment(R.layout.quest_list) {
                     questIconFileName = quest.iconName
                 )
             }
+        }
+
+        questListViewModel.getPlayer(1).observe(viewLifecycleOwner) { player ->
+            updateUsername(view, player)
+            updatePoints(view, player)
+            updateProgressBar(view, player)
         }
     }
 }
