@@ -88,6 +88,7 @@
         android:layout_height="25dp"
         android:autofillHints="points"
         android:ems="10"
+        android:fontFamily="@font/press_start_2p"
         android:hint="@string/placeholder_text"
         android:minHeight="48dp"
         android:text="@string/points_amount"
@@ -125,7 +126,7 @@
             android:id="@+id/QuestLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical" />
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
