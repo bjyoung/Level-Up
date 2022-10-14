@@ -11,15 +11,17 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Quest::class, Player::class],
-    version = 2,
+    entities = [Quest::class, Player::class, Settings::class],
+    version = 3,
     autoMigrations = [
-        AutoMigration (from = 1, to = 2)
+        AutoMigration (from = 1, to = 2),
+        AutoMigration (from = 2, to = 3)
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun questDao(): QuestDao
     abstract fun playerDao(): PlayerDao
+    abstract fun settingsDao(): SettingsDao
 
     companion object {
         @Volatile private var instance: AppDatabase? = null
@@ -41,14 +43,17 @@ abstract class AppDatabase : RoomDatabase() {
                 super.onCreate(db)
                 instance?.let { database ->
                     MainScope().launch {
-                        initializeDatabase(database.playerDao())
+                        initializeDatabase(database.playerDao(), database.settingsDao())
                     }
                 }
             }
 
-            suspend fun initializeDatabase(playerDao: PlayerDao) {
+            suspend fun initializeDatabase(playerDao: PlayerDao, settingsDao: SettingsDao) {
                 val initPlayer = Player()
                 playerDao.insert(initPlayer)
+
+                val initSettings = Settings()
+                settingsDao.insert(initSettings)
             }
         }
     }

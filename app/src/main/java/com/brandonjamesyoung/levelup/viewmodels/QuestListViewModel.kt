@@ -1,10 +1,7 @@
 package com.brandonjamesyoung.levelup.viewmodels
 
 import androidx.lifecycle.*
-import com.brandonjamesyoung.levelup.data.Player
-import com.brandonjamesyoung.levelup.data.PlayerRepository
-import com.brandonjamesyoung.levelup.data.Quest
-import com.brandonjamesyoung.levelup.data.QuestRepository
+import com.brandonjamesyoung.levelup.data.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -12,7 +9,8 @@ import javax.inject.Inject
 @HiltViewModel
 class QuestListViewModel @Inject constructor(
     private val questRepository: QuestRepository,
-    private val playerRepository: PlayerRepository
+    private val playerRepository: PlayerRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
     val questList: LiveData<List<Quest>> = questRepository.getAll().asLiveData()
 
@@ -38,5 +36,15 @@ class QuestListViewModel @Inject constructor(
 
     fun update(player: Player) = viewModelScope.launch {
         playerRepository.update(player)
+    }
+
+    fun getSettings(id: Int): LiveData<Settings> = settingsRepository.findById(id).asLiveData()
+
+    fun insert(settings: Settings) = viewModelScope.launch {
+        settingsRepository.insert(settings)
+    }
+
+    fun update(settings: Settings) = viewModelScope.launch {
+        settingsRepository.update(settings)
     }
 }

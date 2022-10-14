@@ -4,6 +4,7 @@ import android.content.Context
 import com.brandonjamesyoung.levelup.data.AppDatabase
 import com.brandonjamesyoung.levelup.data.PlayerDao
 import com.brandonjamesyoung.levelup.data.QuestDao
+import com.brandonjamesyoung.levelup.data.SettingsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,5 +31,10 @@ class DatabaseModule {
     @Provides
     fun providePlayerDao(appDatabase: AppDatabase): PlayerDao {
         return appDatabase.playerDao()
+    }
+
+    @Provides
+    fun provideSettingsDao(appDatabase: AppDatabase): SettingsDao {
+        return appDatabase.settingsDao()
     }
 }
