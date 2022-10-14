@@ -398,21 +398,38 @@ class QuestList : Fragment(R.layout.quest_list) {
         questListLayout.addView(newCard)
     }
 
-    private fun updateUsername(view: View, player: Player) {
+    private fun updateUsername(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
-        val name = player.name ?: placeholderText
-        StringHelper.substituteText(view, R.id.Username, player.lvl.toString(), name)
+        val name: String
+        val lvlStr: String
+
+        if (player != null) {
+            name = player.name ?: placeholderText
+            lvlStr = player.lvl.toString()
+        } else {
+            name = placeholderText
+            lvlStr = placeholderText
+        }
+
+        StringHelper.substituteText(view, R.id.Username, lvlStr, name)
     }
 
-    private fun updatePoints(view: View, player: Player) {
+    private fun updatePoints(view: View, player: Player?) {
+        val placeholderText = getString(R.string.placeholder_text)
         val pointsAcronym = getString(R.string.points_acronym)
-        StringHelper.substituteText(view, R.id.PointsLabel, player.rp.toString(), pointsAcronym)
+        val rpStr = player?.rp?.toString() ?: placeholderText
+        StringHelper.substituteText(view, R.id.PointsLabel, rpStr, pointsAcronym)
     }
 
-    private fun updateProgressBar(view: View, player: Player) {
+    private fun updateProgressBar(view: View, player: Player?) {
         val progressBar =  view.findViewById<ProgressBar>(R.id.ProgressBar)
-        val progressPercent = player.exp.toDouble() / player.expToLvlUp.toDouble()
-        val progressInt = (progressPercent * 100).toInt()
+        var progressInt = 0
+
+        if (player != null) {
+            val progressPercent = player.exp.toDouble() / player.expToLvlUp.toDouble()
+            progressInt = (progressPercent * 100).toInt()
+        }
+
         progressBar.progress = progressInt
     }
 
