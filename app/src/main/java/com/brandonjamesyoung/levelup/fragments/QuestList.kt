@@ -417,7 +417,7 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun updatePoints(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
         val pointsAcronym = getString(R.string.points_acronym)
-        val rpStr = player?.rp?.toString() ?: placeholderText
+        val rpStr = player?.rt?.toString() ?: placeholderText
         StringHelper.substituteText(view, R.id.PointsLabel, rpStr, pointsAcronym)
     }
 
@@ -426,7 +426,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         var progressInt = 0
 
         if (player != null) {
-            val progressPercent = player.exp.toDouble() / player.expToLvlUp.toDouble()
+            val progressPercent = player.currentLvlExp.toDouble() / player.expToLvlUp.toDouble()
             progressInt = (progressPercent * 100).toInt()
         }
 
