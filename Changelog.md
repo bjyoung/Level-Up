@@ -2,6 +2,19 @@
 
 This document tracks all notables changes to the Level Up app.
 
+## 0.3.0
+
+### Added
+
+- In Quest List page
+  - Initialize player stats on app install
+  - Link player stats to the UI
+  - User can now select quests and complete or delete them
+    - The list is updated accordingly on quest complete/delete
+    - No exp or points are rewarded to the player on quest completion yet
+    - Selecting a quest changes the Shop and New Quest buttons to Confirm and Delete buttons
+    - If no quests are selected then the Shop and New Quest buttons return
+
 ## 0.2.1
 
 ### Added
