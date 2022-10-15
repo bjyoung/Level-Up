@@ -10,18 +10,5 @@ class SettingsRepository @Inject constructor(private val settingsDao: SettingsDa
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(settings: Settings) = settingsDao.insert(settings)
-
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
     suspend fun update(settings: Settings) = settingsDao.update(settings)
-
-    companion object {
-        @Volatile private var instance: SettingsRepository? = null
-
-        fun getInstance(settingsDao: SettingsDao) =
-            instance ?: synchronized(this) {
-                instance ?: SettingsRepository(settingsDao).also { instance = it }
-            }
-    }
 }

@@ -30,19 +30,11 @@ class QuestListViewModel @Inject constructor(
 
     fun getPlayer(id: Int): LiveData<Player> = playerRepository.findById(id).asLiveData()
 
-    fun insert(player: Player) = viewModelScope.launch {
-        playerRepository.insert(player)
-    }
-
     fun update(player: Player) = viewModelScope.launch {
         playerRepository.update(player)
     }
 
     fun getSettings(id: Int): LiveData<Settings> = settingsRepository.findById(id).asLiveData()
-
-    fun insert(settings: Settings) = viewModelScope.launch {
-        settingsRepository.insert(settings)
-    }
 
     fun update(settings: Settings) = viewModelScope.launch {
         settingsRepository.update(settings)

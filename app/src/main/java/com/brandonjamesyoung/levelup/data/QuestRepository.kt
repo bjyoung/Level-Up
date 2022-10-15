@@ -21,13 +21,4 @@ class QuestRepository @Inject constructor(private val questDao: QuestDao) {
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun delete(ids: Set<Int>) = questDao.delete(ids)
-
-    companion object {
-        @Volatile private var instance: QuestRepository? = null
-
-        fun getInstance(questDao: QuestDao) =
-            instance ?: synchronized(this) {
-                instance ?: QuestRepository(questDao).also { instance = it }
-            }
-    }
 }
