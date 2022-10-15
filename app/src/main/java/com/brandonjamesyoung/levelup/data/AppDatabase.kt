@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 @Database(
     entities = [Quest::class, Player::class, Settings::class],
-    version = 4,
+    version = 5,
     autoMigrations = [
         AutoMigration (from = 1, to = 2),
         AutoMigration (from = 2, to = 3),
@@ -36,7 +36,7 @@ abstract class AppDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addCallback(AppDatabaseCallback())
-                .addMigrations(MIGRATION_3_4)
+                .addMigrations(MIGRATION_3_4, MIGRATION_4_5)
                 .build()
         }
 
@@ -81,5 +81,14 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
 
         database.execSQL("DROP TABLE `Player`")
         database.execSQL("ALTER TABLE `PlayerTemp` RENAME TO `Player`")
+    }
+}
+
+val MIGRATION_4_5 = object : Migration(4, 5) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE Settings RENAME COLUMN easyRpReward TO easyRtReward")
+        database.execSQL("ALTER TABLE Settings RENAME COLUMN mediumRpReward TO mediumRtReward")
+        database.execSQL("ALTER TABLE Settings RENAME COLUMN hardRpReward TO hardRtReward")
+        database.execSQL("ALTER TABLE Settings RENAME COLUMN expertRpReward TO expertRtReward")
     }
 }

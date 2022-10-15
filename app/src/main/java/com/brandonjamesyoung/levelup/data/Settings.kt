@@ -11,8 +11,8 @@ data class Settings(
     @ColumnInfo val mediumExpReward: Int = 250,
     @ColumnInfo val hardExpReward: Int = 600,
     @ColumnInfo val expertExpReward: Int = 1500,
-    @ColumnInfo val easyRpReward: Int = 1,
-    @ColumnInfo val mediumRpReward: Int = 3,
-    @ColumnInfo val hardRpReward: Int = 6,
-    @ColumnInfo val expertRpReward: Int = 12,
+    @ColumnInfo val easyRtReward: Int = 1,
+    @ColumnInfo val mediumRtReward: Int = 3,
+    @ColumnInfo val hardRtReward: Int = 6,
+    @ColumnInfo val expertRtReward: Int = 12,
 )

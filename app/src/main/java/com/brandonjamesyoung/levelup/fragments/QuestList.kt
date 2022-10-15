@@ -417,8 +417,8 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun updatePoints(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
         val pointsAcronym = getString(R.string.points_acronym)
-        val rpStr = player?.rt?.toString() ?: placeholderText
-        StringHelper.substituteText(view, R.id.PointsLabel, rpStr, pointsAcronym)
+        val rtStr = player?.rt?.toString() ?: placeholderText
+        StringHelper.substituteText(view, R.id.PointsLabel, rtStr, pointsAcronym)
     }
 
     private fun updateProgressBar(view: View, player: Player?) {
