@@ -28,7 +28,7 @@ When in doubt, follow existing code base conventions.
     <color name="purple_200">#FFBB86FC</color>
 </resources>
 
-<!-- Bad -->
+<!-- BAD! -->
 <resources>
 <color name="purple_200">#FFBB86FC</color>
 </resources>
@@ -40,7 +40,7 @@ When in doubt, follow existing code base conventions.
 
 - No empty lines at the end of the file
 - No consecutive empty lines
-- Use to group logical elements togetehr
+- Use to group logical elements together
 
 ### Horizontal
 

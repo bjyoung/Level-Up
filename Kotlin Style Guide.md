@@ -6,13 +6,33 @@ This guide describes the Kotlin code styling practices used to develop the Level
 
 If a style is not covered here, then follow:
 
-- [Google's Kotline Style Guide](https://developer.android.com/kotlin/style-guide?authuser=1)
+- [Google's Kotlin Style Guide](https://developer.android.com/kotlin/style-guide?authuser=1)
 
 When in doubt, follow existing code base conventions.
 
 ## Naming
 
 - Names only use ASCII letters and numbers
+- Prefer the full spelling of a word over abbreviations, unless the word is used often and the abbreviation is obvious
+- Avoid redundant names
+
+```kotlin
+// BAD!
+Quest.questId
+
+// Good
+Quest.Id 
+```
+
+- Only capitalize the first letter in acronyms when following camelCase or PascalCase conventions
+
+```kotlin
+// BAD!
+Shop.itemID
+
+// Good
+Shop.itemId
+```
 
 ### Source File Names
 
@@ -25,11 +45,13 @@ When in doubt, follow existing code base conventions.
 - All lowercase, no underscores
 
 ```kotlin
-// Okay
+// Good
 package com.example.deepspace
-// WRONG!
+
+// BAD!
 package com.example.deepSpace
-// WRONG!
+
+// BAD!
 package com.example.deep_space
 ```
 
@@ -47,9 +69,10 @@ package com.example.deep_space
 - No spaces
 
 ```kotlin
-// WRONG!
+// BAD!
 fun `test every possible case`() {}
-// OK
+
+// Good
 fun testEveryPossibleCase() {}
 ```
 
@@ -82,6 +105,18 @@ val nonEmptyArray = arrayOf("these", "can", "change")
 - Either:
   - A single capital letter
   - A name with a `T` suffix (for example `RequestT`)
+
+### Field Names
+
+- Use camelCase and nouns
+
+```kotlin
+class Player(
+    val name: String? = null,
+    val lvl: Int = 1,
+    val currentLvlExp: Long = 0,
+)
+```
 
 ## File Structure
 
@@ -143,19 +178,23 @@ val value = if (condition()) 0 else 1
 - In any other case, use braces
 
 ```kotlin
-if (condition()) // WRONG!
+// BAD!
+if (condition()) 
     return
 
-if (condition()){ // Okay
+// Good
+if (condition()){ 
     return
 }
 
-val value = if (string.isEmpty())  // WRONG!
+// BAD!
+val value = if (string.isEmpty())  
     0
 else
     1
 
-val value = if (string.isEmpty()) { // Okay
+// Good
+val value = if (string.isEmpty()) { 
     0
 } else {
     1
@@ -185,12 +224,12 @@ return object : MyClass() {
 
 try {
     doSomething()
-} catch (e: Exception) {} // WRONG!
+} catch (e: Exception) {} // BAD!
 
 try {
     doSomething()
 } catch (e: Exception) {
-} // Okay
+} // Good
 ```
 
 ### Indentation
@@ -226,6 +265,30 @@ fun <T> Iterable<T>.joinToString(
     postfix: CharSequence = ""
 ): String {
     // …
+}
+```
+
+- Prefer if statements that have less code in them
+
+```kotlin
+// BAD!
+fun add(x, y): Int {
+    if (x != null && y != null) {
+        // Other operations
+        return x + y
+    }
+
+    return 0
+} 
+
+// Good
+fun add(x, y): Int {
+    if (x == null || y == null) {
+        return 0
+    }
+
+    // Other operations
+    return x + y
 }
 ```
 
@@ -277,19 +340,19 @@ val defaultExtension: String get() = "kt"
 - Separate keywords from an open parenthesis (`(`) or curly braces (`{`, `}`)
 
 ```kotlin
-// WRONG!
+// BAD!
 for(i in 0..1){
 }
 
-// Okay
+// Good
 for (i in 0..1) {
 }
 
-// WRONG!
+// BAD!
 }else{
 }
 
-// Okay
+// Good
 } else {
 }
 ```
@@ -297,21 +360,45 @@ for (i in 0..1) {
 - Use around math operators and lambda expression (`->`)
 
 ```kotlin
-// WRONG!
+// BAD!
 val two = 1+1
 
-// Okay
+// Good
 val two = 1 + 1
 ```
 
 - After a comma (`,`) or colon (`:`)
 
 ```kotlin
-// WRONG!
+// BAD!
 class Foo: Runnable
 
-// Okay
+// Good
 class Foo : Runnable
 ```
 
 - Around a comment starter (`//`)
+
+## Database
+
+### Queries
+
+- Use all uppercase for keywords
+
+```sql
+-- BAD!
+drop table `Player`
+
+-- Good
+DROP TABLE `Player`
+```
+
+- Put tick marks (``) around all table and column names
+
+```sql
+-- BAD!
+ALTER TABLE PlayerTemp RENAME TO Player
+
+-- Good
+ALTER TABLE `PlayerTemp` RENAME TO `Player`
+```

@@ -75,7 +75,8 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
         )
 
         database.execSQL(
-            "INSERT INTO `PlayerTemp` (`id`, `name`, `rt`, `lvl`, `totalExp`, `currentLvlExp`, `expToLvlUp`) " +
+            "INSERT INTO `PlayerTemp` (`id`, `name`, `rt`, `lvl`, " +
+                    "`totalExp`, `currentLvlExp`, `expToLvlUp`) " +
                     "SELECT `id`, `name`, `rp`, `lvl`, 0, `exp`, `expToLvlUp` from `Player`"
         )
 
