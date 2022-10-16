@@ -13,7 +13,8 @@ class QuestListViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
     val questList: LiveData<List<Quest>> = questRepository.getAll().asLiveData()
-
+    val player: LiveData<Player> = playerRepository.findById(1).asLiveData()
+    val settings: LiveData<Settings> = settingsRepository.findById(1).asLiveData()
     fun getQuest(id: Int): LiveData<Quest> = questRepository.findById(id).asLiveData()
 
     fun deleteQuests(ids: Set<Int>) = viewModelScope.launch {
@@ -28,13 +29,9 @@ class QuestListViewModel @Inject constructor(
         questRepository.update(quest)
     }
 
-    fun getPlayer(id: Int): LiveData<Player> = playerRepository.findById(id).asLiveData()
-
     fun update(player: Player) = viewModelScope.launch {
         playerRepository.update(player)
     }
-
-    fun getSettings(id: Int): LiveData<Settings> = settingsRepository.findById(id).asLiveData()
 
     fun update(settings: Settings) = viewModelScope.launch {
         settingsRepository.update(settings)

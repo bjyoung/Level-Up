@@ -452,7 +452,7 @@ class QuestList : Fragment(R.layout.quest_list) {
             }
         }
 
-        questListViewModel.getPlayer(1).observe(viewLifecycleOwner) { player ->
+        questListViewModel.player.observe(viewLifecycleOwner) { player ->
             updateUsername(view, player)
             updatePoints(view, player)
             updateProgressBar(view, player)
