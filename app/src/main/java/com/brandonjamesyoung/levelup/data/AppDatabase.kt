@@ -8,8 +8,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.brandonjamesyoung.levelup.shared.DATABASE_NAME
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 @Database(
     entities = [Quest::class, Player::class, Settings::class],
@@ -35,7 +34,8 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-                .addCallback(AppDatabaseCallback())
+                .createFromAsset("database/levelup-db-v5.db")
+//                .addCallback(AppDatabaseCallback())
                 .addMigrations(MIGRATION_3_4, MIGRATION_4_5)
                 .build()
         }
@@ -44,7 +44,7 @@ abstract class AppDatabase : RoomDatabase() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 instance?.let { database ->
-                    MainScope().launch {
+                    CoroutineScope(Dispatchers.IO).launch {
                         initializeDatabase(database.playerDao(), database.settingsDao())
                     }
                 }
