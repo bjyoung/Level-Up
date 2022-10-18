@@ -22,7 +22,6 @@ import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
-import com.brandonjamesyoung.levelup.shared.StringHelper
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -396,6 +395,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun updateUsername(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
+        val lvlLabel = getString(R.string.level_label)
         val name: String
         val lvlStr: String
 
@@ -407,14 +407,16 @@ class QuestList : Fragment(R.layout.quest_list) {
             lvlStr = placeholderText
         }
 
-        StringHelper.substituteText(view, R.id.Username, lvlStr, name)
+        val usernameView = view.findViewById<TextView>(R.id.Username)
+        usernameView.text = "$lvlLabel $lvlStr $name"
     }
 
     private fun updatePoints(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
         val pointsAcronym = getString(R.string.points_acronym)
         val rtStr = player?.rt?.toString() ?: placeholderText
-        StringHelper.substituteText(view, R.id.PointsLabel, rtStr, pointsAcronym)
+        val pointsLabel = view.findViewById<TextView>(R.id.PointsLabel)
+        pointsLabel.text = "$rtStr $pointsAcronym"
     }
 
     private fun updateProgressBar(view: View, player: Player?) {
