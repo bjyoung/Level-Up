@@ -6,7 +6,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SettingsDao {
     @Query("SELECT * FROM Settings WHERE id = :id")
-    fun findById(id: Int): Flow<Settings>
+    fun observeById(id: Int): Flow<Settings>
+
+    @Query("SELECT * FROM Settings WHERE id = :id")
+    fun getById(id: Int): Settings
 
     @Insert
     suspend fun insert(settings: Settings)

@@ -6,7 +6,12 @@ import android.view.View
 
 class NavigationHelper {
     companion object {
-        fun addNavigationToView(fragment: Fragment, pageView: View, buttonId: Int, navActionId: Int){
+        fun addNavigationToView(
+            fragment: Fragment,
+            pageView: View,
+            buttonId: Int,
+            navActionId: Int
+        ) {
             val button = pageView.findViewById<View>(buttonId)
 
             button.setOnClickListener{

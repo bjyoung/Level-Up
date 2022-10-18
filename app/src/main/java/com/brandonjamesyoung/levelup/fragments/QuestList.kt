@@ -87,20 +87,14 @@ class QuestList : Fragment(R.layout.quest_list) {
     }
 
     private fun completeQuests() {
-        // TODO sum exp and RP earned for each quest completed
-        // TODO grant user the exp and the RP
-        val idCopies = selectedQuestIds.toSet()
-        questListViewModel.deleteQuests(idCopies)
-        selectedQuestIds.clear()
-        mode = Mode.DEFAULT
+        questListViewModel.completeQuests(selectedQuestIds.toSet())
+        // TODO show toast of exp and rt earned
+//        showToast("Earned $expEarned exp and $rtEarned RT")
         activateDefaultMode()
     }
 
     private fun deleteQuests() {
-        val idCopies = selectedQuestIds.toSet()
-        questListViewModel.deleteQuests(idCopies)
-        selectedQuestIds.clear()
-        mode = Mode.DEFAULT
+        questListViewModel.deleteQuests(selectedQuestIds.toSet())
         activateDefaultMode()
     }
 
@@ -153,6 +147,8 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun activateDefaultMode() {
         // Change Complete Quests button to New Quest button
+        selectedQuestIds.clear()
+        mode = Mode.DEFAULT
         val view = this.requireView()
         val completeQuestsButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
 

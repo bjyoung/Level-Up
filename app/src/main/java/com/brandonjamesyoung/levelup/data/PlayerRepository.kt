@@ -6,7 +6,8 @@ import javax.inject.Singleton
 
 @Singleton
 class PlayerRepository @Inject constructor(private val playerDao: PlayerDao) {
-    fun findById(id: Int) = playerDao.findById(id)
+    fun observe() = playerDao.observeById(1)
+    fun get() = playerDao.getById(1)
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

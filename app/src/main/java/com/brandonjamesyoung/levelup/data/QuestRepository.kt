@@ -8,6 +8,8 @@ import javax.inject.Singleton
 class QuestRepository @Inject constructor(private val questDao: QuestDao) {
     fun getAll() = questDao.getAll()
 
+    fun getDifficulties(ids: Set<Int>) = questDao.getDifficulties(ids)
+
     fun findById(id: Int) = questDao.findById(id)
 
     @Suppress("RedundantSuspendModifier")
