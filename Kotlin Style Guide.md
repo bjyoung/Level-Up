@@ -150,6 +150,7 @@ class Player(
 - Never use wildcard imports
 - Has no column limit
 - Never line-wrapped
+- Remove unused imports
 
 ### Top-Level Declarations
 
