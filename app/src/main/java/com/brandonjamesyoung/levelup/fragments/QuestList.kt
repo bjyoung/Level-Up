@@ -20,6 +20,7 @@ import androidx.fragment.app.activityViewModels
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.shared.Difficulty
+import com.brandonjamesyoung.levelup.shared.LevelUpHelper.Companion.getExpToLvlUp
 import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
@@ -424,7 +425,9 @@ class QuestList : Fragment(R.layout.quest_list) {
         var progressInt = 0
 
         if (player != null) {
-            val progressPercent = player.currentLvlExp.toDouble() / player.expToLvlUp.toDouble()
+            val currExp = player.currentLvlExp.toDouble()
+            val expNeededForCurrentLvl = getExpToLvlUp(player.lvl).toDouble()
+            val progressPercent = currExp / expNeededForCurrentLvl
             progressInt = (progressPercent * 100).toInt()
         }
 

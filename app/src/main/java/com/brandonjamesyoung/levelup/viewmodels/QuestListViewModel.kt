@@ -65,11 +65,11 @@ class QuestListViewModel @Inject constructor(
         var expLeft = expEarned
         var numLoops = 0
 
-        while (expLeft > 0 && expLeft > expToLvlUp && currLvl < MAX_LEVEL) {
-            expLeft -= expToLvlUp
+        while (expLeft > 0 && (currLvlExp + expLeft) >= expToLvlUp && currLvl < MAX_LEVEL) {
+            expLeft -= expToLvlUp - currLvlExp
             numLvlUps++
-            currLvl++
             currLvlExp = 0
+            currLvl++
             expToLvlUp = getExpToLvlUp(currLvl)
             numLoops++
 
