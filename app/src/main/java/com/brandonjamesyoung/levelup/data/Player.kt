@@ -8,10 +8,10 @@ import com.brandonjamesyoung.levelup.shared.BASE_EXP
 @Entity
 data class Player(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo val name: String? = null,
-    @ColumnInfo val rt: Int = 0,
-    @ColumnInfo val lvl: Int = 1,
-    @ColumnInfo val totalExp: Long = 0,
-    @ColumnInfo val currentLvlExp: Int = 0,
-    @ColumnInfo val expToLvlUp: Int = BASE_EXP,
+    @ColumnInfo var name: String? = null,
+    @ColumnInfo var rt: Int = 0,
+    @ColumnInfo var lvl: Int = 1,
+    @ColumnInfo var totalExp: Long = 0,
+    @ColumnInfo var currentLvlExp: Int = 0,
+    @ColumnInfo var expToLvlUp: Int = BASE_EXP,
 )

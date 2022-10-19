@@ -26,11 +26,10 @@ class QuestListViewModel @Inject constructor(
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
     fun getQuest(id: Int): LiveData<Quest> = questRepository.findById(id).asLiveData()
 
-    fun completeQuests(ids: Set<Int>) = viewModelScope.launch(Dispatchers.IO) {
-        val difficulties = questRepository.getDifficulties(ids)
-        val settings = settingsRepository.get()
+    private fun calculateRewards(difficulties: List<Difficulty>) : Pair<Int, Int> {
         var expEarned = 0
         var rtEarned = 0
+        val settings = settingsRepository.get()
 
         for (difficulty in difficulties) {
             when (difficulty) {
@@ -56,21 +55,39 @@ class QuestListViewModel @Inject constructor(
             }
         }
 
-        // Calculate # level ups
-        val currPlayer = playerRepository.get()
-        var currLvl = currPlayer.lvl
-        var currLvlExp = currPlayer.currentLvlExp
-        var expToLvlUp = currPlayer.expToLvlUp
-        var numLvlUps = 0
+        return Pair(expEarned, rtEarned)
+    }
+
+    private fun canLevelUp(player: Player, expEarned: Int) : Boolean {
+        return expEarned > 0 && expEarned >= player.expToLvlUp && player.lvl < MAX_LEVEL
+    }
+
+    private fun levelUp(player: Player): Player {
+        val nextLvl = player.lvl + 1
+
+        return Player(
+            id = player.id,
+            name = player.name,
+            rt = player.rt,
+            lvl = nextLvl,
+            totalExp = player.totalExp,
+            currentLvlExp = 0,
+            expToLvlUp = getExpToLvlUp(nextLvl),
+        )
+    }
+
+    fun completeQuests(ids: Set<Int>) = viewModelScope.launch(Dispatchers.IO) {
+        val difficulties = questRepository.getDifficulties(ids)
+        val (expEarned, rtEarned) = calculateRewards(difficulties)
+
+        // Update player level based on exp earned
+        var player = playerRepository.get()
         var expLeft = expEarned
         var numLoops = 0
 
-        while (expLeft > 0 && (currLvlExp + expLeft) >= expToLvlUp && currLvl < MAX_LEVEL) {
-            expLeft -= expToLvlUp - currLvlExp
-            numLvlUps++
-            currLvlExp = 0
-            currLvl++
-            expToLvlUp = getExpToLvlUp(currLvl)
+        while (canLevelUp(player, expLeft)) {
+            expLeft -= player.expToLvlUp
+            player = levelUp(player)
             numLoops++
 
             if (numLoops > MAX_NUM_LOOPS) {
@@ -78,21 +95,14 @@ class QuestListViewModel @Inject constructor(
             }
         }
 
-        currLvlExp += expLeft
-        expToLvlUp -= expLeft
+        player.apply {
+            rt += rtEarned
+            totalExp += expEarned
+            currentLvlExp += expLeft
+            expToLvlUp -= expLeft
+        }
 
-        // Update player
-        val newPlayer = Player(
-            id = currPlayer.id,
-            name = currPlayer.name,
-            rt = currPlayer.rt + rtEarned,
-            lvl = currPlayer.lvl + numLvlUps,
-            totalExp = currPlayer.totalExp + expEarned,
-            currentLvlExp = currLvlExp,
-            expToLvlUp = expToLvlUp,
-        )
-
-        playerRepository.update(newPlayer)
+        playerRepository.update(player)
         questRepository.delete(ids)
     }
 
