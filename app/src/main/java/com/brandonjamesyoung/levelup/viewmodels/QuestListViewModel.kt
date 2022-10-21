@@ -64,16 +64,15 @@ class QuestListViewModel @Inject constructor(
 
     private fun levelUp(player: Player): Player {
         val nextLvl = player.lvl + 1
+        val rtBonus = settingsRepository.get().lvlUpBonus
+        val newPlayer = player.copy()
 
-        return Player(
-            id = player.id,
-            name = player.name,
-            rt = player.rt,
-            lvl = nextLvl,
-            totalExp = player.totalExp,
-            currentLvlExp = 0,
-            expToLvlUp = getExpToLvlUp(nextLvl),
-        )
+        return newPlayer.apply {
+            rt += rtBonus
+            lvl = nextLvl
+            currentLvlExp = 0
+            expToLvlUp = getExpToLvlUp(nextLvl)
+        }
     }
 
     fun completeQuests(ids: Set<Int>) = viewModelScope.launch(Dispatchers.IO) {

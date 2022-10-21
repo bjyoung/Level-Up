@@ -15,4 +15,5 @@ data class Settings(
     @ColumnInfo val mediumRtReward: Int = 3,
     @ColumnInfo val hardRtReward: Int = 6,
     @ColumnInfo val expertRtReward: Int = 12,
+    @ColumnInfo(defaultValue = "5") val lvlUpBonus: Int = 5,
 )
