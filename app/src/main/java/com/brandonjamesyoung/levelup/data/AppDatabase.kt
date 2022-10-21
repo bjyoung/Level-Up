@@ -3,8 +3,10 @@ package com.brandonjamesyoung.levelup.data
 import android.content.Context
 import androidx.room.AutoMigration
 import androidx.room.Database
+import androidx.room.DeleteColumn
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.brandonjamesyoung.levelup.shared.DATABASE_NAME
@@ -12,11 +14,12 @@ import kotlinx.coroutines.*
 
 @Database(
     entities = [Quest::class, Player::class, Settings::class],
-    version = 6,
+    version = 7,
     autoMigrations = [
         AutoMigration (from = 1, to = 2),
         AutoMigration (from = 2, to = 3),
         AutoMigration (from = 5, to = 6),
+        AutoMigration (from = 6, to = 7, spec = MigrationSpec6To7::class)
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -94,3 +97,6 @@ val MIGRATION_4_5 = object : Migration(4, 5) {
         database.execSQL("ALTER TABLE Settings RENAME COLUMN expertRpReward TO expertRtReward")
     }
 }
+
+@DeleteColumn(tableName = "Player", columnName = "expToLvlUp")
+class MigrationSpec6To7 : AutoMigrationSpec

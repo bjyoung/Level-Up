@@ -58,8 +58,14 @@ class QuestListViewModel @Inject constructor(
         return Pair(expEarned, rtEarned)
     }
 
+    private fun getExpToNextLvl(player: Player): Int {
+        val totalExpToLvlUp = getExpToLvlUp(player.lvl)
+        return totalExpToLvlUp - player.currentLvlExp
+    }
+
     private fun canLevelUp(player: Player, expEarned: Int) : Boolean {
-        return expEarned > 0 && expEarned >= player.expToLvlUp && player.lvl < MAX_LEVEL
+        val expToNextLvl = getExpToNextLvl(player)
+        return expEarned > 0 && expEarned >= expToNextLvl && player.lvl < MAX_LEVEL
     }
 
     private fun levelUp(player: Player): Player {
@@ -71,7 +77,6 @@ class QuestListViewModel @Inject constructor(
             rt += rtBonus
             lvl = nextLvl
             currentLvlExp = 0
-            expToLvlUp = getExpToLvlUp(nextLvl)
         }
     }
 
@@ -85,7 +90,8 @@ class QuestListViewModel @Inject constructor(
         var numLoops = 0
 
         while (canLevelUp(player, expLeft)) {
-            expLeft -= player.expToLvlUp
+            val expToNextLvl = getExpToNextLvl(player)
+            expLeft -= expToNextLvl
             player = levelUp(player)
             numLoops++
 
@@ -98,7 +104,6 @@ class QuestListViewModel @Inject constructor(
             rt += rtEarned
             totalExp += expEarned
             currentLvlExp += expLeft
-            expToLvlUp -= expLeft
         }
 
         playerRepository.update(player)

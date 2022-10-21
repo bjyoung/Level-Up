@@ -3,7 +3,6 @@ package com.brandonjamesyoung.levelup.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.brandonjamesyoung.levelup.shared.BASE_EXP
 
 @Entity
 data class Player(
@@ -13,5 +12,4 @@ data class Player(
     @ColumnInfo var lvl: Int = 1,
     @ColumnInfo var totalExp: Long = 0,
     @ColumnInfo var currentLvlExp: Int = 0,
-    @ColumnInfo var expToLvlUp: Int = BASE_EXP,
 )
