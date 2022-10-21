@@ -103,7 +103,7 @@ class QuestListViewModel @Inject constructor(
         player.apply {
             rt += rtEarned
             totalExp += expEarned
-            currentLvlExp += expLeft
+            currentLvlExp += if (this.lvl < MAX_LEVEL) expLeft else 0
         }
 
         playerRepository.update(player)
