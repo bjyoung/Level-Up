@@ -10,6 +10,7 @@ import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.LevelUpHelper.Companion.getExpToLvlUp
 import com.brandonjamesyoung.levelup.shared.MAX_LEVEL
 import com.brandonjamesyoung.levelup.shared.MAX_NUM_LOOPS
+import com.brandonjamesyoung.levelup.shared.MAX_TOTAL_EXP
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -80,6 +81,14 @@ class QuestListViewModel @Inject constructor(
         }
     }
 
+    private fun getTotalExpEarned(player: Player, expEarned: Int) : Long {
+        return if (player.totalExp + expEarned > MAX_TOTAL_EXP) {
+            MAX_TOTAL_EXP - player.totalExp
+        } else {
+            expEarned.toLong()
+        }
+    }
+
     fun completeQuests(ids: Set<Int>) = viewModelScope.launch(Dispatchers.IO) {
         val difficulties = questRepository.getDifficulties(ids)
         val (expEarned, rtEarned) = calculateRewards(difficulties)
@@ -102,7 +111,7 @@ class QuestListViewModel @Inject constructor(
 
         player.apply {
             rt += rtEarned
-            totalExp += expEarned
+            totalExp += getTotalExpEarned(this, expEarned)
             currentLvlExp += if (this.lvl < MAX_LEVEL) expLeft else 0
         }
 
