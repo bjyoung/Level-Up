@@ -1,5 +1,6 @@
 package com.brandonjamesyoung.levelup.fragments
 
+import android.animation.ObjectAnimator
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -23,6 +24,7 @@ import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.LevelUpHelper.Companion.getExpToLvlUp
 import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
+import com.brandonjamesyoung.levelup.shared.PROGRESS_BAR_ANIMATE_DURATION
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -431,7 +433,9 @@ class QuestList : Fragment(R.layout.quest_list) {
             progressInt = (progressPercent * 100).toInt()
         }
 
-        progressBar.progress = progressInt
+        ObjectAnimator.ofInt(progressBar, "progress", progressInt)
+            .setDuration(PROGRESS_BAR_ANIMATE_DURATION)
+            .start()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
