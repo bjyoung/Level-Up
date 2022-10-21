@@ -38,8 +38,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-                .createFromAsset("database/levelup-db-v5.db")
-//                .addCallback(AppDatabaseCallback())
+                .addCallback(AppDatabaseCallback())
                 .addMigrations(MIGRATION_3_4, MIGRATION_4_5)
                 .build()
         }
