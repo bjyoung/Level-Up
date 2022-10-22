@@ -1,10 +1,7 @@
 package com.brandonjamesyoung.levelup.di
 
 import android.content.Context
-import com.brandonjamesyoung.levelup.data.AppDatabase
-import com.brandonjamesyoung.levelup.data.PlayerDao
-import com.brandonjamesyoung.levelup.data.QuestDao
-import com.brandonjamesyoung.levelup.data.SettingsDao
+import com.brandonjamesyoung.levelup.data.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,5 +33,10 @@ class DatabaseModule {
     @Provides
     fun provideSettingsDao(appDatabase: AppDatabase): SettingsDao {
         return appDatabase.settingsDao()
+    }
+
+    @Provides
+    fun provideDifficultyDao(appDatabase: AppDatabase): DifficultyDao {
+        return appDatabase.difficultyDao()
     }
 }

@@ -20,39 +20,30 @@ import javax.inject.Inject
 class QuestListViewModel @Inject constructor(
     private val questRepository: QuestRepository,
     private val playerRepository: PlayerRepository,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val difficultyRepository: DifficultyRepository,
 ) : ViewModel() {
     val questList: LiveData<List<Quest>> = questRepository.getAll().asLiveData()
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
-    fun getQuest(id: Int): LiveData<Quest> = questRepository.findById(id).asLiveData()
 
-    private fun calculateRewards(difficulties: List<Difficulty>) : Pair<Int, Int> {
+    private fun calculateRewards(questDifficulties: List<Difficulty>) : Pair<Int, Int> {
         var expEarned = 0
         var rtEarned = 0
-        val settings = settingsRepository.get()
+        val difficulties = difficultyRepository.getAll()
+        val difficultyMap = difficulties.associateBy { it.code }
 
-        for (difficulty in difficulties) {
-            when (difficulty) {
-                Difficulty.EASY -> {
-                    expEarned += settings.easyExpReward
-                    rtEarned += settings.easyRtReward
-                }
+        for (difficulty in questDifficulties) {
+            val difficultyEntity = difficultyMap[difficulty]
 
-                Difficulty.MEDIUM -> {
-                    expEarned += settings.mediumExpReward
-                    rtEarned += settings.mediumRtReward
-                }
-
-                Difficulty.HARD -> {
-                    expEarned += settings.hardExpReward
-                    rtEarned += settings.hardRtReward
-                }
-
-                Difficulty.EXPERT -> {
-                    expEarned += settings.expertExpReward
-                    rtEarned += settings.expertRtReward
-                }
+            if (difficultyEntity != null) {
+                expEarned += difficultyEntity.expReward
+                rtEarned += difficultyEntity.rtReward
+            } else {
+                Log.e(
+                    "QuestListViewModel.calculateRewards",
+                    "Difficulty enum value not found"
+                )
             }
         }
 
