@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.shared.Difficulty
@@ -33,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class QuestList : Fragment(R.layout.quest_list) {
     private val questListViewModel: QuestListViewModel by activityViewModels()
     private val selectedQuestIds: MutableSet<Int> = mutableSetOf()
-    private var mode: Mode = Mode.DEFAULT
+    private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
     private val difficultyColorMap = mapOf(
         Difficulty.EASY to R.color.easy,
@@ -90,14 +92,14 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun completeQuests() {
         questListViewModel.completeQuests(selectedQuestIds.toSet())
+        mode.value = Mode.DEFAULT
         // TODO show toast of exp and rt earned
 //        showToast("Earned $expEarned exp and $rtEarned RT")
-        activateDefaultMode()
     }
 
     private fun deleteQuests() {
         questListViewModel.deleteQuests(selectedQuestIds.toSet())
-        activateDefaultMode()
+        mode.value = Mode.DEFAULT
     }
 
     private fun activateSelectMode() {
@@ -150,7 +152,6 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun activateDefaultMode() {
         // Change Complete Quests button to New Quest button
         selectedQuestIds.clear()
-        mode = Mode.DEFAULT
         val view = this.requireView()
         val completeQuestsButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
 
@@ -242,8 +243,7 @@ class QuestList : Fragment(R.layout.quest_list) {
                 icon.setImageDrawable(originalDrawable)
             }
 
-            mode = if (selectedQuestIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
-            if (mode == Mode.SELECT) activateSelectMode() else activateDefaultMode()
+            mode.value = if (selectedQuestIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
         }
 
         return icon
@@ -441,6 +441,15 @@ class QuestList : Fragment(R.layout.quest_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addNavigation(view)
+        mode.value = Mode.DEFAULT
+
+        mode.observe(viewLifecycleOwner) { mode ->
+            when (mode) {
+                Mode.DEFAULT -> activateDefaultMode()
+                Mode.SELECT -> activateSelectMode()
+                else -> Log.e("QuestList.onViewCreated", "Unknown mode detected")
+            }
+        }
 
         questListViewModel.questList.observe(viewLifecycleOwner) { questList ->
             val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
