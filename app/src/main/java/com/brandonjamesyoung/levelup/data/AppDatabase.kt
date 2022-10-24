@@ -1,11 +1,7 @@
 package com.brandonjamesyoung.levelup.data
 
 import android.content.Context
-import androidx.room.AutoMigration
-import androidx.room.Database
-import androidx.room.DeleteColumn
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -18,15 +14,17 @@ import com.brandonjamesyoung.levelup.shared.Difficulty.EXPERT
 
 @Database(
     entities = [Quest::class, Player::class, Settings::class, Difficulty::class],
-    version = 8,
+    version = 9,
     autoMigrations = [
         AutoMigration (from = 1, to = 2),
         AutoMigration (from = 2, to = 3),
         AutoMigration (from = 5, to = 6),
         AutoMigration (from = 6, to = 7, spec = MigrationSpec6To7::class),
         AutoMigration (from = 7, to = 8, spec = MigrationSpec7To8::class),
+        AutoMigration (from = 8, to = 9),
     ],
 )
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun questDao(): QuestDao
     abstract fun playerDao(): PlayerDao

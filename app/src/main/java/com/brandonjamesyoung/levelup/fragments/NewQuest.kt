@@ -19,6 +19,7 @@ import com.brandonjamesyoung.levelup.shared.Settings
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.Instant
 
 const val MAX_QUEST_NAME_LENGTH = 40
 val NAME_VALIDATION_REGEX = Regex("^[0-9a-zA-Z'\"!#$%&:?,.() @_+/*-]+$")
@@ -98,7 +99,8 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
         val quest = Quest(
             name = questName,
-            difficulty = selectedDifficulty!!
+            difficulty = selectedDifficulty!!,
+            dateCreated = Instant.now()
         )
 
         viewModel.insert(quest)
