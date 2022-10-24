@@ -445,8 +445,9 @@ class QuestList : Fragment(R.layout.quest_list) {
         questListViewModel.questList.observe(viewLifecycleOwner) { questList ->
             val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
             questListLayout.removeAllViews()
+            val sortedQuestList = questList.sortedBy { it.dateCreated }
 
-            for (quest in questList) {
+            for (quest in sortedQuestList) {
                 addCard(
                     view = view,
                     questId = quest.id,
