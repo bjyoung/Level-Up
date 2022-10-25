@@ -16,7 +16,7 @@ import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.shared.Settings
-import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
+import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Instant
@@ -26,7 +26,7 @@ val NAME_VALIDATION_REGEX = Regex("^[0-9a-zA-Z'\"!#$%&:?,.() @_+/*-]+$")
 
 @AndroidEntryPoint
 class NewQuest : Fragment(R.layout.new_quest) {
-    private val viewModel: QuestListViewModel by activityViewModels()
+    private val viewModel: NewQuestViewModel by activityViewModels()
     private var selectedDifficulty: Difficulty? = null
 
     private var difficultyToButtonIdMap = mapOf(
