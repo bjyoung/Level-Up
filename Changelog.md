@@ -2,17 +2,23 @@
 
 This document tracks all notables changes to the Level Up app.
 
+## 0.3.2
+
+### Added
+
+- Limit the player's max level to 99
+  - At the max level, the player's progress bar stops tracking exp earned, but their total exp earned is still recorded
+- Limits total exp earned to 999,999,999,999,999,999
+- Progress bar smoothly animates when the player earns exp
+- Sort quests in Quest List by when they are created
+
 ## 0.3.1
 
 ### Added
 
 - Completing quests grants player exp and rewards
-- If the player earns enough exp, they level up and gain 5 bonus points
-- The level up formula is: expToNextLvl = 2500 + (1750 * currLvl - 1)
-- The max level is set to 99
-- At max level, the player's progress bar stops tracking exp earned, but their total exp earned is still recorded
-- Limits total exp to 999,999,999,999,999,999
-- Progress bar smoothly animates when the player earns exp
+- If the player earns enough exp, they level up and gain 5 bonus RT points
+  - The level up formula is: expToNextLvl = 2500 + (1750 * currLvl - 1)
 
 ## 0.3.0
 
