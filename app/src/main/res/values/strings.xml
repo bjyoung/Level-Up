@@ -44,10 +44,24 @@
 
     <!-- Settings strings -->
     <string name="settings_label">Settings</string>
+    <string name="difficulty_settings_label">Difficulty Settings</string>
+    <string name="easy_exp_input_hint">Easy experience input</string>
+    <string name="medium_exp_input_hint">Medium experience input</string>
+    <string name="hard_exp_input_hint">Hard experience input</string>
+    <string name="expert_exp_input_hint">Expert experience input</string>
+    <string name="easy_points_input_hint">Easy points input</string>
+    <string name="medium_points_input_hint">Medium points input</string>
+    <string name="hard_points_input_hint">Hard points input</string>
+    <string name="expert_points_input_hint">Expert points input</string>
+    <string name="exp_acronym">XP</string>
+    <string name="points_acronym_label">Points Acronym</string>
+    <string name="points_acronym_hint">Acronym input</string>
+    <string name="level_up_bonus_label">Level Up Bonus</string>
+    <string name="level_up_bonus_hint">Bonus points input</string>
     <string name="font_size_selector_label">Font Size</string>
     <string name="small_size_label">Small</string>
     <string name="medium_size_label">Medium</string>
     <string name="large_size_label">Large</string>
-    <string name="reward_acronym_input_label">Reward Acronym</string>
     <string name="backup_button_label">Backup</string>
+    <string name="backup_button_content_description">Backup data</string>
 </resources>

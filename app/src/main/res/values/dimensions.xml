@@ -21,4 +21,7 @@
     <dimen name="difficulty_font_size">11sp</dimen>
     <dimen name="select_box_width">145dp</dimen>
     <dimen name="select_box_height">73dp</dimen>
+
+    <!-- Settings -->
+    <dimen name="difficulty_button_small_height">36dp</dimen>
 </resources>
