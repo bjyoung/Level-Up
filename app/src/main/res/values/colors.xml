@@ -36,4 +36,7 @@
     <color name="icon_background">#FFFFFFFF</color>
     <color name="scrollbar_slider">#FF545454</color>
     <color name="selected">#FF0E6BF7</color>
+
+    <!-- Settings-specific colors -->
+    <color name="hint_primary">#80FFFFFF</color>
 </resources>
