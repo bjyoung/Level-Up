@@ -14,7 +14,7 @@ import com.brandonjamesyoung.levelup.shared.Difficulty.EXPERT
 
 @Database(
     entities = [Quest::class, Player::class, Settings::class, Difficulty::class],
-    version = 9,
+    version = 10,
     autoMigrations = [
         AutoMigration (from = 1, to = 2),
         AutoMigration (from = 2, to = 3),
@@ -22,6 +22,7 @@ import com.brandonjamesyoung.levelup.shared.Difficulty.EXPERT
         AutoMigration (from = 6, to = 7, spec = MigrationSpec6To7::class),
         AutoMigration (from = 7, to = 8, spec = MigrationSpec7To8::class),
         AutoMigration (from = 8, to = 9),
+        AutoMigration (from = 9, to = 10),
     ],
 )
 @TypeConverters(Converters::class)

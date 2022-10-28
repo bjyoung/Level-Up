@@ -15,7 +15,6 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
-import com.brandonjamesyoung.levelup.shared.Settings
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +27,7 @@ val NAME_VALIDATION_REGEX = Regex("^[0-9a-zA-Z'\"!#$%&:?,.() @_+/*-]+$")
 class NewQuest : Fragment(R.layout.new_quest) {
     private val viewModel: NewQuestViewModel by activityViewModels()
     private var selectedDifficulty: Difficulty? = null
+    private var defaultDifficulty = Difficulty.EASY
 
     private var difficultyToButtonIdMap = mapOf(
         Difficulty.EASY to R.id.EasyButton,
@@ -155,9 +155,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     }
 
     private fun selectDefaultDifficulty(view: View) {
-        // TODO Persist settings in app data
-        val settingsObj = Settings()
-        val difficultyButtonId = difficultyToButtonIdMap[settingsObj.DefaultDifficulty]!!
+        val difficultyButtonId = difficultyToButtonIdMap[defaultDifficulty]!!
         setSelectedDifficulty(difficultyButtonId, view)
     }
 

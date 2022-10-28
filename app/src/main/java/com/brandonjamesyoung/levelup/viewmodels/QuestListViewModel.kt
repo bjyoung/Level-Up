@@ -23,7 +23,7 @@ class QuestListViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val difficultyRepository: DifficultyRepository,
 ) : ViewModel() {
-    val questList: LiveData<List<Quest>> = questRepository.getAll().asLiveData()
+    val questList: LiveData<List<Quest>> = questRepository.observeAll().asLiveData()
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
