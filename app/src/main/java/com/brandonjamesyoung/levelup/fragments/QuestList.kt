@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -54,16 +53,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         for ((buttonId, navId) in buttonNavMap) {
             NavigationHelper.addNavigationToView(this, view, buttonId, navId)
         }
-    }
-
-    private fun showToast(message: String) {
-        val toast = Toast.makeText(
-            requireContext(),
-            message,
-            Toast.LENGTH_SHORT
-        )
-
-        toast.show()
     }
 
     private fun isSelected(questId: Int) : Boolean {
@@ -438,9 +427,7 @@ class QuestList : Fragment(R.layout.quest_list) {
             .start()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        addNavigation(view)
+    private fun setupObservables(view: View) {
         mode.value = Mode.DEFAULT
 
         mode.observe(viewLifecycleOwner) { mode ->
@@ -472,5 +459,11 @@ class QuestList : Fragment(R.layout.quest_list) {
             updatePoints(view, player)
             updateProgressBar(view, player)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        addNavigation(view)
+        setupObservables(view)
     }
 }
