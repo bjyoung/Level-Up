@@ -9,6 +9,6 @@ import com.brandonjamesyoung.levelup.shared.Difficulty
 data class Difficulty(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo val code: Difficulty,
-    @ColumnInfo val expReward: Int,
-    @ColumnInfo val rtReward: Int,
+    @ColumnInfo var expReward: Int,
+    @ColumnInfo var rtReward: Int,
 )

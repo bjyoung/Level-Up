@@ -16,7 +16,6 @@ import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Instant
 
@@ -93,9 +92,9 @@ class NewQuest : Fragment(R.layout.new_quest) {
         }
 
         // TODO get icon file name here and store in saved quest
-        val iconButton = view.findViewById<FloatingActionButton>(R.id.IconButton)
-        val iconDrawable = iconButton.drawable
-        val iconFileName = resources.getResourceEntryName(R.drawable.question_mark_icon)
+//        val iconButton = view.findViewById<FloatingActionButton>(R.id.IconButton)
+//        val iconDrawable = iconButton.drawable
+//        val iconFileName = resources.getResourceEntryName(R.drawable.question_mark_icon)
 
         val quest = Quest(
             name = questName,
@@ -142,7 +141,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
         return true
     }
 
-    private fun setSaveButtonListener(view: View) {
+    private fun setupConfirmButton(view: View) {
         val saveButton = view.findViewById<AppCompatButton>(R.id.ConfirmButton)
 
         saveButton.setOnClickListener {
@@ -163,7 +162,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
         super.onViewCreated(view, savedInstanceState)
         addNavigation(view)
         setDifficultyButtonListeners(view)
-        setSaveButtonListener(view)
+        setupConfirmButton(view)
         selectDefaultDifficulty(view)
     }
 }

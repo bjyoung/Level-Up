@@ -15,5 +15,5 @@ interface DifficultyDao {
     suspend fun insert(difficulty: Difficulty)
 
     @Update
-    suspend fun update(difficulty: Difficulty)
+    suspend fun update(difficulties: List<Difficulty>)
 }

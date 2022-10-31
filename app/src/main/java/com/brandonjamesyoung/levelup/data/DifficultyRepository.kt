@@ -12,5 +12,5 @@ class DifficultyRepository @Inject constructor(private val difficultyDao: Diffic
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun update(difficulty: Difficulty) = difficultyDao.update(difficulty)
+    suspend fun update(difficulties: List<Difficulty>) = difficultyDao.update(difficulties)
 }

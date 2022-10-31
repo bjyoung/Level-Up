@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class Settings(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(defaultValue = "RT") val pointsAcronym: String = "RT",
-    @ColumnInfo(defaultValue = "5") val lvlUpBonus: Int = 5,
+    @ColumnInfo(defaultValue = "RT") var pointsAcronym: String = "RT",
+    @ColumnInfo(defaultValue = "5") var lvlUpBonus: Int = 5,
 )
