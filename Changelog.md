@@ -2,6 +2,26 @@
 
 This document tracks all notables changes to the Level Up app.
 
+## 0.4.2
+
+- Adds save functionality to Settings page
+
+## 0.4.1
+
+- In Settings page
+  - Quest exp and points earned are restricted to numbers and allow up to 4 digits
+  - Points acronym is restricted to uppercase characters and allow up to 3 characters
+  - Level up bonus is restricted to numbers and up to 3 digits
+
+## 0.4.0
+
+### Added
+
+- Add UI and input fields in Settings page
+  - For the exp and points granted per quest difficulty
+  - For the points rewarded on level up
+  - For for the points acronym used across the map
+
 ## 0.3.2
 
 ### Added
