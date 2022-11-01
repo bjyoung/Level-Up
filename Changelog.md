@@ -5,6 +5,12 @@ This document tracks all notables changes to the Level Up app.
 ## 0.4.2
 
 - Adds save functionality to Settings page
+- Add validation to Settings save
+  - All fields must have a value
+  - The exp and point reward fields must be a number between 0 and 9999 inclusive
+  - The points acronym must be 1-3 alphabet characters, no spaces
+  - The level up bonus must be a number between 0 and 999 inclusive
+  - If any of the inputs are not valid, then save does not go through
 
 ## 0.4.1
 

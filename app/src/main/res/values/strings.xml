@@ -67,4 +67,11 @@
     <string name="large_size_label">Large</string>
     <string name="backup_button_label">Backup</string>
     <string name="backup_button_content_description">Backup data</string>
+    <string name="not_a_number_error">Please input a number</string>
+    <string name="num_out_of_range_error">Please input a number between %1$d and %2$d</string>
+    <string name="num_too_small_error">Please input a number greater than or equal to %1$d</string>
+    <string name="num_too_large_error">Please input a number less than or equal to %1$d</string>
+    <string name="no_acronym_error">Please input an acronym</string>
+    <string name="only_alpha_allowed_error">Only alphabet characters are allowed</string>
+    <string name="three_characters_limit_error">Must be 3 characters or less</string>
 </resources>
