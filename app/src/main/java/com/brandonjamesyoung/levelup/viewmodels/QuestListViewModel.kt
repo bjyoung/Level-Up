@@ -113,20 +113,4 @@ class QuestListViewModel @Inject constructor(
     fun deleteQuests(ids: Set<Int>) = viewModelScope.launch {
         questRepository.delete(ids)
     }
-
-    fun insert(quest: Quest) = viewModelScope.launch {
-        questRepository.insert(quest)
-    }
-
-    fun update(quest: Quest) = viewModelScope.launch {
-        questRepository.update(quest)
-    }
-
-    fun update(player: Player) = viewModelScope.launch {
-        playerRepository.update(player)
-    }
-
-    fun update(settings: Settings) = viewModelScope.launch {
-        settingsRepository.update(settings)
-    }
 }

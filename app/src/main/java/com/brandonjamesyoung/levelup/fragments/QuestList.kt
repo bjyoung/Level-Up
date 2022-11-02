@@ -21,6 +21,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Player
+import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.LevelUpHelper.Companion.getExpToLvlUp
 import com.brandonjamesyoung.levelup.shared.Mode
@@ -426,6 +427,13 @@ class QuestList : Fragment(R.layout.quest_list) {
             .start()
     }
 
+    private fun updatePointsAcronym(settings: Settings?) {
+        if (settings == null) return
+        val view = requireView()
+        val pointsLabel : TextView = view.findViewById(R.id.PointsLabel)
+        pointsLabel.text = settings.pointsAcronym
+    }
+
     private fun setupObservables(view: View) {
         mode.value = Mode.DEFAULT
 
@@ -457,6 +465,10 @@ class QuestList : Fragment(R.layout.quest_list) {
             updateUsername(view, player)
             updatePoints(view, player)
             updateProgressBar(view, player)
+        }
+
+        questListViewModel.settings.observe(viewLifecycleOwner) { settings ->
+            updatePointsAcronym(settings)
         }
     }
 
