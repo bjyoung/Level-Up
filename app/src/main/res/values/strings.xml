@@ -11,6 +11,8 @@
     <string name="settings_button_description">Navigate to the Settings page</string>
     <string name="shop_button_description">Navigate to the Shop page</string>
     <string name="quest_icon_description">Quest icon</string>
+    <string name="next_lvl_exp_label">Next Lvl Exp</string>
+    <string name="next_lvl_exp_default">0</string>
 
     <!-- New Quest strings -->
     <string name="new_quest_label">New Quest</string>

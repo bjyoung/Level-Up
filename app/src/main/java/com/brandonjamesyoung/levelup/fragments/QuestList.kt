@@ -427,6 +427,14 @@ class QuestList : Fragment(R.layout.quest_list) {
             .start()
     }
 
+    private fun updateNextLvlProgress(view: View, player: Player?) {
+        if (player == null) return
+        val nextLvlExpView : TextView =  view.findViewById(R.id.NextLvlExp)
+        val totalExpForCurrentLvl = getExpToLvlUp(player.lvl)
+        val expToNextLvl = totalExpForCurrentLvl - player.currentLvlExp
+        nextLvlExpView.text = expToNextLvl.toString()
+    }
+
     private fun updatePointsAcronym(settings: Settings?) {
         if (settings == null) return
         val view = requireView()
@@ -465,6 +473,7 @@ class QuestList : Fragment(R.layout.quest_list) {
             updateUsername(view, player)
             updatePoints(view, player)
             updateProgressBar(view, player)
+            updateNextLvlProgress(view, player)
         }
 
         questListViewModel.settings.observe(viewLifecycleOwner) { settings ->
