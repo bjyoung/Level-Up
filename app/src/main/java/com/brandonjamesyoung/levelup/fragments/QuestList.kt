@@ -35,6 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class QuestList : Fragment(R.layout.quest_list) {
     private val questListViewModel: QuestListViewModel by activityViewModels()
     private val selectedQuestIds: MutableSet<Int> = mutableSetOf()
+    private val selectedQuestIconIds: MutableSet<Int> = mutableSetOf()
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
     private val difficultyColorMap = mapOf(
@@ -92,8 +93,8 @@ class QuestList : Fragment(R.layout.quest_list) {
         mode.value = Mode.DEFAULT
     }
 
-    private fun activateSelectMode() {
-        // Change New Quest button to Complete Quests button
+    // Change New Quest button to Complete Quests button
+    private fun activateCompleteQuestsButton() {
         val view = this.requireView()
         val newQuestButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
 
@@ -115,8 +116,11 @@ class QuestList : Fragment(R.layout.quest_list) {
         newQuestButton.setOnClickListener{
             completeQuests()
         }
+    }
 
-        // Change Shop button to Delete button
+    // Change Shop button to Delete button
+    private fun activateDeleteButton() {
+        val view = requireView()
         val shopButton = view.findViewById<FloatingActionButton>(R.id.ShopButton)
 
         val deleteIcon = ResourcesCompat.getDrawable(
@@ -139,9 +143,51 @@ class QuestList : Fragment(R.layout.quest_list) {
         }
     }
 
-    private fun activateDefaultMode() {
-        // Change Complete Quests button to New Quest button
-        selectedQuestIds.clear()
+    private fun cancelSelectedQuests() {
+        val view = requireView()
+
+        for (id in selectedQuestIconIds) {
+            // TODO Need an easier way to swap between icon modes
+            val questCardIcon : FloatingActionButton = view.findViewById(id)
+            questCardIcon.callOnClick()
+        }
+
+        mode.value = Mode.DEFAULT
+    }
+
+    // Switch Settings button to Cancel button
+    private fun activateCancelButton() {
+        val view = requireView()
+        val settingsButton = view.findViewById<FloatingActionButton>(R.id.SettingsButton)
+
+        val cancelIcon = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.cancel_icon,
+            view.context.theme
+        )
+
+        settingsButton.setImageDrawable(cancelIcon)
+
+        val primaryIconColor : Int = resources.getColor(
+            R.color.icon_primary,
+            view.context.theme
+        )
+
+        settingsButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
+
+        settingsButton.setOnClickListener{
+            cancelSelectedQuests()
+        }
+    }
+
+    private fun activateSelectMode() {
+        activateCompleteQuestsButton()
+        activateDeleteButton()
+        activateCancelButton()
+    }
+
+    // Change Complete Quests button to New Quest button
+    private fun activateNewQuestButton() {
         val view = this.requireView()
         val completeQuestsButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
 
@@ -166,8 +212,11 @@ class QuestList : Fragment(R.layout.quest_list) {
             R.id.AddNewQuestButton,
             R.id.action_questList_to_newQuest
         )
+    }
 
-        // Change Delete button to Shop button
+    // Change Delete button to Shop button
+    private fun activateShopButton() {
+        val view = requireView()
         val deleteButton = view.findViewById<FloatingActionButton>(R.id.ShopButton)
 
         val shopIcon = ResourcesCompat.getDrawable(
@@ -177,6 +226,12 @@ class QuestList : Fragment(R.layout.quest_list) {
         )
 
         deleteButton.setImageDrawable(shopIcon)
+
+        val primaryIconColor : Int = resources.getColor(
+            R.color.icon_primary,
+            view.context.theme
+        )
+
         deleteButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
 
         NavigationHelper.addNavigationToView(
@@ -185,6 +240,42 @@ class QuestList : Fragment(R.layout.quest_list) {
             R.id.ShopButton,
             R.id.action_questList_to_shop
         )
+    }
+
+    // Change Cancel button to the Settings button
+    private fun activateSettingsButton() {
+        val view = requireView()
+        val settingsButton = view.findViewById<FloatingActionButton>(R.id.SettingsButton)
+
+        val gearIcon = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.gear_icon,
+            view.context.theme
+        )
+
+        settingsButton.setImageDrawable(gearIcon)
+
+        val primaryIconColor : Int = resources.getColor(
+            R.color.icon_primary,
+            view.context.theme
+        )
+
+        settingsButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
+
+        NavigationHelper.addNavigationToView(
+            this,
+            view,
+            R.id.SettingsButton,
+            R.id.action_questList_to_settings
+        )
+    }
+
+    private fun activateDefaultMode() {
+        selectedQuestIds.clear()
+        selectedQuestIconIds.clear()
+        activateNewQuestButton()
+        activateShopButton()
+        activateSettingsButton()
     }
 
     private fun createQuestIcon(
@@ -219,6 +310,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         icon.setOnClickListener{
             if (!isSelected(questId)) {
                 selectedQuestIds.add(questId)
+                selectedQuestIconIds.add(icon.id)
 
                 val selectIcon = ResourcesCompat.getDrawable(
                     resources,
@@ -229,6 +321,7 @@ class QuestList : Fragment(R.layout.quest_list) {
                 icon.setImageDrawable(selectIcon)
             } else {
                 selectedQuestIds.remove(questId)
+                selectedQuestIconIds.remove(icon.id)
                 val originalDrawable = getQuestDrawable(view, iconFileName)
                 icon.setImageDrawable(originalDrawable)
             }

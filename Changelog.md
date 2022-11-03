@@ -2,7 +2,25 @@
 
 This document tracks all notables changes to the Level Up app.
 
+## 0.4.3
+
+### Added
+
+- Adds UI to Quest List that displays the experience the player needs to level up
+- The settings button on the Quest List page becomes a cancel button when at least one quest is selected
+  - Selecting the cancel button de-selects all currently selected quests
+
+### Changed
+
+- Move player's points below the points label in Quest List
+
+### Fixed
+
+- The points acronym in Quest List now correctly matches the acronym set in the Settings page
+
 ## 0.4.2
+
+### Added
 
 - Adds save functionality to Settings page
 - Add validation to Settings save
@@ -13,6 +31,8 @@ This document tracks all notables changes to the Level Up app.
   - If any of the inputs are not valid, then save does not go through
 
 ## 0.4.1
+
+### Added
 
 - In Settings page
   - Quest exp and points earned are restricted to numbers and allow up to 4 digits
