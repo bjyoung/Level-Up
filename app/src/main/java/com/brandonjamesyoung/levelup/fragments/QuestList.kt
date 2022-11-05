@@ -19,17 +19,21 @@ import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.LevelUpHelper.Companion.getExpToLvlUp
 import com.brandonjamesyoung.levelup.shared.Mode
-import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.shared.PROGRESS_BAR_ANIMATE_DURATION
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+
+private const val TAG = "QuestList"
 
 @AndroidEntryPoint
 class QuestList : Fragment(R.layout.quest_list) {
@@ -47,13 +51,23 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun addNavigation(view: View) {
         val buttonNavMap = mapOf(
-            R.id.AddNewQuestButton to R.id.action_questList_to_newQuest,
-            R.id.SettingsButton to R.id.action_questList_to_settings,
-            R.id.ShopButton to R.id.action_questList_to_shop
+            R.id.AddNewQuestButton to
+                    Pair(R.id.action_questList_to_newQuest, "Going from Quest List to New Quest"),
+            R.id.SettingsButton to
+                    Pair(R.id.action_questList_to_settings, "Going from Quest List to Settings"),
+            R.id.ShopButton to
+                    Pair(R.id.action_questList_to_shop, "Going from Quest List to Shop"),
         )
 
-        for ((buttonId, navId) in buttonNavMap) {
-            NavigationHelper.addNavigationToView(this, view, buttonId, navId)
+        for ((buttonId, navIdPair) in buttonNavMap) {
+            val button = view.findViewById<View>(buttonId)
+            val navId = navIdPair.first
+            val logMessage = navIdPair.second
+
+            button.setOnClickListener{
+                NavHostFragment.findNavController(this).navigate(navId)
+                Log.i(TAG, logMessage)
+            }
         }
     }
 
@@ -206,12 +220,11 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         completeQuestsButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
 
-        NavigationHelper.addNavigationToView(
-            this,
-            view,
-            R.id.AddNewQuestButton,
-            R.id.action_questList_to_newQuest
-        )
+        completeQuestsButton.setOnClickListener{
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_questList_to_newQuest)
+            Log.i(TAG, "Going from Quest List to New Quest")
+        }
     }
 
     // Change Delete button to Shop button
@@ -234,12 +247,10 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         deleteButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
 
-        NavigationHelper.addNavigationToView(
-            this,
-            view,
-            R.id.ShopButton,
-            R.id.action_questList_to_shop
-        )
+        deleteButton.setOnClickListener{
+            NavHostFragment.findNavController(this).navigate(R.id.action_questList_to_shop)
+            Log.i(TAG, "Going from Quest List to Shop")
+        }
     }
 
     // Change Cancel button to the Settings button
@@ -262,12 +273,11 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         settingsButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
 
-        NavigationHelper.addNavigationToView(
-            this,
-            view,
-            R.id.SettingsButton,
-            R.id.action_questList_to_settings
-        )
+        settingsButton.setOnClickListener{
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_questList_to_settings)
+            Log.i(TAG, "Going from Quest List to Settings")
+        }
     }
 
     private fun activateDefaultMode() {
@@ -542,7 +552,7 @@ class QuestList : Fragment(R.layout.quest_list) {
             when (mode) {
                 Mode.DEFAULT -> activateDefaultMode()
                 Mode.SELECT -> activateSelectMode()
-                else -> Log.e("QuestList.onViewCreated", "Unknown mode detected")
+                else -> Log.e(TAG, "Unknown mode detected")
             }
         }
 
@@ -576,7 +586,11 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addNavigation(view)
-        setupObservables(view)
+
+        lifecycleScope.launch{
+            Log.i(TAG, "On Quest List page")
+            addNavigation(view)
+            setupObservables(view)
+        }
     }
 }

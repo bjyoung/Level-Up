@@ -8,18 +8,20 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.shared.Difficulty as DifficultyCode
 import com.brandonjamesyoung.levelup.data.Difficulty
 import com.brandonjamesyoung.levelup.data.Settings
-import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.shared.ToastHelper.Companion.showToast
 import com.brandonjamesyoung.levelup.viewmodels.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-const val MAX_ACRONYM_LENGTH = 3
-val ACRONYM_VALIDATION_REGEX = Regex("^[a-zA-Z]+$")
+private const val MAX_ACRONYM_LENGTH = 3
+private val ACRONYM_VALIDATION_REGEX = Regex("^[a-zA-Z]+$")
+private const val TAG = "SettingsPage"
 
 @AndroidEntryPoint
 class SettingsPage : Fragment(R.layout.settings) {
@@ -36,12 +38,14 @@ class SettingsPage : Fragment(R.layout.settings) {
     }
 
     private fun setupCancelButton() {
-        NavigationHelper.addNavigationToView(
-            this,
-            requireView(),
-            R.id.SettingsCancelButton,
-            R.id.action_settings_to_questList
-        )
+        val view = requireView()
+        val button = view.findViewById<View>(R.id.SettingsCancelButton)
+
+        button.setOnClickListener{
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_settings_to_questList)
+            Log.i(TAG, "Going from Settings to Quest List")
+        }
     }
 
     private fun isNumber(str : String) : Boolean {
@@ -186,6 +190,7 @@ class SettingsPage : Fragment(R.layout.settings) {
         )
 
         viewModel.update(newSettings, newDifficulties)
+        Log.i(TAG, "Update settings")
     }
 
     private fun setupConfirmButton() {
@@ -199,6 +204,7 @@ class SettingsPage : Fragment(R.layout.settings) {
                 //  Default to questList page if no prev page is found
                 NavHostFragment.findNavController(this)
                     .navigate(R.id.action_settings_to_questList)
+                Log.i(TAG, "Going from Settings to Quest List")
             }
         }
     }
@@ -246,7 +252,7 @@ class SettingsPage : Fragment(R.layout.settings) {
 
     private fun updateSettingsUi(settings: Settings?) {
         if (settings == null) {
-            Log.e("SettingsPage.updateUi", "No settings to load")
+            Log.e(TAG, "No settings to load")
             return
         }
 
@@ -283,7 +289,11 @@ class SettingsPage : Fragment(R.layout.settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupButtons()
-        setupObservables()
+
+        lifecycleScope.launch {
+            Log.i(TAG, "On Settings page")
+            setupButtons()
+            setupObservables()
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.brandonjamesyoung.levelup.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -10,17 +11,19 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.shared.Difficulty
-import com.brandonjamesyoung.levelup.shared.NavigationHelper
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.time.Instant
 
-const val MAX_QUEST_NAME_LENGTH = 40
-val NAME_VALIDATION_REGEX = Regex("^[0-9a-zA-Z'\"!#$%&:?,.() @_+/*-]+$")
+private const val MAX_QUEST_NAME_LENGTH = 40
+private val NAME_VALIDATION_REGEX = Regex("^[0-9a-zA-Z'\"!#$%&:?,.() @_+/*-]+$")
+private const val TAG = "NewQuest"
 
 @AndroidEntryPoint
 class NewQuest : Fragment(R.layout.new_quest) {
@@ -43,12 +46,13 @@ class NewQuest : Fragment(R.layout.new_quest) {
     )
 
     private fun addNavigation(view: View) {
-        NavigationHelper.addNavigationToView(
-            this,
-            view,
-            R.id.CancelButton,
-            R.id.action_newQuest_to_questList
-        )
+        val button = view.findViewById<View>(R.id.CancelButton)
+
+        button.setOnClickListener{
+            NavHostFragment.findNavController(this)
+                .navigate(R.id.action_newQuest_to_questList)
+            Log.i(TAG, "Going from New Quest to Quest List")
+        }
     }
 
     // Move selected difficulty box to the given button
@@ -149,6 +153,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
                 createQuest(view)
                 NavHostFragment.findNavController(this)
                     .navigate(R.id.action_newQuest_to_questList)
+                Log.i(TAG, "Going from New Quest to Quest List")
             }
         }
     }
@@ -160,9 +165,13 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addNavigation(view)
-        setDifficultyButtonListeners(view)
-        setupConfirmButton(view)
-        selectDefaultDifficulty(view)
+
+        lifecycleScope.launch {
+            Log.i(TAG, "On New Quest page")
+            addNavigation(view)
+            setDifficultyButtonListeners(view)
+            setupConfirmButton(view)
+            selectDefaultDifficulty(view)
+        }
     }
 }

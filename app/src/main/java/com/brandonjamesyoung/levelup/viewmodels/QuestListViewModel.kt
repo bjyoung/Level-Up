@@ -16,6 +16,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val TAG = "QuestListViewModel"
+
 @HiltViewModel
 class QuestListViewModel @Inject constructor(
     private val questRepository: QuestRepository,
@@ -41,10 +43,7 @@ class QuestListViewModel @Inject constructor(
                 expEarned += difficultyEntity.expReward
                 rtEarned += difficultyEntity.rtReward
             } else {
-                Log.e(
-                    "QuestListViewModel.calculateRewards",
-                    "Difficulty enum value not found"
-                )
+                Log.e(TAG, "Difficulty enum value not found")
             }
         }
 
@@ -65,6 +64,7 @@ class QuestListViewModel @Inject constructor(
         val nextLvl = player.lvl + 1
         val rtBonus = settingsRepository.get().lvlUpBonus
         val newPlayer = player.copy()
+        Log.i(TAG, "Player levels up to lvl ${nextLvl}!")
 
         return newPlayer.apply {
             rt += rtBonus
@@ -97,31 +97,30 @@ class QuestListViewModel @Inject constructor(
             numLoops++
 
             if (numLoops > MAX_NUM_LOOPS) {
-                Log.e("QuestListViewModel.completeQuests", "Exceeded num loops")
+                Log.e(TAG, "Exceeded num loops")
             }
         }
 
-        val numQuestsCompleted = ids.count()
-        val totalExpEarned = getTotalExpEarned(player, expEarned)
         val currLvlExpEarned = if (player.lvl < MAX_LEVEL) expLeft else 0
 
         player.apply {
             rt += rtEarned
-            totalExp += totalExpEarned
+            totalExp += getTotalExpEarned(player, expEarned)
             currentLvlExp += currLvlExpEarned
         }
 
         playerRepository.update(player)
         questRepository.delete(ids)
+        val numQuestsCompleted = ids.count()
 
-        Log.i(
-            "QuestListViewModel.completeQuests",
-            "Player completes $numQuestsCompleted quests " +
-                    "and earns $currLvlExpEarned exp and $rtEarned rt"
+        Log.i(TAG, "Player completes $numQuestsCompleted quest(s) " +
+                    "and earns $currLvlExpEarned exp and $rtEarned points"
         )
     }
 
     fun deleteQuests(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         questRepository.delete(ids)
+        val numQuestsDeleted = ids.count()
+        Log.i(TAG, "Delete $numQuestsDeleted quest(s)")
     }
 }

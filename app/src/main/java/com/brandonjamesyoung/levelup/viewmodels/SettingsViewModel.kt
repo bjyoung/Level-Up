@@ -1,5 +1,6 @@
 package com.brandonjamesyoung.levelup.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -10,9 +11,10 @@ import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.data.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private const val TAG = "SettingsViewModel"
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -27,6 +29,19 @@ class SettingsViewModel @Inject constructor(
         ioDispatcher
     ) {
         val currSettings = settingsRepository.get()
+        val oldAcronym = currSettings.pointsAcronym
+        val newAcronym = newSettings.pointsAcronym
+
+        if (currSettings.pointsAcronym != newSettings.pointsAcronym) {
+            Log.i(TAG, "Update points acronym from $oldAcronym to $newAcronym")
+        }
+
+        if (currSettings.lvlUpBonus != newSettings.lvlUpBonus) {
+            Log.i(TAG, "Update level up bonus" +
+                " from ${currSettings.lvlUpBonus} $oldAcronym" +
+                " to ${newSettings.lvlUpBonus} $newAcronym"
+            )
+        }
 
         currSettings.apply {
             pointsAcronym = newSettings.pointsAcronym
@@ -37,9 +52,25 @@ class SettingsViewModel @Inject constructor(
         val currDifficulties = difficultyRepository.getAll()
 
         for (newDifficulty in newDifficulties) {
-            currDifficulties.find { difficulty ->
+            val currDifficulty = currDifficulties.find { difficulty ->
                 difficulty.code == newDifficulty.code
-            }?.apply {
+            }
+
+            if (currDifficulty != null && currDifficulty.expReward != newDifficulty.expReward) {
+                Log.i(TAG, "Update ${currDifficulty.code} quests reward" +
+                    " from ${currDifficulty.expReward} exp" +
+                    " to ${newDifficulty.expReward} exp"
+                )
+            }
+
+            if (currDifficulty != null && currDifficulty.rtReward != newDifficulty.rtReward) {
+                Log.i(TAG, "Update ${currDifficulty.code} quests reward" +
+                    " from ${currDifficulty.rtReward} $oldAcronym" +
+                    " to ${newDifficulty.rtReward} $newAcronym"
+                )
+            }
+
+            currDifficulty?.apply {
                 expReward = newDifficulty.expReward
                 rtReward = newDifficulty.rtReward
             }
