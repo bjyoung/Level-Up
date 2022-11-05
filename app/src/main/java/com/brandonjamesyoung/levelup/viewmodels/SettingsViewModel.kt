@@ -9,6 +9,7 @@ import com.brandonjamesyoung.levelup.data.DifficultyRepository
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.data.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,12 +18,13 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val difficultyRepository: DifficultyRepository,
     private val settingsRepository: SettingsRepository,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
     val difficulties: LiveData<List<Difficulty>> = difficultyRepository.observeAll().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
     fun update(newSettings: Settings, newDifficulties: List<Difficulty>) = viewModelScope.launch(
-        Dispatchers.IO
+        ioDispatcher
     ) {
         val currSettings = settingsRepository.get()
 

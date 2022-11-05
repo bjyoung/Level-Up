@@ -12,7 +12,7 @@ import com.brandonjamesyoung.levelup.shared.MAX_LEVEL
 import com.brandonjamesyoung.levelup.shared.MAX_NUM_LOOPS
 import com.brandonjamesyoung.levelup.shared.MAX_TOTAL_EXP
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +22,7 @@ class QuestListViewModel @Inject constructor(
     private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository,
     private val difficultyRepository: DifficultyRepository,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
     val questList: LiveData<List<Quest>> = questRepository.observeAll().asLiveData()
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
@@ -80,7 +81,7 @@ class QuestListViewModel @Inject constructor(
         }
     }
 
-    fun completeQuests(ids: Set<Int>) = viewModelScope.launch(Dispatchers.IO) {
+    fun completeQuests(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         val difficulties = questRepository.getDifficulties(ids)
         val (expEarned, rtEarned) = calculateRewards(difficulties)
 
@@ -100,17 +101,27 @@ class QuestListViewModel @Inject constructor(
             }
         }
 
+        val numQuestsCompleted = ids.count()
+        val totalExpEarned = getTotalExpEarned(player, expEarned)
+        val currLvlExpEarned = if (player.lvl < MAX_LEVEL) expLeft else 0
+
         player.apply {
             rt += rtEarned
-            totalExp += getTotalExpEarned(this, expEarned)
-            currentLvlExp += if (this.lvl < MAX_LEVEL) expLeft else 0
+            totalExp += totalExpEarned
+            currentLvlExp += currLvlExpEarned
         }
 
         playerRepository.update(player)
         questRepository.delete(ids)
+
+        Log.i(
+            "QuestListViewModel.completeQuests",
+            "Player completes $numQuestsCompleted quests " +
+                    "and earns $currLvlExpEarned exp and $rtEarned rt"
+        )
     }
 
-    fun deleteQuests(ids: Set<Int>) = viewModelScope.launch {
+    fun deleteQuests(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         questRepository.delete(ids)
     }
 }
