@@ -8,9 +8,9 @@ import javax.inject.Singleton
 class QuestRepository @Inject constructor(private val questDao: QuestDao) {
     fun observeAll() = questDao.observeAll()
 
-    fun getDifficulties(ids: Set<Int>) = questDao.getDifficulties(ids)
-
-    fun observeById(id: Int) = questDao.observeById(id)
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getDifficulties(ids: Set<Int>) = questDao.getDifficulties(ids)
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

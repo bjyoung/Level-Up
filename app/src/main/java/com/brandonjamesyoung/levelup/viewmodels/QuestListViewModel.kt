@@ -30,10 +30,11 @@ class QuestListViewModel @Inject constructor(
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
-    private fun calculateRewards(questDifficulties: List<Difficulty>) : Pair<Int, Int> {
+    private suspend fun calculateRewards(questDifficulties: List<Difficulty>) : Pair<Int, Int> {
         var expEarned = 0
         var rtEarned = 0
         val difficulties = difficultyRepository.getAll()
+
         val difficultyMap = difficulties.associateBy { it.code }
 
         for (difficulty in questDifficulties) {
@@ -60,7 +61,7 @@ class QuestListViewModel @Inject constructor(
         return expEarned > 0 && expEarned >= expToNextLvl && player.lvl < MAX_LEVEL
     }
 
-    private fun levelUp(player: Player): Player {
+    private suspend fun levelUp(player: Player): Player {
         val nextLvl = player.lvl + 1
         val rtBonus = settingsRepository.get().lvlUpBonus
         val newPlayer = player.copy()

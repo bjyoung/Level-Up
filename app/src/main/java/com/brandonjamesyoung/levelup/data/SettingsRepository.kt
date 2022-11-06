@@ -8,7 +8,9 @@ import javax.inject.Singleton
 class SettingsRepository @Inject constructor(private val settingsDao: SettingsDao) {
     fun observe() = settingsDao.observeById(1)
 
-    fun get() = settingsDao.getById(1)
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun get() = settingsDao.getById(1)
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
