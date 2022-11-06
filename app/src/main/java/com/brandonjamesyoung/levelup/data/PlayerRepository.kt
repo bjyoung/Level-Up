@@ -1,11 +1,17 @@
 package com.brandonjamesyoung.levelup.data
 
 import androidx.annotation.WorkerThread
+import com.brandonjamesyoung.levelup.di.ApplicationScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PlayerRepository @Inject constructor(private val playerDao: PlayerDao) {
+class PlayerRepository @Inject constructor(
+    @ApplicationScope private val externalScope: CoroutineScope,
+    private val playerDao: PlayerDao
+) {
     fun observe() = playerDao.observeById(1)
 
     @Suppress("RedundantSuspendModifier")
@@ -14,5 +20,7 @@ class PlayerRepository @Inject constructor(private val playerDao: PlayerDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun update(player: Player) = playerDao.update(player)
+    suspend fun update(player: Player) = externalScope.launch {
+        playerDao.update(player)
+    }
 }

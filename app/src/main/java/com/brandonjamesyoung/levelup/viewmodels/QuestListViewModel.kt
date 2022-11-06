@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.*
+import com.brandonjamesyoung.levelup.di.IoDispatcher
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.LevelUpHelper.Companion.getExpToLvlUp
 import com.brandonjamesyoung.levelup.shared.MAX_LEVEL
@@ -20,11 +21,11 @@ private const val TAG = "QuestListViewModel"
 
 @HiltViewModel
 class QuestListViewModel @Inject constructor(
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val questRepository: QuestRepository,
     private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository,
-    private val difficultyRepository: DifficultyRepository,
-    private val ioDispatcher: CoroutineDispatcher
+    private val difficultyRepository: DifficultyRepository
 ) : ViewModel() {
     val questList: LiveData<List<Quest>> = questRepository.observeAll().asLiveData()
     val player: LiveData<Player> = playerRepository.observe().asLiveData()

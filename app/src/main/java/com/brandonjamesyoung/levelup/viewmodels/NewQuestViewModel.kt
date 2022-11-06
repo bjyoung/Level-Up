@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.*
+import com.brandonjamesyoung.levelup.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -13,8 +14,8 @@ private const val TAG = "NewQuestViewModel"
 
 @HiltViewModel
 class NewQuestViewModel @Inject constructor(
-    private val questRepository: QuestRepository,
-    private val ioDispatcher: CoroutineDispatcher,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    private val questRepository: QuestRepository
 ) : ViewModel() {
     private fun logQuestCreation(quest: Quest) {
         var logMessage = "Add new ${quest.difficulty} quest with "
