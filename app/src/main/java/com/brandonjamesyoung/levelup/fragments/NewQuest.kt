@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -31,21 +30,18 @@ class NewQuest : Fragment(R.layout.new_quest) {
     private var selectedDifficulty: Difficulty? = null
     private var defaultDifficulty = Difficulty.EASY
 
-    private var difficultyToButtonIdMap = mapOf(
-        Difficulty.EASY to R.id.EasyButton,
-        Difficulty.MEDIUM to R.id.MediumButton,
-        Difficulty.HARD to R.id.HardButton,
-        Difficulty.EXPERT to R.id.ExpertButton
-    )
-
-    private var buttonIdToDifficultyMap = mapOf(
+    private val buttonIdToDifficultyMap = mapOf(
         R.id.EasyButton to Difficulty.EASY,
         R.id.MediumButton to Difficulty.MEDIUM,
         R.id.HardButton to Difficulty.HARD,
         R.id.ExpertButton to Difficulty.EXPERT
     )
 
-    private fun addNavigation(view: View) {
+    private val difficultyToButtonIdMap = buttonIdToDifficultyMap.entries
+        .associateBy({ it.value }) { it.key }
+
+    private fun addNavigation() {
+        val view = requireView()
         val button = view.findViewById<View>(R.id.CancelButton)
 
         button.setOnClickListener{
@@ -56,8 +52,11 @@ class NewQuest : Fragment(R.layout.new_quest) {
     }
 
     // Move selected difficulty box to the given button
-    private fun moveDifficultySelectBox(button: AppCompatButton, parentView: View) {
-        val constraintLayout = parentView.findViewById<ConstraintLayout>(R.id.NewQuest)
+    private fun moveDifficultySelectBox(difficulty: Difficulty) {
+        val view = requireView()
+        val buttonId = difficultyToButtonIdMap[difficulty]!!
+        val button = view.findViewById<AppCompatButton>(buttonId)
+        val constraintLayout = view.findViewById<ConstraintLayout>(R.id.NewQuest)
         val constraintSet = ConstraintSet()
         constraintSet.clone(constraintLayout)
         val selectBoxId = R.id.DifficultySelectBox
@@ -68,26 +67,26 @@ class NewQuest : Fragment(R.layout.new_quest) {
         constraintSet.applyTo(constraintLayout)
     }
 
-    private fun setSelectedDifficulty(buttonId: Int, view: View) {
-        val button = view.findViewById<AppCompatButton>(buttonId)
-        selectedDifficulty = buttonIdToDifficultyMap[buttonId]
-        val selectBox = view.findViewById<ImageView>(R.id.DifficultySelectBox)
-        selectBox.visibility = ImageView.INVISIBLE
-        moveDifficultySelectBox(button, view)
-        selectBox.visibility = ImageView.VISIBLE
+    private fun setSelectedDifficulty(difficulty: Difficulty) {
+        selectedDifficulty = difficulty
+        moveDifficultySelectBox(difficulty)
+        Log.i(TAG, "Set quest difficulty to $selectedDifficulty")
     }
 
-    private fun setDifficultyButtonListeners(view: View) {
-        for (id in difficultyToButtonIdMap.values) {
-            val button = view.findViewById<AppCompatButton>(id)
+    private fun setDifficultyButtonListeners() {
+        val view = requireView()
+
+       buttonIdToDifficultyMap.forEach { entry ->
+            val button = view.findViewById<AppCompatButton>(entry.key)
 
             button.setOnClickListener {
-                setSelectedDifficulty(id, view)
+                setSelectedDifficulty(entry.value)
             }
         }
     }
 
-    private fun createQuest(view: View) {
+    private fun createQuest() {
+        val view = requireView()
         val nameTextView = view.findViewById<TextView>(R.id.NameInput)
         var questName: String? = nameTextView.text.trim().toString()
 
@@ -119,6 +118,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
         if (!hasValidLength) {
             nameField.error = resources.getString(R.string.name_length_error)
+            Log.e(TAG, "New quest name is longer than 40 characters")
             return false
         }
 
@@ -126,13 +126,15 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
         if (!hasValidCharacters) {
             nameField.error = resources.getString(R.string.name_invalid_char_error)
+            Log.e(TAG, "New quest name has invalid characters in it")
             return false
         }
 
         return true
     }
 
-    private fun validateInput(view: View) : Boolean {
+    private fun validateInput() : Boolean {
+        val view = requireView()
         val nameView = view.findViewById<EditText>(R.id.NameInput)
 
         if (!validate(nameView)) {
@@ -145,12 +147,13 @@ class NewQuest : Fragment(R.layout.new_quest) {
         return true
     }
 
-    private fun setupConfirmButton(view: View) {
+    private fun setupConfirmButton() {
+        val view = requireView()
         val saveButton = view.findViewById<AppCompatButton>(R.id.ConfirmButton)
 
         saveButton.setOnClickListener {
-            if (validateInput(view)){
-                createQuest(view)
+            if (validateInput()){
+                createQuest()
                 NavHostFragment.findNavController(this)
                     .navigate(R.id.action_newQuest_to_questList)
                 Log.i(TAG, "Going from New Quest to Quest List")
@@ -158,9 +161,8 @@ class NewQuest : Fragment(R.layout.new_quest) {
         }
     }
 
-    private fun selectDefaultDifficulty(view: View) {
-        val difficultyButtonId = difficultyToButtonIdMap[defaultDifficulty]!!
-        setSelectedDifficulty(difficultyButtonId, view)
+    private fun selectDefaultDifficulty() {
+        setSelectedDifficulty(defaultDifficulty)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -168,10 +170,10 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
         lifecycleScope.launch {
             Log.i(TAG, "On New Quest page")
-            addNavigation(view)
-            setDifficultyButtonListeners(view)
-            setupConfirmButton(view)
-            selectDefaultDifficulty(view)
+            addNavigation()
+            setDifficultyButtonListeners()
+            setupConfirmButton()
+            selectDefaultDifficulty()
         }
     }
 }

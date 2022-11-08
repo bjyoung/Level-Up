@@ -85,7 +85,6 @@
         android:layout_height="@dimen/select_box_height"
         android:adjustViewBounds="false"
         android:contentDescription="@string/difficulty_select_box_content_description"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/EasyButton"
         app:layout_constraintEnd_toEndOf="@+id/EasyButton"
         app:layout_constraintStart_toStartOf="@+id/EasyButton"
