@@ -16,12 +16,11 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
+import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateName
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.time.Instant
 
-private const val MAX_QUEST_NAME_LENGTH = 40
-private val NAME_VALIDATION_REGEX = Regex("^[0-9a-zA-Z'\"!#$%&:?,.() @_+/*-]+$")
 private const val TAG = "NewQuest"
 
 @AndroidEntryPoint
@@ -51,7 +50,6 @@ class NewQuest : Fragment(R.layout.new_quest) {
         }
     }
 
-    // Move selected difficulty box to the given button
     private fun moveDifficultySelectBox(difficulty: Difficulty) {
         val view = requireView()
         val buttonId = difficultyToButtonIdMap[difficulty]!!
@@ -108,36 +106,11 @@ class NewQuest : Fragment(R.layout.new_quest) {
         viewModel.insert(quest)
     }
 
-    private fun validate(nameField : EditText) : Boolean {
-        val name = nameField.text.trim().toString()
-        val hasValidLength = name.length <= MAX_QUEST_NAME_LENGTH
-
-        if (name == "") {
-            return true
-        }
-
-        if (!hasValidLength) {
-            nameField.error = resources.getString(R.string.name_length_error)
-            Log.e(TAG, "New quest name is longer than 40 characters")
-            return false
-        }
-
-        val hasValidCharacters = NAME_VALIDATION_REGEX.matches(name)
-
-        if (!hasValidCharacters) {
-            nameField.error = resources.getString(R.string.name_invalid_char_error)
-            Log.e(TAG, "New quest name has invalid characters in it")
-            return false
-        }
-
-        return true
-    }
-
     private fun validateInput() : Boolean {
         val view = requireView()
         val nameView = view.findViewById<EditText>(R.id.NameInput)
 
-        if (!validate(nameView)) {
+        if (!validateName(nameView, TAG, this)) {
             return false
         }
 

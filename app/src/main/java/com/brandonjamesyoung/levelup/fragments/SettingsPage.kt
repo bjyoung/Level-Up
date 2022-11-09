@@ -15,12 +15,12 @@ import com.brandonjamesyoung.levelup.shared.Difficulty as DifficultyCode
 import com.brandonjamesyoung.levelup.data.Difficulty
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.shared.ToastHelper.Companion.showToast
+import com.brandonjamesyoung.levelup.validation.Validation
 import com.brandonjamesyoung.levelup.viewmodels.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateNumField
 
-private const val MAX_ACRONYM_LENGTH = 3
-private val ACRONYM_VALIDATION_REGEX = Regex("^[a-zA-Z]+$")
 private const val TAG = "SettingsPage"
 
 @AndroidEntryPoint
@@ -42,56 +42,12 @@ class SettingsPage : Fragment(R.layout.settings) {
         val button = view.findViewById<View>(R.id.SettingsCancelButton)
 
         button.setOnClickListener{
+            // TODO Settings should send player back to the page they came from
+            //  Default to questList page if no prev page is found
             NavHostFragment.findNavController(this)
                 .navigate(R.id.action_settings_to_questList)
             Log.i(TAG, "Going from Settings to Quest List")
         }
-    }
-
-    private fun isNumber(str : String) : Boolean {
-        return str.toIntOrNull() != null
-    }
-
-    private fun validateNumInput(
-        editText : EditText,
-        minNumber : Int? = null,
-        maxNumber : Int? = null,
-    ) : Boolean {
-        val textInput = editText.text.toString()
-
-        if (textInput.isBlank()) {
-            editText.error = resources.getString(R.string.not_a_number_error)
-            return false
-        }
-
-        if (!isNumber(textInput)) {
-            editText.error = resources.getString(R.string.not_a_number_error)
-            return false
-        }
-
-        val numInput = textInput.toInt()
-
-        if (minNumber != null && maxNumber != null && numInput !in minNumber..maxNumber) {
-            editText.error = resources.getString(
-                R.string.num_out_of_range_error,
-                minNumber,
-                maxNumber
-            )
-
-            return false
-        }
-
-        if (minNumber != null && maxNumber == null && numInput < minNumber) {
-            editText.error = resources.getString(R.string.num_too_small_error, minNumber)
-            return false
-        }
-
-        if (minNumber == null && maxNumber != null && numInput > maxNumber) {
-            editText.error = resources.getString(R.string.num_too_large_error, maxNumber)
-            return false
-        }
-
-        return true
     }
 
     private fun validateDifficultySettings() : Boolean {
@@ -111,7 +67,7 @@ class SettingsPage : Fragment(R.layout.settings) {
 
         for (id in difficultyInputIds) {
             val editText = view.findViewById<EditText>(id)
-            val isValid = validateNumInput(editText, 0, 9999)
+            val isValid = validateNumField(editText, 0, 9999, this)
             if (!isValid) difficultySettingsAreValid = false
         }
 
@@ -120,33 +76,14 @@ class SettingsPage : Fragment(R.layout.settings) {
 
     private fun validateAcronym() : Boolean {
         val view = requireView()
-        val editText : EditText = view.findViewById(R.id.PointsAcronymInput)
-        val textInput = editText.text.toString()
-
-        if (textInput.isBlank()) {
-            editText.error = resources.getString(R.string.no_acronym_error)
-            return false
-        }
-
-        val hasOnlyAlphabet = ACRONYM_VALIDATION_REGEX.matches(textInput)
-
-        if (!hasOnlyAlphabet) {
-            editText.error = resources.getString(R.string.only_alpha_allowed_error)
-            return false
-        }
-
-        if (textInput.length > MAX_ACRONYM_LENGTH) {
-            editText.error = resources.getString(R.string.three_characters_limit_error)
-            return false
-        }
-
-        return true
+        val acronymField : EditText = view.findViewById(R.id.PointsAcronymInput)
+        return Validation.validateAcronymField(acronymField, this)
     }
 
     private fun validateLvlUpBonus() : Boolean {
         val view = requireView()
         val lvlUpBonusInput = view.findViewById<EditText>(R.id.LevelUpBonusInput)
-        return validateNumInput(lvlUpBonusInput, 0, 999)
+        return validateNumField(lvlUpBonusInput, 0, 999, this)
     }
 
     private fun validateInput() : Boolean {
@@ -157,23 +94,22 @@ class SettingsPage : Fragment(R.layout.settings) {
     }
 
     private fun saveSettings() {
-        val view = requireView()
-
-        val difficultyInputMap = listOf(
-            Triple(DifficultyCode.EASY, R.id.EasyExpInput, R.id.EasyRtInput),
-            Triple(DifficultyCode.MEDIUM, R.id.MediumExpInput, R.id.MediumRtInput),
-            Triple(DifficultyCode.HARD, R.id.HardExpInput, R.id.HardRtInput),
-            Triple(DifficultyCode.EXPERT, R.id.ExpertExpInput, R.id.ExpertRtInput)
+        val difficultyInputMap = mapOf(
+            DifficultyCode.EASY to Pair(R.id.EasyExpInput, R.id.EasyRtInput),
+            DifficultyCode.MEDIUM to Pair(R.id.MediumExpInput, R.id.MediumRtInput),
+            DifficultyCode.HARD to Pair(R.id.HardExpInput, R.id.HardRtInput),
+            DifficultyCode.EXPERT to Pair(R.id.ExpertExpInput, R.id.ExpertRtInput)
         )
 
+        val view = requireView()
         val newDifficulties = mutableListOf<Difficulty>()
 
-        for (triple in difficultyInputMap) {
-            val expInput : EditText = view.findViewById(triple.second)
-            val rtInput : EditText = view.findViewById(triple.third)
+        for ((code, inputIdPair) in difficultyInputMap) {
+            val expInput : EditText = view.findViewById(inputIdPair.first)
+            val rtInput : EditText = view.findViewById(inputIdPair.second)
 
             val newDifficulty = Difficulty(
-                code = triple.first,
+                code = code,
                 expReward = Integer.parseInt(expInput.text.toString()),
                 rtReward = Integer.parseInt(rtInput.text.toString())
             )
@@ -256,8 +192,6 @@ class SettingsPage : Fragment(R.layout.settings) {
             return
         }
 
-        val view = this.requireView()
-
         val rtLabelIds = listOf(
             R.id.EasyRtLabel,
             R.id.MediumRtLabel,
@@ -265,6 +199,8 @@ class SettingsPage : Fragment(R.layout.settings) {
             R.id.ExpertRtLabel,
             R.id.LevelUpBonusRtLabel
         )
+
+        val view = this.requireView()
 
         for (id in rtLabelIds) {
             val rtLabel = view.findViewById<TextView>(id)

@@ -99,7 +99,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         questListViewModel.completeQuests(selectedQuestIds.toSet())
         mode.value = Mode.DEFAULT
         // TODO show toast of exp and rt earned
-//        showToast("Earned $expEarned exp and $rtEarned RT")
     }
 
     private fun deleteQuests() {
