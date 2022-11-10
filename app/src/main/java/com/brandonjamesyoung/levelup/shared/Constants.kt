@@ -11,6 +11,18 @@ enum class Difficulty {
     EASY, MEDIUM, HARD, EXPERT
 }
 
+const val INIT_EASY_EXP = 100
+const val INIT_EASY_POINTS = 1
+
+const val INIT_MEDIUM_EXP = 250
+const val INIT_MEDIUM_POINTS = 3
+
+const val INIT_HARD_EXP = 600
+const val INIT_HARD_POINTS = 6
+
+const val INIT_EXPERT_EXP = 1500
+const val INIT_EXPERT_POINTS = 12
+
 enum class FontSize {
     SMALL, MEDIUM, LARGE
 }

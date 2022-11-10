@@ -5,7 +5,7 @@ import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.brandonjamesyoung.levelup.data.Migration.Companion.MIGRATION_3_4
 import com.brandonjamesyoung.levelup.data.Migration.Companion.MIGRATION_4_5
-import com.brandonjamesyoung.levelup.shared.DATABASE_NAME
+import com.brandonjamesyoung.levelup.shared.*
 import kotlinx.coroutines.*
 import com.brandonjamesyoung.levelup.shared.Difficulty.EASY
 import com.brandonjamesyoung.levelup.shared.Difficulty.MEDIUM
@@ -71,10 +71,31 @@ abstract class AppDatabase : RoomDatabase() {
                 playerDao.insert(initPlayer)
                 val initSettings = Settings()
                 settingsDao.insert(initSettings)
-                val easy = Difficulty(code = EASY, expReward = 100, rtReward = 1)
-                val medium = Difficulty(code = MEDIUM, expReward = 250, rtReward = 3)
-                val hard = Difficulty(code = HARD, expReward = 600, rtReward = 6)
-                val expert = Difficulty(code = EXPERT, expReward = 1500, rtReward = 12)
+
+                val easy = Difficulty(
+                    code = EASY,
+                    expReward = INIT_EASY_EXP,
+                    rtReward = INIT_EASY_POINTS
+                )
+
+                val medium = Difficulty(
+                    code = MEDIUM,
+                    expReward = INIT_MEDIUM_EXP,
+                    rtReward = INIT_MEDIUM_POINTS
+                )
+
+                val hard = Difficulty(
+                    code = HARD,
+                    expReward = INIT_HARD_EXP,
+                    rtReward = INIT_HARD_POINTS
+                )
+
+                val expert = Difficulty(
+                    code = EXPERT,
+                    expReward = INIT_EXPERT_EXP,
+                    rtReward = INIT_EXPERT_POINTS
+                )
+
                 val difficulties = listOf(easy, medium, hard, expert)
 
                 for (difficulty in difficulties) {
