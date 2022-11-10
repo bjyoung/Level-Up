@@ -316,7 +316,6 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun updateUsername(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
-        val lvlLabel = getString(R.string.level_label)
         val name: String
         val lvlStr: String
 
@@ -328,8 +327,9 @@ class QuestList : Fragment(R.layout.quest_list) {
             lvlStr = placeholderText
         }
 
+        val levelHeader = getString(R.string.username_level_header, lvlStr, name)
         val usernameView = view.findViewById<TextView>(R.id.Username)
-        usernameView.text = "$lvlLabel $lvlStr $name"
+        usernameView.text = levelHeader
     }
 
     private fun updatePoints(view: View, player: Player?) {

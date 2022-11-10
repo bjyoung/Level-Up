@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/press_start_2p"
-        android:text="@string/username_level_header"
+        android:text="@string/username_level_header_placeholder"
         android:textColor="@color/text_primary"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/QuestListTopGuideline"
