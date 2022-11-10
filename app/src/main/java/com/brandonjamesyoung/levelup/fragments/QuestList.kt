@@ -2,6 +2,7 @@ package com.brandonjamesyoung.levelup.fragments
 
 import android.animation.ObjectAnimator
 import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -70,10 +71,49 @@ class QuestList : Fragment(R.layout.quest_list) {
         return selectedQuestIds.contains(questId)
     }
 
+    private fun getDrawable(drawableId: Int) : Drawable? {
+        val view = requireView()
+        return ResourcesCompat.getDrawable(resources, drawableId, view.context.theme)
+    }
+
+    private fun getColor(colorId: Int) : Int {
+        val view = requireView()
+        return resources.getColor(colorId, view.context.theme)
+    }
+
+    // Change given button's icon and on click method
+    private fun convertButton(
+        targetId: Int,
+        drawableId: Int = R.drawable.question_mark_icon,
+        drawableColorId: Int = R.color.icon_primary,
+        buttonMethod: () -> Unit
+    ) {
+        val view = this.requireView()
+        val button = view.findViewById<FloatingActionButton>(targetId)
+        val drawable = getDrawable(drawableId)
+        button.setImageDrawable(drawable)
+        val drawableColor = getColor(drawableColorId)
+        button.imageTintList = ColorStateList.valueOf(drawableColor)
+
+        button.setOnClickListener{
+            buttonMethod()
+        }
+    }
+
     private fun completeQuests() {
         questListViewModel.completeQuests(selectedQuestIds.toSet())
         mode.value = Mode.DEFAULT
         // TODO show toast of exp and rt earned
+    }
+
+    // Change New Quest button to Complete Quests button
+    private fun activateCompleteQuestsButton() {
+        convertButton(
+            targetId = R.id.AddNewQuestButton,
+            drawableId = R.drawable.check_icon_green,
+            drawableColorId = R.color.confirm,
+            buttonMethod = ::completeQuests
+        )
     }
 
     private fun deleteQuests() {
@@ -81,54 +121,14 @@ class QuestList : Fragment(R.layout.quest_list) {
         mode.value = Mode.DEFAULT
     }
 
-    // Change New Quest button to Complete Quests button
-    private fun activateCompleteQuestsButton() {
-        val view = this.requireView()
-        val newQuestButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
-
-        val checkIcon = ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.check_icon_green,
-            view.context.theme
-        )
-
-        newQuestButton.setImageDrawable(checkIcon)
-
-        val confirmColor : Int = resources.getColor(
-            R.color.confirm,
-            view.context.theme
-        )
-
-        newQuestButton.imageTintList = ColorStateList.valueOf(confirmColor)
-
-        newQuestButton.setOnClickListener{
-            completeQuests()
-        }
-    }
-
     // Change Shop button to Delete button
     private fun activateDeleteButton() {
-        val view = requireView()
-        val shopButton = view.findViewById<FloatingActionButton>(R.id.ShopButton)
-
-        val deleteIcon = ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.trash_bin_icon,
-            view.context.theme
+        convertButton(
+            targetId = R.id.ShopButton,
+            drawableId = R.drawable.trash_bin_icon,
+            drawableColorId = R.color.cancel,
+            buttonMethod = ::deleteQuests
         )
-
-        shopButton.setImageDrawable(deleteIcon)
-
-        val deleteColor : Int = resources.getColor(
-            R.color.cancel,
-            view.context.theme
-        )
-
-        shopButton.imageTintList = ColorStateList.valueOf(deleteColor)
-
-        shopButton.setOnClickListener{
-            deleteQuests()
-        }
     }
 
     private fun cancelSelectedQuests() {
@@ -145,27 +145,12 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     // Switch Settings button to Cancel button
     private fun activateCancelButton() {
-        val view = requireView()
-        val settingsButton = view.findViewById<FloatingActionButton>(R.id.SettingsButton)
-
-        val cancelIcon = ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.cancel_icon,
-            view.context.theme
+        convertButton(
+            targetId = R.id.SettingsButton,
+            drawableId = R.drawable.cancel_icon,
+            drawableColorId = R.color.icon_primary,
+            buttonMethod = ::cancelSelectedQuests
         )
-
-        settingsButton.setImageDrawable(cancelIcon)
-
-        val primaryIconColor : Int = resources.getColor(
-            R.color.icon_primary,
-            view.context.theme
-        )
-
-        settingsButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
-
-        settingsButton.setOnClickListener{
-            cancelSelectedQuests()
-        }
     }
 
     private fun activateSelectMode() {
@@ -174,84 +159,49 @@ class QuestList : Fragment(R.layout.quest_list) {
         activateCancelButton()
     }
 
+    private fun setupNewQuestNavigation() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_questList_to_newQuest)
+        Log.i(TAG, "Going from Quest List to New Quest")
+    }
+
     // Change Complete Quests button to New Quest button
     private fun activateNewQuestButton() {
-        val view = this.requireView()
-        val completeQuestsButton = view.findViewById<FloatingActionButton>(R.id.AddNewQuestButton)
-
-        val newQuestIcon = ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.plus_icon,
-            view.context.theme
+        convertButton(
+            targetId = R.id.AddNewQuestButton,
+            drawableId = R.drawable.plus_icon,
+            drawableColorId = R.color.icon_primary,
+            buttonMethod = ::setupNewQuestNavigation
         )
+    }
 
-        completeQuestsButton.setImageDrawable(newQuestIcon)
-
-        val primaryIconColor : Int = resources.getColor(
-            R.color.icon_primary,
-            view.context.theme
-        )
-
-        completeQuestsButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
-
-        completeQuestsButton.setOnClickListener{
-            NavHostFragment.findNavController(this)
-                .navigate(R.id.action_questList_to_newQuest)
-            Log.i(TAG, "Going from Quest List to New Quest")
-        }
+    private fun setupShopNavigation() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_questList_to_shop)
+        Log.i(TAG, "Going from Quest List to Shop")
     }
 
     // Change Delete button to Shop button
     private fun activateShopButton() {
-        val view = requireView()
-        val deleteButton = view.findViewById<FloatingActionButton>(R.id.ShopButton)
-
-        val shopIcon = ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.star_icon,
-            view.context.theme
+        convertButton(
+            targetId = R.id.ShopButton,
+            drawableId = R.drawable.star_icon,
+            drawableColorId = R.color.icon_primary,
+            buttonMethod = ::setupShopNavigation
         )
+    }
 
-        deleteButton.setImageDrawable(shopIcon)
-
-        val primaryIconColor : Int = resources.getColor(
-            R.color.icon_primary,
-            view.context.theme
-        )
-
-        deleteButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
-
-        deleteButton.setOnClickListener{
-            NavHostFragment.findNavController(this).navigate(R.id.action_questList_to_shop)
-            Log.i(TAG, "Going from Quest List to Shop")
-        }
+    private fun setupSettingsNavigation() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_questList_to_settings)
+        Log.i(TAG, "Going from Quest List to Settings")
     }
 
     // Change Cancel button to the Settings button
     private fun activateSettingsButton() {
-        val view = requireView()
-        val settingsButton = view.findViewById<FloatingActionButton>(R.id.SettingsButton)
-
-        val gearIcon = ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.gear_icon,
-            view.context.theme
+        convertButton(
+            targetId = R.id.SettingsButton,
+            drawableId = R.drawable.gear_icon,
+            drawableColorId = R.color.icon_primary,
+            buttonMethod = ::setupSettingsNavigation
         )
-
-        settingsButton.setImageDrawable(gearIcon)
-
-        val primaryIconColor : Int = resources.getColor(
-            R.color.icon_primary,
-            view.context.theme
-        )
-
-        settingsButton.imageTintList = ColorStateList.valueOf(primaryIconColor)
-
-        settingsButton.setOnClickListener{
-            NavHostFragment.findNavController(this)
-                .navigate(R.id.action_questList_to_settings)
-            Log.i(TAG, "Going from Quest List to Settings")
-        }
     }
 
     private fun activateDefaultMode() {
@@ -264,18 +214,11 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun selectQuestIcon(questId: Int, icon: FloatingActionButton, iconFileName: String) {
         val view = requireView()
-        val context = view.context
 
         if (!isSelected(questId)) {
             selectedQuestIds.add(questId)
             selectedQuestIconIds.add(icon.id)
-
-            val selectIcon = ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.check_icon_green,
-                context.theme
-            )
-
+            val selectIcon = getDrawable(R.drawable.check_icon_green)
             icon.setImageDrawable(selectIcon)
         } else {
             selectedQuestIds.remove(questId)
