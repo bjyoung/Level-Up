@@ -26,9 +26,7 @@ class SettingsViewModel @Inject constructor(
     val difficulties: LiveData<List<Difficulty>> = difficultyRepository.observeAll().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
-    fun update(newSettings: Settings, newDifficulties: List<Difficulty>) = viewModelScope.launch(
-        ioDispatcher
-    ) {
+    private suspend fun updateSettings(newSettings: Settings) {
         val currSettings = settingsRepository.get()
         val oldAcronym = currSettings.pointsAcronym
         val newAcronym = newSettings.pointsAcronym
@@ -39,8 +37,8 @@ class SettingsViewModel @Inject constructor(
 
         if (currSettings.lvlUpBonus != newSettings.lvlUpBonus) {
             Log.i(TAG, "Update level up bonus" +
-                " from ${currSettings.lvlUpBonus} $oldAcronym" +
-                " to ${newSettings.lvlUpBonus} $newAcronym"
+                    " from ${currSettings.lvlUpBonus} $oldAcronym" +
+                    " to ${newSettings.lvlUpBonus} $newAcronym"
             )
         }
 
@@ -50,6 +48,13 @@ class SettingsViewModel @Inject constructor(
         }
 
         settingsRepository.update(currSettings)
+    }
+
+    private suspend fun updateDifficulties(
+        newDifficulties: List<Difficulty>,
+        oldAcronym: String,
+        newAcronym: String
+    ) {
         val currDifficulties = difficultyRepository.getAll()
 
         for (newDifficulty in newDifficulties) {
@@ -59,15 +64,15 @@ class SettingsViewModel @Inject constructor(
 
             if (currDifficulty != null && currDifficulty.expReward != newDifficulty.expReward) {
                 Log.i(TAG, "Update ${currDifficulty.code} quests reward" +
-                    " from ${currDifficulty.expReward} exp" +
-                    " to ${newDifficulty.expReward} exp"
+                        " from ${currDifficulty.expReward} exp" +
+                        " to ${newDifficulty.expReward} exp"
                 )
             }
 
             if (currDifficulty != null && currDifficulty.rtReward != newDifficulty.rtReward) {
                 Log.i(TAG, "Update ${currDifficulty.code} quests reward" +
-                    " from ${currDifficulty.rtReward} $oldAcronym" +
-                    " to ${newDifficulty.rtReward} $newAcronym"
+                        " from ${currDifficulty.rtReward} $oldAcronym" +
+                        " to ${newDifficulty.rtReward} $newAcronym"
                 )
             }
 
@@ -78,5 +83,15 @@ class SettingsViewModel @Inject constructor(
         }
 
         difficultyRepository.update(currDifficulties)
+    }
+
+    fun update(newSettings: Settings, newDifficulties: List<Difficulty>) = viewModelScope.launch(
+        ioDispatcher
+    ) {
+        updateSettings(newSettings)
+        val currSettings = settingsRepository.get()
+        val oldAcronym = currSettings.pointsAcronym
+        val newAcronym = newSettings.pointsAcronym
+        updateDifficulties(newDifficulties, oldAcronym, newAcronym)
     }
 }
