@@ -86,8 +86,6 @@ class QuestListViewModel @Inject constructor(
     fun completeQuests(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         val difficulties = questRepository.getDifficulties(ids)
         val (expEarned, rtEarned) = calculateRewards(difficulties)
-
-        // Update player level based on exp earned
         var player = playerRepository.get()
         var expLeft = expEarned
         var numLoops = 0
@@ -112,7 +110,7 @@ class QuestListViewModel @Inject constructor(
         }
 
         playerRepository.update(player)
-        questRepository.delete(ids)
+        deleteQuests(ids)
         val numQuestsCompleted = ids.count()
 
         Log.i(TAG, "Player completes $numQuestsCompleted quest(s) " +
