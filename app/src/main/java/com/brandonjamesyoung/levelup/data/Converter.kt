@@ -3,7 +3,7 @@ package com.brandonjamesyoung.levelup.data
 import androidx.room.TypeConverter
 import java.time.Instant
 
-class Converters {
+class Converter {
     @TypeConverter
     fun toInstant(str: String?): Instant? {
         return if (str != null) Instant.parse(str) else null

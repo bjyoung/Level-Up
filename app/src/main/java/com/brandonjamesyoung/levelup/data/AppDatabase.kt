@@ -25,7 +25,7 @@ import com.brandonjamesyoung.levelup.shared.Difficulty.EXPERT
         AutoMigration (from = 9, to = 10),
     ],
 )
-@TypeConverters(Converters::class)
+@TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun questDao(): QuestDao
     abstract fun playerDao(): PlayerDao
