@@ -169,39 +169,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Icon"
         app:srcCompat="@drawable/question_mark_icon" />
 
-    <Button
-        android:id="@+id/CancelButton"
-        android:layout_width="@dimen/action_button_width"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
-        android:contentDescription="@string/cancel_button_content_description"
-        app:cornerRadius="0dp"
-        app:icon="@drawable/times_icon_red"
-        app:iconGravity="textStart"
-        app:iconSize="24dp"
-        app:iconTint="@color/cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/NewQuestBottomGuideline" />
-
-    <Button
-        android:id="@+id/ConfirmButton"
-        android:layout_width="@dimen/action_button_width"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
-        android:contentDescription="@string/confirm_button_content_description"
-        app:cornerRadius="0dp"
-        app:icon="@drawable/check_icon_green"
-        app:iconGravity="textStart"
-        app:iconSize="24dp"
-        app:iconTint="@color/confirm"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/CancelButton"
-        app:layout_constraintTop_toTopOf="@+id/NewQuestBottomGuideline" />
+    <include layout="@layout/save_button_set" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/NewQuestTopGuideline"

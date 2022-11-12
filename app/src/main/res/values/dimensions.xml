@@ -24,4 +24,5 @@
 
     <!-- Settings -->
     <dimen name="difficulty_button_small_height">36dp</dimen>
+    <dimen name="backup_button_width">338dp</dimen>
 </resources>

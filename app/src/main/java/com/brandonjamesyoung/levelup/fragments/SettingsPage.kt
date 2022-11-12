@@ -39,7 +39,7 @@ class SettingsPage : Fragment(R.layout.settings) {
 
     private fun setupCancelButton() {
         val view = requireView()
-        val button = view.findViewById<View>(R.id.SettingsCancelButton)
+        val button = view.findViewById<View>(R.id.CancelButton)
 
         button.setOnClickListener{
             // TODO Settings should send player back to the page they came from
@@ -131,7 +131,7 @@ class SettingsPage : Fragment(R.layout.settings) {
 
     private fun setupConfirmButton() {
         val view = requireView()
-        val confirmButton = view.findViewById<Button>(R.id.SettingsConfirmButton)
+        val confirmButton = view.findViewById<Button>(R.id.ConfirmButton)
 
         confirmButton.setOnClickListener{
             if (validateInput()) {
