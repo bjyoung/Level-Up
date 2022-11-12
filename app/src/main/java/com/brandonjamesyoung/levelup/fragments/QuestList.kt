@@ -242,6 +242,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         val name = questName ?: resources.getString(R.string.placeholder_text)
         val iconName = questIconFileName ?: "question_mark_icon"
+        val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
 
         val newCard = createQuestCard(
             questId = questId,
@@ -249,11 +250,12 @@ class QuestList : Fragment(R.layout.quest_list) {
             questColorId = difficultyColorId,
             questIconFileName = iconName,
             iconClickMethod = ::selectQuestIcon,
+            parentLayout = questListLayout,
+            inflater = layoutInflater,
             view = view,
             fragment = this
         )
 
-        val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
         questListLayout.addView(newCard)
     }
 
