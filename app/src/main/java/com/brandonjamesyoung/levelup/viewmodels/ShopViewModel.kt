@@ -14,7 +14,9 @@ private const val TAG = "ShopViewModel"
 @HiltViewModel
 class ShopViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
+    val player: LiveData<Player> = playerRepository.observe().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 }

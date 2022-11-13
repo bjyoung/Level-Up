@@ -35,14 +35,14 @@
         android:contentDescription="@string/quest_list_button_description"
         android:gravity="center"
         app:fabCustomSize="@dimen/round_button"
-        app:layout_constraintBottom_toBottomOf="@+id/NewItemButton"
+        app:layout_constraintBottom_toBottomOf="@+id/AddNewItemButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/ShopRightGuideline"
-        app:layout_constraintTop_toTopOf="@+id/NewItemButton"
+        app:layout_constraintTop_toTopOf="@+id/AddNewItemButton"
         app:srcCompat="@drawable/bullet_list_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/NewItemButton"
+        android:id="@+id/AddNewItemButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/background_secondary"
@@ -72,7 +72,7 @@
         app:srcCompat="@drawable/gear_icon" />
 
     <TextView
-        android:id="@+id/pointsLabel"
+        android:id="@+id/ShopPointsLabel"
         android:layout_width="30dp"
         android:layout_height="0dp"
         android:autofillHints="points"
@@ -90,15 +90,15 @@
         app:layout_constraintTop_toTopOf="@+id/ShopLabel" />
 
     <TextView
-        android:id="@+id/pointsAmount"
+        android:id="@+id/ShopPointsAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/points_amount"
         android:textColor="@color/text_primary"
-        app:layout_constraintEnd_toEndOf="@+id/pointsLabel"
-        app:layout_constraintStart_toStartOf="@+id/pointsLabel"
-        app:layout_constraintTop_toBottomOf="@+id/pointsLabel" />
+        app:layout_constraintEnd_toEndOf="@+id/ShopPointsLabel"
+        app:layout_constraintStart_toStartOf="@+id/ShopPointsLabel"
+        app:layout_constraintTop_toBottomOf="@+id/ShopPointsLabel" />
 
     <TextView
         android:id="@+id/ShopLabel"
