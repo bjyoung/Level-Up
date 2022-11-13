@@ -7,14 +7,160 @@
     android:background="@color/background_primary">
 
     <TextView
+        android:id="@+id/ShopNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/name_label"
+        android:textColor="@color/text_primary"
+        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
+        app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
+
+    <TextView
+        android:id="@+id/PriceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/price_column_label"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
+        app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/QuestListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/background_secondary"
+        android:clickable="true"
+        android:contentDescription="@string/quest_list_button_description"
+        android:gravity="center"
+        app:fabCustomSize="@dimen/round_button"
+        app:layout_constraintBottom_toBottomOf="@+id/NewItemButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ShopRightGuideline"
+        app:layout_constraintTop_toTopOf="@+id/NewItemButton"
+        app:srcCompat="@drawable/bullet_list_icon" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/NewItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/background_secondary"
+        android:clickable="true"
+        android:contentDescription="@string/new_item_button_description"
+        android:gravity="center"
+        app:fabCustomSize="@dimen/round_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ShopLeftGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ShopBottomGuideline"
+        app:srcCompat="@drawable/plus_icon" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ShopSettingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/background_secondary"
+        android:clickable="true"
+        android:contentDescription="@string/settings_button_description"
+        android:gravity="center"
+        app:fabCustomSize="@dimen/round_button"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintEnd_toEndOf="@+id/QuestListButton"
+        app:layout_constraintStart_toStartOf="@+id/QuestListButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/gear_icon" />
+
+    <TextView
+        android:id="@+id/pointsLabel"
+        android:layout_width="30dp"
+        android:layout_height="0dp"
+        android:autofillHints="points"
+        android:ems="10"
+        android:fontFamily="@font/press_start_2p"
+        android:hint="@string/placeholder_text"
+        android:minHeight="48dp"
+        android:text="@string/points_acronym"
+        android:textAlignment="center"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ShopLabel"
+        app:layout_constraintEnd_toStartOf="@+id/ShopLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ShopLabel" />
+
+    <TextView
+        android:id="@+id/pointsAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/points_amount"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toEndOf="@+id/pointsLabel"
+        app:layout_constraintStart_toStartOf="@+id/pointsLabel"
+        app:layout_constraintTop_toBottomOf="@+id/pointsLabel" />
+
+    <TextView
         android:id="@+id/ShopLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/screen_padding"
         android:fontFamily="@font/press_start_2p"
         android:text="@string/shop_label"
         android:textColor="@color/text_primary"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ShopTopGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ShopBottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9001368" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ShopLeftGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ShopRightGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.84" />
+
+    <ImageView
+        android:id="@+id/NameSortIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/table_icon_padding"
+        android:background="@drawable/down_arrow_icon"
+        android:backgroundTint="@color/white"
+        android:contentDescription="@string/name_sort_icon_content_description"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/ShopNameLabel"
+        app:layout_constraintStart_toEndOf="@+id/ShopNameLabel"
+        app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
+
+    <View
+        android:id="@+id/TableDivider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        app:layout_constraintBottom_toBottomOf="@+id/PriceLabel"
+        app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/PriceLabel" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

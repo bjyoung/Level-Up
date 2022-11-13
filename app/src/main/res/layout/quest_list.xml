@@ -33,12 +33,10 @@
         android:contentDescription="@string/settings_button_description"
         android:gravity="center"
         app:fabCustomSize="@dimen/round_button"
-        app:layout_constraintBottom_toTopOf="@+id/QuestListBottomGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/QuestListTopGuideline"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/gear_icon" />
 
     <TextView

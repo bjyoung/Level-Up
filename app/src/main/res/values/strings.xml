@@ -28,13 +28,6 @@
     <string name="confirm_button_content_description">Green check</string>
     <string name="difficulty_select_box_content_description">White box</string>
 
-    <!-- Shop strings -->
-    <string name="shop_label">Shop</string>
-    <string name="price_column_label">Price</string>
-    <string name="points_amount">0</string>
-    <string name="points_acronym">RT</string>
-    <string name="points_acronym_default">RT</string>
-
     <!-- New Item strings -->
     <string name="new_item_label">New Item</string>
     <string name="cost_input_label">Cost (%1$s)</string>
@@ -77,4 +70,14 @@
     <string name="no_acronym_error">Please input an acronym</string>
     <string name="only_alpha_allowed_error">Only alphabet characters are allowed</string>
     <string name="three_characters_limit_error">Must be 3 characters or less</string>
+
+    <!-- Shop strings -->
+    <string name="shop_label">Shop</string>
+    <string name="price_column_label">Price</string>
+    <string name="points_amount">0</string>
+    <string name="points_acronym">RT</string>
+    <string name="points_acronym_default">RT</string>
+    <string name="name_sort_icon_content_description">White arrow pointing down</string>
+    <string name="quest_list_button_description">Navigate to the Quest List page</string>
+    <string name="new_item_button_description">Navigate to the New Item page</string>
 </resources>

@@ -25,4 +25,7 @@
     <!-- Settings -->
     <dimen name="difficulty_button_small_height">36dp</dimen>
     <dimen name="backup_button_width">338dp</dimen>
+
+    <!-- Shop -->
+    <dimen name="table_icon_padding">5dp</dimen>
 </resources>
