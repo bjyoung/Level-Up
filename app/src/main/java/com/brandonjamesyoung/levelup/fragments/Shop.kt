@@ -24,8 +24,8 @@ class Shop : Fragment(R.layout.shop) {
 
     private fun addNavigation(view: View) {
         val buttonNavMap = mapOf(
-//            R.id.AddNewItemButton to
-//                    Pair(R.id.action_shop_to_newItem, "Going from Shop to New Item"),
+            R.id.AddNewItemButton to
+                    Pair(R.id.action_shop_to_newItem, "Going from Shop to New Item"),
             R.id.QuestListButton to
                     Pair(R.id.action_shop_to_questList, "Going from Shop to Quest List"),
             R.id.ShopSettingsButton to
