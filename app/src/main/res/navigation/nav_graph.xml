@@ -76,5 +76,25 @@
             app:exitAnim="@anim/slide_out_down_left"
             app:popEnterAnim="@anim/slide_in_up_right"
             app:popExitAnim="@anim/slide_out_up_right" />
+        <action
+            android:id="@+id/action_shop_to_newItem"
+            app:destination="@id/newItem"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/newItem"
+        android:name="com.brandonjamesyoung.levelup.fragments.NewItem"
+        android:label="NewItem"
+        tools:layout="@layout/new_item" >
+        <action
+            android:id="@+id/action_newItem_to_shop"
+            app:destination="@id/shop"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 </navigation>

@@ -28,4 +28,8 @@
 
     <!-- Shop -->
     <dimen name="table_icon_padding">5dp</dimen>
+
+    <!-- New Item -->
+    <dimen name="label_field_padding">8dp</dimen>
+    <dimen name="inter_input_padding_large">40dp</dimen>
 </resources>

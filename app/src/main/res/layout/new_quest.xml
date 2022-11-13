@@ -37,7 +37,7 @@
         android:fontFamily="@font/press_start_2p"
         android:text="@string/new_quest_label"
         android:textColor="@color/text_primary"
-        app:layout_constraintBottom_toTopOf="@+id/NewQuestTopGuideline"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,12 +50,10 @@
         android:text="@string/name_label"
         android:textColor="@color/text_primary"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/NewQuestBottomGuideline"
         app:layout_constraintEnd_toEndOf="@+id/NameInput"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/NameInput"
-        app:layout_constraintTop_toTopOf="@+id/NewQuestTopGuideline"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline" />
 
     <EditText
         android:id="@+id/NameInput"
@@ -172,14 +170,14 @@
     <include layout="@layout/save_button_set" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/NewQuestTopGuideline"
+        android:id="@+id/NewItemTopGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/NewQuestBottomGuideline"
+        android:id="@+id/NewItemBottomGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

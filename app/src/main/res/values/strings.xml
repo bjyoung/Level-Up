@@ -28,10 +28,6 @@
     <string name="confirm_button_content_description">Green check</string>
     <string name="difficulty_select_box_content_description">White box</string>
 
-    <!-- New Item strings -->
-    <string name="new_item_label">New Item</string>
-    <string name="cost_input_label">Cost (%1$s)</string>
-
     <!-- Difficulty strings -->
     <string name="easy_label">Easy</string>
     <string name="medium_label">Medium</string>
@@ -80,4 +76,10 @@
     <string name="name_sort_icon_content_description">White arrow pointing down</string>
     <string name="quest_list_button_description">Navigate to the Quest List page</string>
     <string name="new_item_button_description">Navigate to the New Item page</string>
+
+    <!-- New Item strings -->
+    <string name="new_item_label">New Item</string>
+    <string name="cost_input_label">Cost</string>
+    <string name="cost_input_hint">15</string>
+    <string name="cost_input_autofill_hint">costInput</string>
 </resources>
