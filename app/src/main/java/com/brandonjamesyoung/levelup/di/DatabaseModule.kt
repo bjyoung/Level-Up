@@ -39,4 +39,9 @@ class DatabaseModule {
     fun provideDifficultyDao(appDatabase: AppDatabase): DifficultyDao {
         return appDatabase.difficultyDao()
     }
+
+    @Provides
+    fun provideItemDao(appDatabase: AppDatabase): ItemDao {
+        return appDatabase.itemDao()
+    }
 }

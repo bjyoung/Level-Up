@@ -13,8 +13,8 @@ import com.brandonjamesyoung.levelup.shared.Difficulty.HARD
 import com.brandonjamesyoung.levelup.shared.Difficulty.EXPERT
 
 @Database(
-    entities = [Quest::class, Player::class, Settings::class, Difficulty::class],
-    version = 10,
+    entities = [Quest::class, Player::class, Settings::class, Difficulty::class, Item::class],
+    version = 11,
     autoMigrations = [
         AutoMigration (from = 1, to = 2),
         AutoMigration (from = 2, to = 3),
@@ -23,6 +23,7 @@ import com.brandonjamesyoung.levelup.shared.Difficulty.EXPERT
         AutoMigration (from = 7, to = 8, spec = Migration.MigrationSpec7To8::class),
         AutoMigration (from = 8, to = 9),
         AutoMigration (from = 9, to = 10),
+        AutoMigration (from = 10, to = 11)
     ],
 )
 @TypeConverters(Converter::class)
@@ -31,6 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun playerDao(): PlayerDao
     abstract fun settingsDao(): SettingsDao
     abstract fun difficultyDao(): DifficultyDao
+    abstract fun itemDao(): ItemDao
 
     companion object {
         @Volatile private var instance: AppDatabase? = null
