@@ -56,6 +56,13 @@
             app:exitAnim="@anim/slide_out_up"
             app:popEnterAnim="@anim/slide_in_down"
             app:popExitAnim="@anim/slide_out_down" />
+        <action
+            android:id="@+id/action_settings_to_shop"
+            app:destination="@id/shop"
+            app:enterAnim="@anim/slide_in_up_right"
+            app:exitAnim="@anim/slide_out_up_right"
+            app:popEnterAnim="@anim/slide_in_down_left"
+            app:popExitAnim="@anim/slide_out_down_left"/>
     </fragment>
     <fragment
         android:id="@+id/shop"

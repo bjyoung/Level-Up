@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
@@ -37,16 +38,30 @@ class SettingsPage : Fragment(R.layout.settings) {
         }
     }
 
+    private fun navigateToQuestList() {
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_settings_to_questList)
+        Log.i(TAG, "Going from Settings to Quest List")
+    }
+
+    private fun navigateToShop() {
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_settings_to_shop)
+        Log.i(TAG, "Going from Settings to Shop")
+    }
+
     private fun setupCancelButton() {
         val view = requireView()
         val button = view.findViewById<View>(R.id.CancelButton)
 
         button.setOnClickListener{
-            // TODO Settings should send player back to the page they came from
-            //  Default to questList page if no prev page is found
-            NavHostFragment.findNavController(this)
-                .navigate(R.id.action_settings_to_questList)
-            Log.i(TAG, "Going from Settings to Quest List")
+            setFragmentResultListener("PREV_FRAGMENT") { _, bundle ->
+                when (bundle.getInt("FRAGMENT_ID")) {
+                    R.id.QuestList -> navigateToQuestList()
+                    R.id.Shop -> navigateToShop()
+                    else -> navigateToQuestList()
+                }
+            }
         }
     }
 

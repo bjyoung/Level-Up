@@ -10,8 +10,10 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -361,6 +363,11 @@ class QuestList : Fragment(R.layout.quest_list) {
             Log.i(TAG, "On Quest List page")
             addNavigation(view)
             setupObservables(view)
+
+            setFragmentResult(
+                "PREV_FRAGMENT",
+                bundleOf("FRAGMENT_ID" to R.id.QuestList)
+            )
         }
     }
 }

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -93,6 +95,11 @@ class Shop : Fragment(R.layout.shop) {
             Log.i(TAG, "On Quest List page")
             addNavigation(view)
             setupObservables(view)
+
+            setFragmentResult(
+                "PREV_FRAGMENT",
+                bundleOf("FRAGMENT_ID" to R.id.Shop)
+            )
         }
     }
 }
