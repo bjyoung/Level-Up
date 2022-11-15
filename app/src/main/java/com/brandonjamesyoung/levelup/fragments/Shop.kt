@@ -47,11 +47,11 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun activateDefaultMode() {
-        Log.i(TAG, "Not implemented yet")
+        Log.i(TAG, "activateDefaultMode(): Not implemented yet")
     }
 
     private fun activateSelectMode() {
-        Log.i(TAG, "Not implemented yet")
+        Log.i(TAG, "activateSelectMode(): Not implemented yet")
     }
 
     private fun updatePoints(view: View, player: Player?) {
@@ -92,7 +92,7 @@ class Shop : Fragment(R.layout.shop) {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch{
-            Log.i(TAG, "On Quest List page")
+            Log.i(TAG, "On Shop page")
             addNavigation(view)
             setupObservables(view)
 
