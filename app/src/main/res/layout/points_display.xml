@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/PointsDisplayLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/PointsLabel"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:autofillHints="points"
+        android:ems="10"
+        android:fontFamily="@font/press_start_2p"
+        android:hint="@string/placeholder_text"
+        android:minHeight="48dp"
+        android:text="@string/points_acronym"
+        android:textAlignment="center"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/PointsAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/points_amount"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toEndOf="@+id/PointsLabel"
+        app:layout_constraintStart_toStartOf="@+id/PointsLabel"
+        app:layout_constraintTop_toBottomOf="@+id/PointsLabel" />
+</androidx.constraintlayout.widget.ConstraintLayout>

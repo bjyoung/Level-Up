@@ -57,14 +57,14 @@ class Shop : Fragment(R.layout.shop) {
     private fun updatePoints(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
         val rtStr = player?.rt?.toString() ?: placeholderText
-        val pointsAmount = view.findViewById<TextView>(R.id.ShopPointsAmount)
+        val pointsAmount = view.findViewById<TextView>(R.id.PointsAmount)
         pointsAmount.text = rtStr
     }
 
     private fun updatePointsAcronym(settings: Settings?) {
         if (settings == null) return
         val view = requireView()
-        val pointsLabel : TextView = view.findViewById(R.id.ShopPointsLabel)
+        val pointsLabel : TextView = view.findViewById(R.id.PointsLabel)
         pointsLabel.text = settings.pointsAcronym
     }
 
