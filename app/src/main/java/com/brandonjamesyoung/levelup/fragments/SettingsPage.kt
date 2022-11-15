@@ -167,7 +167,7 @@ class SettingsPage : Fragment(R.layout.settings) {
     }
 
     private fun updateDifficultyUi(difficulties: List<Difficulty?>) {
-        val view = this.requireView()
+        val view = requireView()
 
         for (difficulty in difficulties) {
             var expInput : EditText?
@@ -215,7 +215,7 @@ class SettingsPage : Fragment(R.layout.settings) {
             R.id.LevelUpBonusRtLabel
         )
 
-        val view = this.requireView()
+        val view = requireView()
 
         for (id in rtLabelIds) {
             val rtLabel = view.findViewById<TextView>(id)

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -39,14 +38,17 @@ class NewQuest : Fragment(R.layout.new_quest) {
     private val difficultyToButtonIdMap = buttonIdToDifficultyMap.entries
         .associateBy({ it.value }) { it.key }
 
+    private fun navigateToQuestList() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_newQuest_to_questList)
+        Log.i(TAG, "Going from New Quest to Quest List")
+    }
+
     private fun addNavigation() {
         val view = requireView()
         val button = view.findViewById<View>(R.id.CancelButton)
 
         button.setOnClickListener{
-            NavHostFragment.findNavController(this)
-                .navigate(R.id.action_newQuest_to_questList)
-            Log.i(TAG, "Going from New Quest to Quest List")
+            navigateToQuestList()
         }
     }
 
@@ -83,34 +85,11 @@ class NewQuest : Fragment(R.layout.new_quest) {
         }
     }
 
-    private fun createQuest() {
-        val view = requireView()
-        val nameTextView = view.findViewById<TextView>(R.id.NameInput)
-        var questName: String? = nameTextView.text.trim().toString()
-
-        if (questName == "") {
-            questName = null
-        }
-
-        // TODO get icon file name here and store in saved quest
-//        val iconButton = view.findViewById<FloatingActionButton>(R.id.IconButton)
-//        val iconDrawable = iconButton.drawable
-//        val iconFileName = resources.getResourceEntryName(R.drawable.question_mark_icon)
-
-        val quest = Quest(
-            name = questName,
-            difficulty = selectedDifficulty!!,
-            dateCreated = Instant.now()
-        )
-
-        viewModel.insert(quest)
-    }
-
     private fun validateInput() : Boolean {
         val view = requireView()
-        val nameView = view.findViewById<EditText>(R.id.NameInput)
+        val nameInput = view.findViewById<EditText>(R.id.NameInput)
 
-        if (!validateName(nameView, TAG, this)) {
+        if (!validateName(nameInput, TAG, this)) {
             return false
         }
 
@@ -120,6 +99,29 @@ class NewQuest : Fragment(R.layout.new_quest) {
         return true
     }
 
+    private fun createQuest() {
+        val view = requireView()
+        val nameTextView = view.findViewById<EditText>(R.id.NameInput)
+        var name: String? = nameTextView.text.trim().toString()
+
+        if (name == "") {
+            name = null
+        }
+
+        // TODO get icon file name here and store in saved quest
+//        val iconButton = view.findViewById<FloatingActionButton>(R.id.IconButton)
+//        val iconDrawable = iconButton.drawable
+//        val iconFileName = resources.getResourceEntryName(R.drawable.question_mark_icon)
+
+        val quest = Quest(
+            name = name,
+            difficulty = selectedDifficulty!!,
+            dateCreated = Instant.now()
+        )
+
+        viewModel.insert(quest)
+    }
+
     private fun setupConfirmButton() {
         val view = requireView()
         val saveButton = view.findViewById<AppCompatButton>(R.id.ConfirmButton)
@@ -127,9 +129,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
         saveButton.setOnClickListener {
             if (validateInput()){
                 createQuest()
-                NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_newQuest_to_questList)
-                Log.i(TAG, "Going from New Quest to Quest List")
+                navigateToQuestList()
             }
         }
     }

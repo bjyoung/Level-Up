@@ -1,7 +1,9 @@
 package com.brandonjamesyoung.levelup.viewmodels
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
@@ -18,6 +20,8 @@ class NewItemViewModel @Inject constructor(
     private val itemRepository: ItemRepository,
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
+    val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
+
     private suspend fun logItemCreation(item: Item) {
         var logMessage = "Add new item with "
         logMessage += if (item.name != null) "name '${item.name}'" else "no name"
