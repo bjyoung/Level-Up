@@ -27,6 +27,7 @@ private const val TAG = "SettingsPage"
 @AndroidEntryPoint
 class SettingsPage : Fragment(R.layout.settings) {
     private val viewModel: SettingsViewModel by activityViewModels()
+    private var prevFragmentId: Int = R.id.QuestList
 
     private fun setupBackupButton() {
         val view = requireView()
@@ -50,18 +51,20 @@ class SettingsPage : Fragment(R.layout.settings) {
         Log.i(TAG, "Going from Settings to Shop")
     }
 
+    private fun navigateToPrevFragment() {
+        when (prevFragmentId) {
+            R.id.QuestList -> navigateToQuestList()
+            R.id.Shop -> navigateToShop()
+            else -> navigateToQuestList()
+        }
+    }
+
     private fun setupCancelButton() {
         val view = requireView()
         val button = view.findViewById<View>(R.id.CancelButton)
 
         button.setOnClickListener{
-            setFragmentResultListener("PREV_FRAGMENT") { _, bundle ->
-                when (bundle.getInt("FRAGMENT_ID")) {
-                    R.id.QuestList -> navigateToQuestList()
-                    R.id.Shop -> navigateToShop()
-                    else -> navigateToQuestList()
-                }
-            }
+            navigateToPrevFragment()
         }
     }
 
@@ -151,11 +154,7 @@ class SettingsPage : Fragment(R.layout.settings) {
         confirmButton.setOnClickListener{
             if (validateInput()) {
                 saveSettings()
-                // TODO Settings should send player back to the page they came from
-                //  Default to questList page if no prev page is found
-                NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_settings_to_questList)
-                Log.i(TAG, "Going from Settings to Quest List")
+                navigateToPrevFragment()
             }
         }
     }
@@ -245,6 +244,10 @@ class SettingsPage : Fragment(R.layout.settings) {
             Log.i(TAG, "On Settings page")
             setupButtons()
             setupObservables()
+
+            setFragmentResultListener("PREV_FRAGMENT") { _, bundle ->
+                prevFragmentId = bundle.getInt("FRAGMENT_ID")
+            }
         }
     }
 }
