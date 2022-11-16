@@ -132,7 +132,6 @@ class Shop : Fragment(R.layout.shop) {
         mode.value = Mode.DEFAULT
     }
 
-    // Change Shop button to Delete button
     private fun activateDeleteButton() {
         convertButton(
             targetId = R.id.AddNewItemButton,
@@ -144,9 +143,27 @@ class Shop : Fragment(R.layout.shop) {
         )
     }
 
+    private fun buyItems() {
+        viewModel.buyItems(selectedItemIds.toSet())
+        cancelSelectedItems()
+        // TODO show toast that shows that items were purchased, potential Easter egg too?
+    }
+
+    private fun activateBuyButton() {
+        convertButton(
+            targetId = R.id.QuestListButton,
+            iconDrawableId = R.drawable.shopping_cart_icon,
+            iconColorId = R.color.confirm,
+            buttonMethod = ::buyItems,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
     private fun activateSelectMode() {
         activateCancelButton()
         activateDeleteButton()
+        activateBuyButton()
     }
 
     private fun isSelected(itemId: Int) : Boolean {

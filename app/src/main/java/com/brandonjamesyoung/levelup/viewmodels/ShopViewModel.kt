@@ -25,6 +25,25 @@ class ShopViewModel @Inject constructor(
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
+    fun buyItems(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
+        val totalCost = itemRepository.getTotalCost(ids)
+        val player = playerRepository.get()
+
+        if (totalCost > player.rt) {
+            Log.i(TAG, "Player does not have enough points to purchase the selected items")
+            // TODO should tell player via toast message that they cannot buy the items
+        } else {
+            player.apply {
+                rt -= totalCost
+            }
+
+            playerRepository.update(player)
+            val numItemsBought = ids.count()
+            val pointsAcronym = settingsRepository.get().pointsAcronym
+            Log.i(TAG, "Player bought $numItemsBought item(s) for $totalCost $pointsAcronym")
+        }
+    }
+
     fun deleteItems(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         itemRepository.delete(ids)
         val numDeleted = ids.count()

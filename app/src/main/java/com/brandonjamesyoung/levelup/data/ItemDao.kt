@@ -8,6 +8,9 @@ interface ItemDao {
     @Query("SELECT * FROM Item")
     fun observeAll(): Flow<List<Item>>
 
+    @Query("SELECT SUM(cost) FROM Item WHERE id IN (:ids)")
+    fun getTotalCost(ids: Set<Int>): Int
+
     @Insert
     suspend fun insert(item: Item)
 
