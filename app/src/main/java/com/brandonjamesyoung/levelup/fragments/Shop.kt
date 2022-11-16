@@ -1,5 +1,6 @@
 package com.brandonjamesyoung.levelup.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -26,6 +27,7 @@ private const val TAG = "Shop"
 
 class Shop : Fragment(R.layout.shop) {
     private val viewModel: ShopViewModel by activityViewModels()
+    private val selectedItemIds: MutableSet<Int> = mutableSetOf()
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
     private fun addNavigation(view: View) {
@@ -58,6 +60,30 @@ class Shop : Fragment(R.layout.shop) {
         Log.i(TAG, "activateSelectMode(): Not implemented yet")
     }
 
+    private fun isSelected(itemId: Int) : Boolean {
+        return selectedItemIds.contains(itemId)
+    }
+
+    private fun selectItem(itemId: Int, itemRow: ConstraintLayout) {
+        val view = requireView()
+
+        if (!isSelected(itemId)) {
+            selectedItemIds.add(itemId)
+
+            val selectedColor: Int = resources.getColor(
+                R.color.selected,
+                view.context.theme
+            )
+
+            itemRow.setBackgroundColor(selectedColor)
+        } else {
+            selectedItemIds.remove(itemId)
+            itemRow.setBackgroundColor(Color.TRANSPARENT)
+        }
+
+        mode.value = if (selectedItemIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
+    }
+
     private fun createItemRow(item: Item, parentLayout: ViewGroup) : ConstraintLayout {
         val newItemRow = layoutInflater.inflate(
             R.layout.item_row,
@@ -71,6 +97,11 @@ class Shop : Fragment(R.layout.shop) {
         itemName.text = item.name ?: defaultName
         val itemCost = newItemRow.findViewById<TextView>(R.id.ItemCost)
         itemCost.text = item.cost.toString()
+
+        newItemRow.setOnClickListener{
+            selectItem(item.id, newItemRow)
+        }
+
         return newItemRow
     }
 
