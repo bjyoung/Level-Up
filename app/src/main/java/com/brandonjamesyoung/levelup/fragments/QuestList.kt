@@ -103,14 +103,13 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun cancelSelectedQuests() {
         val view = requireView()
+        val selectedIconIdsCopy = selectedQuestIconIds.toMutableList()
 
-        for (id in selectedQuestIconIds) {
+        for (id in selectedIconIdsCopy) {
             // TODO Need an easier way to swap between icon modes
             val questCardIcon : FloatingActionButton = view.findViewById(id)
             questCardIcon.callOnClick()
         }
-
-        mode.value = Mode.DEFAULT
     }
 
     // Switch Settings button to Cancel button

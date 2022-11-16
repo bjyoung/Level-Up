@@ -29,26 +29,21 @@ private const val TAG = "Shop"
 class Shop : Fragment(R.layout.shop) {
     private val viewModel: ShopViewModel by activityViewModels()
     private val selectedItemIds: MutableSet<Int> = mutableSetOf()
+    private val selectedItemRowIds: MutableSet<Int> = mutableSetOf()
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
     private fun addNavigation(view: View) {
         val buttonNavMap = mapOf(
-            R.id.AddNewItemButton to
-                    Pair(R.id.action_shop_to_newItem, "Going from Shop to New Item"),
-            R.id.QuestListButton to
-                    Pair(R.id.action_shop_to_questList, "Going from Shop to Quest List"),
-            R.id.ShopSettingsButton to
-                    Pair(R.id.action_shop_to_settings, "Going from Shop to Settings"),
+            R.id.AddNewItemButton to ::setupNewItemNavigation,
+            R.id.QuestListButton to ::setupQuestListNavigation,
+            R.id.ShopSettingsButton to ::setupSettingsNavigation,
         )
 
-        for ((buttonId, navIdPair) in buttonNavMap) {
+        for ((buttonId, navAction) in buttonNavMap) {
             val button = view.findViewById<View>(buttonId)
-            val navId = navIdPair.first
-            val logMessage = navIdPair.second
 
             button.setOnClickListener{
-                NavHostFragment.findNavController(this).navigate(navId)
-                Log.i(TAG, logMessage)
+                navAction()
             }
         }
     }
@@ -103,13 +98,37 @@ class Shop : Fragment(R.layout.shop) {
 
     private fun activateDefaultMode() {
         selectedItemIds.clear()
+        selectedItemRowIds.clear()
         activateNewItemButton()
         activateQuestListButton()
         activateSettingsButton()
     }
 
+    private fun cancelSelectedItems() {
+        val view = requireView()
+        val selectedRowIdCopy = selectedItemRowIds.toMutableList()
+
+        for (id in selectedRowIdCopy) {
+            // TODO probably better to de-select all programmatically
+            //  instead of simulating button presses
+            val itemRow : ConstraintLayout = view.findViewById(id)
+            itemRow.callOnClick()
+        }
+    }
+
+    private fun activateCancelButton() {
+        convertButton(
+            targetId = R.id.ShopSettingsButton,
+            iconDrawableId = R.drawable.cancel_icon,
+            iconColorId = R.color.icon_primary,
+            buttonMethod = ::cancelSelectedItems,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
     private fun activateSelectMode() {
-        Log.i(TAG, "activateSelectMode(): Not implemented yet")
+        activateCancelButton()
     }
 
     private fun isSelected(itemId: Int) : Boolean {
@@ -121,6 +140,7 @@ class Shop : Fragment(R.layout.shop) {
 
         if (!isSelected(itemId)) {
             selectedItemIds.add(itemId)
+            selectedItemRowIds.add(itemRow.id)
 
             val selectedColor: Int = resources.getColor(
                 R.color.selected,
@@ -130,6 +150,7 @@ class Shop : Fragment(R.layout.shop) {
             itemRow.setBackgroundColor(selectedColor)
         } else {
             selectedItemIds.remove(itemId)
+            selectedItemRowIds.remove(itemRow.id)
             itemRow.setBackgroundColor(Color.TRANSPARENT)
         }
 
