@@ -1,15 +1,12 @@
 package com.brandonjamesyoung.levelup.fragments
 
 import android.animation.ObjectAnimator
-import android.content.res.ColorStateList
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -24,6 +21,8 @@ import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.LevelUpHelper.Companion.getExpToLvlUp
 import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.shared.PROGRESS_BAR_ANIMATE_DURATION
+import com.brandonjamesyoung.levelup.ui.ButtonHelper.Companion.convertButton
+import com.brandonjamesyoung.levelup.ui.ButtonHelper.Companion.getDrawable
 import com.brandonjamesyoung.levelup.ui.QuestCard.Companion.createQuestCard
 import com.brandonjamesyoung.levelup.ui.QuestCard.Companion.getQuestDrawable
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
@@ -49,57 +48,22 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun addNavigation(view: View) {
         val buttonNavMap = mapOf(
-            R.id.AddNewQuestButton to
-                    Pair(R.id.action_questList_to_newQuest, "Going from Quest List to New Quest"),
-            R.id.SettingsButton to
-                    Pair(R.id.action_questList_to_settings, "Going from Quest List to Settings"),
-            R.id.ShopButton to
-                    Pair(R.id.action_questList_to_shop, "Going from Quest List to Shop"),
+            R.id.AddNewQuestButton to ::setupNewQuestNavigation,
+            R.id.SettingsButton to ::setupSettingsNavigation,
+            R.id.ShopButton to ::setupShopNavigation,
         )
 
-        for ((buttonId, navIdPair) in buttonNavMap) {
+        for ((buttonId, navAction) in buttonNavMap) {
             val button = view.findViewById<View>(buttonId)
-            val navId = navIdPair.first
-            val logMessage = navIdPair.second
 
             button.setOnClickListener{
-                NavHostFragment.findNavController(this).navigate(navId)
-                Log.i(TAG, logMessage)
+                navAction()
             }
         }
     }
 
     private fun isSelected(questId: Int) : Boolean {
         return selectedQuestIds.contains(questId)
-    }
-
-    private fun getDrawable(drawableId: Int) : Drawable? {
-        val view = requireView()
-        return ResourcesCompat.getDrawable(resources, drawableId, view.context.theme)
-    }
-
-    private fun getColor(colorId: Int) : Int {
-        val view = requireView()
-        return resources.getColor(colorId, view.context.theme)
-    }
-
-    // Change given button's icon and on click method
-    private fun convertButton(
-        targetId: Int,
-        drawableId: Int = R.drawable.question_mark_icon,
-        drawableColorId: Int = R.color.icon_primary,
-        buttonMethod: () -> Unit
-    ) {
-        val view = this.requireView()
-        val button = view.findViewById<FloatingActionButton>(targetId)
-        val drawable = getDrawable(drawableId)
-        button.setImageDrawable(drawable)
-        val drawableColor = getColor(drawableColorId)
-        button.imageTintList = ColorStateList.valueOf(drawableColor)
-
-        button.setOnClickListener{
-            buttonMethod()
-        }
     }
 
     private fun completeQuests() {
@@ -112,9 +76,11 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun activateCompleteQuestsButton() {
         convertButton(
             targetId = R.id.AddNewQuestButton,
-            drawableId = R.drawable.check_icon_green,
-            drawableColorId = R.color.confirm,
-            buttonMethod = ::completeQuests
+            iconDrawableId = R.drawable.check_icon_green,
+            iconColorId = R.color.confirm,
+            buttonMethod = ::completeQuests,
+            view = requireView(),
+            resources = resources
         )
     }
 
@@ -127,9 +93,11 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun activateDeleteButton() {
         convertButton(
             targetId = R.id.ShopButton,
-            drawableId = R.drawable.trash_bin_icon,
-            drawableColorId = R.color.cancel,
-            buttonMethod = ::deleteQuests
+            iconDrawableId = R.drawable.trash_bin_icon,
+            iconColorId = R.color.cancel,
+            buttonMethod = ::deleteQuests,
+            view = requireView(),
+            resources = resources
         )
     }
 
@@ -149,9 +117,11 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun activateCancelButton() {
         convertButton(
             targetId = R.id.SettingsButton,
-            drawableId = R.drawable.cancel_icon,
-            drawableColorId = R.color.icon_primary,
-            buttonMethod = ::cancelSelectedQuests
+            iconDrawableId = R.drawable.cancel_icon,
+            iconColorId = R.color.icon_primary,
+            buttonMethod = ::cancelSelectedQuests,
+            view = requireView(),
+            resources = resources
         )
     }
 
@@ -170,9 +140,11 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun activateNewQuestButton() {
         convertButton(
             targetId = R.id.AddNewQuestButton,
-            drawableId = R.drawable.plus_icon,
-            drawableColorId = R.color.icon_primary,
-            buttonMethod = ::setupNewQuestNavigation
+            iconDrawableId = R.drawable.plus_icon,
+            iconColorId = R.color.icon_primary,
+            buttonMethod = ::setupNewQuestNavigation,
+            view = requireView(),
+            resources = resources
         )
     }
 
@@ -185,9 +157,11 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun activateShopButton() {
         convertButton(
             targetId = R.id.ShopButton,
-            drawableId = R.drawable.star_icon,
-            drawableColorId = R.color.icon_primary,
-            buttonMethod = ::setupShopNavigation
+            iconDrawableId = R.drawable.star_icon,
+            iconColorId = R.color.icon_primary,
+            buttonMethod = ::setupShopNavigation,
+            view = requireView(),
+            resources = resources
         )
     }
 
@@ -200,9 +174,11 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun activateSettingsButton() {
         convertButton(
             targetId = R.id.SettingsButton,
-            drawableId = R.drawable.gear_icon,
-            drawableColorId = R.color.icon_primary,
-            buttonMethod = ::setupSettingsNavigation
+            iconDrawableId = R.drawable.gear_icon,
+            iconColorId = R.color.icon_primary,
+            buttonMethod = ::setupSettingsNavigation,
+            view = requireView(),
+            resources = resources
         )
     }
 
@@ -220,7 +196,13 @@ class QuestList : Fragment(R.layout.quest_list) {
         if (!isSelected(questId)) {
             selectedQuestIds.add(questId)
             selectedQuestIconIds.add(icon.id)
-            val selectIcon = getDrawable(R.drawable.check_icon_green)
+
+            val selectIcon = getDrawable(
+                drawableId = R.drawable.check_icon_green,
+                theme = view.context.theme,
+                resources = resources
+            )
+
             icon.setImageDrawable(selectIcon)
         } else {
             selectedQuestIds.remove(questId)

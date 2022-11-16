@@ -20,6 +20,7 @@ import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.shared.Mode
+import com.brandonjamesyoung.levelup.ui.ButtonHelper.Companion.convertButton
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
 import kotlinx.coroutines.launch
 
@@ -52,8 +53,59 @@ class Shop : Fragment(R.layout.shop) {
         }
     }
 
+    private fun setupNewItemNavigation() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_newItem)
+        Log.i(TAG, "Going from Shop to New Item")
+    }
+
+    private fun activateNewItemButton() {
+        convertButton(
+            targetId = R.id.AddNewItemButton,
+            iconDrawableId = R.drawable.plus_icon,
+            iconColorId = R.color.icon_primary,
+            buttonMethod = ::setupNewItemNavigation,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
+    private fun setupQuestListNavigation() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_questList)
+        Log.i(TAG, "Going from Shop to Quest List")
+    }
+
+    private fun activateQuestListButton() {
+        convertButton(
+            targetId = R.id.QuestListButton,
+            iconDrawableId = R.drawable.bullet_list_icon,
+            iconColorId = R.color.icon_primary,
+            buttonMethod = ::setupQuestListNavigation,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
+    private fun setupSettingsNavigation() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_settings)
+        Log.i(TAG, "Going from Shop to Settings")
+    }
+
+    private fun activateSettingsButton() {
+        convertButton(
+            targetId = R.id.ShopSettingsButton,
+            iconDrawableId = R.drawable.gear_icon,
+            iconColorId = R.color.icon_primary,
+            buttonMethod = ::setupSettingsNavigation,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
     private fun activateDefaultMode() {
-        Log.i(TAG, "activateDefaultMode(): Not implemented yet")
+        selectedItemIds.clear()
+        activateNewItemButton()
+        activateQuestListButton()
+        activateSettingsButton()
     }
 
     private fun activateSelectMode() {
