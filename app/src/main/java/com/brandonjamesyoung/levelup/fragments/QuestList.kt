@@ -35,7 +35,7 @@ private const val TAG = "QuestList"
 
 @AndroidEntryPoint
 class QuestList : Fragment(R.layout.quest_list) {
-    private val questListViewModel: QuestListViewModel by activityViewModels()
+    private val viewModel: QuestListViewModel by activityViewModels()
     private val selectedQuestIds: MutableSet<Int> = mutableSetOf()
     private val selectedQuestIconIds: MutableSet<Int> = mutableSetOf()
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
@@ -103,7 +103,7 @@ class QuestList : Fragment(R.layout.quest_list) {
     }
 
     private fun completeQuests() {
-        questListViewModel.completeQuests(selectedQuestIds.toSet())
+        viewModel.completeQuests(selectedQuestIds.toSet())
         mode.value = Mode.DEFAULT
         // TODO show toast of exp and rt earned
     }
@@ -119,7 +119,7 @@ class QuestList : Fragment(R.layout.quest_list) {
     }
 
     private fun deleteQuests() {
-        questListViewModel.deleteQuests(selectedQuestIds.toSet())
+        viewModel.deleteQuests(selectedQuestIds.toSet())
         mode.value = Mode.DEFAULT
     }
 
@@ -232,13 +232,14 @@ class QuestList : Fragment(R.layout.quest_list) {
         mode.value = if (selectedQuestIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
     }
 
+    // TODO should be able to pass in a Quest class here, to reduce # parameters
     private fun addCard(
-        view: View,
         questId: Int,
         questName: String? = resources.getString(R.string.placeholder_text),
         difficulty: Difficulty = Difficulty.EASY,
         questIconFileName: String? = "question_mark_icon",
     ) {
+        val view = requireView()
         val difficultyColorId = difficultyColorMap[difficulty]
             ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
 
@@ -328,14 +329,13 @@ class QuestList : Fragment(R.layout.quest_list) {
             }
         }
 
-        questListViewModel.questList.observe(viewLifecycleOwner) { questList ->
+        viewModel.questList.observe(viewLifecycleOwner) { questList ->
             val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
             questListLayout.removeAllViews()
             val sortedQuestList = questList.sortedBy { it.dateCreated }
 
             for (quest in sortedQuestList) {
                 addCard(
-                    view = view,
                     questId = quest.id,
                     questName = quest.name,
                     difficulty = quest.difficulty,
@@ -344,14 +344,14 @@ class QuestList : Fragment(R.layout.quest_list) {
             }
         }
 
-        questListViewModel.player.observe(viewLifecycleOwner) { player ->
+        viewModel.player.observe(viewLifecycleOwner) { player ->
             updateUsername(view, player)
             updatePoints(view, player)
             updateProgressBar(view, player)
             updateNextLvlProgress(view, player)
         }
 
-        questListViewModel.settings.observe(viewLifecycleOwner) { settings ->
+        viewModel.settings.observe(viewLifecycleOwner) { settings ->
             updatePointsAcronym(settings)
         }
     }

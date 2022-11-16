@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/Shop"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -72,13 +73,15 @@
         app:srcCompat="@drawable/gear_icon" />
 
     <include
+        android:id="@+id/include2"
         layout="@layout/points_display"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/ShopLabel"
+        android:layout_marginBottom="38dp"
+        app:layout_constraintBottom_toTopOf="@+id/ItemListScrollView"
         app:layout_constraintEnd_toStartOf="@+id/ShopLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ShopLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/ShopLeftGuideline" />
 
     <TextView
         android:id="@+id/ShopLabel"
@@ -103,22 +106,31 @@
         android:id="@+id/ShopBottomGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="66dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9001368" />
+        app:layout_constraintEnd_toStartOf="@+id/ItemListScrollView"
+        app:layout_constraintGuide_percent="0.9001368"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/ShopLeftGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.16" />
+        app:layout_constraintBottom_toTopOf="@+id/include2"
+        app:layout_constraintGuide_percent="0.16"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/ShopRightGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="95dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.84" />
+        app:layout_constraintBottom_toTopOf="@+id/ItemListScrollView"
+        app:layout_constraintGuide_percent="0.84"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/NameSortIcon"
@@ -131,7 +143,8 @@
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/ShopNameLabel"
         app:layout_constraintStart_toEndOf="@+id/ShopNameLabel"
-        app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
+        app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/TableDivider"
@@ -142,5 +155,23 @@
         app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
         app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
         app:layout_constraintTop_toBottomOf="@+id/PriceLabel" />
+
+    <ScrollView
+        android:id="@+id/ItemListScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
+        app:layout_constraintStart_toEndOf="@+id/ShopBottomGuideline"
+        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/TableDivider"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:id="@+id/ItemListLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

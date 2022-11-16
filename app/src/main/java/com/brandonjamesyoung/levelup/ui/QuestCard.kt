@@ -62,6 +62,8 @@ class QuestCard {
                 false
             ) as LinearLayoutCompat
 
+            // TODO instead of using getChildAt(), which relies on knowing the .xml file
+            //  use findViewById instead on newCard
             val newCard = newCardLayout.getChildAt(0) as CardView
             newCardLayout.removeView(newCard)
             newCard.setCardBackgroundColor(fragment.resources.getColor(questColorId, context.theme))

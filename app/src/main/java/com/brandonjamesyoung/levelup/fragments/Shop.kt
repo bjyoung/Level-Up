@@ -3,7 +3,10 @@ package com.brandonjamesyoung.levelup.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,6 +15,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.shared.Mode
@@ -21,7 +25,7 @@ import kotlinx.coroutines.launch
 private const val TAG = "Shop"
 
 class Shop : Fragment(R.layout.shop) {
-    private val shopViewModel: ShopViewModel by activityViewModels()
+    private val viewModel: ShopViewModel by activityViewModels()
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
     private fun addNavigation(view: View) {
@@ -54,6 +58,29 @@ class Shop : Fragment(R.layout.shop) {
         Log.i(TAG, "activateSelectMode(): Not implemented yet")
     }
 
+    private fun createItemRow(item: Item, parentLayout: ViewGroup) : ConstraintLayout {
+        val newItemRow = layoutInflater.inflate(
+            R.layout.item_row,
+            parentLayout,
+            false
+        ) as ConstraintLayout
+
+        newItemRow.id = View.generateViewId()
+        val itemName = newItemRow.findViewById<TextView>(R.id.ItemName)
+        val defaultName = resources.getString(R.string.placeholder_text)
+        itemName.text = item.name ?: defaultName
+        val itemCost = newItemRow.findViewById<TextView>(R.id.ItemCost)
+        itemCost.text = item.cost.toString()
+        return newItemRow
+    }
+
+    private fun addItemRow(item: Item) {
+        val view = requireView()
+        val itemListLayout = view.findViewById<LinearLayout>(R.id.ItemListLinearLayout)
+        val itemRow = createItemRow(item, itemListLayout)
+        itemListLayout.addView(itemRow)
+    }
+
     private fun updatePoints(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
         val rtStr = player?.rt?.toString() ?: placeholderText
@@ -79,11 +106,21 @@ class Shop : Fragment(R.layout.shop) {
             }
         }
 
-        shopViewModel.player.observe(viewLifecycleOwner) { player ->
+        viewModel.itemList.observe(viewLifecycleOwner) { itemList ->
+            val itemListLayout = view.findViewById<LinearLayout>(R.id.ItemListLinearLayout)
+            itemListLayout.removeAllViews()
+            val sortedItemList = itemList.sortedBy { it.dateCreated }
+
+            for (item in sortedItemList) {
+                addItemRow(item)
+            }
+        }
+
+        viewModel.player.observe(viewLifecycleOwner) { player ->
             updatePoints(view, player)
         }
 
-        shopViewModel.settings.observe(viewLifecycleOwner) { settings ->
+        viewModel.settings.observe(viewLifecycleOwner) { settings ->
             updatePointsAcronym(settings)
         }
     }
