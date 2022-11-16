@@ -28,7 +28,7 @@
     <color name="hard_default">#FFFF0000</color>
     <color name="expert">#FFDD00FF</color>
     <color name="expert_default">#FFDD00FF</color>
-    <color name="confirm">#FF09FF00</color>
+    <color name="confirm">#33cc33</color>
     <color name="delete">#FFFF0000</color>
     <color name="cancel">#FFFF0000</color>
     <color name="experience_bar_meter">#FF00FFFF</color>
