@@ -120,7 +120,7 @@ class QuestListViewModel @Inject constructor(
 
     fun deleteQuests(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         questRepository.delete(ids)
-        val numQuestsDeleted = ids.count()
-        Log.i(TAG, "Delete $numQuestsDeleted quest(s)")
+        val numDeleted = ids.count()
+        Log.i(TAG, "Delete $numDeleted quest(s)")
     }
 }

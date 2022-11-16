@@ -127,8 +127,26 @@ class Shop : Fragment(R.layout.shop) {
         )
     }
 
+    private fun deleteItems() {
+        viewModel.deleteItems(selectedItemIds.toSet())
+        mode.value = Mode.DEFAULT
+    }
+
+    // Change Shop button to Delete button
+    private fun activateDeleteButton() {
+        convertButton(
+            targetId = R.id.AddNewItemButton,
+            iconDrawableId = R.drawable.trash_bin_icon,
+            iconColorId = R.color.cancel,
+            buttonMethod = ::deleteItems,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
     private fun activateSelectMode() {
         activateCancelButton()
+        activateDeleteButton()
     }
 
     private fun isSelected(itemId: Int) : Boolean {
