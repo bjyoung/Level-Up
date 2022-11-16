@@ -69,8 +69,7 @@
 
     <!-- Shop strings -->
     <string name="shop_label">Shop</string>
-    <string name="price_column_label">Price(RT)</string>
-    <string name="price_column_label_substitute">Price(%1$s)</string>
+    <string name="price_column_label">Price</string>
     <string name="points_amount">0</string>
     <string name="points_acronym">RT</string>
     <string name="points_acronym_default">RT</string>
