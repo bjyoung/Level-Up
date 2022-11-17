@@ -2,6 +2,46 @@
 
 This document tracks all notables changes to the Level Up app.
 
+---
+
+## 0.5.1
+
+### Added
+
+- Shop table displays items in the Item database, sorted by date created
+- Highlight selected items in blue
+
+### Fixed
+
+- Fix Settings not leading back to the previous page (aka the Shop) on cancel/save
+- Shorten item name width in the shop table
+
+### Changed
+
+- Darken confirm button green color for clarity
+- Remove acronym from price column in the shop table
+
+---
+
+## 0.5.0
+
+### Added
+
+- Add Shop page
+  - Displays player's current points on the top-left
+  - Has buttons that lead to the Quest List, Settings and New Item pages
+  - A table header shows where the item details are going to go
+- Add New Item page
+  - Has an optional name field and a required cost field
+  - Player can create new items that are displayed in the shop
+  - Has a cancel button that leads back to the Shop
+
+### Fixed
+
+- Fix white slivers/backgrounds that appear sometimes between pages during navigation animations
+
+---
+
 ## 0.4.3
 
 ### Added
@@ -9,6 +49,7 @@ This document tracks all notables changes to the Level Up app.
 - Adds UI to Quest List that displays the experience the player needs to level up
 - The settings button on the Quest List page becomes a cancel button when at least one quest is selected
   - Selecting the cancel button de-selects all currently selected quests
+- Link the points acronym in Quest list to the acronym setting
 
 ### Changed
 
@@ -17,6 +58,8 @@ This document tracks all notables changes to the Level Up app.
 ### Fixed
 
 - The points acronym in Quest List now correctly matches the acronym set in the Settings page
+
+---
 
 ## 0.4.2
 
@@ -30,6 +73,8 @@ This document tracks all notables changes to the Level Up app.
   - The level up bonus must be a number between 0 and 999 inclusive
   - If any of the inputs are not valid, then save does not go through
 
+---
+
 ## 0.4.1
 
 ### Added
@@ -39,6 +84,8 @@ This document tracks all notables changes to the Level Up app.
   - Points acronym is restricted to uppercase characters and allow up to 3 characters
   - Level up bonus is restricted to numbers and up to 3 digits
 
+---
+
 ## 0.4.0
 
 ### Added
@@ -47,6 +94,8 @@ This document tracks all notables changes to the Level Up app.
   - For the exp and points granted per quest difficulty
   - For the points rewarded on level up
   - For for the points acronym used across the map
+
+---
 
 ## 0.3.2
 
@@ -58,6 +107,8 @@ This document tracks all notables changes to the Level Up app.
 - Progress bar smoothly animates when the player earns exp
 - Sort quests in Quest List by when they are created
 
+---
+
 ## 0.3.1
 
 ### Added
@@ -65,6 +116,8 @@ This document tracks all notables changes to the Level Up app.
 - Completing quests grants player exp and rewards
 - If the player earns enough exp, they level up and gain 5 bonus RT points
   - The level up formula is: expToNextLvl = 2500 + (1750 * currLvl - 1)
+
+---
 
 ## 0.3.0
 
@@ -79,6 +132,8 @@ This document tracks all notables changes to the Level Up app.
     - Selecting a quest changes the Shop and New Quest buttons to Confirm and Delete buttons
     - If no quests are selected then the Shop and New Quest buttons return
 
+---
+
 ## 0.2.1
 
 ### Added
@@ -88,6 +143,8 @@ This document tracks all notables changes to the Level Up app.
 ### Changed
 
 - Quest name field text color changed to black color
+
+---
 
 ## 0.2.0
 
