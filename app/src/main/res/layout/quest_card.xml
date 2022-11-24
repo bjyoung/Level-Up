@@ -30,10 +30,11 @@
                 android:textAlignment="center"
                 android:textColor="@color/text_secondary"
                 android:textSize="@dimen/quest_card_font_size"
-                app:layout_constraintBottom_toTopOf="@+id/QuestIcon"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.120000005" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/QuestIcon"

@@ -264,6 +264,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         // TODO instead of using getChildAt(), which relies on knowing the .xml file
         //  use findViewById instead on newCard
         val newCard = newCardLayout.getChildAt(0) as CardView
+        newCard.id = View.generateViewId()
         newCardLayout.removeView(newCard)
         newCard.setCardBackgroundColor(resources.getColor(questColorId, context.theme))
         val cardConstraintLayout = newCard.getChildAt(0) as ConstraintLayout
@@ -272,6 +273,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         val icon = cardConstraintLayout.getChildAt(1) as FloatingActionButton
         val iconDrawable = getQuestDrawable(questIconFileName)
         icon.setImageDrawable(iconDrawable)
+        icon.id = View.generateViewId()
 
         icon.setOnClickListener{
             iconClickMethod(questId, icon, questIconFileName)
