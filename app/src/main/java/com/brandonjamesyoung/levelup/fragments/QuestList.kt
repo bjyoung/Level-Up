@@ -1,12 +1,17 @@
 package com.brandonjamesyoung.levelup.fragments
 
 import android.animation.ObjectAnimator
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -23,8 +28,6 @@ import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.shared.PROGRESS_BAR_ANIMATE_DURATION
 import com.brandonjamesyoung.levelup.ui.ButtonHelper.Companion.convertButton
 import com.brandonjamesyoung.levelup.ui.ButtonHelper.Companion.getDrawable
-import com.brandonjamesyoung.levelup.ui.QuestCard.Companion.createQuestCard
-import com.brandonjamesyoung.levelup.ui.QuestCard.Companion.getQuestDrawable
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -189,6 +192,30 @@ class QuestList : Fragment(R.layout.quest_list) {
         activateSettingsButton()
     }
 
+    private fun getQuestDrawable(
+        iconFileName : String
+    ) : Drawable? {
+        val view = requireView()
+
+        val iconId = resources.getIdentifier(
+            iconFileName,
+            "drawable",
+            view.context.packageName
+        )
+
+        val drawable = if (iconId == 0) {
+            ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.question_mark_icon,
+                view.context.theme
+            )
+        } else {
+            ResourcesCompat.getDrawable(resources, iconId, view.context.theme)
+        }
+
+        return drawable
+    }
+
     private fun selectQuestIcon(questId: Int, icon: FloatingActionButton, iconFileName: String) {
         val view = requireView()
 
@@ -206,11 +233,51 @@ class QuestList : Fragment(R.layout.quest_list) {
         } else {
             selectedQuestIds.remove(questId)
             selectedQuestIconIds.remove(icon.id)
-            val originalDrawable = getQuestDrawable(view, iconFileName, this)
+            val originalDrawable = getQuestDrawable(iconFileName)
             icon.setImageDrawable(originalDrawable)
         }
 
         mode.value = if (selectedQuestIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
+    }
+
+    private fun createQuestCard(
+        questId: Int,
+        questName: String,
+        questColorId: Int,
+        questIconFileName: String,
+        iconClickMethod: (
+            questId: Int,
+            icon: FloatingActionButton,
+            iconFileName: String
+        ) -> Unit
+    ) : CardView {
+        val view = requireView()
+        val context = view.context
+        val parentLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
+
+        val newCardLayout = layoutInflater.inflate(
+            R.layout.quest_card,
+            parentLayout,
+            false
+        ) as LinearLayoutCompat
+
+        // TODO instead of using getChildAt(), which relies on knowing the .xml file
+        //  use findViewById instead on newCard
+        val newCard = newCardLayout.getChildAt(0) as CardView
+        newCardLayout.removeView(newCard)
+        newCard.setCardBackgroundColor(resources.getColor(questColorId, context.theme))
+        val cardConstraintLayout = newCard.getChildAt(0) as ConstraintLayout
+        val cardTitle = cardConstraintLayout.getChildAt(0) as TextView
+        cardTitle.text = questName
+        val icon = cardConstraintLayout.getChildAt(1) as FloatingActionButton
+        val iconDrawable = getQuestDrawable(questIconFileName)
+        icon.setImageDrawable(iconDrawable)
+
+        icon.setOnClickListener{
+            iconClickMethod(questId, icon, questIconFileName)
+        }
+
+        return newCard
     }
 
     // TODO should be able to pass in a Quest class here, to reduce # parameters
@@ -220,26 +287,22 @@ class QuestList : Fragment(R.layout.quest_list) {
         difficulty: Difficulty = Difficulty.EASY,
         questIconFileName: String? = "question_mark_icon",
     ) {
-        val view = requireView()
         val difficultyColorId = difficultyColorMap[difficulty]
             ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
 
         val name = questName ?: resources.getString(R.string.placeholder_text)
         val iconName = questIconFileName ?: "question_mark_icon"
-        val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
 
         val newCard = createQuestCard(
             questId = questId,
             questName = name,
             questColorId = difficultyColorId,
             questIconFileName = iconName,
-            iconClickMethod = ::selectQuestIcon,
-            parentLayout = questListLayout,
-            inflater = layoutInflater,
-            view = view,
-            fragment = this
+            iconClickMethod = ::selectQuestIcon
         )
 
+        val view = requireView()
+        val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
         questListLayout.addView(newCard)
     }
 
