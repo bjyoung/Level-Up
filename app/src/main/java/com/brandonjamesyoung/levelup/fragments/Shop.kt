@@ -32,22 +32,6 @@ class Shop : Fragment(R.layout.shop) {
     private val selectedItemRowIds: MutableSet<Int> = mutableSetOf()
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
-    private fun addNavigation(view: View) {
-        val buttonNavMap = mapOf(
-            R.id.AddNewItemButton to ::setupNewItemNavigation,
-            R.id.QuestListButton to ::setupQuestListNavigation,
-            R.id.ShopSettingsButton to ::setupSettingsNavigation,
-        )
-
-        for ((buttonId, navAction) in buttonNavMap) {
-            val button = view.findViewById<View>(buttonId)
-
-            button.setOnClickListener{
-                navAction()
-            }
-        }
-    }
-
     private fun setupNewItemNavigation() {
         NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_newItem)
         Log.i(TAG, "Going from Shop to New Item")
@@ -269,7 +253,6 @@ class Shop : Fragment(R.layout.shop) {
 
         lifecycleScope.launch{
             Log.i(TAG, "On Shop page")
-            addNavigation(view)
             setupObservables(view)
 
             setFragmentResult(

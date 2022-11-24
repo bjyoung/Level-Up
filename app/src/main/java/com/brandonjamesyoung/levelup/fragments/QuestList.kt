@@ -21,6 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Player
+import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.LevelUpHelper.Companion.getExpToLvlUp
@@ -48,22 +49,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         Difficulty.HARD to R.color.hard,
         Difficulty.EXPERT to R.color.expert
     )
-
-    private fun addNavigation(view: View) {
-        val buttonNavMap = mapOf(
-            R.id.AddNewQuestButton to ::setupNewQuestNavigation,
-            R.id.SettingsButton to ::setupSettingsNavigation,
-            R.id.ShopButton to ::setupShopNavigation,
-        )
-
-        for ((buttonId, navAction) in buttonNavMap) {
-            val button = view.findViewById<View>(buttonId)
-
-            button.setOnClickListener{
-                navAction()
-            }
-        }
-    }
 
     private fun isSelected(questId: Int) : Boolean {
         return selectedQuestIds.contains(questId)
@@ -241,9 +226,7 @@ class QuestList : Fragment(R.layout.quest_list) {
     }
 
     private fun createQuestCard(
-        questId: Int,
-        questName: String,
-        questColorId: Int,
+        quest: Quest,
         questIconFileName: String,
         iconClickMethod: (
             questId: Int,
@@ -266,39 +249,37 @@ class QuestList : Fragment(R.layout.quest_list) {
         val newCard = newCardLayout.getChildAt(0) as CardView
         newCard.id = View.generateViewId()
         newCardLayout.removeView(newCard)
-        newCard.setCardBackgroundColor(resources.getColor(questColorId, context.theme))
+
+        val difficultyColorId = difficultyColorMap[quest.difficulty]
+            ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
+
+        newCard.setCardBackgroundColor(resources.getColor(difficultyColorId, context.theme))
         val cardConstraintLayout = newCard.getChildAt(0) as ConstraintLayout
+
         val cardTitle = cardConstraintLayout.getChildAt(0) as TextView
+        val questName = quest.name ?: resources.getString(R.string.placeholder_text)
         cardTitle.text = questName
+
         val icon = cardConstraintLayout.getChildAt(1) as FloatingActionButton
         val iconDrawable = getQuestDrawable(questIconFileName)
         icon.setImageDrawable(iconDrawable)
         icon.id = View.generateViewId()
 
         icon.setOnClickListener{
-            iconClickMethod(questId, icon, questIconFileName)
+            iconClickMethod(quest.id, icon, questIconFileName)
         }
 
         return newCard
     }
 
-    // TODO should be able to pass in a Quest class here, to reduce # parameters
     private fun addCard(
-        questId: Int,
-        questName: String? = resources.getString(R.string.placeholder_text),
-        difficulty: Difficulty = Difficulty.EASY,
-        questIconFileName: String? = "question_mark_icon",
+        quest: Quest,
+        questIconFileName: String? = "question_mark_icon"
     ) {
-        val difficultyColorId = difficultyColorMap[difficulty]
-            ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
-
-        val name = questName ?: resources.getString(R.string.placeholder_text)
         val iconName = questIconFileName ?: "question_mark_icon"
 
         val newCard = createQuestCard(
-            questId = questId,
-            questName = name,
-            questColorId = difficultyColorId,
+            quest = quest,
             questIconFileName = iconName,
             iconClickMethod = ::selectQuestIcon
         )
@@ -382,9 +363,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
             for (quest in sortedQuestList) {
                 addCard(
-                    questId = quest.id,
-                    questName = quest.name,
-                    difficulty = quest.difficulty,
+                    quest = quest,
                     questIconFileName = quest.iconName
                 )
             }
@@ -407,7 +386,6 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         lifecycleScope.launch{
             Log.i(TAG, "On Quest List page")
-            addNavigation(view)
             setupObservables(view)
 
             setFragmentResult(
