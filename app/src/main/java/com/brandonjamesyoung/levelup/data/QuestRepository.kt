@@ -14,6 +14,10 @@ class QuestRepository @Inject constructor(
 ) {
     fun observeAll() = questDao.observeAll()
 
+    fun observe(id: Int) = questDao.observe(id)
+
+    fun get(id: Int) = questDao.get(id)
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getDifficulties(ids: Set<Int>) = questDao.getDifficulties(ids)

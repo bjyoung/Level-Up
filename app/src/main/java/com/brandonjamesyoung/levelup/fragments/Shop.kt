@@ -32,7 +32,7 @@ class Shop : Fragment(R.layout.shop) {
     private val selectedItemRowIds: MutableSet<Int> = mutableSetOf()
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
-    private fun setupNewItemNavigation() {
+    private fun navigateToNewItem() {
         NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_newItem)
         Log.i(TAG, "Going from Shop to New Item")
     }
@@ -42,13 +42,13 @@ class Shop : Fragment(R.layout.shop) {
             targetId = R.id.AddNewItemButton,
             iconDrawableId = R.drawable.plus_icon,
             iconColorId = R.color.icon_primary,
-            buttonMethod = ::setupNewItemNavigation,
+            buttonMethod = ::navigateToNewItem,
             view = requireView(),
             resources = resources
         )
     }
 
-    private fun setupQuestListNavigation() {
+    private fun navigateToQuestList() {
         NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_questList)
         Log.i(TAG, "Going from Shop to Quest List")
     }
@@ -58,13 +58,13 @@ class Shop : Fragment(R.layout.shop) {
             targetId = R.id.QuestListButton,
             iconDrawableId = R.drawable.bullet_list_icon,
             iconColorId = R.color.icon_primary,
-            buttonMethod = ::setupQuestListNavigation,
+            buttonMethod = ::navigateToQuestList,
             view = requireView(),
             resources = resources
         )
     }
 
-    private fun setupSettingsNavigation() {
+    private fun navigateToSettings() {
         NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_settings)
         Log.i(TAG, "Going from Shop to Settings")
     }
@@ -74,7 +74,7 @@ class Shop : Fragment(R.layout.shop) {
             targetId = R.id.ShopSettingsButton,
             iconDrawableId = R.drawable.gear_icon,
             iconColorId = R.color.icon_primary,
-            buttonMethod = ::setupSettingsNavigation,
+            buttonMethod = ::navigateToSettings,
             view = requireView(),
             resources = resources
         )

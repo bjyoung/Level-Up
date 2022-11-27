@@ -4,6 +4,13 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.6.0
+
+### Added
+
+- Tapping on the quest card border in Quest List lets the player edit the selected quest
+  - If the player is in Select Mode, then they cannot edit quests
+
 ## 0.5.1
 
 ### Added

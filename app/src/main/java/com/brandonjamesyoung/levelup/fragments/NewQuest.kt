@@ -4,29 +4,33 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.shared.Difficulty
+import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateName
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.time.Instant
 
-private const val TAG = "NewQuest"
-
 @AndroidEntryPoint
 class NewQuest : Fragment(R.layout.new_quest) {
     private val viewModel: NewQuestViewModel by activityViewModels()
     private var selectedDifficulty: Difficulty? = null
     private var defaultDifficulty = Difficulty.EASY
+    private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
+    private val args: NewQuestArgs by navArgs()
 
     private val buttonIdToDifficultyMap = mapOf(
         R.id.EasyButton to Difficulty.EASY,
@@ -43,7 +47,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
         Log.i(TAG, "Going from New Quest to Quest List")
     }
 
-    private fun addNavigation() {
+    private fun setupCancelButton() {
         val view = requireView()
         val button = view.findViewById<View>(R.id.CancelButton)
 
@@ -99,7 +103,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
         return true
     }
 
-    private fun createQuest() {
+    private fun saveQuest() {
         val view = requireView()
         val nameTextView = view.findViewById<EditText>(R.id.NameInput)
         var name: String? = nameTextView.text.trim().toString()
@@ -116,10 +120,16 @@ class NewQuest : Fragment(R.layout.new_quest) {
         val quest = Quest(
             name = name,
             difficulty = selectedDifficulty!!,
-            dateCreated = Instant.now()
         )
 
-        viewModel.insert(quest)
+
+        if (mode.value == Mode.DEFAULT) {
+            quest.dateCreated = Instant.now()
+            viewModel.insert(quest)
+        } else if (mode.value == Mode.EDIT) {
+            quest.id = args.questId
+            viewModel.update(quest)
+        }
     }
 
     private fun setupConfirmButton() {
@@ -128,14 +138,53 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
         saveButton.setOnClickListener {
             if (validateInput()){
-                createQuest()
+                saveQuest()
                 navigateToQuestList()
             }
         }
     }
 
+    private fun setupButtons() {
+        setDifficultyButtonListeners()
+        setupConfirmButton()
+        setupCancelButton()
+    }
+
     private fun selectDefaultDifficulty() {
         setSelectedDifficulty(defaultDifficulty)
+    }
+
+    private fun loadQuest(quest: Quest) {
+        val view = requireView()
+        val nameInput = view.findViewById<EditText>(R.id.NameInput)
+        nameInput.setText(quest.name)
+        setSelectedDifficulty(quest.difficulty)
+    }
+
+    private fun activateEditMode() {
+        val view = requireView()
+        val pageLabel = view.findViewById<TextView>(R.id.NewQuestLabel)
+        pageLabel.text = resources.getString(R.string.edit_quest_label)
+
+        viewModel.getQuest(args.questId).observe(viewLifecycleOwner) { quest ->
+            loadQuest(quest)
+        }
+    }
+
+    private fun setupMode() {
+        mode.value = Mode.DEFAULT
+
+        if (args.questId != INVALID_QUEST_ID) {
+            mode.value = Mode.EDIT
+        }
+
+        mode.observe(viewLifecycleOwner) { mode ->
+            when (mode) {
+                Mode.DEFAULT -> Unit
+                Mode.EDIT -> activateEditMode()
+                else -> Log.e(TAG, "Unknown mode detected")
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -143,10 +192,14 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
         lifecycleScope.launch {
             Log.i(TAG, "On New Quest page")
-            addNavigation()
-            setDifficultyButtonListeners()
-            setupConfirmButton()
+            setupButtons()
             selectDefaultDifficulty()
+            setupMode()
         }
+    }
+
+    companion object {
+        private const val TAG = "NewQuest"
+        private const val INVALID_QUEST_ID = 0
     }
 }

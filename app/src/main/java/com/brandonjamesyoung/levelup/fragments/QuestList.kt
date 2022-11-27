@@ -118,8 +118,14 @@ class QuestList : Fragment(R.layout.quest_list) {
         activateCancelButton()
     }
 
-    private fun setupNewQuestNavigation() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_questList_to_newQuest)
+    private fun navigateToNewQuest(questId: Int? = null) {
+        val action = if (questId != null) {
+            QuestListDirections.actionQuestListToNewQuest(questId)
+        } else {
+            QuestListDirections.actionQuestListToNewQuest()
+        }
+
+        NavHostFragment.findNavController(this).navigate(action)
         Log.i(TAG, "Going from Quest List to New Quest")
     }
 
@@ -129,13 +135,13 @@ class QuestList : Fragment(R.layout.quest_list) {
             targetId = R.id.AddNewQuestButton,
             iconDrawableId = R.drawable.plus_icon,
             iconColorId = R.color.icon_primary,
-            buttonMethod = ::setupNewQuestNavigation,
+            buttonMethod = ::navigateToNewQuest,
             view = requireView(),
             resources = resources
         )
     }
 
-    private fun setupShopNavigation() {
+    private fun navigateToShop() {
         NavHostFragment.findNavController(this).navigate(R.id.action_questList_to_shop)
         Log.i(TAG, "Going from Quest List to Shop")
     }
@@ -146,13 +152,13 @@ class QuestList : Fragment(R.layout.quest_list) {
             targetId = R.id.ShopButton,
             iconDrawableId = R.drawable.star_icon,
             iconColorId = R.color.icon_primary,
-            buttonMethod = ::setupShopNavigation,
+            buttonMethod = ::navigateToShop,
             view = requireView(),
             resources = resources
         )
     }
 
-    private fun setupSettingsNavigation() {
+    private fun navigateToSettings() {
         NavHostFragment.findNavController(this).navigate(R.id.action_questList_to_settings)
         Log.i(TAG, "Going from Quest List to Settings")
     }
@@ -163,7 +169,7 @@ class QuestList : Fragment(R.layout.quest_list) {
             targetId = R.id.SettingsButton,
             iconDrawableId = R.drawable.gear_icon,
             iconColorId = R.color.icon_primary,
-            buttonMethod = ::setupSettingsNavigation,
+            buttonMethod = ::navigateToSettings,
             view = requireView(),
             resources = resources
         )
@@ -201,6 +207,12 @@ class QuestList : Fragment(R.layout.quest_list) {
         return drawable
     }
 
+    private fun selectQuestBorder(questId: Int) {
+        if (mode.value == Mode.DEFAULT) {
+            navigateToNewQuest(questId)
+        }
+    }
+
     private fun selectQuestIcon(questId: Int, icon: FloatingActionButton, iconFileName: String) {
         val view = requireView()
 
@@ -227,12 +239,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun createQuestCard(
         quest: Quest,
-        questIconFileName: String,
-        iconClickMethod: (
-            questId: Int,
-            icon: FloatingActionButton,
-            iconFileName: String
-        ) -> Unit
+        questIconFileName: String
     ) : CardView {
         val view = requireView()
         val context = view.context
@@ -250,6 +257,10 @@ class QuestList : Fragment(R.layout.quest_list) {
         newCard.id = View.generateViewId()
         newCardLayout.removeView(newCard)
 
+        newCard.setOnClickListener {
+            selectQuestBorder(quest.id)
+        }
+
         val difficultyColorId = difficultyColorMap[quest.difficulty]
             ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
 
@@ -266,7 +277,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         icon.id = View.generateViewId()
 
         icon.setOnClickListener{
-            iconClickMethod(quest.id, icon, questIconFileName)
+            selectQuestIcon(quest.id, icon, questIconFileName)
         }
 
         return newCard
@@ -280,8 +291,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         val newCard = createQuestCard(
             quest = quest,
-            questIconFileName = iconName,
-            iconClickMethod = ::selectQuestIcon
+            questIconFileName = iconName
         )
 
         val view = requireView()

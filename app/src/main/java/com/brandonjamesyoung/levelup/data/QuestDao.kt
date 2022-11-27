@@ -10,7 +10,10 @@ interface QuestDao {
     fun observeAll(): Flow<List<Quest>>
 
     @Query("SELECT * FROM Quest WHERE id = :id")
-    fun observeById(id: Int): Flow<Quest>
+    fun observe(id: Int): Flow<Quest>
+
+    @Query("SELECT * FROM Quest WHERE id = :id")
+    fun get(id: Int): Quest
 
     @Query("SELECT difficulty FROM Quest WHERE id IN (:ids)")
     fun getDifficulties(ids: Set<Int>): List<Difficulty>
