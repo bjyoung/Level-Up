@@ -205,7 +205,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         return drawable
     }
 
-    private fun selectQuestBorder(questId: Int) {
+    private fun editQuest(questId: Int) {
         if (mode.value == Mode.DEFAULT) {
             navigateToNewQuest(questId)
         }
@@ -256,7 +256,12 @@ class QuestList : Fragment(R.layout.quest_list) {
         newCardLayout.removeView(newCard)
 
         newCard.setOnClickListener {
-            selectQuestBorder(quest.id)
+            editQuest(quest.id)
+        }
+
+        newCard.setOnLongClickListener {
+            editQuest(quest.id)
+            true
         }
 
         val difficultyColorId = difficultyColorMap[quest.difficulty]
@@ -276,6 +281,11 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         icon.setOnClickListener{
             selectQuestIcon(quest.id, icon, questIconFileName)
+        }
+
+        icon.setOnLongClickListener {
+            editQuest(quest.id)
+            true
         }
 
         return newCard

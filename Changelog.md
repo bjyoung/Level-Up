@@ -4,6 +4,12 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.6.1
+
+### Added
+
+- Player can now edit quests in Quest List not only by tapping the quest card border, but also by pressing and holding anywhere on the quest card
+
 ## 0.6.0
 
 ### Added
