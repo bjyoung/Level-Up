@@ -14,6 +14,10 @@ class ItemRepository @Inject constructor(
 ) {
     fun observeAll() = itemDao.observeAll()
 
+    fun observe(id: Int) = itemDao.observe(id)
+
+    fun get(id: Int) = itemDao.get(id)
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getTotalCost(ids: Set<Int>) = itemDao.getTotalCost(ids)

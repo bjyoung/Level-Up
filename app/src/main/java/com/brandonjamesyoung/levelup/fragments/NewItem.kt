@@ -8,11 +8,14 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.Settings
+import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.validation.Validation
 import com.brandonjamesyoung.levelup.viewmodels.NewItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +25,8 @@ import java.time.Instant
 @AndroidEntryPoint
 class NewItem : Fragment(R.layout.new_item) {
     private val viewModel: NewItemViewModel by activityViewModels()
+    private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
+    private val args: NewItemArgs by navArgs()
 
     private fun updateAcronym(settings: Settings?) {
         if (settings == null) {
@@ -61,7 +66,7 @@ class NewItem : Fragment(R.layout.new_item) {
         return true
     }
 
-    private fun createItem() {
+    private fun saveItem() {
         val view = requireView()
         val nameInput = view.findViewById<EditText>(R.id.ItemNameInput)
         var name: String? = nameInput.text.trim().toString()
@@ -76,10 +81,15 @@ class NewItem : Fragment(R.layout.new_item) {
         val item = Item(
             name = name,
             cost = cost,
-            dateCreated = Instant.now()
         )
 
-        viewModel.insert(item)
+        if (mode.value == Mode.DEFAULT) {
+            item.dateCreated = Instant.now()
+            viewModel.insert(item)
+        } else if (mode.value == Mode.EDIT) {
+            item.id = args.itemId
+            viewModel.update(item)
+        }
     }
 
     private fun setupConfirmButton() {
@@ -88,8 +98,42 @@ class NewItem : Fragment(R.layout.new_item) {
 
         saveButton.setOnClickListener {
             if (validateInput()){
-                createItem()
+                saveItem()
                 navigateToShop()
+            }
+        }
+    }
+
+    private fun loadItem(item: Item) {
+        val view = requireView()
+        val nameInput = view.findViewById<EditText>(R.id.ItemNameInput)
+        nameInput.setText(item.name)
+        val costInput = view.findViewById<EditText>(R.id.CostInput)
+        costInput.setText(item.cost.toString())
+    }
+
+    private fun activateEditMode() {
+        val view = requireView()
+        val pageLabel = view.findViewById<TextView>(R.id.NewQuestLabel)
+        pageLabel.text = resources.getString(R.string.edit_item_label)
+
+        viewModel.getItem(args.itemId).observe(viewLifecycleOwner) { item ->
+            loadItem(item)
+        }
+    }
+
+    private fun setupMode() {
+        mode.value = Mode.DEFAULT
+
+        if (args.itemId != INVALID_ITEM_ID) {
+            mode.value = Mode.EDIT
+        }
+
+        mode.observe(viewLifecycleOwner) { mode ->
+            when (mode) {
+                Mode.DEFAULT -> Unit
+                Mode.EDIT -> activateEditMode()
+                else -> Log.e(TAG, "Unknown mode detected")
             }
         }
     }
@@ -101,6 +145,7 @@ class NewItem : Fragment(R.layout.new_item) {
             Log.i(TAG, "On New Item page")
             addNavigation()
             setupConfirmButton()
+            setupMode()
 
             viewModel.settings.observe(viewLifecycleOwner) { settings ->
                 updateAcronym(settings)
@@ -110,5 +155,6 @@ class NewItem : Fragment(R.layout.new_item) {
 
     companion object {
         private const val TAG = "NewItem"
+        private const val INVALID_ITEM_ID = 0
     }
 }

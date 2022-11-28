@@ -30,8 +30,14 @@ class Shop : Fragment(R.layout.shop) {
     private val selectedItemRowIds: MutableSet<Int> = mutableSetOf()
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
-    private fun navigateToNewItem() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_newItem)
+    private fun navigateToNewItem(itemId: Int? = null) {
+        val action = if (itemId != null) {
+            ShopDirections.actionShopToNewItem(itemId)
+        } else {
+            ShopDirections.actionShopToNewItem()
+        }
+
+        NavHostFragment.findNavController(this).navigate(action)
         Log.i(TAG, "Going from Shop to New Item")
     }
 
@@ -174,6 +180,13 @@ class Shop : Fragment(R.layout.shop) {
         mode.value = if (selectedItemIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
     }
 
+    private fun longPressItemRow(item: Item) {
+        if (mode.value == Mode.DEFAULT) {
+            Log.i(TAG, "Item '${item.name}' is long pressed")
+            navigateToNewItem(item.id)
+        }
+    }
+
     private fun createItemRow(item: Item, parentLayout: ViewGroup) : ConstraintLayout {
         val newItemRow = layoutInflater.inflate(
             R.layout.item_row,
@@ -190,6 +203,11 @@ class Shop : Fragment(R.layout.shop) {
 
         newItemRow.setOnClickListener{
             selectItem(item.id, newItemRow)
+        }
+
+        newItemRow.setOnLongClickListener {
+            longPressItemRow(item)
+            true
         }
 
         return newItemRow

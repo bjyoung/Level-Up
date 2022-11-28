@@ -7,8 +7,8 @@ import java.time.Instant
 
 @Entity
 data class Item(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) var id: Int = 0,
     @ColumnInfo val name: String? = null,
     @ColumnInfo val cost: Int,
-    @ColumnInfo val dateCreated: Instant? = null,
+    @ColumnInfo var dateCreated: Instant? = null,
 )

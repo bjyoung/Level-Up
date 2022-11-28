@@ -22,17 +22,42 @@ class NewItemViewModel @Inject constructor(
 ) : ViewModel() {
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
-    private suspend fun logItemCreation(item: Item) {
-        var logMessage = "Add new item with "
-        logMessage += if (item.name != null) "name '${item.name}'" else "no name"
-        logMessage += " that costs ${item.cost} "
-        logMessage += settingsRepository.get().pointsAcronym
+    fun getItem(id: Int): LiveData<Item> {
+        return itemRepository.observe(id).asLiveData()
+    }
 
+    private suspend fun logItemSave(item: Item, isEdit: Boolean = false) {
+        var logMessage = if (!isEdit) {
+            "Add new item with "
+        } else {
+            "Edit item to have "
+        }
+
+        logMessage += if (item.name != null) "name '${item.name}'" else "no name"
+
+        logMessage += if (!isEdit) {
+            " that costs ${item.cost} "
+        } else {
+            " and cost ${item.cost} "
+        }
+
+        logMessage += settingsRepository.get().pointsAcronym
         Log.i(TAG, logMessage)
     }
 
     fun insert(item: Item) = viewModelScope.launch(ioDispatcher) {
         itemRepository.insert(item)
-        logItemCreation(item)
+        logItemSave(item)
+    }
+
+    fun update(item: Item) = viewModelScope.launch(ioDispatcher) {
+        val currentQuest = itemRepository.get(item.id)
+
+        if (item.dateCreated == null) {
+            item.dateCreated = currentQuest.dateCreated
+        }
+
+        itemRepository.update(item)
+        logItemSave(item = item, isEdit = true)
     }
 }

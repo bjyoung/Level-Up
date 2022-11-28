@@ -9,7 +9,9 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - Tapping on the quest card border in Quest List lets the player edit the selected quest
-  - If the player is in Select Mode, then they cannot edit quests
+  - If any quests are selected, then the player cannot edit quests until they de-select all quests
+- Pressing and holding on an item in the Shop lets the player edit the selected item
+  - If any items are selected, then the player cannot edit quests until they de-select all items
 
 ## 0.5.1
 

@@ -82,6 +82,7 @@
 
     <!-- New Item strings -->
     <string name="new_item_label">New Item</string>
+    <string name="edit_item_label">Edit Item</string>
     <string name="cost_input_label">Cost</string>
     <string name="cost_input_hint">15</string>
     <string name="cost_input_autofill_hint">costInput</string>

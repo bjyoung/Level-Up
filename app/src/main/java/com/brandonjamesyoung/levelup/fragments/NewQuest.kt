@@ -28,7 +28,6 @@ import java.time.Instant
 class NewQuest : Fragment(R.layout.new_quest) {
     private val viewModel: NewQuestViewModel by activityViewModels()
     private var selectedDifficulty: Difficulty? = null
-    private var defaultDifficulty = Difficulty.EASY
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
     private val args: NewQuestArgs by navArgs()
 
@@ -122,7 +121,6 @@ class NewQuest : Fragment(R.layout.new_quest) {
             difficulty = selectedDifficulty!!,
         )
 
-
         if (mode.value == Mode.DEFAULT) {
             quest.dateCreated = Instant.now()
             viewModel.insert(quest)
@@ -151,7 +149,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     }
 
     private fun selectDefaultDifficulty() {
-        setSelectedDifficulty(defaultDifficulty)
+        setSelectedDifficulty(DEFAULT_DIFFICULTY)
     }
 
     private fun loadQuest(quest: Quest) {
@@ -201,5 +199,6 @@ class NewQuest : Fragment(R.layout.new_quest) {
     companion object {
         private const val TAG = "NewQuest"
         private const val INVALID_QUEST_ID = 0
+        private val DEFAULT_DIFFICULTY = Difficulty.EASY
     }
 }
