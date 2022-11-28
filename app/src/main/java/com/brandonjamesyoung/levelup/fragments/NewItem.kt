@@ -19,8 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.time.Instant
 
-private const val TAG = "NewItem"
-
 @AndroidEntryPoint
 class NewItem : Fragment(R.layout.new_item) {
     private val viewModel: NewItemViewModel by activityViewModels()
@@ -108,5 +106,9 @@ class NewItem : Fragment(R.layout.new_item) {
                 updateAcronym(settings)
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "NewItem"
     }
 }

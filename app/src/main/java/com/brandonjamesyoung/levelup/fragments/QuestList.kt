@@ -34,8 +34,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-private const val TAG = "QuestList"
-
 @AndroidEntryPoint
 class QuestList : Fragment(R.layout.quest_list) {
     private val viewModel: QuestListViewModel by activityViewModels()
@@ -403,5 +401,9 @@ class QuestList : Fragment(R.layout.quest_list) {
                 bundleOf("FRAGMENT_ID" to R.id.QuestList)
             )
         }
+    }
+
+    companion object {
+        private const val TAG = "QuestList"
     }
 }

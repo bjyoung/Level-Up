@@ -24,8 +24,6 @@ import com.brandonjamesyoung.levelup.ui.ButtonHelper.Companion.convertButton
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
 import kotlinx.coroutines.launch
 
-private const val TAG = "Shop"
-
 class Shop : Fragment(R.layout.shop) {
     private val viewModel: ShopViewModel by activityViewModels()
     private val selectedItemIds: MutableSet<Int> = mutableSetOf()
@@ -260,5 +258,9 @@ class Shop : Fragment(R.layout.shop) {
                 bundleOf("FRAGMENT_ID" to R.id.Shop)
             )
         }
+    }
+
+    companion object {
+        private const val TAG = "Shop"
     }
 }

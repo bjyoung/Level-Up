@@ -22,8 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateNumField
 
-private const val TAG = "SettingsPage"
-
 @AndroidEntryPoint
 class SettingsPage : Fragment(R.layout.settings) {
     private val viewModel: SettingsViewModel by activityViewModels()
@@ -249,5 +247,9 @@ class SettingsPage : Fragment(R.layout.settings) {
                 prevFragmentId = bundle.getInt("FRAGMENT_ID")
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "SettingsPage"
     }
 }
