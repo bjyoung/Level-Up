@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -69,7 +67,8 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun navigateToSettings() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_settings)
+        val action = ShopDirections.actionShopToSettings(R.id.Shop)
+        NavHostFragment.findNavController(this).navigate(action)
         Log.i(TAG, "Going from Shop to Settings")
     }
 
@@ -270,11 +269,6 @@ class Shop : Fragment(R.layout.shop) {
         lifecycleScope.launch{
             Log.i(TAG, "On Shop page")
             setupObservables(view)
-
-            setFragmentResult(
-                "PREV_FRAGMENT",
-                bundleOf("FRAGMENT_ID" to R.id.Shop)
-            )
         }
     }
 

@@ -67,6 +67,10 @@
             app:exitAnim="@anim/slide_out_up_right"
             app:popEnterAnim="@anim/slide_in_down_left"
             app:popExitAnim="@anim/slide_out_down_left"/>
+        <argument
+            android:name="fragmentId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/shop"

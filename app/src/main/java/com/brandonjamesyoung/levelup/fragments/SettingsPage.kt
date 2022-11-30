@@ -8,9 +8,9 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.shared.Difficulty as DifficultyCode
 import com.brandonjamesyoung.levelup.data.Difficulty
@@ -24,8 +24,12 @@ import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateNum
 
 @AndroidEntryPoint
 class SettingsPage : Fragment(R.layout.settings) {
+    private val args: SettingsPageArgs by navArgs()
     private val viewModel: SettingsViewModel by activityViewModels()
-    private var prevFragmentId: Int = R.id.QuestList
+
+    private val prevFragmentId: Int by lazy {
+        if (args.fragmentId != 0) args.fragmentId else R.id.QuestList
+    }
 
     private fun setupBackupButton() {
         val view = requireView()
@@ -242,10 +246,6 @@ class SettingsPage : Fragment(R.layout.settings) {
             Log.i(TAG, "On Settings page")
             setupButtons()
             setupObservables()
-
-            setFragmentResultListener("PREV_FRAGMENT") { _, bundle ->
-                prevFragmentId = bundle.getInt("FRAGMENT_ID")
-            }
         }
     }
 

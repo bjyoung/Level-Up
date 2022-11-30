@@ -168,7 +168,7 @@ class Player(
 
 ### Braces
 
-- Not required for `when` branches and `if` statements which have no more than one `else` branch and which fit on a single line
+- Not required for `when` branches and `if` statements which have at most one `else` branch and which fit on a single line
 
 ```kotlin
 if (condition()) return

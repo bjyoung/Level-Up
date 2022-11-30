@@ -12,10 +12,8 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -157,7 +155,8 @@ class QuestList : Fragment(R.layout.quest_list) {
     }
 
     private fun navigateToSettings() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_questList_to_settings)
+        val action = QuestListDirections.actionQuestListToSettings(R.id.QuestList)
+        NavHostFragment.findNavController(this).navigate(action)
         Log.i(TAG, "Going from Quest List to Settings")
     }
 
@@ -405,11 +404,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         lifecycleScope.launch{
             Log.i(TAG, "On Quest List page")
             setupObservables(view)
-
-            setFragmentResult(
-                "PREV_FRAGMENT",
-                bundleOf("FRAGMENT_ID" to R.id.QuestList)
-            )
         }
     }
 
