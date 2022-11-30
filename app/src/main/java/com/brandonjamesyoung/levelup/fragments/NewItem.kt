@@ -59,7 +59,14 @@ class NewItem : Fragment(R.layout.new_item) {
         if (!Validation.validateName(nameView, TAG, this)) return false
         val costView = view.findViewById<EditText>(R.id.CostInput)
 
-        if (!Validation.validateNumField(costView, 0, 99999, this)) {
+        val costIsValid = Validation.validateNumField(
+            editText = costView,
+            minNumber = -9999,
+            maxNumber = 99999,
+            fragment = this
+        )
+
+        if (!costIsValid) {
             return false
         }
 

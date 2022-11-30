@@ -29,7 +29,7 @@
         android:ems="10"
         android:fontFamily="@font/press_start_2p"
         android:hint="@string/cost_input_hint"
-        android:inputType="number"
+        android:inputType="numberSigned"
         android:maxLength="5"
         android:textAlignment="center"
         android:textColor="@color/text_primary"
