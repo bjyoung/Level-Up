@@ -14,7 +14,7 @@ import com.brandonjamesyoung.levelup.shared.Difficulty.EXPERT
 
 @Database(
     entities = [Quest::class, Player::class, Settings::class, Difficulty::class, Item::class],
-    version = 11,
+    version = 12,
     autoMigrations = [
         AutoMigration (from = 1, to = 2),
         AutoMigration (from = 2, to = 3),
@@ -23,7 +23,8 @@ import com.brandonjamesyoung.levelup.shared.Difficulty.EXPERT
         AutoMigration (from = 7, to = 8, spec = Migration.MigrationSpec7To8::class),
         AutoMigration (from = 8, to = 9),
         AutoMigration (from = 9, to = 10),
-        AutoMigration (from = 10, to = 11)
+        AutoMigration (from = 10, to = 11),
+        AutoMigration (from = 11, to = 12, spec = Migration.MigrationSpec11To12::class)
     ],
 )
 @TypeConverters(Converter::class)
@@ -77,25 +78,25 @@ abstract class AppDatabase : RoomDatabase() {
                 val easy = Difficulty(
                     code = EASY,
                     expReward = INIT_EASY_EXP,
-                    rtReward = INIT_EASY_POINTS
+                    pointsReward = INIT_EASY_POINTS
                 )
 
                 val medium = Difficulty(
                     code = MEDIUM,
                     expReward = INIT_MEDIUM_EXP,
-                    rtReward = INIT_MEDIUM_POINTS
+                    pointsReward = INIT_MEDIUM_POINTS
                 )
 
                 val hard = Difficulty(
                     code = HARD,
                     expReward = INIT_HARD_EXP,
-                    rtReward = INIT_HARD_POINTS
+                    pointsReward = INIT_HARD_POINTS
                 )
 
                 val expert = Difficulty(
                     code = EXPERT,
                     expReward = INIT_EXPERT_EXP,
-                    rtReward = INIT_EXPERT_POINTS
+                    pointsReward = INIT_EXPERT_POINTS
                 )
 
                 val difficulties = listOf(easy, medium, hard, expert)

@@ -37,7 +37,7 @@ class QuestListViewModel @Inject constructor(
 
             if (difficultyEntity != null) {
                 expEarned += difficultyEntity.expReward
-                pointsEarned += difficultyEntity.rtReward
+                pointsEarned += difficultyEntity.pointsReward
             } else {
                 Log.e(TAG, "Difficulty enum value not found")
             }

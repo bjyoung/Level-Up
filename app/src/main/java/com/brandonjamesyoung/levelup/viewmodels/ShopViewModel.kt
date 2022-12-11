@@ -27,12 +27,12 @@ class ShopViewModel @Inject constructor(
         val totalCost = itemRepository.getTotalCost(ids)
         val player = playerRepository.get()
 
-        if (totalCost > player.rt) {
+        if (totalCost > player.points) {
             Log.i(TAG, "Player does not have enough points to purchase the selected items")
             // TODO should tell player via toast message that they cannot buy the items
         } else {
             player.apply {
-                rt -= totalCost
+                points -= totalCost
             }
 
             playerRepository.update(player)

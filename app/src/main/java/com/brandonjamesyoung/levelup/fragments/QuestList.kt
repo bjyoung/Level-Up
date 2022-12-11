@@ -326,7 +326,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun updatePoints(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
-        val rtStr = player?.rt?.toString() ?: placeholderText
+        val rtStr = player?.points?.toString() ?: placeholderText
         val pointsAmount = view.findViewById<TextView>(R.id.PointsAmount)
         pointsAmount.text = rtStr
     }

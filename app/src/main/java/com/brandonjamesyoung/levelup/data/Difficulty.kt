@@ -10,5 +10,5 @@ data class Difficulty(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo val code: Difficulty,
     @ColumnInfo var expReward: Int,
-    @ColumnInfo var rtReward: Int,
+    @ColumnInfo var pointsReward: Int,
 )

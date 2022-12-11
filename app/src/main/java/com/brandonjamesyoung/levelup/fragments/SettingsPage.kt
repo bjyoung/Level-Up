@@ -131,7 +131,7 @@ class SettingsPage : Fragment(R.layout.settings) {
             val newDifficulty = Difficulty(
                 code = code,
                 expReward = Integer.parseInt(expInput.text.toString()),
-                rtReward = Integer.parseInt(rtInput.text.toString())
+                pointsReward = Integer.parseInt(rtInput.text.toString())
             )
 
             newDifficulties.add(newDifficulty)
@@ -198,7 +198,7 @@ class SettingsPage : Fragment(R.layout.settings) {
             }
 
             expInput?.setText(difficulty?.expReward.toString())
-            rtInput?.setText(difficulty?.rtReward.toString())
+            rtInput?.setText(difficulty?.pointsReward.toString())
         }
     }
 

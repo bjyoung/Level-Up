@@ -1,6 +1,7 @@
 package com.brandonjamesyoung.levelup.data
 
 import androidx.room.DeleteColumn
+import androidx.room.RenameColumn
 import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -18,6 +19,14 @@ class Migration {
     @DeleteColumn(tableName = "Settings", columnName = "hardRtReward")
     @DeleteColumn(tableName = "Settings", columnName = "expertRtReward")
     class MigrationSpec7To8 : AutoMigrationSpec
+
+    @RenameColumn(tableName = "Player", fromColumnName = "rt", toColumnName = "points")
+    @RenameColumn(
+        tableName = "Difficulty",
+        fromColumnName = "rtReward",
+        toColumnName = "pointsReward"
+    )
+    class MigrationSpec11To12 : AutoMigrationSpec
 
     companion object {
         val MIGRATION_3_4 = object : Migration(3, 4) {

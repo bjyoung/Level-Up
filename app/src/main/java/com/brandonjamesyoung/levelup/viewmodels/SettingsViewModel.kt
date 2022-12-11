@@ -67,16 +67,16 @@ class SettingsViewModel @Inject constructor(
                 )
             }
 
-            if (currDifficulty != null && currDifficulty.rtReward != newDifficulty.rtReward) {
+            if (currDifficulty != null && currDifficulty.pointsReward != newDifficulty.pointsReward) {
                 Log.i(TAG, "Update ${currDifficulty.code} quests reward" +
-                        " from ${currDifficulty.rtReward} $oldAcronym" +
-                        " to ${newDifficulty.rtReward} $newAcronym"
+                        " from ${currDifficulty.pointsReward} $oldAcronym" +
+                        " to ${newDifficulty.pointsReward} $newAcronym"
                 )
             }
 
             currDifficulty?.apply {
                 expReward = newDifficulty.expReward
-                rtReward = newDifficulty.rtReward
+                pointsReward = newDifficulty.pointsReward
             }
         }
 
