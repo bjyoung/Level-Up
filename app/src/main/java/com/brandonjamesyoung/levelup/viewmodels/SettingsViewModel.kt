@@ -15,8 +15,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val TAG = "SettingsViewModel"
-
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -93,5 +91,9 @@ class SettingsViewModel @Inject constructor(
         val oldAcronym = currSettings.pointsAcronym
         val newAcronym = newSettings.pointsAcronym
         updateDifficulties(newDifficulties, oldAcronym, newAcronym)
+    }
+
+    companion object {
+        private const val TAG = "SettingsViewModel"
     }
 }

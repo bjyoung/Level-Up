@@ -87,7 +87,7 @@ class SettingsPage : Fragment(R.layout.settings) {
 
         for (id in difficultyInputIds) {
             val editText = view.findViewById<EditText>(id)
-            val isValid = validateNumField(editText, 0, 9999, this)
+            val isValid = validateNumField(editText, -999, 9999, this)
             if (!isValid) difficultySettingsAreValid = false
         }
 
@@ -103,7 +103,7 @@ class SettingsPage : Fragment(R.layout.settings) {
     private fun validateLvlUpBonus() : Boolean {
         val view = requireView()
         val lvlUpBonusInput = view.findViewById<EditText>(R.id.LevelUpBonusInput)
-        return validateNumField(lvlUpBonusInput, 0, 999, this)
+        return validateNumField(lvlUpBonusInput, -99, 999, this)
     }
 
     private fun validateInput() : Boolean {

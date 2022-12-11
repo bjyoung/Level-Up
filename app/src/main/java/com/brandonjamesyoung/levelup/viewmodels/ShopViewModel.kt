@@ -12,8 +12,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val TAG = "ShopViewModel"
-
 @HiltViewModel
 class ShopViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -48,5 +46,9 @@ class ShopViewModel @Inject constructor(
         itemRepository.delete(ids)
         val numDeleted = ids.count()
         Log.i(TAG, "Delete $numDeleted item(s)")
+    }
+
+    companion object {
+        private const val TAG = "ShopViewModel"
     }
 }

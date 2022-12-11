@@ -1,8 +1,10 @@
 package com.brandonjamesyoung.levelup.data
 
+import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.brandonjamesyoung.levelup.shared.*
 
 @Entity
 data class Player(
@@ -12,4 +14,104 @@ data class Player(
     @ColumnInfo var lvl: Int = 1,
     @ColumnInfo var totalExp: Long = 0,
     @ColumnInfo var currentLvlExp: Int = 0,
-)
+) {
+    private fun getExpToNextLvl(): Int {
+        val totalExpToLvlUp = LevelUpHelper.getExpToLvlUp(lvl)
+        return totalExpToLvlUp - currentLvlExp
+    }
+
+    private fun canLevelUp(expEarned: Int) : Boolean {
+        val expToNextLvl = getExpToNextLvl()
+        return expEarned > 0 && expEarned >= expToNextLvl && lvl < MAX_LEVEL
+    }
+
+    fun gainPoints(pointsEarned: Int) {
+        rt += if (rt + pointsEarned > MAX_POINTS) MAX_POINTS - rt else pointsEarned
+    }
+
+    private fun levelUp(bonusPoints: Int) {
+        lvl += 1
+        gainPoints(bonusPoints)
+        currentLvlExp = 0
+        Log.i(TAG, "Player levels up to lvl $lvl")
+    }
+
+    private fun canLevelDown( expLost: Int) : Boolean {
+        return expLost >= currentLvlExp && lvl > 1
+    }
+
+    private fun levelDown(bonusPoints: Int) {
+        lvl -= 1
+        rt -= bonusPoints
+        currentLvlExp = LevelUpHelper.getExpToLvlUp(lvl)
+        Log.i(TAG, "Player levels down to lvl $lvl")
+    }
+
+    private fun gainTotalExp(expEarned: Int) {
+        totalExp += if (totalExp + expEarned > MAX_TOTAL_EXP) {
+            MAX_TOTAL_EXP - totalExp
+        } else {
+            expEarned.toLong()
+        }
+    }
+
+    private fun addExp(expEarned: Int, bonusPoints: Int) : Int {
+        var expLeft = expEarned
+        var numLevelUps = 0
+
+        while (canLevelUp(expLeft)) {
+            val expToNextLvl = getExpToNextLvl()
+            expLeft -= expToNextLvl
+            levelUp(bonusPoints)
+            numLevelUps++
+
+            if (numLevelUps > MAX_NUM_LOOPS) {
+                Log.e(TAG, "Exceeded maximum num loops")
+            }
+        }
+
+        val currLvlExpEarned = if (lvl < MAX_LEVEL) expLeft else 0
+        gainTotalExp(expEarned)
+        currentLvlExp += currLvlExpEarned
+        return numLevelUps
+    }
+
+    private fun subtractExp(expEarned: Int, bonusPoints: Int) : Int {
+        var expLost = -expEarned
+        var numLevelUps = 0
+
+        while (canLevelDown(expLost)) {
+            val expToLowerLvl = currentLvlExp
+            expLost += expToLowerLvl
+            levelDown(bonusPoints)
+            numLevelUps++
+
+            if (numLevelUps > MAX_NUM_LOOPS) {
+                Log.e(TAG, "Exceeded maximum num loops")
+            }
+        }
+
+        val currLvlExpLost = if (lvl == 1 && expLost > currentLvlExp) {
+            currentLvlExp
+        } else {
+            expLost
+        }
+
+        gainTotalExp(expEarned)
+        currentLvlExp -= currLvlExpLost
+
+        return numLevelUps
+    }
+
+    fun gainExp(expEarned: Int, bonusPoints: Int) : Int {
+        return if (expEarned >= 0) {
+            addExp(expEarned, bonusPoints)
+        } else {
+            subtractExp(expEarned, bonusPoints)
+        }
+    }
+
+    companion object {
+        private const val TAG = "Player"
+    }
+}

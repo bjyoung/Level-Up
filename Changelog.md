@@ -8,7 +8,14 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Player can now edit quests in Quest List not only by tapping the quest card border, but also by pressing and holding anywhere on the quest card
+- Player can edit quests in Quest List by pressing and holding anywhere on the quest card
+
+### Changed
+
+- Items are allowed to have a negative cost which can be as low as -9999
+- Settings are allowed to have negative number values
+  - Exp and point input fields allow values down to -999
+  - Level up bonus allow values down to -99
 
 ## 0.6.0
 
@@ -50,6 +57,7 @@ This document tracks all notables changes to the Level Up app.
   - Has an optional name field and a required cost field
   - Player can create new items that are displayed in the shop
   - Has a cancel button that leads back to the Shop
+  - Cost must be between 0 and 99999
 
 ### Fixed
 

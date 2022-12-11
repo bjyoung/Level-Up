@@ -12,8 +12,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val TAG = "NewItemViewModel"
-
 @HiltViewModel
 class NewItemViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -59,5 +57,9 @@ class NewItemViewModel @Inject constructor(
 
         itemRepository.update(item)
         logItemSave(item = item, isEdit = true)
+    }
+
+    companion object {
+        private const val TAG = "NewItemViewModel"
     }
 }

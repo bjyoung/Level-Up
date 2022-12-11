@@ -9,8 +9,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val TAG = "NewQuestViewModel"
-
 @HiltViewModel
 class NewQuestViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -53,5 +51,9 @@ class NewQuestViewModel @Inject constructor(
 
         questRepository.update(quest)
         logQuestSave(quest = quest, isEdit = true)
+    }
+
+    companion object {
+        private const val TAG = "NewQuestViewModel"
     }
 }
