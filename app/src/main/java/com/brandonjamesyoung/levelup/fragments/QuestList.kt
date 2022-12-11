@@ -26,7 +26,6 @@ import com.brandonjamesyoung.levelup.shared.LevelUpHelper.Companion.getExpToLvlU
 import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.shared.PROGRESS_BAR_ANIMATE_DURATION
 import com.brandonjamesyoung.levelup.ui.ButtonHelper.Companion.convertButton
-import com.brandonjamesyoung.levelup.ui.ButtonHelper.Companion.getDrawable
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -183,44 +182,33 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun getQuestDrawable(
         iconFileName : String
     ) : Drawable? {
-        val view = requireView()
-
-        val iconId = resources.getIdentifier(
-            iconFileName,
-            "drawable",
-            view.context.packageName
-        )
+        val context = requireContext()
+        val iconId = resources.getIdentifier(iconFileName, "drawable", context.packageName)
 
         val drawable = if (iconId == 0) {
-            ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.question_mark_icon,
-                view.context.theme
-            )
+            ResourcesCompat.getDrawable(resources, R.drawable.question_mark_icon, context.theme)
         } else {
-            ResourcesCompat.getDrawable(resources, iconId, view.context.theme)
+            ResourcesCompat.getDrawable(resources, iconId, context.theme)
         }
 
         return drawable
     }
 
     private fun editQuest(questId: Int) {
-        if (mode.value == Mode.DEFAULT) {
-            navigateToNewQuest(questId)
-        }
+        if (mode.value == Mode.DEFAULT) navigateToNewQuest(questId)
     }
 
     private fun selectQuestIcon(questId: Int, icon: FloatingActionButton, iconFileName: String) {
-        val view = requireView()
+        val context = requireContext()
 
         if (!isSelected(questId)) {
             selectedQuestIds.add(questId)
             selectedQuestIconIds.add(icon.id)
 
-            val selectIcon = getDrawable(
-                drawableId = R.drawable.check_icon_green,
-                theme = view.context.theme,
-                resources = resources
+            val selectIcon = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.check_icon_green,
+                context.theme
             )
 
             icon.setImageDrawable(selectIcon)
@@ -239,7 +227,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         questIconFileName: String
     ) : CardView {
         val view = requireView()
-        val context = view.context
         val parentLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
 
         val newCardLayout = layoutInflater.inflate(
@@ -266,7 +253,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         val difficultyColorId = difficultyColorMap[quest.difficulty]
             ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
 
-        newCard.setCardBackgroundColor(resources.getColor(difficultyColorId, context.theme))
+        newCard.setCardBackgroundColor(resources.getColor(difficultyColorId, view.context.theme))
         val cardConstraintLayout = newCard.getChildAt(0) as ConstraintLayout
 
         val cardTitle = cardConstraintLayout.getChildAt(0) as TextView

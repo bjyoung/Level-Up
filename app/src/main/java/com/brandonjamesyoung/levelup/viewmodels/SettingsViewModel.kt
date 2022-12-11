@@ -67,7 +67,8 @@ class SettingsViewModel @Inject constructor(
                 )
             }
 
-            if (currDifficulty != null && currDifficulty.pointsReward != newDifficulty.pointsReward) {
+            if (currDifficulty != null
+                && currDifficulty.pointsReward != newDifficulty.pointsReward) {
                 Log.i(TAG, "Update ${currDifficulty.code} quests reward" +
                         " from ${currDifficulty.pointsReward} $oldAcronym" +
                         " to ${newDifficulty.pointsReward} $newAcronym"
