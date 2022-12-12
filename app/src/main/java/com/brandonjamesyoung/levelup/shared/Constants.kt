@@ -3,12 +3,17 @@ package com.brandonjamesyoung.levelup.shared
 const val DATABASE_NAME = "levelup-db"
 const val BASE_EXP = 2500
 
+// Enums
 enum class Difficulty {
     EASY, MEDIUM, HARD, EXPERT
 }
 
 enum class Mode {
     DEFAULT, SELECT, EDIT
+}
+
+enum class IconGroup {
+    SPADES, DIAMONDS, HEARTS, CLUBS
 }
 
 // Animation Constants

@@ -22,7 +22,6 @@ import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateName
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.time.Instant
 
 @AndroidEntryPoint
 class NewQuest : Fragment(R.layout.new_quest) {
@@ -122,7 +121,6 @@ class NewQuest : Fragment(R.layout.new_quest) {
         )
 
         if (mode.value == Mode.DEFAULT) {
-            quest.dateCreated = Instant.now()
             viewModel.insert(quest)
         } else if (mode.value == Mode.EDIT) {
             quest.id = args.questId

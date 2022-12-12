@@ -20,7 +20,6 @@ import com.brandonjamesyoung.levelup.validation.Validation
 import com.brandonjamesyoung.levelup.viewmodels.NewItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.time.Instant
 
 @AndroidEntryPoint
 class NewItem : Fragment(R.layout.new_item) {
@@ -91,7 +90,6 @@ class NewItem : Fragment(R.layout.new_item) {
         )
 
         if (mode.value == Mode.DEFAULT) {
-            item.dateCreated = Instant.now()
             viewModel.insert(item)
         } else if (mode.value == Mode.EDIT) {
             item.id = args.itemId

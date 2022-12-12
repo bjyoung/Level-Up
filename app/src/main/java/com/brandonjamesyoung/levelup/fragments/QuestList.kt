@@ -223,8 +223,7 @@ class QuestList : Fragment(R.layout.quest_list) {
     }
 
     private fun createQuestCard(
-        quest: Quest,
-        questIconFileName: String
+        quest: Quest
     ) : CardView {
         val view = requireView()
         val parentLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
@@ -261,12 +260,14 @@ class QuestList : Fragment(R.layout.quest_list) {
         cardTitle.text = questName
 
         val icon = cardConstraintLayout.getChildAt(1) as FloatingActionButton
-        val iconDrawable = getQuestDrawable(questIconFileName)
+        // TODO once Icon table is fully setup, replace below with quest's icon
+        val iconFileName = "question_mark_icon"
+        val iconDrawable = getQuestDrawable(iconFileName)
         icon.setImageDrawable(iconDrawable)
         icon.id = View.generateViewId()
 
         icon.setOnClickListener{
-            selectQuestIcon(quest.id, icon, questIconFileName)
+            selectQuestIcon(quest.id, icon, iconFileName)
         }
 
         icon.setOnLongClickListener {
@@ -277,17 +278,8 @@ class QuestList : Fragment(R.layout.quest_list) {
         return newCard
     }
 
-    private fun addCard(
-        quest: Quest,
-        questIconFileName: String? = "question_mark_icon"
-    ) {
-        val iconName = questIconFileName ?: "question_mark_icon"
-
-        val newCard = createQuestCard(
-            quest = quest,
-            questIconFileName = iconName
-        )
-
+    private fun addCard(quest: Quest) {
+        val newCard = createQuestCard(quest)
         val view = requireView()
         val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
         questListLayout.addView(newCard)
@@ -368,7 +360,6 @@ class QuestList : Fragment(R.layout.quest_list) {
             for (quest in sortedQuestList) {
                 addCard(
                     quest = quest,
-                    questIconFileName = quest.iconName
                 )
             }
         }

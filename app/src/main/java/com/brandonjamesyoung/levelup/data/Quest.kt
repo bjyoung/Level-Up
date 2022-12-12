@@ -11,6 +11,6 @@ data class Quest(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     @ColumnInfo val name: String? = null,
     @ColumnInfo val difficulty: Difficulty = Difficulty.EASY,
-    @ColumnInfo val iconName: String? = null,
-    @ColumnInfo var dateCreated: Instant? = null,
+    @ColumnInfo val iconId: Int? = null,
+    @ColumnInfo val dateCreated: Instant? = Instant.now(),
 )

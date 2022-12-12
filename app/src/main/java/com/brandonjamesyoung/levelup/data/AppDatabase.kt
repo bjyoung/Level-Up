@@ -3,8 +3,6 @@ package com.brandonjamesyoung.levelup.data
 import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.brandonjamesyoung.levelup.data.Migration.Companion.MIGRATION_3_4
-import com.brandonjamesyoung.levelup.data.Migration.Companion.MIGRATION_4_5
 import com.brandonjamesyoung.levelup.shared.*
 import kotlinx.coroutines.*
 import com.brandonjamesyoung.levelup.shared.Difficulty.EASY
@@ -13,19 +11,15 @@ import com.brandonjamesyoung.levelup.shared.Difficulty.HARD
 import com.brandonjamesyoung.levelup.shared.Difficulty.EXPERT
 
 @Database(
-    entities = [Quest::class, Player::class, Settings::class, Difficulty::class, Item::class],
-    version = 12,
-    autoMigrations = [
-        AutoMigration (from = 1, to = 2),
-        AutoMigration (from = 2, to = 3),
-        AutoMigration (from = 5, to = 6),
-        AutoMigration (from = 6, to = 7, spec = Migration.MigrationSpec6To7::class),
-        AutoMigration (from = 7, to = 8, spec = Migration.MigrationSpec7To8::class),
-        AutoMigration (from = 8, to = 9),
-        AutoMigration (from = 9, to = 10),
-        AutoMigration (from = 10, to = 11),
-        AutoMigration (from = 11, to = 12, spec = Migration.MigrationSpec11To12::class)
+    entities = [
+        Quest::class,
+        Player::class,
+        Settings::class,
+        Difficulty::class,
+        Item::class,
+        Icon::class
     ],
+    version = 1,
 )
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -34,6 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun settingsDao(): SettingsDao
     abstract fun difficultyDao(): DifficultyDao
     abstract fun itemDao(): ItemDao
+    abstract fun iconDao(): IconDao
 
     companion object {
         @Volatile private var instance: AppDatabase? = null
@@ -47,7 +42,6 @@ abstract class AppDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addCallback(AppDatabaseCallback())
-                .addMigrations(MIGRATION_3_4, MIGRATION_4_5)
                 .build()
         }
 
@@ -74,7 +68,14 @@ abstract class AppDatabase : RoomDatabase() {
                 playerDao.insert(initPlayer)
                 val initSettings = Settings()
                 settingsDao.insert(initSettings)
+                val difficulties = getInitDifficulties()
 
+                for (difficulty in difficulties) {
+                    difficultyDao.insert(difficulty)
+                }
+            }
+
+            private fun getInitDifficulties() : List<Difficulty> {
                 val easy = Difficulty(
                     code = EASY,
                     expReward = INIT_EASY_EXP,
@@ -99,11 +100,7 @@ abstract class AppDatabase : RoomDatabase() {
                     pointsReward = INIT_EXPERT_POINTS
                 )
 
-                val difficulties = listOf(easy, medium, hard, expert)
-
-                for (difficulty in difficulties) {
-                    difficultyDao.insert(difficulty)
-                }
+                return listOf(easy, medium, hard, expert)
             }
         }
     }

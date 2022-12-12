@@ -44,4 +44,9 @@ class DatabaseModule {
     fun provideItemDao(appDatabase: AppDatabase): ItemDao {
         return appDatabase.itemDao()
     }
+
+    @Provides
+    fun provideIconDao(appDatabase: AppDatabase): IconDao {
+        return appDatabase.iconDao()
+    }
 }

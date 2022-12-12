@@ -49,12 +49,6 @@ class NewItemViewModel @Inject constructor(
     }
 
     fun update(item: Item) = viewModelScope.launch(ioDispatcher) {
-        val currentQuest = itemRepository.get(item.id)
-
-        if (item.dateCreated == null) {
-            item.dateCreated = currentQuest.dateCreated
-        }
-
         itemRepository.update(item)
         logItemSave(item = item, isEdit = true)
     }

@@ -28,8 +28,8 @@ class NewQuestViewModel @Inject constructor(
         logMessage += if (quest.name != null) "name '${quest.name}'" else "no name"
         logMessage += " and "
 
-        logMessage += if (quest.iconName != null) {
-            "icon '${quest.iconName}'"
+        logMessage += if (quest.iconId != null) {
+            "icon '${quest.iconId}'"
         } else {
             "no icon"
         }
@@ -43,12 +43,6 @@ class NewQuestViewModel @Inject constructor(
     }
 
     fun update(quest: Quest) = viewModelScope.launch(ioDispatcher) {
-        val currentQuest = questRepository.get(quest.id)
-
-        if (quest.dateCreated == null) {
-            quest.dateCreated = currentQuest.dateCreated
-        }
-
         questRepository.update(quest)
         logQuestSave(quest = quest, isEdit = true)
     }
