@@ -86,4 +86,12 @@
     <string name="cost_input_label">Cost</string>
     <string name="cost_input_hint">15</string>
     <string name="cost_input_autofill_hint">costInput</string>
+
+    <!-- Icon Select strings -->
+    <string name="icon_select_label">Select an Icon</string>
+    <string name="spades_icon_group_content_description">Spades icon group</string>
+    <string name="diamonds_icon_group_content_description">Diamonds icon group</string>
+    <string name="hearts_icon_group_content_description">Hearts icon group</string>
+    <string name="clubs_icon_group_content_description">Clubs icon group</string>
+    <string name="edit_button_content_description">Pencil icon</string>
 </resources>

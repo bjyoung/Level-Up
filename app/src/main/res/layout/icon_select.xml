@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/IconSelect"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/EditButton"
+        android:layout_width="@dimen/action_button_width"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/background_secondary"
+        android:contentDescription="@string/edit_button_content_description"
+        app:cornerRadius="0dp"
+        app:icon="@drawable/pencil_icon"
+        app:iconGravity="textStart"
+        app:iconSize="24dp"
+        app:iconTint="@color/icon_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/AddNewIconButton"
+        app:layout_constraintStart_toEndOf="@+id/BackButton"
+        app:layout_constraintTop_toTopOf="@+id/IconSelectBottomGuideline" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/BackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/background_secondary"
+        android:clickable="true"
+        android:contentDescription="@string/shop_button_description"
+        android:gravity="center"
+        app:fabCustomSize="@dimen/round_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/IconSelectBottomGuideline"
+        app:srcCompat="@drawable/left_arrow_icon" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/AddNewIconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/background_secondary"
+        android:clickable="true"
+        android:contentDescription="@string/new_quest_button_description"
+        android:gravity="center"
+        app:fabCustomSize="@dimen/round_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/IconSelectBottomGuideline"
+        app:srcCompat="@drawable/plus_icon" />
+
+    <TextView
+        android:id="@+id/IconSelectLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/icon_select_label"
+        android:textColor="@color/text_primary"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/IconSelectTopGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/IconSelectBottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9015048" />
+
+    <ImageButton
+        android:id="@+id/SpadesGroupButton"
+        android:layout_width="@dimen/icon_group_button_width"
+        android:layout_height="@dimen/icon_group_button_height"
+        android:background="@drawable/white_border_thin"
+        android:contentDescription="@string/spades_icon_group_content_description"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/DiamondsGroupButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/IconSelectLabel"
+        app:layout_constraintTop_toBottomOf="@+id/IconSelectLabel"
+        app:srcCompat="@drawable/spades_icon"
+        app:tint="@color/icon_secondary"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/HeartsGroupButton"
+        android:layout_width="@dimen/icon_group_button_width"
+        android:layout_height="@dimen/icon_group_button_height"
+        android:background="@drawable/white_border_thin"
+        android:contentDescription="@string/hearts_icon_group_content_description"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/ClubsGroupButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/DiamondsGroupButton"
+        app:layout_constraintTop_toTopOf="@+id/DiamondsGroupButton"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/heart_icon"
+        app:tint="@color/icon_secondary"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/ClubsGroupButton"
+        android:layout_width="@dimen/icon_group_button_width"
+        android:layout_height="@dimen/icon_group_button_height"
+        android:background="@drawable/white_border_thin"
+        android:contentDescription="@string/clubs_icon_group_content_description"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
+        app:layout_constraintEnd_toEndOf="@+id/IconSelectLabel"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/HeartsGroupButton"
+        app:layout_constraintTop_toTopOf="@+id/HeartsGroupButton"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/clubs_icon"
+        app:tint="@color/icon_secondary"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/DiamondsGroupButton"
+        android:layout_width="@dimen/icon_group_button_width"
+        android:layout_height="@dimen/icon_group_button_height"
+        android:background="@drawable/white_border_thin"
+        android:contentDescription="@string/diamonds_icon_group_content_description"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/HeartsGroupButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/SpadesGroupButton"
+        app:layout_constraintTop_toTopOf="@+id/SpadesGroupButton"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/diamond_icon"
+        app:tint="@color/icon_secondary"
+        tools:ignore="TouchTargetSizeCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,20 +40,6 @@ class NewQuest : Fragment(R.layout.new_quest) {
     private val difficultyToButtonIdMap = buttonIdToDifficultyMap.entries
         .associateBy({ it.value }) { it.key }
 
-    private fun navigateToQuestList() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_newQuest_to_questList)
-        Log.i(TAG, "Going from New Quest to Quest List")
-    }
-
-    private fun setupCancelButton() {
-        val view = requireView()
-        val button = view.findViewById<View>(R.id.CancelButton)
-
-        button.setOnClickListener{
-            navigateToQuestList()
-        }
-    }
-
     private fun moveDifficultySelectBox(difficulty: Difficulty) {
         val view = requireView()
         val buttonId = difficultyToButtonIdMap[difficulty]!!
@@ -78,7 +64,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     private fun setDifficultyButtonListeners() {
         val view = requireView()
 
-       buttonIdToDifficultyMap.forEach { entry ->
+        buttonIdToDifficultyMap.forEach { entry ->
             val button = view.findViewById<AppCompatButton>(entry.key)
 
             button.setOnClickListener {
@@ -140,10 +126,40 @@ class NewQuest : Fragment(R.layout.new_quest) {
         }
     }
 
+    private fun navigateToQuestList() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_newQuest_to_questList)
+        Log.i(TAG, "Going from New Quest to Quest List")
+    }
+
+    private fun setupCancelButton() {
+        val view = requireView()
+        val button = view.findViewById<View>(R.id.CancelButton)
+
+        button.setOnClickListener{
+            navigateToQuestList()
+        }
+    }
+
+    private fun navigateToIconSelect() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_newQuest_to_iconSelect)
+        Log.i(TAG, "Going from New Quest to Icon Select")
+    }
+
+    private fun setupIconSelectButton() {
+        val view = requireView()
+        val button = view.findViewById<View>(R.id.IconButton)
+
+        button.setOnClickListener{
+            navigateToIconSelect()
+        }
+    }
+
+
     private fun setupButtons() {
         setDifficultyButtonListeners()
         setupConfirmButton()
         setupCancelButton()
+        setupIconSelectButton()
     }
 
     private fun selectDefaultDifficulty() {

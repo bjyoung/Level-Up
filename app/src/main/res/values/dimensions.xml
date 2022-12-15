@@ -32,4 +32,8 @@
     <!-- New Item -->
     <dimen name="label_field_padding">8dp</dimen>
     <dimen name="inter_input_padding_large">40dp</dimen>
+
+    <!-- Icon Select -->
+    <dimen name="icon_group_button_width">40dp</dimen>
+    <dimen name="icon_group_button_height">25dp</dimen>
 </resources>
