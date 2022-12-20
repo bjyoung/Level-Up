@@ -341,7 +341,8 @@ class QuestList : Fragment(R.layout.quest_list) {
         pointsLabel.text = settings.pointsAcronym
     }
 
-    private fun setupObservables(view: View) {
+    private fun setupObservables() {
+        val view = requireView()
         mode.value = Mode.DEFAULT
 
         mode.observe(viewLifecycleOwner) { mode ->
@@ -381,7 +382,7 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         lifecycleScope.launch{
             Log.i(TAG, "On Quest List page")
-            setupObservables(view)
+            setupObservables()
         }
     }
 

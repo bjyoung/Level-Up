@@ -2,6 +2,7 @@ package com.brandonjamesyoung.levelup.data
 
 import androidx.annotation.WorkerThread
 import com.brandonjamesyoung.levelup.di.ApplicationScope
+import com.brandonjamesyoung.levelup.shared.IconGroup
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -12,7 +13,7 @@ class IconRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val iconDao: IconDao
 ) {
-    fun observeAll() = iconDao.observeAll()
+    fun observeGroup(iconGroup: IconGroup) = iconDao.observeGroup(iconGroup)
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

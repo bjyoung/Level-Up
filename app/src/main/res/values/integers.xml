@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Number of rows for icon select grid -->
+    <integer name="grid_rows">5</integer>
+</resources>

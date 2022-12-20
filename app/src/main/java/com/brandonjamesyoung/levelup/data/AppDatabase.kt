@@ -122,6 +122,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Pair("Gear", R.drawable.gear_icon),
                     Pair("Heart", R.drawable.heart_icon),
                     Pair("House", R.drawable.house_icon),
+                    Pair("Power", R.drawable.power_button_icon),
                 )
 
                 for (pair in iconFileNamePairs) {

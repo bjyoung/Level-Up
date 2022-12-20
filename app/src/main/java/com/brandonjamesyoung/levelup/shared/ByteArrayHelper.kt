@@ -1,11 +1,11 @@
 package com.brandonjamesyoung.levelup.shared
 
-import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import java.io.ByteArrayOutputStream
 
 class ByteArrayHelper {
@@ -17,9 +17,9 @@ class ByteArrayHelper {
             return stream.toByteArray()
         }
 
-        fun convertByteArrayToDrawable(byteArray: ByteArray, context: Context) : Drawable {
+        fun convertByteArrayToDrawable(byteArray: ByteArray, resources: Resources) : Drawable {
             val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-            return BitmapDrawable(context.resources, bitmap)
+            return bitmap.toDrawable(resources)
         }
     }
 }

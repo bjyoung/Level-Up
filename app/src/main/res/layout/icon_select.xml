@@ -144,4 +144,15 @@
         app:tint="@color/icon_secondary"
         tools:ignore="TouchTargetSizeCheck" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/IconGrid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="GridLayoutManager"
+        app:spanCount="@integer/grid_rows"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectBottomGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/IconSelectTopGuideline" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

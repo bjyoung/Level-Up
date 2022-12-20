@@ -22,7 +22,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/QuestName"
+                android:id="@+id/CardName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/press_start_2p"
@@ -37,7 +37,7 @@
                 app:layout_constraintVertical_bias="0.120000005" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/QuestIcon"
+                android:id="@+id/CardIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"

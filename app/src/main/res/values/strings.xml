@@ -94,4 +94,5 @@
     <string name="hearts_icon_group_content_description">Hearts icon group</string>
     <string name="clubs_icon_group_content_description">Clubs icon group</string>
     <string name="edit_button_content_description">Pencil icon</string>
+    <string name="default_icon_name">Icon</string>
 </resources>
