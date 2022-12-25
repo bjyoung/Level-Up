@@ -16,10 +16,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Quest
+import com.brandonjamesyoung.levelup.shared.ByteArrayHelper.Companion.convertByteArrayToDrawable
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateName
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -147,13 +149,19 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
     private fun setupIconSelectButton() {
         val view = requireView()
-        val button = view.findViewById<View>(R.id.IconButton)
+        val button = view.findViewById<FloatingActionButton>(R.id.IconButton)
+
+        if (args.iconId != INVALID_ICON_ID) {
+            viewModel.getIcon(args.iconId).observe(viewLifecycleOwner) { icon ->
+                val drawable = convertByteArrayToDrawable(icon.image, resources)
+                button.setImageDrawable(drawable)
+            }
+        }
 
         button.setOnClickListener{
             navigateToIconSelect()
         }
     }
-
 
     private fun setupButtons() {
         setDifficultyButtonListeners()
@@ -213,6 +221,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     companion object {
         private const val TAG = "NewQuest"
         private const val INVALID_QUEST_ID = 0
+        private const val INVALID_ICON_ID = 0
         private val DEFAULT_DIFFICULTY = Difficulty.EASY
     }
 }

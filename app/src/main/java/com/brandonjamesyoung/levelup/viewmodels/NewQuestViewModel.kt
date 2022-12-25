@@ -12,10 +12,15 @@ import javax.inject.Inject
 @HiltViewModel
 class NewQuestViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val questRepository: QuestRepository
+    private val questRepository: QuestRepository,
+    private val iconRepository: IconRepository
 ) : ViewModel() {
     fun getQuest(id: Int): LiveData<Quest> {
         return questRepository.observe(id).asLiveData()
+    }
+
+    fun getIcon(id: Int): LiveData<Icon> {
+        return iconRepository.observe(id).asLiveData()
     }
 
     private fun logQuestSave(quest: Quest, isEdit: Boolean = false) {

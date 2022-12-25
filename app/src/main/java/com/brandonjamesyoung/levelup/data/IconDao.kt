@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface IconDao {
+    @Query("SELECT * FROM Icon WHERE id = :id")
+    fun observe(id: Int): Flow<Icon>
+
     @Query("SELECT * FROM Icon WHERE iconGroup = :iconGroup")
     fun observeGroup(iconGroup: IconGroup): Flow<List<Icon>>
 

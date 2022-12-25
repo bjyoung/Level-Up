@@ -13,6 +13,8 @@ class IconRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val iconDao: IconDao
 ) {
+    fun observe(id: Int) = iconDao.observe(id)
+
     fun observeGroup(iconGroup: IconGroup) = iconDao.observeGroup(iconGroup)
 
     @Suppress("RedundantSuspendModifier")
