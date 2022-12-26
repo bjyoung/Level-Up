@@ -19,11 +19,16 @@ class QuestListViewModel @Inject constructor(
     private val questRepository: QuestRepository,
     private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository,
-    private val difficultyRepository: DifficultyRepository
+    private val difficultyRepository: DifficultyRepository,
+    private val iconRepository: IconRepository
 ) : ViewModel() {
     val questList: LiveData<List<Quest>> = questRepository.observeAll().asLiveData()
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
+
+    fun getIcon(id: Int): LiveData<Icon> {
+        return iconRepository.observe(id).asLiveData()
+    }
 
     private suspend fun calculateRewards(questDifficulties: List<Difficulty>) : Reward {
         var expEarned = 0

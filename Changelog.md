@@ -4,6 +4,14 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.7.0
+
+### Added
+
+- Add Icon Select page where the player can tap on an icon to select it for the quest they are creating or editing
+- New Quest now stores the selected icon on save
+- Quest List now shows each quest's icon or the default question mark icon if there is no icon
+
 ## 0.6.1
 
 ### Added

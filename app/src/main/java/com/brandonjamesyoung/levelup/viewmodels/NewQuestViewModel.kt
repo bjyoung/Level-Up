@@ -8,6 +8,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.brandonjamesyoung.levelup.shared.Difficulty
+import com.brandonjamesyoung.levelup.shared.Mode
 
 @HiltViewModel
 class NewQuestViewModel @Inject constructor(
@@ -15,12 +17,37 @@ class NewQuestViewModel @Inject constructor(
     private val questRepository: QuestRepository,
     private val iconRepository: IconRepository
 ) : ViewModel() {
+    var name: String? = null
+    var selectedDifficulty: Difficulty = Difficulty.EASY
+    var iconId: Int? = null
+    var mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
+    var editQuestId: Int? = null
+
     fun getQuest(id: Int): LiveData<Quest> {
         return questRepository.observe(id).asLiveData()
     }
 
     fun getIcon(id: Int): LiveData<Icon> {
         return iconRepository.observe(id).asLiveData()
+    }
+
+    fun saveQuest() {
+//        if (name == "") {
+//            name = null
+//        }
+
+        val quest = Quest(
+            name = name,
+            difficulty = selectedDifficulty,
+            iconId = iconId
+        )
+
+        if (mode.value == Mode.DEFAULT) {
+            insert(quest)
+        } else if (mode.value == Mode.EDIT) {
+            quest.id = editQuestId!!
+            update(quest)
+        }
     }
 
     private fun logQuestSave(quest: Quest, isEdit: Boolean = false) {
@@ -50,6 +77,13 @@ class NewQuestViewModel @Inject constructor(
     fun update(quest: Quest) = viewModelScope.launch(ioDispatcher) {
         questRepository.update(quest)
         logQuestSave(quest = quest, isEdit = true)
+    }
+
+    fun clearInput() {
+        name = null
+        selectedDifficulty = Difficulty.EASY
+        iconId = null
+        editQuestId = null
     }
 
     companion object {

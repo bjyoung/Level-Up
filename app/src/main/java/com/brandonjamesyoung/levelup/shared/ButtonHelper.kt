@@ -1,4 +1,4 @@
-package com.brandonjamesyoung.levelup.ui
+package com.brandonjamesyoung.levelup.shared
 
 import android.content.res.ColorStateList
 import android.content.res.Resources

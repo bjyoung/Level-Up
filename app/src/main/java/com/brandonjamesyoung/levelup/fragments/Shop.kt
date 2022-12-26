@@ -18,7 +18,7 @@ import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.shared.Mode
-import com.brandonjamesyoung.levelup.ui.ButtonHelper.Companion.convertButton
+import com.brandonjamesyoung.levelup.shared.ButtonHelper.Companion.convertButton
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
 import kotlinx.coroutines.launch
 
