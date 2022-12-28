@@ -75,8 +75,16 @@ class NewQuestViewModel @Inject constructor(
     }
 
     fun update(quest: Quest) = viewModelScope.launch(ioDispatcher) {
-        questRepository.update(quest)
-        logQuestSave(quest = quest, isEdit = true)
+        val currentQuest: Quest = questRepository.get(quest.id)
+
+        currentQuest.apply {
+            name = quest.name
+            difficulty = quest.difficulty
+            iconId = quest.iconId
+        }
+
+        questRepository.update(currentQuest)
+        logQuestSave(quest = currentQuest, isEdit = true)
     }
 
     fun clearInput() {
