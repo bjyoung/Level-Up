@@ -135,7 +135,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     }
 
     private fun navigateToQuestList() {
-        viewModel.clearInput()
+        viewModel.resetPage()
         NavHostFragment.findNavController(this).navigate(R.id.action_newQuest_to_questList)
         Log.i(TAG, "Going from New Quest to Quest List")
     }
@@ -155,6 +155,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     }
 
     private fun changeIcon(iconId : Int?) {
+        viewModel.iconId = iconId
         val view = requireView()
         val button = view.findViewById<FloatingActionButton>(R.id.IconButton)
 
@@ -178,13 +179,11 @@ class NewQuest : Fragment(R.layout.new_quest) {
         val view = requireView()
         val button = view.findViewById<FloatingActionButton>(R.id.IconButton)
 
-        if (viewModel.iconId != null) {
-            changeIcon(viewModel.iconId as Int)
-        }
-
         if (args.iconId != INVALID_ICON_ID) {
             viewModel.iconId = args.iconId
             changeIcon(args.iconId)
+        } else if (viewModel.iconId != null) {
+            changeIcon(viewModel.iconId as Int)
         }
 
         button.setOnClickListener{
@@ -210,14 +209,15 @@ class NewQuest : Fragment(R.layout.new_quest) {
         val pageLabel = view.findViewById<TextView>(R.id.NewQuestLabel)
         pageLabel.text = resources.getString(R.string.edit_quest_label)
 
-        viewModel.getQuest(viewModel.editQuestId as Int).observe(viewLifecycleOwner) { quest ->
-            loadQuest(quest)
+        if (!viewModel.questDataLoaded) {
+            viewModel.getQuest(viewModel.editQuestId as Int).observe(viewLifecycleOwner) { quest ->
+                loadQuest(quest)
+                viewModel.questDataLoaded = true
+            }
         }
     }
 
     private fun setupMode() {
-        viewModel.mode.value = Mode.DEFAULT
-
         if (args.questId != INVALID_QUEST_ID) {
             viewModel.mode.value = Mode.EDIT
             viewModel.editQuestId = args.questId

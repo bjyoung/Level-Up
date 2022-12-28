@@ -22,6 +22,7 @@ class NewQuestViewModel @Inject constructor(
     var iconId: Int? = null
     var mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
     var editQuestId: Int? = null
+    var questDataLoaded: Boolean = false
 
     fun getQuest(id: Int): LiveData<Quest> {
         return questRepository.observe(id).asLiveData()
@@ -32,10 +33,6 @@ class NewQuestViewModel @Inject constructor(
     }
 
     fun saveQuest() {
-//        if (name == "") {
-//            name = null
-//        }
-
         val quest = Quest(
             name = name,
             difficulty = selectedDifficulty,
@@ -87,11 +84,13 @@ class NewQuestViewModel @Inject constructor(
         logQuestSave(quest = currentQuest, isEdit = true)
     }
 
-    fun clearInput() {
+    fun resetPage() {
         name = null
         selectedDifficulty = Difficulty.EASY
         iconId = null
         editQuestId = null
+        mode.value = Mode.DEFAULT
+        questDataLoaded = false
     }
 
     companion object {
