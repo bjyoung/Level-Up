@@ -142,7 +142,7 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun activateShopButton() {
         convertButton(
             targetId = R.id.ShopButton,
-            iconDrawableId = R.drawable.star_icon,
+            iconDrawableId = R.drawable.shopping_bag_icon,
             iconColorId = R.color.icon_primary,
             buttonMethod = ::navigateToShop,
             view = requireView(),

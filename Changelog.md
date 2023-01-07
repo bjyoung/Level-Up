@@ -12,6 +12,10 @@ This document tracks all notables changes to the Level Up app.
 - New Quest now stores the selected icon on save
 - Quest List now shows each quest's icon or the default question mark icon if there is no icon
 
+### Changed
+
+- Swap shop nav button's star icon with a shopping bag icon
+
 ### Fixed
 
 - Fix player input not being preserved properly when navigating from New Quest to Icon Select and back
