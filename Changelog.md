@@ -4,6 +4,14 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.7.1
+
+### Added
+
+- Completing quests in Quest List now displays a snackbar showing how much experience and points the player earned
+
+---
+
 ## 0.7.0
 
 ### Added
@@ -22,6 +30,8 @@ This document tracks all notables changes to the Level Up app.
 - Fix quest creation date being updated when editing a quest
 - Fix bug where editing a quest and selecting an icon
 
+---
+
 ## 0.6.1
 
 ### Added
@@ -35,6 +45,8 @@ This document tracks all notables changes to the Level Up app.
   - Exp and point input fields allow values down to -999
   - Level up bonus allow values down to -99
 
+---
+
 ## 0.6.0
 
 ### Added
@@ -43,6 +55,8 @@ This document tracks all notables changes to the Level Up app.
   - If any quests are selected, then the player cannot edit quests until they de-select all quests
 - Pressing and holding on an item in the Shop lets the player edit the selected item
   - If any items are selected, then the player cannot edit quests until they de-select all items
+
+---
 
 ## 0.5.1
 

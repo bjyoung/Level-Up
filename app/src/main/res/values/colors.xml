@@ -35,7 +35,7 @@
     <color name="experience_bar_meter">#FF00FFFF</color>
     <color name="experience_bar_meter_default">#FF00FFFF</color>
     <color name="icon_background">#FFFFFFFF</color>
-    <color name="scrollbar_slider">#FF545454</color>
+    <color name="scrollbar_slider">#FF000000</color>
     <color name="selected">#FF0E6BF7</color>
 
     <!-- Settings-specific colors -->

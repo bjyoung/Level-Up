@@ -1,10 +1,7 @@
 package com.brandonjamesyoung.levelup.viewmodels
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
 import com.brandonjamesyoung.levelup.shared.Difficulty
@@ -21,7 +18,7 @@ class QuestListViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val difficultyRepository: DifficultyRepository,
     private val iconRepository: IconRepository
-) : ViewModel() {
+) : BaseViewModel() {
     val questList: LiveData<List<Quest>> = questRepository.observeAll().asLiveData()
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
@@ -63,10 +60,11 @@ class QuestListViewModel @Inject constructor(
         deleteQuests(ids)
         val numQuestsCompleted = ids.count()
         val pointsAcronym = settings.pointsAcronym
-
-        Log.i(TAG, "Player completes $numQuestsCompleted quest(s) " +
+        val logMessage = "${player.name} completes $numQuestsCompleted quest(s) " +
                 "and earns ${reward.exp} exp and ${reward.points} $pointsAcronym"
-        )
+        Log.i(TAG, logMessage)
+        val displayedMessage = "You earned ${reward.exp} exp and ${reward.points} $pointsAcronym"
+        showSnackbar(displayedMessage)
     }
 
     fun deleteQuests(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
