@@ -51,7 +51,6 @@ class QuestList : Fragment(R.layout.quest_list) {
     private fun completeQuests() {
         viewModel.completeQuests(selectedQuestIds.toSet())
         mode.value = Mode.DEFAULT
-        // TODO show toast of exp and rt earned
     }
 
     // Change New Quest button to Complete Quests button

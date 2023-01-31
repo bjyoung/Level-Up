@@ -9,6 +9,7 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - Completing quests in Quest List displays a snackbar showing how much experience and points the player earned
+  - Display a slightly different message when the player levels up
 - Buying items in the Shop displays a message showing how much the player spent or a warning if they do not have enough points
 
 ---

@@ -48,12 +48,25 @@ class QuestListViewModel @Inject constructor(
         return Reward(expEarned, pointsEarned)
     }
 
+    private fun getQuestCompleteMessage(
+        willLevelUp: Boolean,
+        reward: Reward,
+        pointsAcronym : String
+    ) : String {
+        return if (willLevelUp) {
+            "You levelled up and earned ${reward.exp} exp and ${reward.points} $pointsAcronym!"
+        } else {
+            "You earned ${reward.exp} exp and ${reward.points} $pointsAcronym"
+        }
+    }
+
     fun completeQuests(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         val difficulties = questRepository.getDifficulties(ids)
         val reward = calculateRewards(difficulties)
         val player = playerRepository.get()
         val settings = settingsRepository.get()
         val bonusPoints = settings.lvlUpBonus
+        val willLevelUp = player.canLevelUp(reward.exp)
         player.gainExp(reward.exp, bonusPoints)
         player.gainPoints(reward.points)
         playerRepository.update(player)
@@ -63,7 +76,7 @@ class QuestListViewModel @Inject constructor(
         val logMessage = "${player.name} completes $numQuestsCompleted quest(s) " +
                 "and earns ${reward.exp} exp and ${reward.points} $pointsAcronym"
         Log.i(TAG, logMessage)
-        val displayedMessage = "You earned ${reward.exp} exp and ${reward.points} $pointsAcronym"
+        val displayedMessage = getQuestCompleteMessage(willLevelUp, reward, pointsAcronym)
         showSnackbar(displayedMessage)
     }
 

@@ -30,10 +30,12 @@ class ShopViewModel @Inject constructor(
     fun buyItems(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         val totalCost = itemRepository.getTotalCost(ids)
         val player = playerRepository.get()
+        val pointsAcronym = settingsRepository.get().pointsAcronym
 
         if (totalCost > player.points) {
-            Log.i(TAG, "Player does not have enough points to purchase the selected items")
-            showSnackbar("You do not have enough points")
+            Log.i(TAG, "Player does not have enough " +
+                    "$pointsAcronym to purchase the selected items")
+            showSnackbar("You do not have enough $pointsAcronym")
         } else {
             player.apply {
                 points -= totalCost
@@ -41,7 +43,6 @@ class ShopViewModel @Inject constructor(
 
             playerRepository.update(player)
             val numItemsBought = ids.count()
-            val pointsAcronym = settingsRepository.get().pointsAcronym
             Log.i(TAG, "Player bought $numItemsBought item(s) for $totalCost $pointsAcronym")
             val displayedMessage = getPurchaseMessage(numItemsBought, totalCost, pointsAcronym)
             showSnackbar(displayedMessage)

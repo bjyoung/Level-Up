@@ -20,7 +20,7 @@ data class Player(
         return totalExpToLvlUp - currentLvlExp
     }
 
-    private fun canLevelUp(expEarned: Int) : Boolean {
+    fun canLevelUp(expEarned: Int) : Boolean {
         val expToNextLvl = getExpToNextLvl()
         return expEarned > 0 && expEarned >= expToNextLvl && lvl < MAX_LEVEL
     }

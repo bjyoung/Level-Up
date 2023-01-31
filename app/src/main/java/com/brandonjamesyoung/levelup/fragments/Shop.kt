@@ -134,7 +134,6 @@ class Shop : Fragment(R.layout.shop) {
     private fun buyItems() {
         viewModel.buyItems(selectedItemIds.toSet())
         cancelSelectedItems()
-        // TODO show toast that shows that items were purchased, potential Easter egg too?
     }
 
     private fun activateBuyButton() {
