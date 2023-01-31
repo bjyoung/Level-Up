@@ -19,6 +19,7 @@ import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.shared.ButtonHelper.Companion.convertButton
+import com.brandonjamesyoung.levelup.shared.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
 import kotlinx.coroutines.launch
 
@@ -260,6 +261,12 @@ class Shop : Fragment(R.layout.shop) {
 
         viewModel.settings.observe(viewLifecycleOwner) { settings ->
             updatePointsAcronym(settings)
+        }
+
+        viewModel.message.observe(viewLifecycleOwner) { message ->
+            message.getContentIfNotHandled()?.let {
+                showSnackbar(it, requireView())
+            }
         }
     }
 

@@ -16,7 +16,7 @@ class NewQuestViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val questRepository: QuestRepository,
     private val iconRepository: IconRepository
-) : ViewModel() {
+) : BaseViewModel() {
     var name: String? = null
     var selectedDifficulty: Difficulty = Difficulty.EASY
     var iconId: Int? = null

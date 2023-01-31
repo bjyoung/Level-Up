@@ -8,7 +8,8 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Completing quests in Quest List now displays a snackbar showing how much experience and points the player earned
+- Completing quests in Quest List displays a snackbar showing how much experience and points the player earned
+- Buying items in the Shop displays a message showing how much the player spent or a warning if they do not have enough points
 
 ---
 
@@ -17,8 +18,8 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - Add Icon Select page where the player can tap on an icon to select it for the quest they are creating or editing
-- New Quest now stores the selected icon on save
-- Quest List now shows each quest's icon or the default question mark icon if there is no icon
+- New Quest stores the selected icon on save
+- Quest List shows each quest's icon or the default question mark icon if there is no icon
 
 ### Changed
 

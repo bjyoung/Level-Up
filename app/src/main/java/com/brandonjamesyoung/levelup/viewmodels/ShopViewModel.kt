@@ -2,7 +2,6 @@ package com.brandonjamesyoung.levelup.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.*
@@ -18,10 +17,15 @@ class ShopViewModel @Inject constructor(
     private val itemRepository: ItemRepository,
     private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository,
-) : ViewModel() {
+) : BaseViewModel() {
     val itemList: LiveData<List<Item>> = itemRepository.observeAll().asLiveData()
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
+
+    private fun getPurchaseMessage(numItems: Int, cost: Int, pointsAcronym: String) : String {
+        val numItemsString = if (numItems == 1) "an item" else "$numItems items"
+        return "Bought $numItemsString for $cost $pointsAcronym"
+    }
 
     fun buyItems(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         val totalCost = itemRepository.getTotalCost(ids)
@@ -29,7 +33,7 @@ class ShopViewModel @Inject constructor(
 
         if (totalCost > player.points) {
             Log.i(TAG, "Player does not have enough points to purchase the selected items")
-            // TODO should tell player via toast message that they cannot buy the items
+            showSnackbar("You do not have enough points")
         } else {
             player.apply {
                 points -= totalCost
@@ -39,6 +43,8 @@ class ShopViewModel @Inject constructor(
             val numItemsBought = ids.count()
             val pointsAcronym = settingsRepository.get().pointsAcronym
             Log.i(TAG, "Player bought $numItemsBought item(s) for $totalCost $pointsAcronym")
+            val displayedMessage = getPurchaseMessage(numItemsBought, totalCost, pointsAcronym)
+            showSnackbar(displayedMessage)
         }
     }
 

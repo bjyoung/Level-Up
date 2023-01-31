@@ -1,7 +1,6 @@
 package com.brandonjamesyoung.levelup.viewmodels
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
@@ -14,7 +13,7 @@ import javax.inject.Inject
 class IconSelectViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val iconRepository: IconRepository,
-) : ViewModel() {
+) : BaseViewModel() {
     val spadesIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.SPADES).asLiveData()
     val heartsIcons: LiveData<List<Icon>> =

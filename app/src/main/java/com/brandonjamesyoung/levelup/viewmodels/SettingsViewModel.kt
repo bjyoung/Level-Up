@@ -2,7 +2,6 @@ package com.brandonjamesyoung.levelup.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.Difficulty
@@ -20,7 +19,7 @@ class SettingsViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val difficultyRepository: DifficultyRepository,
     private val settingsRepository: SettingsRepository
-) : ViewModel() {
+) : BaseViewModel() {
     val difficulties: LiveData<List<Difficulty>> = difficultyRepository.observeAll().asLiveData()
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 

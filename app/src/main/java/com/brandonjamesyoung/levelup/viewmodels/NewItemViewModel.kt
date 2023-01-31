@@ -2,7 +2,6 @@ package com.brandonjamesyoung.levelup.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.*
@@ -17,7 +16,7 @@ class NewItemViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val itemRepository: ItemRepository,
     private val settingsRepository: SettingsRepository
-) : ViewModel() {
+) : BaseViewModel() {
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
     fun getItem(id: Int): LiveData<Item> {

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -25,8 +24,8 @@ import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.shared.*
 import com.brandonjamesyoung.levelup.shared.LevelUpHelper.Companion.getExpToLvlUp
 import com.brandonjamesyoung.levelup.shared.ButtonHelper.Companion.convertButton
+import com.brandonjamesyoung.levelup.shared.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
-import com.brandonjamesyoung.levelup.views.RpgSnackbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -374,15 +373,9 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         viewModel.message.observe(viewLifecycleOwner) { message ->
             message.getContentIfNotHandled()?.let {
-                showSnackbar(it)
+                showSnackbar(it, requireView())
             }
         }
-    }
-
-    private fun showSnackbar(message: String) {
-        val view = requireView()
-        val snackbar = RpgSnackbar.make(view.rootView as ViewGroup, message)
-        snackbar.show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
