@@ -372,7 +372,8 @@ class QuestList : Fragment(R.layout.quest_list) {
 
         viewModel.message.observe(viewLifecycleOwner) { message ->
             message.getContentIfNotHandled()?.let {
-                showSnackbar(it, requireView())
+                val addNewQuestButton: View = view.findViewById(R.id.AddNewQuestButton)
+                showSnackbar(it, requireView(), addNewQuestButton)
             }
         }
     }

@@ -264,7 +264,8 @@ class Shop : Fragment(R.layout.shop) {
 
         viewModel.message.observe(viewLifecycleOwner) { message ->
             message.getContentIfNotHandled()?.let {
-                showSnackbar(it, requireView())
+                val questListButton: View = view.findViewById(R.id.QuestListButton)
+                showSnackbar(it, requireView(), questListButton)
             }
         }
     }
