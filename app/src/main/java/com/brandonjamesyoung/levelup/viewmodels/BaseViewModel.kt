@@ -11,7 +11,7 @@ open class BaseViewModel : ViewModel() {
     val message : LiveData<Event<String>>
         get() = statusMessage
 
-    protected fun showSnackbar(message: String) {
+    fun showSnackbar(message: String) {
         statusMessage.postValue(Event(message))
     }
 }

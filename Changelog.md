@@ -12,6 +12,10 @@ This document tracks all notables changes to the Level Up app.
   - Display a slightly different message when the player levels up
 - Buying items in the Shop displays a message showing how much the player spent or a warning if they do not have enough points
 
+### Changed
+
+- Replaces the "Not implemented" toast in Settings with a snackbar
+
 ---
 
 ## 0.7.0

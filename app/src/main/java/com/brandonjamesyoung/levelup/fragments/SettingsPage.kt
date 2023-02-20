@@ -15,7 +15,7 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.shared.Difficulty as DifficultyCode
 import com.brandonjamesyoung.levelup.data.Difficulty
 import com.brandonjamesyoung.levelup.data.Settings
-import com.brandonjamesyoung.levelup.shared.ToastHelper.Companion.showToast
+import com.brandonjamesyoung.levelup.shared.SnackbarHelper
 import com.brandonjamesyoung.levelup.validation.Validation
 import com.brandonjamesyoung.levelup.viewmodels.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,10 +34,9 @@ class SettingsPage : Fragment(R.layout.settings) {
     private fun setupBackupButton() {
         val view = requireView()
         val backupButton = view.findViewById<Button>(R.id.BackupButton)
-        val context = requireContext()
 
         backupButton.setOnClickListener{
-            showToast("Not implemented yet", context)
+            viewModel.showSnackbar("Not implemented yet")
         }
     }
 
@@ -236,6 +235,15 @@ class SettingsPage : Fragment(R.layout.settings) {
 
         viewModel.settings.observe(viewLifecycleOwner) { settings ->
             updateSettingsUi(settings)
+        }
+
+        val view = requireView()
+
+        viewModel.message.observe(viewLifecycleOwner) { message ->
+            message.getContentIfNotHandled()?.let {
+                val confirmButton: View = view.findViewById(R.id.ConfirmButton)
+                SnackbarHelper.showSnackbar(it, view, confirmButton)
+            }
         }
     }
 
