@@ -100,12 +100,9 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
+        style="@style/PageTitle"
         android:id="@+id/SettingsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/press_start_2p"
         android:text="@string/settings_label"
-        android:textColor="@color/text_primary"
         app:layout_constraintBottom_toTopOf="@+id/SettingsTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

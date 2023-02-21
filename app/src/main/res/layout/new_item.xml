@@ -40,12 +40,9 @@
         app:layout_constraintTop_toTopOf="@+id/CostLabel" />
 
     <TextView
-        android:id="@+id/NewQuestLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/press_start_2p"
+        style="@style/PageTitle"
+        android:id="@+id/NewItemLabel"
         android:text="@string/new_item_label"
-        android:textColor="@color/text_primary"
         app:layout_constraintBottom_toTopOf="@+id/NewItemTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

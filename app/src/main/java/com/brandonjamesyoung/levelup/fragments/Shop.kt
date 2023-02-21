@@ -158,15 +158,13 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun selectItem(itemId: Int, itemRow: ConstraintLayout) {
-        val view = requireView()
-
         if (!isSelected(itemId)) {
             selectedItemIds.add(itemId)
             selectedItemRowIds.add(itemRow.id)
 
             val selectedColor: Int = resources.getColor(
                 R.color.selected,
-                view.context.theme
+                requireContext().theme,
             )
 
             itemRow.setBackgroundColor(selectedColor)

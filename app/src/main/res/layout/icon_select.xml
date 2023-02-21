@@ -55,12 +55,9 @@
         app:srcCompat="@drawable/plus_icon" />
 
     <TextView
+        style="@style/PageTitle"
         android:id="@+id/IconSelectLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/press_start_2p"
         android:text="@string/icon_select_label"
-        android:textColor="@color/text_primary"
         app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
