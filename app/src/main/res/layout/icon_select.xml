@@ -23,14 +23,9 @@
         app:layout_constraintTop_toTopOf="@+id/IconSelectBottomGuideline" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/RoundActionButton"
         android:id="@+id/BackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
-        android:clickable="true"
         android:contentDescription="@string/shop_button_description"
-        android:gravity="center"
-        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
@@ -39,14 +34,9 @@
         app:srcCompat="@drawable/left_arrow_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/RoundActionButton"
         android:id="@+id/AddNewIconButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
-        android:clickable="true"
         android:contentDescription="@string/new_quest_button_description"
-        android:gravity="center"
-        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"

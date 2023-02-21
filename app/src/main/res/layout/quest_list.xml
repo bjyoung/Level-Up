@@ -9,14 +9,9 @@
     tools:context=".fragments.QuestList">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/RoundActionButton"
         android:id="@+id/ShopButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
-        android:clickable="true"
         android:contentDescription="@string/shop_button_description"
-        android:gravity="center"
-        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
@@ -25,14 +20,9 @@
         app:srcCompat="@drawable/shopping_bag_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/RoundActionButton"
         android:id="@+id/SettingsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
-        android:clickable="true"
         android:contentDescription="@string/settings_button_description"
-        android:gravity="center"
-        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,14 +56,9 @@
         app:layout_constraintTop_toBottomOf="@+id/Username" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/RoundActionButton"
         android:id="@+id/AddNewQuestButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
-        android:clickable="true"
         android:contentDescription="@string/new_quest_button_description"
-        android:gravity="center"
-        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"

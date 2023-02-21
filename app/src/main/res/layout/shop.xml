@@ -28,14 +28,9 @@
         app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/RoundActionButton"
         android:id="@+id/QuestListButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
-        android:clickable="true"
         android:contentDescription="@string/quest_list_button_description"
-        android:gravity="center"
-        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintBottom_toBottomOf="@+id/AddNewItemButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/ShopRightGuideline"
@@ -43,14 +38,9 @@
         app:srcCompat="@drawable/bullet_list_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/RoundActionButton"
         android:id="@+id/AddNewItemButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
-        android:clickable="true"
         android:contentDescription="@string/new_item_button_description"
-        android:gravity="center"
-        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ShopLeftGuideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,14 +48,9 @@
         app:srcCompat="@drawable/plus_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/RoundActionButton"
         android:id="@+id/ShopSettingsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
-        android:clickable="true"
         android:contentDescription="@string/settings_button_description"
-        android:gravity="center"
-        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
         app:layout_constraintEnd_toEndOf="@+id/QuestListButton"
         app:layout_constraintStart_toStartOf="@+id/QuestListButton"

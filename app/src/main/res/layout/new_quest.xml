@@ -152,14 +152,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/RoundActionButton"
         android:id="@+id/IconButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/background_secondary"
-        android:clickable="true"
         android:contentDescription="@string/icon_input_content_description"
-        app:fabCustomSize="@dimen/round_button"
         app:layout_constraintStart_toStartOf="@+id/Icon"
         app:layout_constraintTop_toBottomOf="@+id/Icon"
         app:srcCompat="@drawable/question_mark_icon" />

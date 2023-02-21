@@ -37,15 +37,9 @@
                 app:layout_constraintVertical_bias="0.120000005" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                style="@style/QuestIcon"
                 android:id="@+id/CardIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
                 android:contentDescription="@string/quest_icon_description"
-                android:src="@drawable/question_mark_icon"
-                app:backgroundTint="@color/quest_card_icon_background"
-                app:elevation="@dimen/quest_card_elevation"
-                app:fabCustomSize="@dimen/big_round_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
