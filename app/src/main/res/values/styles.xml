@@ -45,13 +45,14 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">48dp</item>
         <item name="android:ems">10</item>
-        <item name="android:maxLength">4</item>
     </style>
     <style name="ExpInput" parent="NumInput.Small">
         <item name="android:autofillHints">@string/exp_input_autofill_hint</item>
+        <item name="android:maxLength">4</item>
     </style>
     <style name="RtInput" parent="NumInput.Small">
         <item name="android:autofillHints">@string/points_input_autofill_hint</item>
+        <item name="android:maxLength">4</item>
     </style>
     <style name="RoundActionButton" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
         <item name="android:layout_width">wrap_content</item>

@@ -7,11 +7,11 @@
     android:layout_height="match_parent"
     android:background="@color/background_primary">
 
-    <include layout="@layout/save_button_set"/>
+    <include layout="@layout/save_button_set" />
 
     <Button
-        style="@style/RectangularButton"
         android:id="@+id/BackupButton"
+        style="@style/RectangularButton"
         android:layout_width="@dimen/backup_button_width"
         android:contentDescription="@string/backup_button_content_description"
         android:text="@string/backup_button_label"
@@ -22,8 +22,8 @@
         app:layout_constraintVertical_bias="0.15" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/DifficultyButton.Small"
         android:id="@+id/SettingsMediumButton"
+        style="@style/DifficultyButton.Small"
         android:backgroundTint="@color/medium"
         android:text="@string/medium_label"
         app:layout_constraintBottom_toBottomOf="@+id/SettingsEasyButton"
@@ -35,8 +35,8 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/DifficultyButton.Small"
         android:id="@+id/SettingsExpertButton"
+        style="@style/DifficultyButton.Small"
         android:backgroundTint="@color/expert"
         android:text="@string/expert_label"
         app:layout_constraintBottom_toBottomOf="@+id/SettingsHardButton"
@@ -47,8 +47,8 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/DifficultyButton.Small"
         android:id="@+id/SettingsEasyButton"
+        style="@style/DifficultyButton.Small"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/easy"
         android:text="@string/easy_label"
@@ -59,19 +59,19 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/DifficultyButton.Small"
         android:id="@+id/SettingsHardButton"
-        android:layout_marginTop="130dp"
+        style="@style/DifficultyButton.Small"
+        android:layout_marginTop="25dp"
         android:backgroundTint="@color/hard"
         android:text="@string/hard_label"
         app:layout_constraintEnd_toEndOf="@+id/SettingsEasyButton"
         app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
-        app:layout_constraintTop_toBottomOf="@+id/SettingsEasyButton"
+        app:layout_constraintTop_toBottomOf="@+id/EasyRtInput"
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
-        style="@style/Text"
         android:id="@+id/SettingsLabel"
+        style="@style/Text"
         android:text="@string/settings_label"
         app:layout_constraintBottom_toTopOf="@+id/SettingsTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,192 +79,191 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        style="@style/Label"
         android:id="@+id/DifficultySettingsLabel"
+        style="@style/Label"
         android:text="@string/difficulty_settings_label"
         app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
         app:layout_constraintTop_toTopOf="@+id/SettingsTopGuideline" />
 
     <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.Top"
-        android:id="@+id/SettingsTopGuideline" />
+        android:id="@+id/SettingsTopGuideline"
+        style="@style/Guideline.Top" />
 
     <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.Bottom"
-        android:id="@+id/SettingsBottomGuideline" />
+        android:id="@+id/SettingsBottomGuideline"
+        style="@style/Guideline.Bottom" />
 
     <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.FarLeft"
         android:id="@+id/SettingsLeftGuideline"
+        style="@style/Guideline.FarLeft"
         android:orientation="vertical" />
 
     <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.FarRight"
         android:id="@+id/SettingsRightGuideline"
+        style="@style/Guideline.FarRight"
         android:orientation="vertical" />
 
     <TextView
-        style="@style/Text"
         android:id="@+id/PointsAcronymLabel"
+        style="@style/Text"
         android:text="@string/points_acronym_label"
-        app:layout_constraintBottom_toTopOf="@+id/SettingsBottomGuideline"
+        app:layout_constraintBottom_toTopOf="@+id/LevelUpBonusLabel"
         app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/SettingsHardButton"
+        app:layout_constraintTop_toBottomOf="@+id/HardRtInput"
         app:layout_constraintVertical_bias="0.66" />
 
     <TextView
-        style="@style/Text"
         android:id="@+id/LevelUpBonusLabel"
+        style="@style/Text"
         android:text="@string/level_up_bonus_label"
         app:layout_constraintBottom_toTopOf="@+id/SettingsBottomGuideline"
         app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
         app:layout_constraintTop_toBottomOf="@+id/PointsAcronymLabel" />
 
     <TextView
-        style="@style/XpLabel"
         android:id="@+id/EasyExpLabel"
+        style="@style/XpLabel"
         app:layout_constraintBottom_toBottomOf="@+id/EasyExpInput"
         app:layout_constraintStart_toEndOf="@+id/EasyExpInput"
         app:layout_constraintTop_toTopOf="@+id/EasyExpInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        style="@style/XpLabel"
         android:id="@+id/ExpertExpLabel"
+        style="@style/XpLabel"
         app:layout_constraintBottom_toBottomOf="@+id/ExpertExpInput"
         app:layout_constraintStart_toEndOf="@+id/ExpertExpInput"
         app:layout_constraintTop_toTopOf="@+id/ExpertExpInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        style="@style/XpLabel"
         android:id="@+id/hardExpLabel"
+        style="@style/XpLabel"
         app:layout_constraintBottom_toBottomOf="@+id/HardExpInput"
         app:layout_constraintStart_toEndOf="@+id/HardExpInput"
         app:layout_constraintTop_toTopOf="@+id/HardExpInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        style="@style/XpLabel"
         android:id="@+id/MediumExpLabel"
+        style="@style/XpLabel"
         app:layout_constraintBottom_toBottomOf="@+id/MediumExpInput"
         app:layout_constraintStart_toEndOf="@+id/MediumExpInput"
         app:layout_constraintTop_toTopOf="@+id/MediumExpInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        style="@style/RtLabel"
         android:id="@+id/EasyRtLabel"
+        style="@style/RtLabel"
         app:layout_constraintBottom_toBottomOf="@+id/EasyRtInput"
         app:layout_constraintStart_toEndOf="@+id/EasyRtInput"
         app:layout_constraintTop_toTopOf="@+id/EasyRtInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        style="@style/RtLabel"
         android:id="@+id/HardRtLabel"
+        style="@style/RtLabel"
         app:layout_constraintBottom_toBottomOf="@+id/HardRtInput"
         app:layout_constraintStart_toEndOf="@+id/HardRtInput"
         app:layout_constraintTop_toTopOf="@+id/HardRtInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        style="@style/RtLabel"
         android:id="@+id/ExpertRtLabel"
+        style="@style/RtLabel"
         app:layout_constraintBottom_toBottomOf="@+id/ExpertRtInput"
         app:layout_constraintStart_toEndOf="@+id/ExpertRtInput"
-        app:layout_constraintTop_toTopOf="@+id/ExpertRtInput"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toTopOf="@+id/ExpertRtInput" />
 
     <TextView
-        style="@style/RtLabel"
         android:id="@+id/LevelUpBonusRtLabel"
+        style="@style/RtLabel"
         app:layout_constraintBottom_toBottomOf="@+id/LevelUpBonusInput"
         app:layout_constraintStart_toEndOf="@+id/LevelUpBonusInput"
         app:layout_constraintTop_toTopOf="@+id/LevelUpBonusInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        style="@style/RtLabel"
         android:id="@+id/MediumRtLabel"
+        style="@style/RtLabel"
         app:layout_constraintBottom_toBottomOf="@+id/MediumRtInput"
         app:layout_constraintStart_toEndOf="@+id/MediumRtInput"
         app:layout_constraintTop_toTopOf="@+id/MediumRtInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <EditText
-        style="@style/ExpInput"
         android:id="@+id/EasyExpInput"
+        style="@style/ExpInput"
+        android:layout_marginTop="10dp"
         android:hint="@string/easy_exp_input_hint"
-        app:layout_constraintBottom_toTopOf="@+id/EasyRtInput"
         app:layout_constraintEnd_toEndOf="@+id/SettingsEasyButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
         app:layout_constraintTop_toBottomOf="@+id/SettingsEasyButton" />
 
     <EditText
-        style="@style/ExpInput"
         android:id="@+id/HardExpInput"
+        style="@style/ExpInput"
+        android:layout_marginTop="10dp"
         android:hint="@string/hard_exp_input_hint"
-        app:layout_constraintBottom_toTopOf="@+id/HardRtInput"
         app:layout_constraintEnd_toEndOf="@+id/SettingsHardButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/SettingsHardButton"
         app:layout_constraintTop_toBottomOf="@+id/SettingsHardButton" />
 
     <EditText
-        style="@style/ExpInput"
         android:id="@+id/ExpertExpInput"
+        style="@style/ExpInput"
+        android:layout_marginTop="10dp"
         android:hint="@string/expert_exp_input_hint"
-        app:layout_constraintBottom_toTopOf="@+id/ExpertRtInput"
         app:layout_constraintEnd_toEndOf="@+id/SettingsExpertButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/SettingsExpertButton"
         app:layout_constraintTop_toBottomOf="@+id/SettingsExpertButton" />
 
     <EditText
-        style="@style/ExpInput"
         android:id="@+id/MediumExpInput"
+        style="@style/ExpInput"
+        android:layout_marginTop="10dp"
         android:hint="@string/medium_exp_input_hint"
-        app:layout_constraintBottom_toTopOf="@+id/MediumRtInput"
         app:layout_constraintEnd_toEndOf="@+id/SettingsMediumButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/SettingsMediumButton"
         app:layout_constraintTop_toBottomOf="@+id/SettingsMediumButton" />
 
     <EditText
-        style="@style/RtInput"
         android:id="@+id/EasyRtInput"
+        style="@style/RtInput"
+        android:layout_marginTop="10dp"
         android:hint="@string/easy_points_input_hint"
-        app:layout_constraintBottom_toTopOf="@+id/SettingsHardButton"
         app:layout_constraintEnd_toEndOf="@+id/SettingsEasyButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
         app:layout_constraintTop_toBottomOf="@+id/EasyExpInput" />
 
     <EditText
-        style="@style/RtInput"
         android:id="@+id/HardRtInput"
+        style="@style/RtInput"
+        android:layout_marginTop="10dp"
         android:hint="@string/hard_points_input_hint"
-        app:layout_constraintBottom_toTopOf="@+id/PointsAcronymLabel"
         app:layout_constraintEnd_toEndOf="@+id/HardExpInput"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/HardExpInput"
         app:layout_constraintTop_toBottomOf="@+id/HardExpInput" />
 
     <EditText
-        style="@style/RtInput"
         android:id="@+id/ExpertRtInput"
+        style="@style/RtInput"
+        android:layout_marginTop="10dp"
         android:hint="@string/expert_points_input_hint"
-        app:layout_constraintBottom_toTopOf="@+id/PointsAcronymLabel"
         app:layout_constraintEnd_toEndOf="@+id/ExpertExpInput"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/ExpertExpInput"
         app:layout_constraintTop_toBottomOf="@+id/ExpertExpInput" />
 
     <EditText
-        style="@style/NumInput.Small"
         android:id="@+id/PointsAcronymInput"
+        style="@style/NumInput.Small"
         android:layout_marginStart="30dp"
         android:autofillHints="@string/points_acronym"
         android:hint="@string/points_acronym"
@@ -278,8 +277,8 @@
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <EditText
-        style="@style/RtInput"
         android:id="@+id/LevelUpBonusInput"
+        style="@style/RtInput"
         android:layout_marginStart="30dp"
         android:hint="@string/level_up_bonus_hint"
         android:maxLength="3"
@@ -290,10 +289,10 @@
         app:layout_constraintTop_toTopOf="@+id/LevelUpBonusLabel" />
 
     <EditText
-        style="@style/RtInput"
         android:id="@+id/MediumRtInput"
+        style="@style/RtInput"
+        android:layout_marginTop="10dp"
         android:hint="@string/medium_points_input_hint"
-        app:layout_constraintBottom_toTopOf="@+id/SettingsExpertButton"
         app:layout_constraintEnd_toEndOf="@+id/MediumExpInput"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/MediumExpInput"
