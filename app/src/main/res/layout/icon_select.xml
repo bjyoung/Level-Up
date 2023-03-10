@@ -45,7 +45,7 @@
         app:srcCompat="@drawable/plus_icon" />
 
     <TextView
-        style="@style/PageTitle"
+        style="@style/Text"
         android:id="@+id/IconSelectLabel"
         android:text="@string/icon_select_label"
         app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"

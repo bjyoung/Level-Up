@@ -8,39 +8,30 @@
     android:background="@color/background_primary">
 
     <TextView
+        style="@style/Text"
         android:id="@+id/CostRtLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/press_start_2p"
         android:text="@string/points_acronym"
-        android:textAlignment="center"
-        android:textColor="@color/text_primary"
         app:layout_constraintBottom_toBottomOf="@+id/CostInput"
         app:layout_constraintStart_toEndOf="@+id/CostInput"
         app:layout_constraintTop_toTopOf="@+id/CostInput" />
 
     <EditText
+        style="@style/NumInput"
         android:id="@+id/CostInput"
         android:layout_width="175dp"
         android:layout_height="48dp"
         android:autofillHints="@string/cost_input_autofill_hint"
-        android:background="@drawable/white_border"
         android:ems="10"
-        android:fontFamily="@font/press_start_2p"
         android:hint="@string/cost_input_hint"
-        android:inputType="numberSigned"
         android:maxLength="5"
-        android:textAlignment="center"
-        android:textColor="@color/text_primary"
-        android:textColorHint="@color/hint_primary"
         app:layout_constraintBottom_toBottomOf="@+id/CostLabel"
         app:layout_constraintEnd_toEndOf="@+id/ItemNameInput"
         app:layout_constraintStart_toEndOf="@+id/CostLabel"
         app:layout_constraintTop_toTopOf="@+id/CostLabel" />
 
     <TextView
-        style="@style/PageTitle"
+        style="@style/Text"
         android:id="@+id/NewItemLabel"
         android:text="@string/new_item_label"
         app:layout_constraintBottom_toTopOf="@+id/NewItemTopGuideline"
@@ -49,13 +40,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        style="@style/Label"
         android:id="@+id/ItemNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/press_start_2p"
         android:text="@string/name_label"
-        android:textColor="@color/text_primary"
-        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
         app:layout_constraintEnd_toEndOf="@+id/ItemNameInput"
         app:layout_constraintHorizontal_bias="0.0"
@@ -64,35 +51,22 @@
         app:layout_constraintVertical_bias="0.32" />
 
     <TextView
+        style="@style/Label"
         android:id="@+id/CostLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:fontFamily="@font/press_start_2p"
         android:text="@string/cost_input_label"
-        android:textColor="@color/text_primary"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/ItemNameInput"
         app:layout_constraintTop_toBottomOf="@+id/ItemNameInput" />
 
     <EditText
+        style="@style/TextInput"
         android:id="@+id/ItemNameInput"
         android:layout_width="325dp"
-        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:autofillHints="event_name"
-        android:background="@drawable/rounded_rectangle"
-        android:backgroundTint="@color/background_secondary"
+        android:autofillHints="item_name"
         android:ems="10"
-        android:fontFamily="@font/press_start_2p"
         android:hint="@string/name_hint"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="10dp"
-        android:textColor="@color/text_secondary"
-        android:textColorHint="@color/text_hint"
-        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ItemNameLabel" />
@@ -100,17 +74,11 @@
     <include layout="@layout/save_button_set" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/NewItemTopGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        style="@style/Guideline.Top"
+        android:id="@+id/NewItemTopGuideline" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/NewItemBottomGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85" />
+        style="@style/Guideline.FarBottom"
+        android:id="@+id/NewItemBottomGuideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

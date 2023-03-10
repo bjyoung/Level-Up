@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ShopLeftGuideline" />
 
     <TextView
-        style="@style/PageTitle"
+        style="@style/Text"
         android:id="@+id/ShopLabel"
         android:text="@string/shop_label"
         app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
@@ -78,41 +78,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ShopTopGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        style="@style/Guideline.Top"
+        android:id="@+id/ShopTopGuideline" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ShopBottomGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="66dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/ItemListScrollView"
-        app:layout_constraintGuide_percent="0.9001368"
-        app:layout_constraintStart_toStartOf="parent" />
+        style="@style/Guideline.FarBottom"
+        android:id="@+id/ShopBottomGuideline" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ShopLeftGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="17dp"
+        style="@style/Guideline.Left"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/include2"
-        app:layout_constraintGuide_percent="0.16"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/ShopLeftGuideline" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ShopRightGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="95dp"
+        style="@style/Guideline.Right"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/ItemListScrollView"
-        app:layout_constraintGuide_percent="0.84"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/ShopRightGuideline" />
 
     <ImageView
         android:id="@+id/NameSortIcon"

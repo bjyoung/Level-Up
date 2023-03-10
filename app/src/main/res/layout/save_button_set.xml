@@ -6,15 +6,10 @@
     android:layout_height="match_parent">
 
     <Button
+        style="@style/RectangularButton.Small"
         android:id="@+id/CancelButton"
-        android:layout_width="@dimen/action_button_width"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
         android:contentDescription="@string/cancel_button_content_description"
-        app:cornerRadius="0dp"
         app:icon="@drawable/times_icon_red"
-        app:iconGravity="textStart"
-        app:iconSize="24dp"
         app:iconTint="@color/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
@@ -24,15 +19,10 @@
         app:layout_constraintVertical_bias="0.95" />
 
     <Button
+        style="@style/RectangularButton.Small"
         android:id="@+id/ConfirmButton"
-        android:layout_width="@dimen/action_button_width"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_secondary"
         android:contentDescription="@string/confirm_button_content_description"
-        app:cornerRadius="0dp"
         app:icon="@drawable/check_icon_green"
-        app:iconGravity="textStart"
-        app:iconSize="24dp"
         app:iconTint="@color/confirm"
         app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
         app:layout_constraintEnd_toEndOf="parent"

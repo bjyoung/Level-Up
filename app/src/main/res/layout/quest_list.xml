@@ -77,18 +77,12 @@
         app:layout_constraintTop_toTopOf="@+id/Username" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/QuestListTopGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.10259918" />
+        style="@style/Guideline.Top"
+        android:id="@+id/QuestListTopGuideline" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/QuestListBottomGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
+        style="@style/Guideline.FarBottom"
+        android:id="@+id/QuestListBottomGuideline" />
 
     <ScrollView
         android:id="@+id/QuestScrollView"
@@ -108,25 +102,21 @@
     </ScrollView>
 
     <TextView
+        style="@style/Text"
         android:id="@+id/NextLvlExpLabel"
         android:layout_width="80dp"
         android:layout_height="30dp"
-        android:fontFamily="@font/press_start_2p"
         android:text="@string/next_lvl_exp_label"
-        android:textColor="@color/text_primary"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ProgressBar"
         app:layout_constraintTop_toTopOf="@+id/include" />
 
     <TextView
+        style="@style/Text"
         android:id="@+id/NextLvlExp"
         android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/press_start_2p"
         android:text="@string/next_lvl_exp_default"
-        android:textAlignment="center"
-        android:textColor="@color/text_primary"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="@+id/NextLvlExpLabel"
         app:layout_constraintStart_toStartOf="@+id/NextLvlExpLabel"
