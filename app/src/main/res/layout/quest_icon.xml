@@ -16,14 +16,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        style="@style/Text"
         android:id="@+id/IconName"
         android:layout_width="128dp"
-        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/press_start_2p"
         android:text="@string/default_icon_name"
-        android:textAlignment="center"
-        android:textColor="@color/text_primary"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

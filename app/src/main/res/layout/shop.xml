@@ -8,22 +8,16 @@
     android:background="@color/background_primary">
 
     <TextView
+        style="@style/Text"
         android:id="@+id/ShopNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/press_start_2p"
         android:text="@string/name_label"
-        android:textColor="@color/text_primary"
         app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
         app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
 
     <TextView
+        style="@style/Text"
         android:id="@+id/PriceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/press_start_2p"
         android:text="@string/price_column_label"
-        android:textColor="@color/text_primary"
         app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
         app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
 

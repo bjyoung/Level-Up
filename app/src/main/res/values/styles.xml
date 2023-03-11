@@ -123,4 +123,10 @@
     <style name="Guideline.FarRight">
         <item name="layout_constraintGuide_percent">0.95</item>
     </style>
+    <style name="IconGroupSelector" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">@dimen/icon_group_button_width</item>
+        <item name="android:layout_height">@dimen/icon_group_button_height</item>
+        <item name="android:background">@drawable/white_border_thin</item>
+        <item name="tint">@color/icon_secondary</item>
+    </style>
 </resources>
