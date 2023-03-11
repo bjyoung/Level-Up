@@ -119,7 +119,7 @@ class NewItem : Fragment(R.layout.new_item) {
 
     private fun activateEditMode() {
         val view = requireView()
-        val pageLabel = view.findViewById<TextView>(R.id.NewQuestLabel)
+        val pageLabel = view.findViewById<TextView>(R.id.NewItemLabel)
         pageLabel.text = resources.getString(R.string.edit_item_label)
 
         viewModel.getItem(args.itemId).observe(viewLifecycleOwner) { item ->
