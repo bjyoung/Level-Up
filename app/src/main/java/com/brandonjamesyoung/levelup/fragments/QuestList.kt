@@ -98,7 +98,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         convertButton(
             targetId = R.id.SettingsButton,
             iconDrawableId = R.drawable.cancel_icon,
-            iconColorId = R.color.icon_primary,
             buttonMethod = ::cancelSelectedQuests,
             view = requireView(),
             resources = resources
@@ -127,7 +126,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         convertButton(
             targetId = R.id.AddNewQuestButton,
             iconDrawableId = R.drawable.plus_icon,
-            iconColorId = R.color.icon_primary,
             buttonMethod = ::navigateToNewQuest,
             view = requireView(),
             resources = resources
@@ -144,7 +142,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         convertButton(
             targetId = R.id.ShopButton,
             iconDrawableId = R.drawable.shopping_bag_icon,
-            iconColorId = R.color.icon_primary,
             buttonMethod = ::navigateToShop,
             view = requireView(),
             resources = resources
@@ -162,7 +159,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         convertButton(
             targetId = R.id.SettingsButton,
             iconDrawableId = R.drawable.gear_icon,
-            iconColorId = R.color.icon_primary,
             buttonMethod = ::navigateToSettings,
             view = requireView(),
             resources = resources

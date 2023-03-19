@@ -44,7 +44,6 @@ class Shop : Fragment(R.layout.shop) {
         convertButton(
             targetId = R.id.AddNewItemButton,
             iconDrawableId = R.drawable.plus_icon,
-            iconColorId = R.color.icon_primary,
             buttonMethod = ::navigateToNewItem,
             view = requireView(),
             resources = resources
@@ -60,7 +59,6 @@ class Shop : Fragment(R.layout.shop) {
         convertButton(
             targetId = R.id.QuestListButton,
             iconDrawableId = R.drawable.bullet_list_icon,
-            iconColorId = R.color.icon_primary,
             buttonMethod = ::navigateToQuestList,
             view = requireView(),
             resources = resources
@@ -77,7 +75,6 @@ class Shop : Fragment(R.layout.shop) {
         convertButton(
             targetId = R.id.ShopSettingsButton,
             iconDrawableId = R.drawable.gear_icon,
-            iconColorId = R.color.icon_primary,
             buttonMethod = ::navigateToSettings,
             view = requireView(),
             resources = resources
@@ -108,7 +105,6 @@ class Shop : Fragment(R.layout.shop) {
         convertButton(
             targetId = R.id.ShopSettingsButton,
             iconDrawableId = R.drawable.cancel_icon,
-            iconColorId = R.color.icon_primary,
             buttonMethod = ::cancelSelectedItems,
             view = requireView(),
             resources = resources

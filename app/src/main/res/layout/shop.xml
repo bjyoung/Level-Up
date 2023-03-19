@@ -21,35 +21,35 @@
         app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
         app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/RoundActionButton"
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
         android:id="@+id/QuestListButton"
         android:contentDescription="@string/quest_list_button_description"
+        app:icon="@drawable/bullet_list_icon"
         app:layout_constraintBottom_toBottomOf="@+id/AddNewItemButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/ShopRightGuideline"
-        app:layout_constraintTop_toTopOf="@+id/AddNewItemButton"
-        app:srcCompat="@drawable/bullet_list_icon" />
+        app:layout_constraintTop_toTopOf="@+id/AddNewItemButton" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/RoundActionButton"
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
         android:id="@+id/AddNewItemButton"
         android:contentDescription="@string/new_item_button_description"
+        app:icon="@drawable/plus_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ShopLeftGuideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ShopBottomGuideline"
-        app:srcCompat="@drawable/plus_icon" />
+        app:layout_constraintTop_toTopOf="@+id/ShopBottomGuideline" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/RoundActionButton"
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
         android:id="@+id/ShopSettingsButton"
         android:contentDescription="@string/settings_button_description"
+        app:icon="@drawable/gear_icon"
         app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
         app:layout_constraintEnd_toEndOf="@+id/QuestListButton"
         app:layout_constraintStart_toStartOf="@+id/QuestListButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/gear_icon" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/include2"

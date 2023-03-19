@@ -6,7 +6,7 @@ import android.content.res.Resources.Theme
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.brandonjamesyoung.levelup.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.button.MaterialButton
 
 class ButtonHelper {
     companion object {
@@ -18,12 +18,12 @@ class ButtonHelper {
         fun convertButton(
             targetId: Int,
             iconDrawableId: Int = R.drawable.question_mark_icon,
-            iconColorId: Int = R.color.icon_primary,
+            iconColorId: Int = R.color.icon_secondary,
             buttonMethod: () -> Unit,
             view: View,
             resources: Resources
         ) {
-            val button = view.findViewById<FloatingActionButton>(targetId)
+            val button = view.findViewById<MaterialButton>(targetId)
 
             val drawable = ResourcesCompat.getDrawable(
                 resources,
@@ -31,9 +31,9 @@ class ButtonHelper {
                 view.context.theme
             )
 
-            button.setImageDrawable(drawable)
+            button.icon = drawable
             val drawableColor = getColor(iconColorId, view.context.theme, resources)
-            button.imageTintList = ColorStateList.valueOf(drawableColor)
+            button.iconTint = ColorStateList.valueOf(drawableColor)
 
             button.setOnClickListener{
                 buttonMethod()

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Text -->
     <style name="Text" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -18,6 +19,8 @@
         <item name="android:text">RT</item>
         <item name="android:layout_marginStart">10dp</item>
     </style>
+
+    <!-- Input Fields -->
     <style name="TextInput" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -54,13 +57,26 @@
         <item name="android:autofillHints">@string/points_input_autofill_hint</item>
         <item name="android:maxLength">4</item>
     </style>
+
+    <!-- Buttons -->
     <style name="RoundActionButton" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/nav_button_background</item>
         <item name="android:backgroundTint">@color/background_secondary</item>
         <item name="android:clickable">true</item>
         <item name="android:gravity">center</item>
         <item name="fabCustomSize">@dimen/round_button</item>
+    </style>
+    <style name="NavButton" parent="Widget.Material3.Button">
+        <item name="android:layout_width">@dimen/nav_button</item>
+        <item name="android:layout_height">@dimen/nav_button</item>
+        <item name="android:background">@drawable/nav_button_background</item>
+        <item name="iconTint">@color/icon_secondary</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconSize">24dp</item>
+        <item name="backgroundTint">@null</item>
     </style>
     <style name="QuestIcon" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
         <item name="android:layout_width">wrap_content</item>
@@ -97,6 +113,14 @@
     <style name="DifficultyButton.Small">
         <item name="android:layout_height">@dimen/difficulty_button_small_height</item>
     </style>
+    <style name="IconGroupSelector" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">@dimen/icon_group_button_width</item>
+        <item name="android:layout_height">@dimen/icon_group_button_height</item>
+        <item name="android:background">@drawable/white_border_thin</item>
+        <item name="tint">@color/icon_secondary</item>
+    </style>
+
+    <!-- Guidelines -->
     <style name="Guideline">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -122,11 +146,5 @@
     </style>
     <style name="Guideline.FarRight">
         <item name="layout_constraintGuide_percent">0.95</item>
-    </style>
-    <style name="IconGroupSelector" parent="Widget.AppCompat.ImageButton">
-        <item name="android:layout_width">@dimen/icon_group_button_width</item>
-        <item name="android:layout_height">@dimen/icon_group_button_height</item>
-        <item name="android:background">@drawable/white_border_thin</item>
-        <item name="tint">@color/icon_secondary</item>
     </style>
 </resources>

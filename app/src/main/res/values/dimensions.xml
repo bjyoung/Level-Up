@@ -2,7 +2,8 @@
 <resources>
     <!-- General -->
     <dimen name="screen_padding">16dp</dimen>
-    <dimen name="round_button">48dp</dimen>
+    <dimen name="round_button">36dp</dimen>
+    <dimen name="nav_button">48dp</dimen>
     <dimen name="big_round_button">64dp</dimen>
     <dimen name="action_button_width">150dp</dimen>
 

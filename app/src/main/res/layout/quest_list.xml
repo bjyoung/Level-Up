@@ -8,26 +8,37 @@
     android:background="@color/background_primary"
     tools:context=".fragments.QuestList">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/RoundActionButton"
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
         android:id="@+id/ShopButton"
         android:contentDescription="@string/shop_button_description"
+        app:icon="@drawable/shopping_bag_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline"
-        app:srcCompat="@drawable/shopping_bag_icon" />
+        app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/RoundActionButton"
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
         android:id="@+id/SettingsButton"
         android:contentDescription="@string/settings_button_description"
+        app:icon="@drawable/gear_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/QuestListTopGuideline"
-        app:srcCompat="@drawable/gear_icon" />
+        app:layout_constraintTop_toTopOf="@+id/QuestListTopGuideline" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
+        android:id="@+id/AddNewQuestButton"
+        android:contentDescription="@string/new_quest_button_description"
+        app:icon="@drawable/plus_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toEndOf="@+id/ShopButton"
+        app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline" />
 
     <TextView
         style="@style/Text"
@@ -51,17 +62,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Username" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/RoundActionButton"
-        android:id="@+id/AddNewQuestButton"
-        android:contentDescription="@string/new_quest_button_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toEndOf="@+id/ShopButton"
-        app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline"
-        app:srcCompat="@drawable/plus_icon" />
 
     <include
         android:id="@+id/include"
