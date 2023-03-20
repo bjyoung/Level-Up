@@ -16,6 +16,7 @@
     <color name="quest_card_icon_background">#FFFFFFFF</color>
     <color name="icon_primary">#FF000000</color>
     <color name="icon_secondary">#FFFFFFFF</color>
+    <color name="icon_secondary_pressed">#FFCBCBCB</color>
     <color name="text_primary">#FFFFFFFF</color>
     <color name="text_primary_default">#FFFFFFFF</color>
     <color name="text_secondary">#FF000000</color>
@@ -30,7 +31,9 @@
     <color name="expert">#FFDD00FF</color>
     <color name="expert_default">#FFDD00FF</color>
     <color name="confirm">#33cc33</color>
+    <color name="confirm_pressed">#279C27</color>
     <color name="delete">#FFFF0000</color>
+    <color name="delete_pressed">#B10101</color>
     <color name="cancel">#FFFF0000</color>
     <color name="experience_bar_meter">#FF00FFFF</color>
     <color name="experience_bar_meter_default">#FF00FFFF</color>

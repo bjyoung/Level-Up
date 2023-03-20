@@ -72,7 +72,7 @@
         <item name="android:layout_width">@dimen/nav_button</item>
         <item name="android:layout_height">@dimen/nav_button</item>
         <item name="android:background">@drawable/nav_button_background</item>
-        <item name="iconTint">@color/icon_secondary</item>
+        <item name="iconTint">@color/nav_button_icon</item>
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">0dp</item>
         <item name="iconSize">24dp</item>

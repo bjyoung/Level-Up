@@ -120,7 +120,7 @@ class Shop : Fragment(R.layout.shop) {
         convertButton(
             targetId = R.id.AddNewItemButton,
             iconDrawableId = R.drawable.trash_bin_icon,
-            iconColorId = R.color.cancel,
+            iconColorId = R.color.delete_icon,
             buttonMethod = ::deleteItems,
             view = requireView(),
             resources = resources
@@ -136,7 +136,7 @@ class Shop : Fragment(R.layout.shop) {
         convertButton(
             targetId = R.id.QuestListButton,
             iconDrawableId = R.drawable.shopping_cart_icon,
-            iconColorId = R.color.confirm,
+            iconColorId = R.color.confirm_icon,
             buttonMethod = ::buyItems,
             view = requireView(),
             resources = resources

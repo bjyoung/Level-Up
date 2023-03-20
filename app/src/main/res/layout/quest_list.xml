@@ -20,8 +20,8 @@
         app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline" />
 
     <com.google.android.material.button.MaterialButton
-        style="@style/NavButton"
         android:id="@+id/SettingsButton"
+        style="@style/NavButton"
         android:contentDescription="@string/settings_button_description"
         app:icon="@drawable/gear_icon"
         app:layout_constraintEnd_toEndOf="parent"
