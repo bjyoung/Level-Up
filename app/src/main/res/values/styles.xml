@@ -59,15 +59,6 @@
     </style>
 
     <!-- Buttons -->
-    <style name="RoundActionButton" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/nav_button_background</item>
-        <item name="android:backgroundTint">@color/background_secondary</item>
-        <item name="android:clickable">true</item>
-        <item name="android:gravity">center</item>
-        <item name="fabCustomSize">@dimen/round_button</item>
-    </style>
     <style name="NavButton" parent="Widget.Material3.Button">
         <item name="android:layout_width">@dimen/nav_button</item>
         <item name="android:layout_height">@dimen/nav_button</item>
