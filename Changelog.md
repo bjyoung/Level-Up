@@ -14,6 +14,10 @@ This document tracks all notables changes to the Level Up app.
 
 - Change the navigation buttons from a black-on-white rounded button to a classic arcade-style white-on-black design
 
+### Fixed
+
+- Fix floating text issue
+
 ---
 
 ## 0.7.1
