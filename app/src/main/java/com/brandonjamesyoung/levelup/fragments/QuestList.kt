@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -213,7 +212,13 @@ class QuestList : Fragment(R.layout.quest_list) {
         val iconLiveData = viewModel.getIcon(iconId)
 
         iconLiveData.observe(viewLifecycleOwner) { icon ->
-            val drawable = ByteArrayHelper.convertByteArrayToDrawable(icon.image, resources)
+            val drawable = if (icon != null) {
+                ByteArrayHelper.convertByteArrayToDrawable(icon.image, resources)
+            } else {
+                val context = requireContext()
+                IconHelper.getDefaultIcon(context)
+            }
+
             button.setImageDrawable(drawable)
             iconLiveData.removeObservers(viewLifecycleOwner)
         }

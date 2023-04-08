@@ -169,7 +169,13 @@ class NewQuest : Fragment(R.layout.new_quest) {
         val iconLiveData = viewModel.getIcon(iconId)
 
         iconLiveData.observe(viewLifecycleOwner) { icon ->
-            val drawable = convertByteArrayToDrawable(icon.image, resources)
+            val drawable = if (icon != null) {
+                convertByteArrayToDrawable(icon.image, resources)
+            } else {
+                val context = requireContext()
+                getDefaultIcon(context)
+            }
+
             button.setImageDrawable(drawable)
             iconLiveData.removeObservers(viewLifecycleOwner)
         }
