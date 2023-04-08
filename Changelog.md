@@ -13,6 +13,7 @@ This document tracks all notables changes to the Level Up app.
 ### Changed
 
 - Change the navigation buttons from a black-on-white rounded button to a classic arcade-style white-on-black design
+- Adjust icon margins in Icon Select
 
 ### Fixed
 
