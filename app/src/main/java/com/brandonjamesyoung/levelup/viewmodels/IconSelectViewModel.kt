@@ -14,12 +14,17 @@ class IconSelectViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val iconRepository: IconRepository,
 ) : BaseViewModel() {
+    var selectedIconGroup: IconGroup = IconGroup.SPADES
+
     val spadesIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.SPADES).asLiveData()
+
     val heartsIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.HEARTS).asLiveData()
+
     val diamondsIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.DIAMONDS).asLiveData()
+
     val clubsIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.CLUBS).asLiveData()
 
