@@ -21,6 +21,7 @@ class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : BaseViewModel() {
     val difficulties: LiveData<List<Difficulty>> = difficultyRepository.observeAll().asLiveData()
+
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
     private suspend fun updateSettings(newSettings: Settings) {

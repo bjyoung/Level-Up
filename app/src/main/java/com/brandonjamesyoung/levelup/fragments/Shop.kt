@@ -25,8 +25,11 @@ import kotlinx.coroutines.launch
 
 class Shop : Fragment(R.layout.shop) {
     private val viewModel: ShopViewModel by activityViewModels()
+
     private val selectedItemIds: MutableSet<Int> = mutableSetOf()
+
     private val selectedItemRowIds: MutableSet<Int> = mutableSetOf()
+
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
     private fun navigateToNewItem(itemId: Int? = null) {

@@ -19,7 +19,9 @@ class ShopViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
 ) : BaseViewModel() {
     val itemList: LiveData<List<Item>> = itemRepository.observeAll().asLiveData()
+
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
+
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
     private fun getPurchaseMessage(numItems: Int, cost: Int, pointsAcronym: String) : String {

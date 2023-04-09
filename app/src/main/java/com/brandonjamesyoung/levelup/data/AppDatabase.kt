@@ -26,10 +26,15 @@ import kotlinx.coroutines.*
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun questDao(): QuestDao
+
     abstract fun playerDao(): PlayerDao
+
     abstract fun settingsDao(): SettingsDao
+
     abstract fun difficultyDao(): DifficultyDao
+
     abstract fun itemDao(): ItemDao
+
     abstract fun iconDao(): IconDao
 
     companion object {

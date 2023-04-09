@@ -30,6 +30,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class NewQuest : Fragment(R.layout.new_quest) {
     private val viewModel: NewQuestViewModel by activityViewModels()
+
     private val args: NewQuestArgs by navArgs()
 
     private val buttonIdToDifficultyMap = mapOf(

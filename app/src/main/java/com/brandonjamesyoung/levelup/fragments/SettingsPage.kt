@@ -25,6 +25,7 @@ import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateNum
 @AndroidEntryPoint
 class SettingsPage : Fragment(R.layout.settings) {
     private val args: SettingsPageArgs by navArgs()
+
     private val viewModel: SettingsViewModel by activityViewModels()
 
     private val prevFragmentId: Int by lazy {

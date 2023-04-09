@@ -18,10 +18,15 @@ class NewQuestViewModel @Inject constructor(
     private val iconRepository: IconRepository
 ) : BaseViewModel() {
     var name: String? = null
+
     var selectedDifficulty: Difficulty = Difficulty.EASY
+
     var iconId: Int? = null
+
     var mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
+
     var editQuestId: Int? = null
+
     var questDataLoaded: Boolean = false
 
     fun getQuest(id: Int): LiveData<Quest> {

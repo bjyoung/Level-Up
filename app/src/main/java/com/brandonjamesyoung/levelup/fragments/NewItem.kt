@@ -24,7 +24,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class NewItem : Fragment(R.layout.new_item) {
     private val viewModel: NewItemViewModel by activityViewModels()
+
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
+
     private val args: NewItemArgs by navArgs()
 
     private fun updateAcronym(settings: Settings?) {

@@ -20,7 +20,9 @@ class QuestListViewModel @Inject constructor(
     private val iconRepository: IconRepository
 ) : BaseViewModel() {
     val questList: LiveData<List<Quest>> = questRepository.observeAll().asLiveData()
+
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
+
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
     fun getIcon(id: Int): LiveData<Icon> {

@@ -20,6 +20,7 @@ class IconGridAdapter(private val iconList: List<Icon>) :
     // Store view data in view holder and how to bind data from view to view holder
     class IconGridViewHolder(val view: View, val context: Context) : RecyclerView.ViewHolder(view) {
         private val iconButton: FloatingActionButton = view.findViewById(R.id.QuestIcon)
+
         private val nameView: TextView = view.findViewById(R.id.IconName)
 
         private fun navigateToNewQuest(icon: Icon) {

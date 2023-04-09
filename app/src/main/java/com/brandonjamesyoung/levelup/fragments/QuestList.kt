@@ -32,8 +32,11 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class QuestList : Fragment(R.layout.quest_list) {
     private val viewModel: QuestListViewModel by activityViewModels()
+
     private val selectedQuestIds: MutableSet<Int> = mutableSetOf()
+
     private val selectedQuestIconIds: MutableSet<Int> = mutableSetOf()
+
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
     private val difficultyColorMap = mapOf(
