@@ -3,6 +3,8 @@ package com.brandonjamesyoung.levelup.fragments
 import android.os.Bundle
 import android.util.Log.i
 import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.adapters.IconGridAdapter
 import com.brandonjamesyoung.levelup.data.Icon
+import com.brandonjamesyoung.levelup.shared.SnackbarHelper
 import com.brandonjamesyoung.levelup.viewmodels.IconSelectViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -34,6 +37,50 @@ class IconSelect : Fragment(R.layout.icon_select) {
         }
     }
 
+    private fun setupEditButton() {
+        val view = requireView()
+        val editButton = view.findViewById<Button>(R.id.EditButton)
+
+        editButton.setOnClickListener{
+            viewModel.showSnackbar("Not implemented yet")
+        }
+    }
+
+    private fun setupNewIconButton() {
+        val view = requireView()
+        val addNewIconButton = view.findViewById<Button>(R.id.AddNewIconButton)
+
+        addNewIconButton.setOnClickListener{
+            viewModel.showSnackbar("Not implemented yet")
+        }
+    }
+
+    private fun setupIconGroupButtons() {
+        val buttonIds = arrayOf(
+            R.id.SpadesGroupButton,
+            R.id.DiamondsGroupButton,
+            R.id.HeartsGroupButton,
+            R.id.ClubsGroupButton
+        )
+
+        val view = requireView()
+
+        for (buttonId: Int in buttonIds) {
+            val imageButton = view.findViewById<ImageButton>(buttonId)
+
+            imageButton.setOnClickListener{
+                viewModel.showSnackbar("Not implemented yet")
+            }
+        }
+    }
+
+    private fun setupButtons() {
+        setupBackButton()
+        setupEditButton()
+        setupNewIconButton()
+        setupIconGroupButtons()
+    }
+
     private fun setupIconGrid(iconList: List<Icon>) {
         val view = requireView()
         val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
@@ -53,6 +100,14 @@ class IconSelect : Fragment(R.layout.icon_select) {
         viewModel.spadesIcons.observe(viewLifecycleOwner) { spadesIcons ->
             setupIconGrid(spadesIcons)
         }
+
+        viewModel.message.observe(viewLifecycleOwner) { message ->
+            message.getContentIfNotHandled()?.let {
+                val view = requireView()
+                val addNewIconButton: View = view.findViewById(R.id.AddNewIconButton)
+                SnackbarHelper.showSnackbar(it, view, addNewIconButton)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,7 +115,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
 
         lifecycleScope.launch {
             i(TAG, "On Icon Select page")
-            setupBackButton()
+            setupButtons()
             setupObservables()
         }
     }
