@@ -6,6 +6,7 @@ import android.util.Log.i
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -15,16 +16,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.adapters.IconGridAdapter
-import com.brandonjamesyoung.levelup.data.Icon
 import com.brandonjamesyoung.levelup.shared.IconGroup
 import com.brandonjamesyoung.levelup.shared.SnackbarHelper
 import com.brandonjamesyoung.levelup.viewmodels.IconSelectViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class IconSelect : Fragment(R.layout.icon_select) {
     private val viewModel: IconSelectViewModel by activityViewModels()
+
+    private val iconGroupAdapterMap = mutableMapOf<IconGroup, IconGridAdapter>()
 
     private fun navigateToQuestList() {
         NavHostFragment.findNavController(this).navigate(R.id.action_iconSelect_to_newQuest)
@@ -77,7 +80,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
             val imageButton = view.findViewById<ImageButton>(buttonId)
 
             imageButton.setOnClickListener{
-                iconGroupMap[buttonId]?.let { it1 -> selectIconGroup(it1) }
+                iconGroupMap[buttonId]?.let { it1 -> viewModel.selectedIconGroup.value = it1 }
             }
         }
     }
@@ -126,11 +129,19 @@ class IconSelect : Fragment(R.layout.icon_select) {
         button.imageTintList = resources.getColorStateList(R.color.icon_primary, theme)
     }
 
-    private fun selectIconGroup(iconGroup: IconGroup) {
-        if (iconGroup == viewModel.selectedIconGroup) return
-        useDefaultColor(viewModel.selectedIconGroup)
-        useSelectedColor(iconGroup)
-        viewModel.selectedIconGroup = iconGroup
+    private fun highlightSelectedGroup(selectedIconGroup: IconGroup) {
+        val allIconGroups = arrayOf(
+            IconGroup.SPADES,
+            IconGroup.DIAMONDS,
+            IconGroup.HEARTS,
+            IconGroup.CLUBS
+        )
+
+        for (iconGroup in allIconGroups) {
+            useDefaultColor(iconGroup)
+        }
+
+        useSelectedColor(selectedIconGroup)
     }
 
     private fun setupButtons() {
@@ -139,10 +150,9 @@ class IconSelect : Fragment(R.layout.icon_select) {
         setupIconGroupButtons()
     }
 
-    private fun setupIconGrid(iconList: List<Icon>) {
+    private fun setupIconGrid() {
         val view = requireView()
         val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
-        iconGrid.adapter = IconGridAdapter(iconList)
 
         val horizontalGridLayoutManager = GridLayoutManager(
             view.context,
@@ -154,11 +164,56 @@ class IconSelect : Fragment(R.layout.icon_select) {
         iconGrid.layoutManager = horizontalGridLayoutManager
     }
 
-    private fun setupObservables() {
-        viewModel.spadesIcons.observe(viewLifecycleOwner) { spadesIcons ->
-            setupIconGrid(spadesIcons)
+    private fun loadIcons(iconGroup: IconGroup) {
+        val view = requireView()
+        val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
+        val newAdapter: IconGridAdapter? = iconGroupAdapterMap[iconGroup]
+
+        if (newAdapter == null) {
+            Log.e(TAG, "No adapter found for iconGroup: $iconGroup")
+            return
         }
 
+        when (iconGrid.adapter) {
+            null -> iconGrid.adapter = newAdapter
+            newAdapter -> return
+            else -> iconGrid.swapAdapter(newAdapter, false)
+        }
+    }
+
+    private fun switchIconGroup(iconGroup: IconGroup?) {
+        if (iconGroup == null) return
+        highlightSelectedGroup(iconGroup)
+        loadIcons(iconGroup)
+    }
+
+    private suspend fun setupObservables() {
+        viewModel.spadesIcons.observe(viewLifecycleOwner) { spadesIcons ->
+            iconGroupAdapterMap[IconGroup.SPADES] = IconGridAdapter(spadesIcons)
+        }
+
+        viewModel.diamondsIcons.observe(viewLifecycleOwner) { diamondsIcons ->
+            iconGroupAdapterMap[IconGroup.DIAMONDS] = IconGridAdapter(diamondsIcons)
+        }
+
+        viewModel.heartsIcons.observe(viewLifecycleOwner) { heartsIcons ->
+            iconGroupAdapterMap[IconGroup.HEARTS] = IconGridAdapter(heartsIcons)
+        }
+
+        viewModel.clubsIcons.observe(viewLifecycleOwner) { clubsIcons ->
+            iconGroupAdapterMap[IconGroup.CLUBS] = IconGridAdapter(clubsIcons)
+        }
+
+        // TODO wrap below in a time limit in case the group is never set
+        while (iconGroupAdapterMap[viewModel.initSelectedGroup] == null) {
+            delay(1L)
+        }
+
+        viewModel.selectedIconGroup.observe(viewLifecycleOwner) { selectedIconGroup ->
+            switchIconGroup(selectedIconGroup)
+        }
+
+        // TODO Can make base fragment observe viewmodel message to reduce repeat code
         viewModel.message.observe(viewLifecycleOwner) { message ->
             message.getContentIfNotHandled()?.let {
                 val view = requireView()
@@ -173,9 +228,10 @@ class IconSelect : Fragment(R.layout.icon_select) {
 
         lifecycleScope.launch {
             i(TAG, "On Icon Select page")
-            useSelectedColor(IconGroup.SPADES)
+            setupIconGrid()
             setupButtons()
             setupObservables()
+            viewModel.selectedIconGroup.value = viewModel.initSelectedGroup
         }
     }
 

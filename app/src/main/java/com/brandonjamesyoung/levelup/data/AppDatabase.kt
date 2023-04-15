@@ -100,44 +100,45 @@ abstract class AppDatabase : RoomDatabase() {
             }
 
             private suspend fun initializeIcons(iconDao: IconDao) {
-                val iconFileNamePairs = listOf(
-                    Pair("Bandage", R.drawable.bandage_icon),
-                    Pair("Barcode", R.drawable.barcode_icon),
-                    Pair("Battery", R.drawable.battery_icon),
-                    Pair("Beer", R.drawable.beer_icon),
-                    Pair("Boat", R.drawable.boat_icon),
-                    Pair("Book", R.drawable.book_icon),
-                    Pair("Bookmark", R.drawable.bookmark_icon),
-                    Pair("Bow", R.drawable.bow_and_arrow_icon),
-                    Pair("Bullet List", R.drawable.bullet_list_icon),
-                    Pair("Calendar", R.drawable.calendar_icon),
-                    Pair("Camera", R.drawable.camera_icon),
-                    Pair("Cent", R.drawable.cent_icon),
-                    Pair("Clubs", R.drawable.clubs_icon),
-                    Pair("Copy", R.drawable.copy_icon),
-                    Pair("Crop", R.drawable.crop_icon),
-                    Pair("Dash", R.drawable.dash_icon),
-                    Pair("Diamond", R.drawable.diamond_icon),
-                    Pair("Dollar Sign", R.drawable.dollar_sign_icon),
-                    Pair("Door", R.drawable.door_icon),
-                    Pair("Download", R.drawable.download_icon),
-                    Pair("Dumbbell", R.drawable.dumbbell_icon),
-                    Pair("Envelope", R.drawable.envelope_icon),
-                    Pair("Film", R.drawable.film_icon),
-                    Pair("Gear", R.drawable.gear_icon),
-                    Pair("Heart", R.drawable.heart_icon),
-                    Pair("House", R.drawable.house_icon),
-                    Pair("Power", R.drawable.power_button_icon),
+                val iconFileNameTriples = listOf(
+                    Triple("Bandage", R.drawable.bandage_icon, IconGroup.SPADES),
+                    Triple("Barcode", R.drawable.barcode_icon, IconGroup.SPADES),
+                    Triple("Battery", R.drawable.battery_icon, IconGroup.SPADES),
+                    Triple("Beer", R.drawable.beer_icon, IconGroup.SPADES),
+                    Triple("Boat", R.drawable.boat_icon, IconGroup.SPADES),
+                    Triple("Book", R.drawable.book_icon, IconGroup.SPADES),
+                    Triple("Bookmark", R.drawable.bookmark_icon, IconGroup.SPADES),
+                    Triple("Bow", R.drawable.bow_and_arrow_icon, IconGroup.SPADES),
+                    Triple("Bullet List", R.drawable.bullet_list_icon, IconGroup.SPADES),
+                    Triple("Calendar", R.drawable.calendar_icon, IconGroup.SPADES),
+                    Triple("Camera", R.drawable.camera_icon, IconGroup.SPADES),
+                    Triple("Cent", R.drawable.cent_icon, IconGroup.SPADES),
+                    Triple("Clubs", R.drawable.clubs_icon, IconGroup.SPADES),
+                    Triple("Copy", R.drawable.copy_icon, IconGroup.DIAMONDS),
+                    Triple("Crop", R.drawable.crop_icon, IconGroup.DIAMONDS),
+                    Triple("Dash", R.drawable.dash_icon, IconGroup.DIAMONDS),
+                    Triple("Diamond", R.drawable.diamond_icon, IconGroup.DIAMONDS),
+                    Triple("Dollar Sign", R.drawable.dollar_sign_icon, IconGroup.DIAMONDS),
+                    Triple("Door", R.drawable.door_icon, IconGroup.DIAMONDS),
+                    Triple("Download", R.drawable.download_icon, IconGroup.DIAMONDS),
+                    Triple("Dumbbell", R.drawable.dumbbell_icon, IconGroup.DIAMONDS),
+                    Triple("Envelope", R.drawable.envelope_icon, IconGroup.HEARTS),
+                    Triple("Film", R.drawable.film_icon, IconGroup.HEARTS),
+                    Triple("Gear", R.drawable.gear_icon, IconGroup.HEARTS),
+                    Triple("Heart", R.drawable.heart_icon, IconGroup.HEARTS),
+                    Triple("House", R.drawable.house_icon, IconGroup.HEARTS),
+                    Triple("Power", R.drawable.power_button_icon, IconGroup.HEARTS),
                 )
 
-                for (pair in iconFileNamePairs) {
-                    val iconId = pair.second
+                for (triple in iconFileNameTriples) {
+                    val iconId = triple.second
                     val drawable = getDrawable(iconId)
                     val byteArray = convertDrawableToByteArray(drawable)
 
                     val icon = Icon(
-                        name = pair.first,
-                        image = byteArray
+                        name = triple.first,
+                        image = byteArray,
+                        iconGroup = triple.third
                     )
 
                     iconDao.insert(icon)
