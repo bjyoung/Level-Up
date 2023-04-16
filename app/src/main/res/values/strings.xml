@@ -95,6 +95,7 @@
     <string name="clubs_icon_group_content_description">Clubs icon group</string>
     <string name="edit_button_content_description">Pencil icon</string>
     <string name="default_icon_name">Icon</string>
+    <string name="no_icons_message">No icons found</string>
 
     <!-- Snackbar strings -->
     <string name="default_snackbar_message">Default message</string>

@@ -164,6 +164,18 @@ class IconSelect : Fragment(R.layout.icon_select) {
         iconGrid.layoutManager = horizontalGridLayoutManager
     }
 
+    private fun showNoIconsMessage() {
+        val view = requireView()
+        val noIconsMessage = view.findViewById<TextView>(R.id.NoIconsMessage)
+        noIconsMessage.visibility = View.VISIBLE
+    }
+
+    private fun hideNoIconsMessage() {
+        val view = requireView()
+        val noIconsMessage = view.findViewById<TextView>(R.id.NoIconsMessage)
+        noIconsMessage.visibility = View.GONE
+    }
+
     private fun loadIcons(iconGroup: IconGroup) {
         val view = requireView()
         val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
@@ -173,6 +185,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
             Log.e(TAG, "No adapter found for iconGroup: $iconGroup")
             return
         }
+
+        if (newAdapter.itemCount == 0) showNoIconsMessage() else hideNoIconsMessage()
 
         when (iconGrid.adapter) {
             null -> iconGrid.adapter = newAdapter

@@ -6,16 +6,8 @@
     android:layout_height="60dp">
 
     <TextView
+        style="@style/Message"
         android:id="@+id/RpgSnackbarMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/rpg_snackbar_background"
-        android:fontFamily="@font/press_start_2p"
-        android:gravity="center_vertical"
-        android:padding="8dp"
-        android:text="@string/default_snackbar_message"
-        android:textColor="@color/text_primary"
-        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

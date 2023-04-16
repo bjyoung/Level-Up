@@ -125,4 +125,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/IconSelectTopGuideline" />
 
+    <TextView
+        android:id="@+id/NoIconsMessage"
+        style="@style/Message"
+        android:layout_height="wrap_content"
+        android:text="@string/no_icons_message"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/IconGrid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/IconSelectTopGuideline" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

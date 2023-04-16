@@ -20,6 +20,14 @@
         <item name="android:text">RT</item>
         <item name="android:layout_marginStart">10dp</item>
     </style>
+    <style name="Message" parent="Text">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/rpg_snackbar_background</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:text">Default message</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 
     <!-- Input Fields -->
     <style name="TextInput" parent="Widget.AppCompat.EditText">
