@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.adapters.IconGridAdapter
+import com.brandonjamesyoung.levelup.data.Icon
 import com.brandonjamesyoung.levelup.shared.IconGroup
 import com.brandonjamesyoung.levelup.shared.SnackbarHelper
 import com.brandonjamesyoung.levelup.viewmodels.IconSelectViewModel
@@ -201,21 +202,26 @@ class IconSelect : Fragment(R.layout.icon_select) {
         loadIcons(iconGroup)
     }
 
+    private fun addToIconGroupMap(iconGroup: IconGroup, iconList: List<Icon>) {
+        val sortedIcons = iconList.sortedBy { icon -> icon.name }
+        iconGroupAdapterMap[iconGroup] = IconGridAdapter(sortedIcons)
+    }
+
     private suspend fun setupObservables() {
         viewModel.spadesIcons.observe(viewLifecycleOwner) { spadesIcons ->
-            iconGroupAdapterMap[IconGroup.SPADES] = IconGridAdapter(spadesIcons)
+            addToIconGroupMap(IconGroup.SPADES, spadesIcons)
         }
 
         viewModel.diamondsIcons.observe(viewLifecycleOwner) { diamondsIcons ->
-            iconGroupAdapterMap[IconGroup.DIAMONDS] = IconGridAdapter(diamondsIcons)
+            addToIconGroupMap(IconGroup.DIAMONDS, diamondsIcons)
         }
 
         viewModel.heartsIcons.observe(viewLifecycleOwner) { heartsIcons ->
-            iconGroupAdapterMap[IconGroup.HEARTS] = IconGridAdapter(heartsIcons)
+            addToIconGroupMap(IconGroup.HEARTS, heartsIcons)
         }
 
         viewModel.clubsIcons.observe(viewLifecycleOwner) { clubsIcons ->
-            iconGroupAdapterMap[IconGroup.CLUBS] = IconGridAdapter(clubsIcons)
+            addToIconGroupMap(IconGroup.CLUBS, clubsIcons)
         }
 
         // TODO wrap below in a time limit in case the group is never set
@@ -227,7 +233,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
             switchIconGroup(selectedIconGroup)
         }
 
-        // TODO Can make base fragment observe viewmodel message to reduce repeat code
+        // TODO Can make base fragment observe view model message to reduce repeat code
         viewModel.message.observe(viewLifecycleOwner) { message ->
             message.getContentIfNotHandled()?.let {
                 val view = requireView()

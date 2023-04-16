@@ -4,6 +4,25 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.7.3
+
+### Added
+
+- In Icon Select, tap on one of the card suite icons to switch to that icon group
+- Add more initial icons to Icon Select
+- Sort icons in icon groups in alphabetical order
+- Show a "No icons found" message if an icon group has no icons
+
+### Changed
+
+- Spread icons in Icon Select across the icon groups roughly according to the criteria below
+  - Spades = tech
+  - Diamonds = abstract
+  - Hearts = home
+  - Clubs = hobbies and games
+
+---
+
 ## 0.7.2
 
 ### Added
