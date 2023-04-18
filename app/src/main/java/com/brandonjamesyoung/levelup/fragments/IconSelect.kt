@@ -18,9 +18,11 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.adapters.IconGridAdapter
 import com.brandonjamesyoung.levelup.data.Icon
 import com.brandonjamesyoung.levelup.shared.IconGroup
+import com.brandonjamesyoung.levelup.shared.MAX_NUM_LOOPS
 import com.brandonjamesyoung.levelup.shared.SnackbarHelper
 import com.brandonjamesyoung.levelup.viewmodels.IconSelectViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -207,6 +209,20 @@ class IconSelect : Fragment(R.layout.icon_select) {
         iconGroupAdapterMap[iconGroup] = IconGridAdapter(sortedIcons)
     }
 
+    private suspend fun waitForIconGroupData() {
+        try {
+            var numLoops = 0
+
+            while (iconGroupAdapterMap[viewModel.initSelectedGroup] == null) {
+                numLoops += 1
+                if (numLoops > MAX_NUM_LOOPS) throw CancellationException()
+                delay(1L)
+            }
+        } catch (ex: CancellationException) {
+            Log.e(TAG, "Initial icon group data loading timed out")
+        }
+    }
+
     private suspend fun setupObservables() {
         viewModel.spadesIcons.observe(viewLifecycleOwner) { spadesIcons ->
             addToIconGroupMap(IconGroup.SPADES, spadesIcons)
@@ -224,10 +240,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
             addToIconGroupMap(IconGroup.CLUBS, clubsIcons)
         }
 
-        // TODO wrap below in a time limit in case the group is never set
-        while (iconGroupAdapterMap[viewModel.initSelectedGroup] == null) {
-            delay(1L)
-        }
+        waitForIconGroupData()
 
         viewModel.selectedIconGroup.observe(viewLifecycleOwner) { selectedIconGroup ->
             switchIconGroup(selectedIconGroup)
