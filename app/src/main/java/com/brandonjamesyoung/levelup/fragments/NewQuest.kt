@@ -22,7 +22,7 @@ import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.IconHelper.Companion.getDefaultIcon
 import com.brandonjamesyoung.levelup.shared.Mode
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
-import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateName
+import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateQuestName
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -113,7 +113,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
         val view = requireView()
         val nameInput = view.findViewById<EditText>(R.id.NameInput)
 
-        if (!validateName(nameInput, TAG, this)) {
+        if (!validateQuestName(nameInput, TAG, this)) {
             return false
         }
 

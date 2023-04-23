@@ -5,28 +5,58 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.brandonjamesyoung.levelup.R
 
+private const val MAX_PLAYER_NAME_LENGTH = 15
+
+private val PLAYER_NAME_VALIDATION_REGEX = Regex("^[a-zA-Z\\d\\p{L}]+$")
+
 private const val MAX_QUEST_NAME_LENGTH = 40
-private val NAME_VALIDATION_REGEX = Regex("^[0-9a-zA-Z'\"!#$%&:?,.() @_+/*-]+$")
+
+private val QUEST_NAME_VALIDATION_REGEX = Regex("^[a-zA-Z\\d\\p{L}'\"!#$%&:?,.() @_+/*-]+$")
+
 private const val MAX_ACRONYM_LENGTH = 3
+
 private val ACRONYM_VALIDATION_REGEX = Regex("^[a-zA-Z]+$")
 
 class Validation {
     companion object {
-        fun validateName(nameField : EditText, tag: String, fragment: Fragment) : Boolean {
+        // TODO can probably extract out similar lines of code here and in validateQuestName
+        fun validatePlayerName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
             val name = nameField.text.trim().toString()
-            val hasValidLength = name.length <= MAX_QUEST_NAME_LENGTH
+            val hasValidLength = name.length <= MAX_PLAYER_NAME_LENGTH
 
-            if (name == "") {
-                return true
-            }
+            if (name == "") return true
 
             if (!hasValidLength) {
-                nameField.error = fragment.resources.getString(R.string.name_length_error)
-                Log.e(tag, "Name is longer than 40 characters")
+                nameField.error = fragment.resources.getString(R.string.player_name_length_error)
+                Log.e(tag, "Name is longer than $MAX_PLAYER_NAME_LENGTH characters")
                 return false
             }
 
-            val hasValidCharacters = NAME_VALIDATION_REGEX.matches(name)
+            val hasValidCharacters = PLAYER_NAME_VALIDATION_REGEX.matches(name)
+
+            if (!hasValidCharacters) {
+                nameField.error = fragment.resources.getString(
+                    R.string.player_name_invalid_char_error
+                )
+                Log.e(tag, "Player name has invalid characters in it")
+                return false
+            }
+
+            return true
+        }
+
+        fun validateQuestName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
+            val name = nameField.text.trim().toString()
+            val hasValidLength = name.length <= MAX_QUEST_NAME_LENGTH
+            if (name == "") return true
+
+            if (!hasValidLength) {
+                nameField.error = fragment.resources.getString(R.string.name_length_error)
+                Log.e(tag, "Name is longer than $MAX_QUEST_NAME_LENGTH characters")
+                return false
+            }
+
+            val hasValidCharacters = QUEST_NAME_VALIDATION_REGEX.matches(name)
 
             if (!hasValidCharacters) {
                 nameField.error = fragment.resources.getString(R.string.name_invalid_char_error)

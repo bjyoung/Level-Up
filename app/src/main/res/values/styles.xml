@@ -122,6 +122,11 @@
         <item name="android:background">@drawable/white_border_thin</item>
         <item name="tint">@color/icon_secondary</item>
     </style>
+    <style name="SaveButton" parent="RectangularButton.Small">
+        <item name="android:contentDescription">@string/confirm_button_content_description</item>
+        <item name="icon">@drawable/check_icon_green</item>
+        <item name="iconTint">@color/confirm</item>
+    </style>
 
     <!-- Guidelines -->
     <style name="Guideline">

@@ -57,7 +57,7 @@ class NewItem : Fragment(R.layout.new_item) {
     private fun validateInput() : Boolean {
         val view = requireView()
         val nameView = view.findViewById<EditText>(R.id.ItemNameInput)
-        if (!Validation.validateName(nameView, TAG, this)) return false
+        if (!Validation.validateQuestName(nameView, TAG, this)) return false
         val costView = view.findViewById<EditText>(R.id.CostInput)
 
         val costIsValid = Validation.validateNumField(

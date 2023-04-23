@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/NewItem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary">
+
+    <TextView
+        android:id="@+id/NewItemLabel"
+        style="@style/Text"
+        android:text="@string/name_entry_title"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/PlayerNameInput"
+        style="@style/TextInput"
+        android:layout_width="325dp"
+        android:autofillHints="item_name"
+        android:ems="10"
+        android:hint="@string/name_hint"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline" />
+
+    <Button
+        android:id="@+id/ConfirmButton"
+        style="@style/SaveButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/NewItemBottomGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        style="@style/Guideline.Top"
+        android:id="@+id/NewItemTopGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        style="@style/Guideline.FarBottom"
+        android:id="@+id/NewItemBottomGuideline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

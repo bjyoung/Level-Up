@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/questList">
+    app:startDestination="@id/nameEntry">
     <fragment
         android:id="@+id/questList"
         android:name="com.brandonjamesyoung.levelup.fragments.QuestList"
@@ -139,5 +139,18 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/nameEntry"
+        android:name="com.brandonjamesyoung.levelup.fragments.NameEntry"
+        android:label="NameEntry"
+        tools:layout="@layout/name_entry" >
+        <action
+            android:id="@+id/action_nameEntry_to_questList"
+            app:destination="@id/questList"
+            app:enterAnim="@anim/zoom_in"
+            app:exitAnim="@anim/zoom_out"
+            app:popEnterAnim="@anim/zoom_in"
+            app:popExitAnim="@anim/zoom_out"/>
     </fragment>
 </navigation>

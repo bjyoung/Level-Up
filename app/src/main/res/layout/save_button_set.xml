@@ -19,11 +19,8 @@
         app:layout_constraintVertical_bias="0.95" />
 
     <Button
-        style="@style/RectangularButton.Small"
+        style="@style/SaveButton"
         android:id="@+id/ConfirmButton"
-        android:contentDescription="@string/confirm_button_content_description"
-        app:icon="@drawable/check_icon_green"
-        app:iconTint="@color/confirm"
         app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

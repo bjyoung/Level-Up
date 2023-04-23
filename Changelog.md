@@ -4,6 +4,17 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.7.4
+
+### Added
+
+- Add Name Entry page where the player can enter their name
+  - Only allows names up to 15 characters long and with alphanumeric characters only
+  - Allows empty names
+  - On confirmation, the page zooms out and Quest List zooms in
+
+---
+
 ## 0.7.3
 
 ### Added
