@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nameEntry">
+    app:startDestination="@id/questList">
     <fragment
         android:id="@+id/questList"
         android:name="com.brandonjamesyoung.levelup.fragments.QuestList"
@@ -30,6 +30,15 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_questList_to_nameEntry"
+            app:destination="@id/nameEntry"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="fromNameEntry"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/newQuest"
@@ -148,9 +157,15 @@
         <action
             android:id="@+id/action_nameEntry_to_questList"
             app:destination="@id/questList"
-            app:enterAnim="@anim/zoom_in"
-            app:exitAnim="@anim/zoom_out"
-            app:popEnterAnim="@anim/zoom_in"
-            app:popExitAnim="@anim/zoom_out"/>
+            app:enterAnim="@anim/zoom_in_from_back"
+            app:exitAnim="@anim/zoom_to_front"
+            app:popEnterAnim="@anim/zoom_in_from_front"
+            app:popExitAnim="@anim/zoom_to_back"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="fromNameEntry"
+                android:defaultValue="true" />
+        </action>
     </fragment>
 </navigation>

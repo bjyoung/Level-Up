@@ -15,7 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Quest
@@ -33,6 +35,8 @@ import kotlinx.coroutines.launch
 class QuestList : Fragment(R.layout.quest_list) {
     private val viewModel: QuestListViewModel by activityViewModels()
 
+    private val args: QuestListArgs by navArgs()
+
     private val selectedQuestIds: MutableSet<Int> = mutableSetOf()
 
     private val selectedQuestIconIds: MutableSet<Int> = mutableSetOf()
@@ -45,6 +49,12 @@ class QuestList : Fragment(R.layout.quest_list) {
         Difficulty.HARD to R.color.hard,
         Difficulty.EXPERT to R.color.expert
     )
+
+    private fun navigateToNameEntry() {
+        val navController: NavController = NavHostFragment.findNavController(this)
+        navController.navigate(R.id.action_questList_to_nameEntry)
+        Log.i(TAG, "Going from Quest List to Name Entry")
+    }
 
     private fun isSelected(questId: Int) : Boolean {
         return selectedQuestIds.contains(questId)
@@ -343,6 +353,15 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     private fun setupObservables() {
         val view = requireView()
+
+        viewModel.settings.observe(viewLifecycleOwner) { settings ->
+            if (!settings.nameEntered && !args.fromNameEntry) {
+                navigateToNameEntry()
+            }
+
+            updatePointsAcronym(settings)
+        }
+
         mode.value = Mode.DEFAULT
 
         mode.observe(viewLifecycleOwner) { mode ->
@@ -368,10 +387,6 @@ class QuestList : Fragment(R.layout.quest_list) {
             updatePoints(view, player)
             updateProgressBar(view, player)
             updateNextLvlProgress(view, player)
-        }
-
-        viewModel.settings.observe(viewLifecycleOwner) { settings ->
-            updatePointsAcronym(settings)
         }
 
         viewModel.message.observe(viewLifecycleOwner) { message ->

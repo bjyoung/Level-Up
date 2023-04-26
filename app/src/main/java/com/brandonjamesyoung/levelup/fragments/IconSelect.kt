@@ -32,7 +32,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
 
     private val iconGroupAdapterMap = mutableMapOf<IconGroup, IconGridAdapter>()
 
-    private fun navigateToQuestList() {
+    private fun navigateToNewQuest() {
         NavHostFragment.findNavController(this).navigate(R.id.action_iconSelect_to_newQuest)
         i(TAG, "Going from Icon Select to Quest List")
     }
@@ -56,7 +56,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         val button = view.findViewById<View>(R.id.BackButton)
 
         button.setOnClickListener{
-            navigateToQuestList()
+            navigateToNewQuest()
         }
     }
 

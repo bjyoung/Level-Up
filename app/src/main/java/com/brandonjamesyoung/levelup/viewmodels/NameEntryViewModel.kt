@@ -13,12 +13,19 @@ import javax.inject.Inject
 class NameEntryViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val playerRepository: PlayerRepository,
+    private val settingsRepository: SettingsRepository
 ) : BaseViewModel() {
     fun update(name: String?) = viewModelScope.launch(ioDispatcher) {
         val player = playerRepository.get()
         player.name = name
         playerRepository.update(player)
         Log.i(TAG, "Player's name is set to $name")
+    }
+
+    fun triggerNameEnteredFlag() = viewModelScope.launch(ioDispatcher) {
+        val settings = settingsRepository.get()
+        settings.nameEntered = true
+        settingsRepository.update(settings)
     }
 
     companion object {

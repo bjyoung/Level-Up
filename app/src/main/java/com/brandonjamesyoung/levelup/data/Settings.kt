@@ -9,4 +9,5 @@ data class Settings(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(defaultValue = "RT") var pointsAcronym: String = "RT",
     @ColumnInfo(defaultValue = "5") var lvlUpBonus: Int = 5,
+    @ColumnInfo var nameEntered: Boolean = false,
 )
