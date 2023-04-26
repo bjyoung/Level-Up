@@ -351,15 +351,17 @@ class QuestList : Fragment(R.layout.quest_list) {
         pointsLabel.text = settings.pointsAcronym
     }
 
+    private fun setupSettings(settings: Settings?) {
+        if (settings == null) return
+        if (!settings.nameEntered && !args.fromNameEntry) navigateToNameEntry()
+        updatePointsAcronym(settings)
+    }
+
     private fun setupObservables() {
         val view = requireView()
 
         viewModel.settings.observe(viewLifecycleOwner) { settings ->
-            if (!settings.nameEntered && !args.fromNameEntry) {
-                navigateToNameEntry()
-            }
-
-            updatePointsAcronym(settings)
+            setupSettings(settings)
         }
 
         mode.value = Mode.DEFAULT
