@@ -25,6 +25,7 @@ class QuestListViewModel @Inject constructor(
 
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
+    // TODO Extract this duplicate method used across QuestList, Shop view models
     fun getIcon(id: Int): LiveData<Icon> {
         return iconRepository.observe(id).asLiveData()
     }

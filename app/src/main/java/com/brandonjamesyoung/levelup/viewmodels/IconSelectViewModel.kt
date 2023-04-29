@@ -6,6 +6,7 @@ import androidx.lifecycle.asLiveData
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
 import com.brandonjamesyoung.levelup.shared.IconGroup
+import com.brandonjamesyoung.levelup.shared.Mode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
@@ -18,6 +19,8 @@ class IconSelectViewModel @Inject constructor(
     val initSelectedGroup = IconGroup.SPADES
 
     var selectedIconGroup: MutableLiveData<IconGroup?> = MutableLiveData(null)
+
+    var mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
 
     val spadesIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.SPADES).asLiveData()

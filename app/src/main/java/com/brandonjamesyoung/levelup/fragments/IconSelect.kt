@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Log.i
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -17,9 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.adapters.IconGridAdapter
 import com.brandonjamesyoung.levelup.data.Icon
-import com.brandonjamesyoung.levelup.shared.IconGroup
-import com.brandonjamesyoung.levelup.shared.MAX_NUM_LOOPS
-import com.brandonjamesyoung.levelup.shared.SnackbarHelper
+import com.brandonjamesyoung.levelup.shared.*
 import com.brandonjamesyoung.levelup.viewmodels.IconSelectViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CancellationException
@@ -32,41 +29,115 @@ class IconSelect : Fragment(R.layout.icon_select) {
 
     private val iconGroupAdapterMap = mutableMapOf<IconGroup, IconGridAdapter>()
 
+    private fun setEditMode() {
+        viewModel.mode.value = Mode.EDIT
+    }
+
+    private fun activateEditModeButton() {
+        ButtonHelper.convertButton(
+            targetId = R.id.EditButton,
+            iconDrawableId = R.drawable.white_arrow_icon,
+            iconColorId = R.color.icon_primary,
+            buttonMethod = ::setEditMode,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
+    private fun activateBackButton() {
+        ButtonHelper.convertButton(
+            targetId = R.id.BackButton,
+            iconDrawableId = R.drawable.left_arrow_icon,
+            buttonMethod = ::navigateToNewQuest,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
+    private fun navigateToNewIcon() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_iconSelect_to_newIcon)
+        i(TAG, "Going from Icon Select to New Icon")
+    }
+
+    private fun activateAddIconButton() {
+        ButtonHelper.convertButton(
+            targetId = R.id.AddNewIconButton,
+            iconDrawableId = R.drawable.plus_icon,
+            buttonMethod = ::navigateToNewIcon,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
+    private fun activateDefaultMode() {
+        activateEditModeButton()
+        activateBackButton()
+        activateAddIconButton()
+    }
+
+    private fun setDefaultMode() {
+        viewModel.mode.value = Mode.DEFAULT
+    }
+
+    private fun activateSelectModeButton() {
+        ButtonHelper.convertButton(
+            targetId = R.id.EditButton,
+            iconDrawableId = R.drawable.pencil_icon,
+            iconColorId = R.color.icon_primary,
+            buttonMethod = ::setDefaultMode,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
+    private fun deleteIcons() {
+        viewModel.showSnackbar("Not implemented yet")
+    }
+
+    private fun activateDeleteButton() {
+        ButtonHelper.convertButton(
+            targetId = R.id.BackButton,
+            iconDrawableId = R.drawable.pencil_icon,
+            buttonMethod = ::deleteIcons,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
+    private fun moveIcons() {
+        viewModel.showSnackbar("Not implemented yet")
+    }
+
+    private fun activateMoveIconsButton() {
+        ButtonHelper.convertButton(
+            targetId = R.id.AddNewIconButton,
+            iconDrawableId = R.drawable.dash_icon,
+            buttonMethod = ::moveIcons,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
+    // TODO Update New Quest method below to work for Icon Select
+    private fun activateEditMode() {
+        activateSelectModeButton()
+        activateDeleteButton()
+        activateMoveIconsButton()
+    }
+
+    private fun setupMode() {
+        viewModel.mode.observe(viewLifecycleOwner) { mode ->
+            when (mode) {
+                Mode.DEFAULT -> activateDefaultMode()
+                Mode.EDIT -> activateEditMode()
+                else -> Log.e(TAG, "Unknown mode detected")
+            }
+        }
+    }
+
     private fun navigateToNewQuest() {
         NavHostFragment.findNavController(this).navigate(R.id.action_iconSelect_to_newQuest)
         i(TAG, "Going from Icon Select to Quest List")
-    }
-
-    private fun setupNavButtons() {
-        setupBackButton()
-        setupNewIconButton()
-    }
-
-    private fun setupNewIconButton() {
-        val view = requireView()
-        val addNewIconButton = view.findViewById<Button>(R.id.AddNewIconButton)
-
-        addNewIconButton.setOnClickListener{
-            viewModel.showSnackbar("Not implemented yet")
-        }
-    }
-
-    private fun setupBackButton() {
-        val view = requireView()
-        val button = view.findViewById<View>(R.id.BackButton)
-
-        button.setOnClickListener{
-            navigateToNewQuest()
-        }
-    }
-
-    private fun setupEditButton() {
-        val view = requireView()
-        val editButton = view.findViewById<Button>(R.id.EditButton)
-
-        editButton.setOnClickListener{
-            viewModel.showSnackbar("Not implemented yet")
-        }
     }
 
     private fun setupIconGroupButtons() {
@@ -145,12 +216,6 @@ class IconSelect : Fragment(R.layout.icon_select) {
         }
 
         useSelectedColor(selectedIconGroup)
-    }
-
-    private fun setupButtons() {
-        setupNavButtons()
-        setupEditButton()
-        setupIconGroupButtons()
     }
 
     private fun setupIconGrid() {
@@ -261,8 +326,9 @@ class IconSelect : Fragment(R.layout.icon_select) {
 
         lifecycleScope.launch {
             i(TAG, "On Icon Select page")
+            setupMode()
             setupIconGrid()
-            setupButtons()
+            setupIconGroupButtons()
             setupObservables()
             viewModel.selectedIconGroup.value = viewModel.initSelectedGroup
         }

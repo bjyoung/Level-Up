@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">Level Up</string>
 
+    <!-- Snackbar strings -->
+    <string name="default_snackbar_message">Default message</string>
+
     <!-- Name Entry strings -->
     <string name="name_entry_title">Enter Your Name</string>
     <string name="player_name_length_error">Please enter a name with less than 15 characters</string>
@@ -102,6 +105,6 @@
     <string name="default_icon_name">Icon</string>
     <string name="no_icons_message">No icons found</string>
 
-    <!-- Snackbar strings -->
-    <string name="default_snackbar_message">Default message</string>
+    <!-- New Icon strings -->
+    <string name="new_icon_label">New Icon</string>
 </resources>

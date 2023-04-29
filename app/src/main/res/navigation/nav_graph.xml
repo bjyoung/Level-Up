@@ -148,6 +148,13 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_iconSelect_to_newIcon"
+            app:destination="@id/newIcon"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/nameEntry"
@@ -167,5 +174,18 @@
                 android:name="fromNameEntry"
                 android:defaultValue="true" />
         </action>
+    </fragment>
+    <fragment
+        android:id="@+id/newIcon"
+        android:name="com.brandonjamesyoung.levelup.fragments.NewIcon"
+        android:label="NewIcon"
+        tools:layout="@layout/new_icon" >
+        <action
+            android:id="@+id/action_newIcon_to_iconSelect"
+            app:destination="@id/iconSelect"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 </navigation>
