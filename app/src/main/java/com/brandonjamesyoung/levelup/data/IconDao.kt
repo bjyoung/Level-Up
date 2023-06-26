@@ -18,6 +18,9 @@ interface IconDao {
     @Update
     suspend fun update(icon: Icon)
 
+    @Query("UPDATE Icon SET iconGroup = :iconGroup WHERE id IN (:iconIds)")
+    suspend fun moveToNewIconGroup(iconIds: List<Int>, iconGroup: IconGroup)
+
     @Query("DELETE FROM Icon WHERE id IN (:ids)")
     suspend fun delete(ids: Set<Int>)
 }

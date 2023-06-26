@@ -1,14 +1,17 @@
 package com.brandonjamesyoung.levelup.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
 import com.brandonjamesyoung.levelup.shared.IconGroup
 import com.brandonjamesyoung.levelup.shared.Mode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,9 +21,11 @@ class IconSelectViewModel @Inject constructor(
 ) : BaseViewModel() {
     val initSelectedGroup = IconGroup.SPADES
 
+    var currentIconGroup: IconGroup? = null
+
     var selectedIconGroup: MutableLiveData<IconGroup?> = MutableLiveData(null)
 
-    var mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
+    val mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
 
     val spadesIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.SPADES).asLiveData()
@@ -33,6 +38,12 @@ class IconSelectViewModel @Inject constructor(
 
     val clubsIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.CLUBS).asLiveData()
+
+    fun moveIcons(iconIds: List<Int>, iconGroup: IconGroup) = viewModelScope.launch(ioDispatcher) {
+        iconRepository.moveToNewIconGroup(iconIds, iconGroup)
+        val iconIdsString = "[" + iconIds.joinToString(", ") + "]"
+        Log.i(TAG, "Move icons $iconIdsString to $iconGroup icon group")
+    }
 
     companion object {
         private const val TAG = "IconSelectViewModel"

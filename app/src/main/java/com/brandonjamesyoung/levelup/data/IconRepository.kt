@@ -31,6 +31,12 @@ class IconRepository @Inject constructor(
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
+    suspend fun moveToNewIconGroup(iconIds: List<Int>, iconGroup: IconGroup) = externalScope.launch {
+        iconDao.moveToNewIconGroup(iconIds, iconGroup)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun delete(ids: Set<Int>) = externalScope.launch {
         iconDao.delete(ids)
     }

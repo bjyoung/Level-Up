@@ -4,14 +4,45 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.7.5
+
+### Added
+
+- All of the changes below are for Icon Select
+- Tapping the pointer arrow button switches the page to Edit mode, where multiple icons can be selected at once
+- In Edit mode...
+  - The Add New Icon button turns into a Move button with a dash icon
+  - The pointer arrow turns into a pencil icon that, when pressed, switches back to the default mode
+  - Tapping icons mark them with a green checkmark
+  - Tapping already-selected icons de-selects them and returns them to their original icons
+  - Switching between icon groups de-selects selected icons
+- Pressing the move button during Edit mode triggers Move mode, which allows users to choose an icon group to move selected icons to
+  - Users are not allowed to press the move button if no icons are selected
+  - Users are not allowed to choose the current icon group, since that would be redundant
+- In Move mode...
+  - The icon group buttons enlarge and move towards the center of the screen to make them easier to press
+  - The move button turns into a cancel button
+  - Pressing the cancel button or selecting an icon group changes the mode back to Edit
+  - The rest of the buttons are disabled and become more transparent
+  - The page label turns into "Select an Icon Group"
+  - Scrolling through the icon grid is disabled
+- When switching from Move mode back to Edit mode...
+  - All disabled buttons are enabled
+  - Icon group buttons go back to their original size and position and when tapped loads the respective icon group's icons
+  - Icon grid scrolling is enabled
+  - The cancel icon turns back to the move icon
+
+---
+
 ## 0.7.4
 
 ### Added
 
 - Add Name Entry page where the player can enter their name
-  - Only allows names up to 15 characters long and with alphanumeric characters only
-  - Allows empty names
-  - On confirmation, the page zooms out and Quest List zooms in
+  - Page is only shown an app startup and until player enters a valid name
+  - Only allows names up to 15 alphanumeric characters long or empty names
+  - After the name is submitted, the app starts on the Quest List page from then on
+  - Player is not allowed to go back from Quest List to Name Entry or from Name Entry to Quest List by navigating back
 
 ---
 

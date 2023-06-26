@@ -9,7 +9,7 @@ enum class Difficulty {
 }
 
 enum class Mode {
-    DEFAULT, SELECT, EDIT
+    DEFAULT, SELECT, EDIT, MOVE
 }
 
 enum class IconGroup {

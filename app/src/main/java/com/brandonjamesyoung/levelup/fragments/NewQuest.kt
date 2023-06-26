@@ -214,7 +214,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     private fun activateEditMode() {
         val view = requireView()
         val pageLabel = view.findViewById<TextView>(R.id.NewQuestLabel)
-        pageLabel.text = resources.getString(R.string.edit_quest_label)
+        pageLabel.text = getString(R.string.edit_quest_label)
 
         if (!viewModel.questDataLoaded) {
             viewModel.getQuest(viewModel.editQuestId as Int).observe(viewLifecycleOwner) { quest ->

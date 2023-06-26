@@ -189,24 +189,34 @@ class QuestList : Fragment(R.layout.quest_list) {
         if (mode.value == Mode.DEFAULT) navigateToNewQuest(questId)
     }
 
-    private fun selectQuestIcon(questId: Int, button: FloatingActionButton, iconId: Int?) {
+    private fun checkQuest(quest: Quest, button: FloatingActionButton) {
+        Log.i(TAG, "Select quest ${quest.name}")
         val context = requireContext()
+        selectedQuestIds.add(quest.id)
+        selectedQuestIconIds.add(button.id)
 
-        if (!isSelected(questId)) {
-            selectedQuestIds.add(questId)
-            selectedQuestIconIds.add(button.id)
+        val selectIcon = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.check_icon_green,
+            context.theme
+        )
 
-            val selectIcon = ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.check_icon_green,
-                context.theme
-            )
+        button.setImageDrawable(selectIcon)
+    }
 
-            button.setImageDrawable(selectIcon)
+    private fun uncheckQuest(quest: Quest, button: FloatingActionButton, iconId: Int?) {
+        Log.i(TAG, "De-select quest ${quest.name}")
+        selectedQuestIds.remove(quest.id)
+        selectedQuestIconIds.remove(button.id)
+        changeButtonIcon(button, iconId)
+    }
+
+
+    private fun selectQuestIcon(quest: Quest, button: FloatingActionButton, iconId: Int?) {
+        if (!isSelected(quest.id)) {
+            checkQuest(quest, button)
         } else {
-            selectedQuestIds.remove(questId)
-            selectedQuestIconIds.remove(button.id)
-            changeButtonIcon(button, iconId)
+            uncheckQuest(quest, button, iconId)
         }
 
         mode.value = if (selectedQuestIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
@@ -269,7 +279,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         val cardConstraintLayout = newCard.getChildAt(0) as ConstraintLayout
 
         val cardTitle = cardConstraintLayout.getChildAt(0) as TextView
-        val questName = quest.name ?: resources.getString(R.string.placeholder_text)
+        val questName = quest.name ?: getString(R.string.placeholder_text)
         cardTitle.text = questName
 
         val icon = cardConstraintLayout.getChildAt(1) as FloatingActionButton
@@ -277,7 +287,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         icon.id = View.generateViewId()
 
         icon.setOnClickListener{
-            selectQuestIcon(quest.id, icon, quest.iconId)
+            selectQuestIcon(quest, icon, quest.iconId)
         }
 
         icon.setOnLongClickListener {

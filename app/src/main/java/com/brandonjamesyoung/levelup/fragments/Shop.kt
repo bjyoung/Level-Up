@@ -192,7 +192,7 @@ class Shop : Fragment(R.layout.shop) {
 
         newItemRow.id = View.generateViewId()
         val itemName = newItemRow.findViewById<TextView>(R.id.ItemName)
-        val defaultName = resources.getString(R.string.placeholder_text)
+        val defaultName = getString(R.string.placeholder_text)
         itemName.text = item.name ?: defaultName
         val itemCost = newItemRow.findViewById<TextView>(R.id.ItemCost)
         itemCost.text = item.cost.toString()
