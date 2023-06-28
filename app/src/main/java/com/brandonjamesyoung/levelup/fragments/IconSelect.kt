@@ -274,11 +274,12 @@ class IconSelect : Fragment(R.layout.icon_select) {
         val interButtonSpacing: Float = (screenWidth - ZOOM_IN_MARGIN * 2F) / 4F
         val toX: Float = ZOOM_IN_MARGIN + interButtonSpacing * (position - 1) + buttonCenterX
         val toY: Float = screenHeight * 0.5F - buttonCenterY
-        val fromX: Float = button.x
-        val fromY: Float = button.y
+        val fromX: Float = button.x - button.translationX
+        val fromY: Float = button.y - button.translationY
         return Pair(toX - fromX, toY - fromY)
     }
 
+    // Position must be between 1 and 4 inclusive
     private fun animateZoomIn(button: ImageButton, position: Int) {
         val (deltaX, deltaY) = calculateZoomInDeltas(button, position)
 
