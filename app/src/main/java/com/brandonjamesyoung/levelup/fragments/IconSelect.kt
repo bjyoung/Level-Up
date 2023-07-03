@@ -29,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
 class IconSelect : Fragment(R.layout.icon_select) {
@@ -36,13 +37,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
 
     private val iconGroupAdapterMap = mutableMapOf<IconGroup, IconGridAdapter>()
 
-    private val originalIconGroupPositionMap = mutableMapOf<IconGroup, Pair<Int, Int>>()
-
-    private fun recordOriginalIconGroupPositions() {
-        // TODO Get icon group button views
-
-        // TODO Store their positions into the map
-    }
+    private val iconGroupIconsMap = mutableMapOf<IconGroup, MutableList<Icon>>()
 
     private fun clearSelectedIcons() {
         val currentIconGroupAdapter = iconGroupAdapterMap[viewModel.currentIconGroup]
@@ -257,10 +252,50 @@ class IconSelect : Fragment(R.layout.icon_select) {
         }
 
         val selectedIcons: List<SelectedIcon> = currentAdapter.getSelectedIcons()
-        val selectedIconIds: List<Int> = selectedIcons.map { icon -> icon.id }
-        viewModel.moveIcons(selectedIconIds, iconGroup)
+            .sortedByDescending { it.adapterPosition }
+
+        enableNonMoveModeButtons()
         currentAdapter.clearSelectedIcons(this)
+        val selectedIconIds: List<Int> = selectedIcons.map { it.id }
+
+        // Remove icons from icon list tracked in fragment while updating adapter
+        val startingIconList: MutableList<Icon>? = iconGroupIconsMap[viewModel.currentIconGroup]
+        val destinationIconList: MutableList<Icon>? = iconGroupIconsMap[iconGroup]
+        val destinationAdapter: IconGridAdapter? = iconGroupAdapterMap[iconGroup]
+
+        if (startingIconList != null && destinationIconList != null && destinationAdapter != null) {
+            for (selectedIcon in selectedIcons) {
+                val targetIcon: Icon? = startingIconList.find { it.id == selectedIcon.id }
+
+                if (targetIcon == null) {
+                    val errorMessage = "Icon with id $selectedIcon.id " +
+                            "not found in ${viewModel.currentIconGroup} icon group"
+
+                    Log.e(TAG, errorMessage)
+                    continue
+                }
+
+                targetIcon.iconGroup = iconGroup
+                startingIconList.remove(targetIcon)
+                currentAdapter.notifyItemRemoved(selectedIcon.adapterPosition)
+                val targetPosition = findInsertPosition(targetIcon, destinationIconList)
+                destinationIconList.add(targetPosition, targetIcon)
+                destinationAdapter.notifyItemInserted(targetPosition)
+            }
+
+            if (startingIconList.isEmpty()) showNoIconsMessage()
+        }
+
+        viewModel.moveIcons(selectedIconIds, iconGroup)
         viewModel.mode.value = Mode.EDIT
+    }
+
+    private fun findInsertPosition(icon: Icon, iconList: MutableList<Icon>) : Int {
+        val targetPosition = iconList.binarySearch {
+            String.CASE_INSENSITIVE_ORDER.compare(it.name, icon.name)
+        }
+
+        return targetPosition.absoluteValue - 1
     }
 
     // Calculate zoom-in deltas to translate to
@@ -500,7 +535,9 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun addToIconGroupMap(iconGroup: IconGroup, iconList: List<Icon>) {
-        val sortedIcons = iconList.sortedBy { icon -> icon.name }
+        if (iconGroupAdapterMap[iconGroup] != null) return
+        val sortedIcons = iconList.sortedBy { it.name }.toMutableList()
+        iconGroupIconsMap[iconGroup] = sortedIcons
         val newAdapter = IconGridAdapter(sortedIcons)
 
         newAdapter.setGetModeCallback {
@@ -525,22 +562,24 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private suspend fun setupObservables() {
-        viewModel.spadesIcons.observe(viewLifecycleOwner) { spadesIcons ->
-            addToIconGroupMap(IconGroup.SPADES, spadesIcons)
+        val viewModelIconLists = mapOf(
+            IconGroup.SPADES to viewModel.spadesIcons,
+            IconGroup.DIAMONDS to viewModel.diamondsIcons,
+            IconGroup.HEARTS to viewModel.heartsIcons,
+            IconGroup.CLUBS to viewModel.clubsIcons
+        )
+
+        for (iconGroupIconsPair in viewModelIconLists) {
+            val iconGroup = iconGroupIconsPair.key
+            val liveIcons = iconGroupIconsPair.value
+
+            liveIcons.observe(viewLifecycleOwner) { icons ->
+                addToIconGroupMap(iconGroup, icons)
+            }
         }
 
-        viewModel.diamondsIcons.observe(viewLifecycleOwner) { diamondsIcons ->
-            addToIconGroupMap(IconGroup.DIAMONDS, diamondsIcons)
-        }
-
-        viewModel.heartsIcons.observe(viewLifecycleOwner) { heartsIcons ->
-            addToIconGroupMap(IconGroup.HEARTS, heartsIcons)
-        }
-
-        viewModel.clubsIcons.observe(viewLifecycleOwner) { clubsIcons ->
-            addToIconGroupMap(IconGroup.CLUBS, clubsIcons)
-        }
-
+        // TODO there has to be a cleaner way of waiting for data from database,
+        //  instead of waiting for icons to load
         waitForIconGroupData()
 
         viewModel.selectedIconGroup.observe(viewLifecycleOwner) { selectedIconGroup ->

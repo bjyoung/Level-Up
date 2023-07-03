@@ -103,7 +103,7 @@
     <string name="clubs_icon_group_content_description">Clubs icon group</string>
     <string name="edit_button_content_description">Pencil icon</string>
     <string name="default_icon_name">Icon</string>
-    <string name="no_icons_message">No icons found</string>
+    <string name="no_icons_found_message">No icons found</string>
     <string name="no_icons_selected_message">No icons selected</string>
     <string name="select_another_icon_group_message">Choose another icon group</string>
 

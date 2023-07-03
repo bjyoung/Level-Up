@@ -21,7 +21,7 @@ import com.brandonjamesyoung.levelup.shared.Mode
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class IconGridAdapter(
-    private val iconList: List<Icon>,
+    private val iconList: List<Icon>
 ) :
     RecyclerView.Adapter<IconGridAdapter.IconGridViewHolder>() {
     private lateinit var getModeCallback: () -> Mode?
@@ -149,7 +149,7 @@ class IconGridAdapter(
         for (selectedIcon in selectedIcons) selectedIconsCopy.add(selectedIcon)
 
         for (selectedIcon in selectedIconsCopy) {
-            val icon = iconList.find { icon -> icon.id == selectedIcon.id }
+            val icon = iconList.find { it.id == selectedIcon.id }
             if (icon != null) uncheckIcon(icon, selectedIcon.button, fragment)
         }
 
