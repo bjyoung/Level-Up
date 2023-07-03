@@ -39,10 +39,16 @@ class IconSelectViewModel @Inject constructor(
     val clubsIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.CLUBS).asLiveData()
 
+    fun deleteIcons(iconIds: List<Int>) = viewModelScope.launch(ioDispatcher) {
+        iconRepository.delete(iconIds.toSet())
+        val iconIdsString = "[" + iconIds.joinToString(", ") + "]"
+        Log.i(TAG, "Delete icons with ids $iconIdsString")
+    }
+
     fun moveIcons(iconIds: List<Int>, iconGroup: IconGroup) = viewModelScope.launch(ioDispatcher) {
         iconRepository.moveToNewIconGroup(iconIds, iconGroup)
         val iconIdsString = "[" + iconIds.joinToString(", ") + "]"
-        Log.i(TAG, "Move icons $iconIdsString to $iconGroup icon group")
+        Log.i(TAG, "Move icons with ids $iconIdsString to $iconGroup icon group")
     }
 
     companion object {

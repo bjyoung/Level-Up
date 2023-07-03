@@ -119,7 +119,49 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun deleteIcons() {
-        viewModel.showSnackbar("Not implemented yet")
+        if (!areIconsSelected()) {
+            val message = getString(R.string.no_icons_selected_message)
+            viewModel.showSnackbar(message)
+            return
+        }
+
+        val currentAdapter = iconGroupAdapterMap[viewModel.currentIconGroup]
+
+        if (currentAdapter == null) {
+            viewModel.mode.value = Mode.EDIT
+            Log.e(TAG, "No RecyclerView adapter found")
+            return
+        }
+
+        val selectedIcons: List<SelectedIcon> = currentAdapter.getSelectedIcons()
+            .sortedByDescending { it.adapterPosition }
+
+        currentAdapter.clearSelectedIcons(this)
+        val selectedIconIds: List<Int> = selectedIcons.map { it.id }
+        val currentIconList: MutableList<Icon>? = iconGroupIconsMap[viewModel.currentIconGroup]
+
+        if (currentIconList == null) {
+            Log.e(TAG, "No icon list found for icon group ${viewModel.currentIconGroup}")
+            return
+        }
+
+        for (selectedIcon in selectedIcons) {
+            val targetIcon: Icon? = currentIconList.find { it.id == selectedIcon.id }
+
+            if (targetIcon == null) {
+                val errorMessage = "Icon with id $selectedIcon.id " +
+                        "not found in ${viewModel.currentIconGroup} icon group"
+
+                Log.e(TAG, errorMessage)
+                continue
+            }
+
+            currentIconList.remove(targetIcon)
+            currentAdapter.notifyItemRemoved(selectedIcon.adapterPosition)
+        }
+
+        if (currentIconList.isEmpty()) showNoIconsMessage()
+        viewModel.deleteIcons(selectedIconIds)
     }
 
     private fun activateDeleteButton() {

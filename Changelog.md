@@ -4,6 +4,16 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.7.6
+
+### Added
+
+- Add delete icon functionality, which is accessible in Icon Select's Edit mode
+  - Like moving icons, at least one icon must be selected otherwise an error message pops up
+  - All quests that use deleted icons show the default question mark icon
+
+---
+
 ## 0.7.5
 
 ### Added
@@ -13,10 +23,9 @@ This document tracks all notables changes to the Level Up app.
 - In Edit mode...
   - The Add New Icon button turns into a Move button with a dash icon
   - The pointer arrow turns into a pencil icon that, when pressed, switches back to the default mode
-  - Tapping icons mark them with a green checkmark
-  - Tapping already-selected icons de-selects them and returns them to their original icons
+  - Tapping icons mark them with a green checkmark and tapping them again de-selects them and turns them back to normal
   - Switching between icon groups de-selects selected icons
-- Pressing the move button during Edit mode triggers Move mode, which allows users to choose an icon group to move selected icons to
+- Pressing the move button during Edit mode triggers Move mode which allows users to choose an icon group to move selected icons to
   - Users are not allowed to press the move button if no icons are selected
   - Users are not allowed to choose the current icon group, since that would be redundant
 - In Move mode...
@@ -27,9 +36,8 @@ This document tracks all notables changes to the Level Up app.
   - The page label turns into "Select an Icon Group"
   - Scrolling through the icon grid is disabled
 - When switching from Move mode back to Edit mode...
-  - All disabled buttons are enabled
-  - Icon group buttons go back to their original size and position and when tapped loads the respective icon group's icons
-  - Icon grid scrolling is enabled
+  - All disabled buttons and icon grid scrolling are enabled
+  - Icon group buttons go back to their original size and positions and resume group-switching functionality
   - The cancel icon turns back to the move icon
 
 ---
