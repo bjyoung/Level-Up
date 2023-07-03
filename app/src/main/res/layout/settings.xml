@@ -11,7 +11,7 @@
 
     <Button
         android:id="@+id/BackupButton"
-        style="@style/RectangularButton"
+        style="@style/ActionButton"
         android:layout_width="@dimen/backup_button_width"
         android:contentDescription="@string/backup_button_content_description"
         android:text="@string/backup_button_label"

@@ -123,7 +123,7 @@ class Shop : Fragment(R.layout.shop) {
         convertButton(
             targetId = R.id.AddNewItemButton,
             iconDrawableId = R.drawable.trash_bin_icon,
-            iconColorId = R.color.delete_icon,
+            iconColorId = R.color.warning_icon,
             buttonMethod = ::deleteItems,
             view = requireView(),
             resources = resources

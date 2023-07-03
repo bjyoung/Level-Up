@@ -89,16 +89,17 @@
         <item name="elevation">@dimen/quest_card_elevation</item>
         <item name="fabCustomSize">@dimen/big_round_button</item>
     </style>
-    <style name="RectangularButton" parent="TextAppearance.AppCompat.Button">
+    <style name="ActionButton" parent="TextAppearance.AppCompat.Button">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">@color/background_secondary</item>
+        <item name="android:backgroundTint">@color/action_button_background</item>
+        <item name="iconTint">@color/action_button_icon</item>
         <item name="cornerRadius">0dp</item>
         <item name="iconGravity">textStart</item>
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:textAlignment">center</item>
         <item name="android:fontFamily">@font/press_start_2p</item>
     </style>
-    <style name="RectangularButton.Small">
+    <style name="ActionButton.Small">
         <item name="android:layout_width">@dimen/action_button_width</item>
         <item name="android:src">@drawable/question_mark_icon</item>
         <item name="iconSize">24dp</item>
@@ -122,10 +123,12 @@
         <item name="android:background">@drawable/white_border_thin</item>
         <item name="tint">@color/icon_secondary</item>
     </style>
-    <style name="SaveButton" parent="RectangularButton.Small">
+    <!-- TODO Probably don't need a whole separate style for save button, just
+    adjust in the layout file itself -->
+    <style name="SaveButton" parent="ActionButton.Small">
         <item name="android:contentDescription">@string/confirm_button_content_description</item>
         <item name="icon">@drawable/check_icon_green</item>
-        <item name="iconTint">@color/confirm</item>
+        <item name="iconTint">@color/confirm_icon</item>
     </style>
 
     <!-- Guidelines -->

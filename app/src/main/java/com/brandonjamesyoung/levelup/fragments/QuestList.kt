@@ -87,7 +87,7 @@ class QuestList : Fragment(R.layout.quest_list) {
         convertButton(
             targetId = R.id.ShopButton,
             iconDrawableId = R.drawable.trash_bin_icon,
-            iconColorId = R.color.delete_icon,
+            iconColorId = R.color.warning_icon,
             buttonMethod = ::deleteQuests,
             view = requireView(),
             resources = resources

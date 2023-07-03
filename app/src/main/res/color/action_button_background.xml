@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_pressed="true"
-        android:drawable="@drawable/nav_button_background_pressed" />
+        android:color="@color/background_secondary_pressed" />
     <item
-        android:drawable="@drawable/nav_button_background_default" />
+        android:color="@color/background_secondary" />
 </selector>

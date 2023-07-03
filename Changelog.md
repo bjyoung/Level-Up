@@ -8,9 +8,11 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Add delete icon functionality, which is accessible in Icon Select's Edit mode
-  - Like moving icons, at least one icon must be selected otherwise an error message pops up
-  - All quests that use deleted icons show the default question mark icon
+- Add delete icon functionality to Icon Select
+  - Like with moving icons, Icon Select must be in Edit mode and at least one icon must be selected
+  - All quests that use deleted icons fall back to the default question mark icon
+- When pressed, action button colors darken to improve app responsiveness
+  - Action buttons are the rectangular white buttons on some pages, usually for confirming or cancelling
 
 ---
 
@@ -77,7 +79,7 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- On press, navigation buttons change color slightly to indicate that it is being pressed
+- On press, navigation buttons darken slightly to indicate that it is being pressed
 
 ### Changed
 

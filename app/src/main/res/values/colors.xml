@@ -13,8 +13,10 @@
     <color name="background_primary_default">#FF000000</color>
     <color name="background_secondary">#FFD9DADB</color>
     <color name="background_secondary_default">#FFD9DADB</color>
+    <color name="background_secondary_pressed">#9fa1a1</color>
     <color name="quest_card_icon_background">#FFFFFFFF</color>
     <color name="icon_primary">#FF000000</color>
+    <color name="icon_primary_pressed">#FFCBCBCB</color>
     <color name="icon_secondary">#FFFFFFFF</color>
     <color name="icon_secondary_pressed">#FFCBCBCB</color>
     <color name="text_primary">#FFFFFFFF</color>

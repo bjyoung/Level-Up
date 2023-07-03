@@ -6,11 +6,11 @@
     android:layout_height="match_parent">
 
     <Button
-        style="@style/RectangularButton.Small"
+        style="@style/ActionButton.Small"
         android:id="@+id/CancelButton"
         android:contentDescription="@string/cancel_button_content_description"
         app:icon="@drawable/times_icon_red"
-        app:iconTint="@color/cancel"
+        app:iconTint="@color/warning_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
         app:layout_constraintHorizontal_bias="0.5"

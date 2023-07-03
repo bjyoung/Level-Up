@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <Button
-        style="@style/RectangularButton.Small"
+        style="@style/ActionButton.Small"
         android:id="@+id/EditButton"
         android:contentDescription="@string/edit_button_content_description"
         app:icon="@drawable/pencil_icon"
