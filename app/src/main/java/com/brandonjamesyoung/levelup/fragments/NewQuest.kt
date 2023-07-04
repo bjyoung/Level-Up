@@ -21,11 +21,13 @@ import com.brandonjamesyoung.levelup.shared.ByteArrayHelper.Companion.convertByt
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.IconHelper.Companion.getDefaultIcon
 import com.brandonjamesyoung.levelup.shared.Mode
+import com.brandonjamesyoung.levelup.shared.TimeHelper
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateQuestName
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.time.Instant
 
 @AndroidEntryPoint
 class NewQuest : Fragment(R.layout.new_quest) {
@@ -203,12 +205,22 @@ class NewQuest : Fragment(R.layout.new_quest) {
         setupCancelButton()
     }
 
+    private fun setupDateCreatedLabel(dateCreated: Instant?) {
+        if (dateCreated == null) return
+        viewModel.dateCreated = dateCreated
+        val dateCreatedView = requireView().findViewById<TextView>(R.id.DateCreatedLabel)
+        val dateString = TimeHelper.convertInstantToString(dateCreated)
+        dateCreatedView.text = getString(R.string.date_created_label, dateString)
+        dateCreatedView.visibility = View.VISIBLE
+    }
+
     private fun loadQuest(quest: Quest) {
         val view = requireView()
         val nameInput = view.findViewById<EditText>(R.id.NameInput)
         nameInput.setText(quest.name)
         setSelectedDifficulty(quest.difficulty)
         changeIcon(quest.iconId)
+        setupDateCreatedLabel(quest.dateCreated)
     }
 
     private fun activateEditMode() {
@@ -221,6 +233,8 @@ class NewQuest : Fragment(R.layout.new_quest) {
                 loadQuest(quest)
                 viewModel.questDataLoaded = true
             }
+        } else {
+            setupDateCreatedLabel(viewModel.dateCreated)
         }
     }
 

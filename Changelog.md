@@ -13,6 +13,7 @@ This document tracks all notables changes to the Level Up app.
   - All quests that use deleted icons fall back to the default question mark icon
 - When pressed, action button colors darken to improve app responsiveness
   - Action buttons are the rectangular white buttons on some pages, usually for confirming or cancelling
+- Show when quests were created in the Edit Quest page
 
 ---
 

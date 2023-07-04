@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/NewQuest"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +26,7 @@
 
     <TextView
         style="@style/Label"
-        android:id="@+id/Icon"
+        android:id="@+id/IconLabel"
         android:layout_marginTop="45dp"
         android:text="@string/icon_input_label"
         app:layout_constraintStart_toStartOf="@+id/DifficultyLabel"
@@ -111,11 +112,22 @@
         android:id="@+id/IconButton"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/icon_input_content_description"
-        app:layout_constraintStart_toStartOf="@+id/Icon"
-        app:layout_constraintTop_toBottomOf="@+id/Icon"
+        app:layout_constraintStart_toStartOf="@+id/IconLabel"
+        app:layout_constraintTop_toBottomOf="@+id/IconLabel"
         app:srcCompat="@drawable/question_mark_icon" />
 
     <include layout="@layout/save_button_set" />
+
+    <TextView
+        android:id="@+id/DateCreatedLabel"
+        style="@style/Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_created_label"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         style="@style/Guideline.Top"

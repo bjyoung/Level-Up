@@ -36,6 +36,7 @@
     <string name="cancel_button_content_description">Red cross</string>
     <string name="confirm_button_content_description">Green check</string>
     <string name="difficulty_select_box_content_description">White box</string>
+    <string name="date_created_label">Date Created: %1$s</string>
 
     <!-- Difficulty strings -->
     <string name="easy_label">Easy</string>

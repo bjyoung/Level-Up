@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.Mode
+import java.time.Instant
 
 @HiltViewModel
 class NewQuestViewModel @Inject constructor(
@@ -28,6 +29,8 @@ class NewQuestViewModel @Inject constructor(
     var editQuestId: Int? = null
 
     var questDataLoaded: Boolean = false
+
+    var dateCreated: Instant? = null
 
     fun getQuest(id: Int): LiveData<Quest> {
         return questRepository.observe(id).asLiveData()
@@ -93,6 +96,7 @@ class NewQuestViewModel @Inject constructor(
         name = null
         selectedDifficulty = Difficulty.EASY
         iconId = null
+        dateCreated = null
         editQuestId = null
         mode.value = Mode.DEFAULT
         questDataLoaded = false
