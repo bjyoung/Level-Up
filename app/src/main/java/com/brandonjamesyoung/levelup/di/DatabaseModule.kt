@@ -49,4 +49,9 @@ class DatabaseModule {
     fun provideIconDao(appDatabase: AppDatabase): IconDao {
         return appDatabase.iconDao()
     }
+
+    @Provides
+    fun provideQuestHistoryDao(appDatabase: AppDatabase): QuestHistoryDao {
+        return appDatabase.questHistoryDao()
+    }
 }

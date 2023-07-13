@@ -1,0 +1,28 @@
+package com.brandonjamesyoung.levelup.viewmodels
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import com.brandonjamesyoung.levelup.data.*
+import com.brandonjamesyoung.levelup.di.IoDispatcher
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Inject
+
+@HiltViewModel
+class QuestHistoryViewModel @Inject constructor(
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    private val questHistoryRepository: QuestHistoryRepository,
+    private val iconRepository: IconRepository
+) : BaseViewModel() {
+    val questHistoryList: LiveData<List<CompletedQuest>> =
+        questHistoryRepository.observeAll().asLiveData()
+
+    // TODO Extract this duplicate method used across QuestList, Shop view models
+    fun getIcon(id: Int): LiveData<Icon> {
+        return iconRepository.observe(id).asLiveData()
+    }
+
+    companion object {
+        private const val TAG = "QuestHistoryViewModel"
+    }
+}

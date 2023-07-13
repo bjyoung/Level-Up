@@ -15,6 +15,7 @@ import kotlinx.coroutines.*
 @Database(
     entities = [
         Quest::class,
+        CompletedQuest::class,
         Player::class,
         Settings::class,
         Difficulty::class,
@@ -26,6 +27,8 @@ import kotlinx.coroutines.*
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun questDao(): QuestDao
+
+    abstract fun questHistoryDao(): QuestHistoryDao
 
     abstract fun playerDao(): PlayerDao
 

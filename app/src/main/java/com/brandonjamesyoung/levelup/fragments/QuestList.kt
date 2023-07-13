@@ -177,12 +177,30 @@ class QuestList : Fragment(R.layout.quest_list) {
         )
     }
 
+    private fun navigateToQuestHistory() {
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_questList_to_questHistory)
+
+        Log.i(TAG, "Going from Quest List to Quest History")
+    }
+
+    private fun activateQuestHistoryButton() {
+        convertButton(
+            targetId = R.id.QuestHistoryButton,
+            iconDrawableId = R.drawable.clock_icon,
+            buttonMethod = ::navigateToQuestHistory,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
     private fun activateDefaultMode() {
         selectedQuestIds.clear()
         selectedQuestIconIds.clear()
         activateNewQuestButton()
         activateShopButton()
         activateSettingsButton()
+        activateQuestHistoryButton()
     }
 
     private fun editQuest(questId: Int) {
@@ -298,13 +316,6 @@ class QuestList : Fragment(R.layout.quest_list) {
         return newCard
     }
 
-    private fun addCard(quest: Quest) {
-        val newCard = createQuestCard(quest)
-        val view = requireView()
-        val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
-        questListLayout.addView(newCard)
-    }
-
     private fun updateUsername(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
         val name: String
@@ -390,7 +401,8 @@ class QuestList : Fragment(R.layout.quest_list) {
             val sortedQuestList = questList.sortedBy { it.dateCreated }
 
             for (quest in sortedQuestList) {
-                addCard(quest)
+                val newCard = createQuestCard(quest)
+                questListLayout.addView(newCard)
             }
         }
 

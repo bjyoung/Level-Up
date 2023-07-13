@@ -73,11 +73,13 @@ class QuestListViewModel @Inject constructor(
         player.gainExp(reward.exp, bonusPoints)
         player.gainPoints(reward.points)
         playerRepository.update(player)
-        deleteQuests(ids)
+        questRepository.complete(ids)
         val numQuestsCompleted = ids.count()
         val pointsAcronym = settings.pointsAcronym
+
         val logMessage = "${player.name} completes $numQuestsCompleted quest(s) " +
                 "and earns ${reward.exp} exp and ${reward.points} $pointsAcronym"
+
         Log.i(TAG, logMessage)
         val displayedMessage = getQuestCompleteMessage(willLevelUp, reward, pointsAcronym)
         showSnackbar(displayedMessage)

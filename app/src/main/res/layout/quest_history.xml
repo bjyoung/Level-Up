@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/QuestHistory"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    tools:context=".fragments.QuestList">
+
+    <ProgressBar
+        android:id="@+id/questHistoryProgressBar"
+        android:layout_width="210dp"
+        android:layout_height="2dp"
+        android:background="@android:color/white"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/experience_bar_meter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questHistoryLabel" />
+
+    <TextView
+        android:id="@+id/questHistoryLabel"
+        style="@style/Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/quest_history_label"
+        app:layout_constraintBottom_toTopOf="@+id/QuestHistoryTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/QuestListQuestHistoryButton"
+        style="@style/NavButton"
+        android:contentDescription="@string/settings_button_description"
+        app:icon="@drawable/bullet_list_icon"
+        app:layout_constraintBottom_toTopOf="@+id/QuestHistoryTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/QuestHistoryTopGuideline"
+        style="@style/Guideline.Top" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/QuestHistoryBottomGuideline"
+        style="@style/Guideline.FarBottom" />
+
+    <ScrollView
+        android:id="@+id/QuestHistoryScrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questHistoryProgressBar" >
+
+        <LinearLayout
+            android:id="@+id/QuestHistoryLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

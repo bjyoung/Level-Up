@@ -19,6 +19,7 @@
     <string name="new_quest_button_description">Navigate to the New Quest page</string>
     <string name="settings_button_description">Navigate to the Settings page</string>
     <string name="shop_button_description">Navigate to the Shop page</string>
+    <string name="quest_history_button_description">Navigate to the Quest History page</string>
     <string name="quest_icon_description">Quest icon</string>
     <string name="next_lvl_exp_label">Next Lvl Exp</string>
     <string name="next_lvl_exp_default">0</string>
@@ -36,7 +37,7 @@
     <string name="cancel_button_content_description">Red cross</string>
     <string name="confirm_button_content_description">Green check</string>
     <string name="difficulty_select_box_content_description">White box</string>
-    <string name="date_created_label">Date Created: %1$s</string>
+    <string name="date_created_label">Created: %1$s</string>
 
     <!-- Difficulty strings -->
     <string name="easy_label">Easy</string>
@@ -110,4 +111,7 @@
 
     <!-- New Icon strings -->
     <string name="new_icon_label">New Icon</string>
+
+    <!-- Quest History strings -->
+    <string name="quest_history_label">Quest History</string>
 </resources>

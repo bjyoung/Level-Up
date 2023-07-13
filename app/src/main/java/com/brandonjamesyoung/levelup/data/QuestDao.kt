@@ -15,6 +15,9 @@ interface QuestDao {
     @Query("SELECT * FROM Quest WHERE id = :id")
     fun get(id: Int): Quest
 
+    @Query("SELECT * FROM Quest WHERE id IN (:ids)")
+    fun get(ids: Set<Int>): List<Quest>
+
     @Query("SELECT difficulty FROM Quest WHERE id IN (:ids)")
     fun getDifficulties(ids: Set<Int>): List<Difficulty>
 

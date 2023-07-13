@@ -4,6 +4,17 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.7.7
+
+### Added
+
+- Add Quest History page
+  - Accessible via the clock button on Quest List
+  - Displays quests the user completed from most recently completed to the oldest
+  - Card backgrounds are darker to distinguish from Quest List cards
+
+---
+
 ## 0.7.6
 
 ### Added
@@ -24,9 +35,9 @@ This document tracks all notables changes to the Level Up app.
 - All of the changes below are for Icon Select
 - Tapping the pointer arrow button switches the page to Edit mode, where multiple icons can be selected at once
 - In Edit mode...
-  - The Add New Icon button turns into a Move button with a dash icon
-  - The pointer arrow turns into a pencil icon that, when pressed, switches back to the default mode
-  - Tapping icons mark them with a green checkmark and tapping them again de-selects them and turns them back to normal
+  - The Add New Icon button turns into a Move button
+  - The center-bottom button can be pressed to turn back to the default select mode
+  - Users can tap icons to select and de-select them
   - Switching between icon groups de-selects selected icons
 - Pressing the move button during Edit mode triggers Move mode which allows users to choose an icon group to move selected icons to
   - Users are not allowed to press the move button if no icons are selected
