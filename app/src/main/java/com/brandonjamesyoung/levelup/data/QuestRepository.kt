@@ -25,19 +25,16 @@ class QuestRepository @Inject constructor(
     @WorkerThread
     suspend fun getDifficulties(ids: Set<Int>) = questDao.getDifficulties(ids)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(quest: Quest) = externalScope.launch {
         questDao.insert(quest)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun update(quest: Quest) = externalScope.launch {
         questDao.update(quest)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun delete(ids: Set<Int>) = externalScope.launch {
         questDao.delete(ids)
@@ -59,7 +56,6 @@ class QuestRepository @Inject constructor(
         )
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun complete(ids: Set<Int>) = externalScope.launch {
         val quests: List<Quest> = questDao.get(ids)

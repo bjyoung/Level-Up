@@ -18,7 +18,6 @@ class DifficultyRepository @Inject constructor(
     @WorkerThread
     suspend fun getAll() = difficultyDao.getAll()
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun update(difficulties: List<Difficulty>) = externalScope.launch {
         difficultyDao.update(difficulties)

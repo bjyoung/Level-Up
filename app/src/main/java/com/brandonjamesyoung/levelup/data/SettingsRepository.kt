@@ -18,7 +18,6 @@ class SettingsRepository @Inject constructor(
     @WorkerThread
     suspend fun get() = settingsDao.getById(1)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun update(settings: Settings) = externalScope.launch {
         settingsDao.update(settings)

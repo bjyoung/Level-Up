@@ -18,7 +18,6 @@ class PlayerRepository @Inject constructor(
     @WorkerThread
     suspend fun get() = playerDao.getById(1)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun update(player: Player) = externalScope.launch {
         playerDao.update(player)

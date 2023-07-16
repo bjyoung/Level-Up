@@ -22,19 +22,16 @@ class ItemRepository @Inject constructor(
     @WorkerThread
     suspend fun getTotalCost(ids: Set<Int>) = itemDao.getTotalCost(ids)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(item: Item) = externalScope.launch {
         itemDao.insert(item)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun update(item: Item) = externalScope.launch {
         itemDao.update(item)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun delete(ids: Set<Int>) = externalScope.launch {
         itemDao.delete(ids)

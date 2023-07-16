@@ -10,4 +10,7 @@ interface QuestHistoryDao {
 
     @Insert
     suspend fun insert(completedQuest: CompletedQuest)
+
+    @Query("UPDATE CompletedQuest SET iconId = null WHERE iconId IN (:iconIds)")
+    suspend fun clearDeletedIcons(iconIds: Set<Int>)
 }

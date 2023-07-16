@@ -11,33 +11,33 @@ import javax.inject.Singleton
 @Singleton
 class IconRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
-    private val iconDao: IconDao
+    private val iconDao: IconDao,
+    private val questDao: QuestDao,
+    private val questHistoryDao: QuestHistoryDao
 ) {
     fun observe(id: Int) = iconDao.observe(id)
 
     fun observeGroup(iconGroup: IconGroup) = iconDao.observeGroup(iconGroup)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(icon: Icon) = externalScope.launch {
         iconDao.insert(icon)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun update(icon: Icon) = externalScope.launch {
         iconDao.update(icon)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun moveToNewIconGroup(iconIds: List<Int>, iconGroup: IconGroup) = externalScope.launch {
         iconDao.moveToNewIconGroup(iconIds, iconGroup)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun delete(ids: Set<Int>) = externalScope.launch {
+        questDao.clearDeletedIcons(ids)
+        questHistoryDao.clearDeletedIcons(ids)
         iconDao.delete(ids)
     }
 }
