@@ -10,6 +10,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.Mode
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.time.Instant
 
 @HiltViewModel
@@ -36,8 +38,8 @@ class NewQuestViewModel @Inject constructor(
         return questRepository.observe(id).asLiveData()
     }
 
-    fun getIcon(id: Int): LiveData<Icon> {
-        return iconRepository.observe(id).asLiveData()
+    suspend fun getIcon(id: Int): Icon = withContext(Dispatchers.IO){
+        iconRepository.get(id)
     }
 
     fun saveQuest() {

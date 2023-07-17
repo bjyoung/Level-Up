@@ -21,7 +21,9 @@ import com.brandonjamesyoung.levelup.shared.Difficulty
 import com.brandonjamesyoung.levelup.shared.IconHelper
 import com.brandonjamesyoung.levelup.viewmodels.QuestHistoryViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class QuestHistory : Fragment(R.layout.quest_history) {
     private val viewModel: QuestHistoryViewModel by activityViewModels()
@@ -50,7 +52,6 @@ class QuestHistory : Fragment(R.layout.quest_history) {
 
     // TODO Extract out this duplicate method
     private fun changeButtonIcon(button: FloatingActionButton, iconId : Int?) {
-        // TODO add check for invalid id, if invalid then show default icon
         if (iconId == null) {
             val context = requireContext()
             val drawable = IconHelper.getDefaultIcon(context)
@@ -58,18 +59,13 @@ class QuestHistory : Fragment(R.layout.quest_history) {
             return
         }
 
-        val iconLiveData = viewModel.getIcon(iconId)
-
-        iconLiveData.observe(viewLifecycleOwner) { icon ->
-            val drawable = if (icon != null) {
-                ByteArrayHelper.convertByteArrayToDrawable(icon.image, resources)
-            } else {
-                val context = requireContext()
-                IconHelper.getDefaultIcon(context)
+        lifecycleScope.launch(Dispatchers.Default) {
+            val icon = withContext(Dispatchers.IO) {
+                viewModel.getIcon(iconId)
             }
 
+            val drawable = ByteArrayHelper.convertByteArrayToDrawable(icon.image, resources)
             button.setImageDrawable(drawable)
-            iconLiveData.removeObservers(viewLifecycleOwner)
         }
     }
 

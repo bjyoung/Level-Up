@@ -29,7 +29,9 @@ import com.brandonjamesyoung.levelup.shared.SnackbarHelper.Companion.showSnackba
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class QuestList : Fragment(R.layout.quest_list) {
@@ -54,6 +56,22 @@ class QuestList : Fragment(R.layout.quest_list) {
         val navController: NavController = NavHostFragment.findNavController(this)
         navController.navigate(R.id.action_questList_to_nameEntry)
         Log.i(TAG, "Going from Quest List to Name Entry")
+    }
+
+    private fun updatePointsAcronym(settings: Settings?) {
+        if (settings == null) return
+        val view = requireView()
+        val pointsLabel : TextView = view.findViewById(R.id.PointsLabel)
+        pointsLabel.text = settings.pointsAcronym
+    }
+
+    private fun setupSettings(settings: Settings?) {
+        if (settings == null) return
+        if (!settings.nameEntered && !args.fromNameEntry) navigateToNameEntry()
+
+        lifecycleScope.launch(Dispatchers.Default) {
+            updatePointsAcronym(settings)
+        }
     }
 
     private fun isSelected(questId: Int) : Boolean {
@@ -242,7 +260,6 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     // TODO Extract out this duplicate method
     private fun changeButtonIcon(button: FloatingActionButton, iconId : Int?) {
-        // TODO add check for invalid id, if invalid then show default icon
         if (iconId == null) {
             val context = requireContext()
             val drawable = IconHelper.getDefaultIcon(context)
@@ -250,18 +267,13 @@ class QuestList : Fragment(R.layout.quest_list) {
             return
         }
 
-        val iconLiveData = viewModel.getIcon(iconId)
-
-        iconLiveData.observe(viewLifecycleOwner) { icon ->
-            val drawable = if (icon != null) {
-                ByteArrayHelper.convertByteArrayToDrawable(icon.image, resources)
-            } else {
-                val context = requireContext()
-                IconHelper.getDefaultIcon(context)
+        lifecycleScope.launch(Dispatchers.Default) {
+            val icon = withContext(Dispatchers.IO) {
+                viewModel.getIcon(iconId)
             }
 
+            val drawable = ByteArrayHelper.convertByteArrayToDrawable(icon.image, resources)
             button.setImageDrawable(drawable)
-            iconLiveData.removeObservers(viewLifecycleOwner)
         }
     }
 
@@ -316,6 +328,18 @@ class QuestList : Fragment(R.layout.quest_list) {
         return newCard
     }
 
+    private fun setupQuestList(questList: List<Quest>) {
+        val view = requireView()
+        val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
+        questListLayout.removeAllViews()
+        val sortedQuestList = questList.sortedBy { it.dateCreated }
+
+        for (quest in sortedQuestList) {
+            val newCard = createQuestCard(quest)
+            questListLayout.addView(newCard)
+        }
+    }
+
     private fun updateUsername(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
         val name: String
@@ -365,17 +389,13 @@ class QuestList : Fragment(R.layout.quest_list) {
         nextLvlExpView.text = expToNextLvl.toString()
     }
 
-    private fun updatePointsAcronym(settings: Settings?) {
-        if (settings == null) return
+    private fun setupPlayerUi(player: Player?) {
+        if (player == null) return
         val view = requireView()
-        val pointsLabel : TextView = view.findViewById(R.id.PointsLabel)
-        pointsLabel.text = settings.pointsAcronym
-    }
-
-    private fun setupSettings(settings: Settings?) {
-        if (settings == null) return
-        if (!settings.nameEntered && !args.fromNameEntry) navigateToNameEntry()
-        updatePointsAcronym(settings)
+        updateUsername(view, player)
+        updatePoints(view, player)
+        updateProgressBar(view, player)
+        updateNextLvlProgress(view, player)
     }
 
     private fun setupObservables() {
@@ -385,7 +405,7 @@ class QuestList : Fragment(R.layout.quest_list) {
             setupSettings(settings)
         }
 
-        mode.value = Mode.DEFAULT
+        mode.value = INIT_MODE
 
         mode.observe(viewLifecycleOwner) { mode ->
             when (mode) {
@@ -395,22 +415,12 @@ class QuestList : Fragment(R.layout.quest_list) {
             }
         }
 
-        viewModel.questList.observe(viewLifecycleOwner) { questList ->
-            val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
-            questListLayout.removeAllViews()
-            val sortedQuestList = questList.sortedBy { it.dateCreated }
-
-            for (quest in sortedQuestList) {
-                val newCard = createQuestCard(quest)
-                questListLayout.addView(newCard)
-            }
+        viewModel.questList.observe(viewLifecycleOwner) {
+            setupQuestList(it)
         }
 
-        viewModel.player.observe(viewLifecycleOwner) { player ->
-            updateUsername(view, player)
-            updatePoints(view, player)
-            updateProgressBar(view, player)
-            updateNextLvlProgress(view, player)
+        viewModel.player.observe(viewLifecycleOwner) {
+            setupPlayerUi(it)
         }
 
         viewModel.message.observe(viewLifecycleOwner) { message ->
@@ -424,7 +434,7 @@ class QuestList : Fragment(R.layout.quest_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch{
+        lifecycleScope.launch(Dispatchers.Main) {
             Log.i(TAG, "On Quest List page")
             setupObservables()
         }
@@ -432,5 +442,6 @@ class QuestList : Fragment(R.layout.quest_list) {
 
     companion object {
         private const val TAG = "QuestList"
+        private val INIT_MODE = Mode.DEFAULT
     }
 }

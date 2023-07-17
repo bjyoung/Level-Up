@@ -15,9 +15,12 @@ class IconRepository @Inject constructor(
     private val questDao: QuestDao,
     private val questHistoryDao: QuestHistoryDao
 ) {
-    fun observe(id: Int) = iconDao.observe(id)
-
     fun observeGroup(iconGroup: IconGroup) = iconDao.observeGroup(iconGroup)
+
+    @WorkerThread
+    fun get(id: Int): Icon {
+        return iconDao.get(id)
+    }
 
     @WorkerThread
     suspend fun insert(icon: Icon) = externalScope.launch {

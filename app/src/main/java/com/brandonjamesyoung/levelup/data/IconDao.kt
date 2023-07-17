@@ -12,6 +12,9 @@ interface IconDao {
     @Query("SELECT * FROM Icon WHERE iconGroup = :iconGroup")
     fun observeGroup(iconGroup: IconGroup): Flow<List<Icon>>
 
+    @Query("SELECT * FROM Icon WHERE id = :id")
+    fun get(id: Int): Icon
+
     @Insert
     suspend fun insert(icon: Icon)
 

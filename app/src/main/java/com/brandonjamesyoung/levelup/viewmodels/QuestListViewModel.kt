@@ -7,7 +7,9 @@ import com.brandonjamesyoung.levelup.di.IoDispatcher
 import com.brandonjamesyoung.levelup.shared.Difficulty
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,9 +27,9 @@ class QuestListViewModel @Inject constructor(
 
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
-    // TODO Extract this duplicate method used across QuestList, Shop view models
-    fun getIcon(id: Int): LiveData<Icon> {
-        return iconRepository.observe(id).asLiveData()
+    // TODO Extract this duplicate method used across QuestList, New Quest, QuestHistory view models
+    suspend fun getIcon(id: Int): Icon = withContext(Dispatchers.IO){
+        iconRepository.get(id)
     }
 
     private suspend fun calculateRewards(questDifficulties: List<Difficulty>) : Reward {

@@ -26,7 +26,9 @@ import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateQuestName
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.Instant
 
 @AndroidEntryPoint
@@ -157,30 +159,26 @@ class NewQuest : Fragment(R.layout.new_quest) {
         Log.i(TAG, "Going from New Quest to Icon Select")
     }
 
+    // TODO Extract this duplicate method used across QuestList, New Quest, QuestHistory
     private fun changeIcon(iconId : Int?) {
         viewModel.iconId = iconId
         val view = requireView()
         val button = view.findViewById<FloatingActionButton>(R.id.IconButton)
 
-        // TODO add check for invalid id, if invalid then show default icon
         if (iconId == null) {
-            val drawable = getDefaultIcon(view.context)
+            val context = requireContext()
+            val drawable = getDefaultIcon(context)
             button.setImageDrawable(drawable)
             return
         }
 
-        val iconLiveData = viewModel.getIcon(iconId)
-
-        iconLiveData.observe(viewLifecycleOwner) { icon ->
-            val drawable = if (icon != null) {
-                convertByteArrayToDrawable(icon.image, resources)
-            } else {
-                val context = requireContext()
-                getDefaultIcon(context)
+        lifecycleScope.launch(Dispatchers.Default) {
+            val icon = withContext(Dispatchers.IO) {
+                viewModel.getIcon(iconId)
             }
 
+            val drawable = convertByteArrayToDrawable(icon.image, resources)
             button.setImageDrawable(drawable)
-            iconLiveData.removeObservers(viewLifecycleOwner)
         }
     }
 
