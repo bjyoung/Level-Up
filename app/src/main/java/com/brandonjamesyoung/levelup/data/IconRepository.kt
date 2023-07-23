@@ -2,7 +2,7 @@ package com.brandonjamesyoung.levelup.data
 
 import androidx.annotation.WorkerThread
 import com.brandonjamesyoung.levelup.di.ApplicationScope
-import com.brandonjamesyoung.levelup.shared.IconGroup
+import com.brandonjamesyoung.levelup.constants.IconGroup
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject

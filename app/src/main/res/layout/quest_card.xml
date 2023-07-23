@@ -1,47 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<com.brandonjamesyoung.levelup.views.QuestCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/QuestCard"
-        android:layout_width="@dimen/quest_card_width"
-        android:layout_height="@dimen/quest_card_height"
-        android:layout_margin="@dimen/quest_card_margin"
-        app:cardBackgroundColor="@color/easy"
-        app:cardCornerRadius="@dimen/quest_card_corner_radius"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/CardConstraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/Text"
-                android:id="@+id/CardName"
-                android:text="@string/placeholder_text"
-                android:textColor="@color/text_secondary"
-                android:textSize="@dimen/quest_card_font_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.120000005" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                style="@style/QuestIcon"
-                android:id="@+id/CardIcon"
-                android:contentDescription="@string/quest_icon_description"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-</androidx.appcompat.widget.LinearLayoutCompat>
+    android:id="@+id/QuestCardLayout"
+    android:layout_width="@dimen/quest_card_width"
+    android:layout_height="@dimen/quest_card_height"
+    android:layout_margin="@dimen/quest_card_margin"
+    app:cardBackgroundColor="@color/easy"
+    app:cardCornerRadius="@dimen/quest_card_corner_radius"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    />

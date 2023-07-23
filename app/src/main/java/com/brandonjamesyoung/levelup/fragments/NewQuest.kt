@@ -17,25 +17,28 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Quest
-import com.brandonjamesyoung.levelup.shared.ByteArrayHelper.Companion.convertByteArrayToDrawable
-import com.brandonjamesyoung.levelup.shared.Difficulty
-import com.brandonjamesyoung.levelup.shared.IconHelper.Companion.getDefaultIcon
-import com.brandonjamesyoung.levelup.shared.Mode
-import com.brandonjamesyoung.levelup.shared.TimeHelper
+import com.brandonjamesyoung.levelup.utility.TypeConverter.Companion.convertByteArrayToDrawable
+import com.brandonjamesyoung.levelup.constants.Difficulty
+import com.brandonjamesyoung.levelup.utility.IconHelper.Companion.getDefaultIcon
+import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.utility.TypeConverter
+import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
-import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateQuestName
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Instant
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class NewQuest : Fragment(R.layout.new_quest) {
     private val viewModel: NewQuestViewModel by activityViewModels()
 
     private val args: NewQuestArgs by navArgs()
+
+    @Inject lateinit var validator: InputValidator
 
     private val buttonIdToDifficultyMap = mapOf(
         R.id.EasyButton to Difficulty.EASY,
@@ -117,7 +120,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
         val view = requireView()
         val nameInput = view.findViewById<EditText>(R.id.NameInput)
 
-        if (!validateQuestName(nameInput, TAG, this)) {
+        if (!validator.validateQuestName(nameInput, TAG, this)) {
             return false
         }
 
@@ -207,7 +210,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
         if (dateCreated == null) return
         viewModel.dateCreated = dateCreated
         val dateCreatedView = requireView().findViewById<TextView>(R.id.DateCreatedLabel)
-        val dateString = TimeHelper.convertInstantToString(dateCreated)
+        val dateString = TypeConverter.convertInstantToString(dateCreated)
         dateCreatedView.text = getString(R.string.date_created_label, dateString)
         dateCreatedView.visibility = View.VISIBLE
     }

@@ -4,13 +4,13 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
+import com.brandonjamesyoung.levelup.interfaces.IconReader
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.brandonjamesyoung.levelup.shared.Difficulty
-import com.brandonjamesyoung.levelup.shared.Mode
-import kotlinx.coroutines.Dispatchers
+import com.brandonjamesyoung.levelup.constants.Difficulty
+import com.brandonjamesyoung.levelup.constants.Mode
 import kotlinx.coroutines.withContext
 import java.time.Instant
 
@@ -19,7 +19,7 @@ class NewQuestViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val questRepository: QuestRepository,
     private val iconRepository: IconRepository
-) : BaseViewModel() {
+) : BaseViewModel(), IconReader {
     var name: String? = null
 
     var selectedDifficulty: Difficulty = Difficulty.EASY
@@ -38,7 +38,7 @@ class NewQuestViewModel @Inject constructor(
         return questRepository.observe(id).asLiveData()
     }
 
-    suspend fun getIcon(id: Int): Icon = withContext(Dispatchers.IO){
+    override suspend fun getIcon(id: Int): Icon = withContext(ioDispatcher){
         iconRepository.get(id)
     }
 

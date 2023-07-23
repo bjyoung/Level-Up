@@ -6,10 +6,20 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.res.ResourcesCompat
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.brandonjamesyoung.levelup.constants.DATABASE_NAME
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.shared.*
-import com.brandonjamesyoung.levelup.shared.ByteArrayHelper.Companion.convertDrawableToByteArray
-import com.brandonjamesyoung.levelup.shared.Difficulty.*
+import com.brandonjamesyoung.levelup.utility.*
+import com.brandonjamesyoung.levelup.utility.TypeConverter.Companion.convertDrawableToByteArray
+import com.brandonjamesyoung.levelup.constants.Difficulty.*
+import com.brandonjamesyoung.levelup.constants.INIT_EASY_EXP
+import com.brandonjamesyoung.levelup.constants.INIT_EASY_POINTS
+import com.brandonjamesyoung.levelup.constants.INIT_EXPERT_EXP
+import com.brandonjamesyoung.levelup.constants.INIT_EXPERT_POINTS
+import com.brandonjamesyoung.levelup.constants.INIT_HARD_EXP
+import com.brandonjamesyoung.levelup.constants.INIT_HARD_POINTS
+import com.brandonjamesyoung.levelup.constants.INIT_MEDIUM_EXP
+import com.brandonjamesyoung.levelup.constants.INIT_MEDIUM_POINTS
+import com.brandonjamesyoung.levelup.constants.IconGroup
 import kotlinx.coroutines.*
 
 @Database(

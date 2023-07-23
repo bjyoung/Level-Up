@@ -4,7 +4,11 @@ import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.brandonjamesyoung.levelup.shared.*
+import com.brandonjamesyoung.levelup.constants.BASE_EXP
+import com.brandonjamesyoung.levelup.constants.MAX_LEVEL
+import com.brandonjamesyoung.levelup.constants.MAX_NUM_LOOPS
+import com.brandonjamesyoung.levelup.constants.MAX_POINTS
+import com.brandonjamesyoung.levelup.constants.MAX_TOTAL_EXP
 
 @Entity
 data class Player(
@@ -15,8 +19,12 @@ data class Player(
     @ColumnInfo var totalExp: Long = 0,
     @ColumnInfo var currentLvlExp: Int = 0,
 ) {
-    private fun getExpToNextLvl(): Int {
-        val totalExpToLvlUp = LevelUpHelper.getExpToLvlUp(lvl)
+    fun getExpToLvlUp() : Int {
+        return BASE_EXP + (1750 * (lvl - 1))
+    }
+
+    fun getExpToNextLvl(): Int {
+        val totalExpToLvlUp = getExpToLvlUp()
         return totalExpToLvlUp - currentLvlExp
     }
 
@@ -43,7 +51,7 @@ data class Player(
     private fun levelDown(bonusPoints: Int) {
         lvl -= 1
         points -= bonusPoints
-        currentLvlExp = LevelUpHelper.getExpToLvlUp(lvl)
+        currentLvlExp = getExpToLvlUp()
         Log.i(TAG, "Player levels down to lvl $lvl")
     }
 

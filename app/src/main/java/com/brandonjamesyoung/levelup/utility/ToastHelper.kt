@@ -1,4 +1,4 @@
-package com.brandonjamesyoung.levelup.shared
+package com.brandonjamesyoung.levelup.utility
 
 import android.content.Context
 import android.widget.Toast

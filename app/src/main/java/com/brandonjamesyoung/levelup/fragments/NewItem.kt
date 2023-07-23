@@ -15,11 +15,12 @@ import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.Settings
-import com.brandonjamesyoung.levelup.shared.Mode
-import com.brandonjamesyoung.levelup.validation.Validation
+import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class NewItem : Fragment(R.layout.new_item) {
@@ -28,6 +29,8 @@ class NewItem : Fragment(R.layout.new_item) {
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
     private val args: NewItemArgs by navArgs()
+
+    @Inject lateinit var validator: InputValidator
 
     private fun updateAcronym(settings: Settings?) {
         if (settings == null) {
@@ -57,10 +60,10 @@ class NewItem : Fragment(R.layout.new_item) {
     private fun validateInput() : Boolean {
         val view = requireView()
         val nameView = view.findViewById<EditText>(R.id.ItemNameInput)
-        if (!Validation.validateQuestName(nameView, TAG, this)) return false
+        if (!validator.validateQuestName(nameView, TAG, this)) return false
         val costView = view.findViewById<EditText>(R.id.CostInput)
 
-        val costIsValid = Validation.validateNumField(
+        val costIsValid = validator.validateNumField(
             editText = costView,
             minNumber = -9999,
             maxNumber = 99999,

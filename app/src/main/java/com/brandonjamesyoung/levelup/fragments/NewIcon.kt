@@ -9,14 +9,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.shared.SnackbarHelper
+import com.brandonjamesyoung.levelup.utility.SnackbarHelper
+import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewIconViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class NewIcon : Fragment(R.layout.new_icon) {
     private val viewModel: NewIconViewModel by activityViewModels()
+
+    @Inject lateinit var validator: InputValidator
 
     private fun navigateToIconSelect() {
         NavHostFragment.findNavController(this).navigate(R.id.action_newIcon_to_iconSelect)

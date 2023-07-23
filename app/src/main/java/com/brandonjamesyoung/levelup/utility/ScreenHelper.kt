@@ -1,10 +1,10 @@
-package com.brandonjamesyoung.levelup.shared
+package com.brandonjamesyoung.levelup.utility
 
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.WindowMetrics
 
-class DimensionHelper {
+class ScreenHelper {
     companion object {
         // Get screen width in px
         fun getScreenWidth(windowManager: WindowManager): Int {

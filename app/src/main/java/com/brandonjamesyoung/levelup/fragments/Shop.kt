@@ -17,11 +17,12 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Settings
-import com.brandonjamesyoung.levelup.shared.Mode
-import com.brandonjamesyoung.levelup.shared.ButtonHelper.Companion.convertButton
-import com.brandonjamesyoung.levelup.shared.SnackbarHelper.Companion.showSnackbar
+import com.brandonjamesyoung.levelup.utility.ButtonConverter
+import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class Shop : Fragment(R.layout.shop) {
     private val viewModel: ShopViewModel by activityViewModels()
@@ -31,6 +32,8 @@ class Shop : Fragment(R.layout.shop) {
     private val selectedItemRowIds: MutableSet<Int> = mutableSetOf()
 
     private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
+
+    @Inject lateinit var buttonConverter: ButtonConverter
 
     private fun navigateToNewItem(itemId: Int? = null) {
         val action = if (itemId != null) {
@@ -44,7 +47,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun activateNewItemButton() {
-        convertButton(
+        buttonConverter.convertNavButton(
             targetId = R.id.AddNewItemButton,
             iconDrawableId = R.drawable.plus_icon,
             buttonMethod = ::navigateToNewItem,
@@ -59,7 +62,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun activateQuestListButton() {
-        convertButton(
+        buttonConverter.convertNavButton(
             targetId = R.id.QuestListButton,
             iconDrawableId = R.drawable.bullet_list_icon,
             buttonMethod = ::navigateToQuestList,
@@ -75,7 +78,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun activateSettingsButton() {
-        convertButton(
+        buttonConverter.convertNavButton(
             targetId = R.id.ShopSettingsButton,
             iconDrawableId = R.drawable.gear_icon,
             buttonMethod = ::navigateToSettings,
@@ -105,7 +108,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun activateCancelButton() {
-        convertButton(
+        buttonConverter.convertNavButton(
             targetId = R.id.ShopSettingsButton,
             iconDrawableId = R.drawable.cancel_icon,
             buttonMethod = ::cancelSelectedItems,
@@ -120,7 +123,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun activateDeleteButton() {
-        convertButton(
+        buttonConverter.convertNavButton(
             targetId = R.id.AddNewItemButton,
             iconDrawableId = R.drawable.trash_bin_icon,
             iconColorId = R.color.warning_icon,
@@ -136,7 +139,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun activateBuyButton() {
-        convertButton(
+        buttonConverter.convertNavButton(
             targetId = R.id.QuestListButton,
             iconDrawableId = R.drawable.shopping_cart_icon,
             iconColorId = R.color.confirm_icon,

@@ -7,8 +7,8 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
-import com.brandonjamesyoung.levelup.shared.IconGroup
-import com.brandonjamesyoung.levelup.shared.Mode
+import com.brandonjamesyoung.levelup.constants.IconGroup
+import com.brandonjamesyoung.levelup.constants.Mode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch

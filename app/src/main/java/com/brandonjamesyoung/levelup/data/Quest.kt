@@ -3,7 +3,7 @@ package com.brandonjamesyoung.levelup.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.brandonjamesyoung.levelup.shared.Difficulty
+import com.brandonjamesyoung.levelup.constants.Difficulty
 import java.time.Instant
 
 @Entity

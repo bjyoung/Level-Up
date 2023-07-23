@@ -2,7 +2,7 @@ package com.brandonjamesyoung.levelup.data
 
 import androidx.annotation.WorkerThread
 import com.brandonjamesyoung.levelup.di.ApplicationScope
-import com.brandonjamesyoung.levelup.shared.Difficulty as DifficultyCode
+import com.brandonjamesyoung.levelup.constants.Difficulty as DifficultyCode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject

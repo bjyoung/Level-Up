@@ -1,7 +1,7 @@
 package com.brandonjamesyoung.levelup.data
 
 import androidx.room.*
-import com.brandonjamesyoung.levelup.shared.Difficulty
+import com.brandonjamesyoung.levelup.constants.Difficulty
 import kotlinx.coroutines.flow.Flow
 
 @Dao

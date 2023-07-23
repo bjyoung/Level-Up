@@ -11,19 +11,22 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.validation.Validation
+import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NameEntryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class NameEntry : Fragment(R.layout.name_entry) {
     private val viewModel: NameEntryViewModel by activityViewModels()
 
+    @Inject lateinit var validator: InputValidator
+
     private fun validateInput() : Boolean {
         val view = requireView()
         val nameView = view.findViewById<EditText>(R.id.PlayerNameInput)
-        return Validation.validatePlayerName(nameView, TAG, this)
+        return validator.validatePlayerName(nameView, TAG, this)
     }
 
     private fun saveName() {

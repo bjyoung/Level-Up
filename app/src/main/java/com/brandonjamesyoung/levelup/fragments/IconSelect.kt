@@ -14,14 +14,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.brandonjamesyoung.levelup.constants.IconGroup
+import com.brandonjamesyoung.levelup.constants.MAX_NUM_LOOPS
+import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.adapters.IconGridAdapter
 import com.brandonjamesyoung.levelup.data.Icon
 import com.brandonjamesyoung.levelup.data.SelectedIcon
-import com.brandonjamesyoung.levelup.shared.*
-import com.brandonjamesyoung.levelup.shared.DimensionHelper.Companion.getScreenHeight
-import com.brandonjamesyoung.levelup.shared.DimensionHelper.Companion.getScreenWidth
-import com.brandonjamesyoung.levelup.shared.SnackbarHelper.Companion.showSnackbar
+import com.brandonjamesyoung.levelup.utility.*
+import com.brandonjamesyoung.levelup.utility.ScreenHelper.Companion.getScreenHeight
+import com.brandonjamesyoung.levelup.utility.ScreenHelper.Companion.getScreenWidth
+import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.IconSelectViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,6 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
@@ -38,6 +42,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
     private val iconGroupAdapterMap = mutableMapOf<IconGroup, IconGridAdapter>()
 
     private val iconGroupIconsMap = mutableMapOf<IconGroup, MutableList<Icon>>()
+
+    @Inject lateinit var buttonConverter: ButtonConverter
 
     private fun clearSelectedIcons() {
         val currentIconGroupAdapter = iconGroupAdapterMap[viewModel.currentIconGroup]
@@ -50,7 +56,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         iconColorId: Int = R.color.nav_button_icon,
         buttonMethod: () -> Unit
     ) {
-        ButtonHelper.convertButton(
+        buttonConverter.convertNavButton(
             targetId = targetId,
             iconDrawableId = iconDrawableId,
             iconColorId = iconColorId,

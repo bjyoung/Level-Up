@@ -4,10 +4,11 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
-import com.brandonjamesyoung.levelup.shared.Difficulty
+import com.brandonjamesyoung.levelup.interfaces.IconReader
+import com.brandonjamesyoung.levelup.constants.Difficulty
+import com.brandonjamesyoung.levelup.constants.Mode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,15 +21,19 @@ class QuestListViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val difficultyRepository: DifficultyRepository,
     private val iconRepository: IconRepository
-) : BaseViewModel() {
+) : BaseViewModel(), IconReader {
     val questList: LiveData<List<Quest>> = questRepository.observeAll().asLiveData()
 
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
 
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
-    // TODO Extract this duplicate method used across QuestList, New Quest, QuestHistory view models
-    suspend fun getIcon(id: Int): Icon = withContext(Dispatchers.IO){
+    private var _mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
+
+    val mode: LiveData<Mode>
+        get() = _mode
+
+    override suspend fun getIcon(id: Int): Icon = withContext(ioDispatcher){
         iconRepository.get(id)
     }
 
@@ -91,6 +96,14 @@ class QuestListViewModel @Inject constructor(
         questRepository.delete(ids)
         val numDeleted = ids.count()
         Log.i(TAG, "Delete $numDeleted quest(s)")
+    }
+
+    fun switchToDefaultMode() {
+        _mode.value = Mode.DEFAULT
+    }
+
+    fun switchToSelectMode() {
+        _mode.value = Mode.SELECT
     }
 
     companion object {

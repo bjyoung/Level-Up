@@ -12,21 +12,23 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.shared.Difficulty as DifficultyCode
+import com.brandonjamesyoung.levelup.constants.Difficulty as DifficultyCode
 import com.brandonjamesyoung.levelup.data.Difficulty
 import com.brandonjamesyoung.levelup.data.Settings
-import com.brandonjamesyoung.levelup.shared.SnackbarHelper
-import com.brandonjamesyoung.levelup.validation.Validation
+import com.brandonjamesyoung.levelup.utility.SnackbarHelper
+import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import com.brandonjamesyoung.levelup.validation.Validation.Companion.validateNumField
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SettingsPage : Fragment(R.layout.settings) {
     private val args: SettingsPageArgs by navArgs()
 
     private val viewModel: SettingsViewModel by activityViewModels()
+
+    @Inject lateinit var validator: InputValidator
 
     private val prevFragmentId: Int by lazy {
         if (args.fragmentId != 0) args.fragmentId else R.id.QuestList
@@ -87,7 +89,14 @@ class SettingsPage : Fragment(R.layout.settings) {
 
         for (id in difficultyInputIds) {
             val editText = view.findViewById<EditText>(id)
-            val isValid = validateNumField(editText, -999, 9999, this)
+
+            val isValid = validator.validateNumField(
+                editText = editText,
+                minNumber = -999,
+                maxNumber = 9999,
+                fragment = this
+            )
+
             if (!isValid) difficultySettingsAreValid = false
         }
 
@@ -97,13 +106,19 @@ class SettingsPage : Fragment(R.layout.settings) {
     private fun validateAcronym() : Boolean {
         val view = requireView()
         val acronymField : EditText = view.findViewById(R.id.PointsAcronymInput)
-        return Validation.validateAcronymField(acronymField, this)
+        return validator.validateAcronymField(acronymField, this)
     }
 
     private fun validateLvlUpBonus() : Boolean {
         val view = requireView()
         val lvlUpBonusInput = view.findViewById<EditText>(R.id.LevelUpBonusInput)
-        return validateNumField(lvlUpBonusInput, -99, 999, this)
+
+        return validator.validateNumField(
+            editText = lvlUpBonusInput,
+            minNumber = -99,
+            maxNumber = 999,
+            fragment = this
+        )
     }
 
     private fun validateInput() : Boolean {

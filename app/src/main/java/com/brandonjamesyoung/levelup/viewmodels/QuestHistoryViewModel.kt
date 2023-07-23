@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
+import com.brandonjamesyoung.levelup.interfaces.IconReader
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -15,12 +15,11 @@ class QuestHistoryViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     questHistoryRepository: QuestHistoryRepository,
     private val iconRepository: IconRepository
-) : BaseViewModel() {
+) : BaseViewModel(), IconReader {
     val questHistoryList: LiveData<List<CompletedQuest>> =
         questHistoryRepository.observeAll().asLiveData()
 
-    // TODO Extract this duplicate method used across QuestList, Shop, QuestHistory view models
-    suspend fun getIcon(id: Int): Icon = withContext(Dispatchers.IO){
+    override suspend fun getIcon(id: Int): Icon = withContext(ioDispatcher){
         iconRepository.get(id)
     }
 

@@ -1,4 +1,4 @@
-package com.brandonjamesyoung.levelup.shared
+package com.brandonjamesyoung.levelup.constants
 
 const val DATABASE_NAME = "levelup-db"
 const val BASE_EXP = 2500

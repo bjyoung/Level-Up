@@ -55,7 +55,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
 
     // Navigation dependencies
-    def fragment_version = "1.6.0"
+    def fragment_version = "1.6.1"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     def nav_version = "2.6.0"

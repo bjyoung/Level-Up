@@ -1,7 +1,7 @@
 package com.brandonjamesyoung.levelup.data
 
 import androidx.room.*
-import com.brandonjamesyoung.levelup.shared.IconGroup
+import com.brandonjamesyoung.levelup.constants.IconGroup
 import kotlinx.coroutines.flow.Flow
 
 @Dao
