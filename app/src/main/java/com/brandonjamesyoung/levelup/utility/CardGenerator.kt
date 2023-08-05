@@ -3,11 +3,21 @@ package com.brandonjamesyoung.levelup.utility
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleCoroutineScope
+import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.interfaces.IconReader
 import com.brandonjamesyoung.levelup.views.QuestCardView
 
 class CardGenerator {
     private val buttonConverter: ButtonConverter = ButtonConverter()
+
+    // Maps
+    val difficultyColorMap = mapOf(
+        Difficulty.EASY to R.color.easy,
+        Difficulty.MEDIUM to R.color.medium,
+        Difficulty.HARD to R.color.hard,
+        Difficulty.EXPERT to R.color.expert
+    )
 
     fun createSimpleCard(
         name: String,

@@ -2,8 +2,10 @@ package com.brandonjamesyoung.levelup.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +25,19 @@ class ShopViewModel @Inject constructor(
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
 
     val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
+
+    private var _mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
+
+    val mode: LiveData<Mode>
+        get() = _mode
+
+    fun switchToDefaultMode() {
+        _mode.value = Mode.DEFAULT
+    }
+
+    fun switchToSelectMode() {
+        _mode.value = Mode.SELECT
+    }
 
     private fun getPurchaseMessage(numItems: Int, cost: Int, pointsAcronym: String) : String {
         val numItemsString = if (numItems == 1) "an item" else "$numItems items"

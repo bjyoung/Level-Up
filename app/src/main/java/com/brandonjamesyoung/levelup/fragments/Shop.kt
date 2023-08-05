@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
@@ -21,17 +20,17 @@ import com.brandonjamesyoung.levelup.utility.ButtonConverter
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class Shop : Fragment(R.layout.shop) {
     private val viewModel: ShopViewModel by activityViewModels()
 
     private val selectedItemIds: MutableSet<Int> = mutableSetOf()
 
     private val selectedItemRowIds: MutableSet<Int> = mutableSetOf()
-
-    private var mode: MutableLiveData<Mode> = MutableLiveData<Mode>()
 
     @Inject lateinit var buttonConverter: ButtonConverter
 
@@ -119,7 +118,7 @@ class Shop : Fragment(R.layout.shop) {
 
     private fun deleteItems() {
         viewModel.deleteItems(selectedItemIds.toSet())
-        mode.value = Mode.DEFAULT
+        viewModel.switchToDefaultMode()
     }
 
     private fun activateDeleteButton() {
@@ -176,11 +175,15 @@ class Shop : Fragment(R.layout.shop) {
             itemRow.setBackgroundColor(Color.TRANSPARENT)
         }
 
-        mode.value = if (selectedItemIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
+        if (selectedItemIds.isNotEmpty()) {
+            viewModel.switchToSelectMode()
+        } else {
+            viewModel.switchToDefaultMode()
+        }
     }
 
     private fun longPressItemRow(item: Item) {
-        if (mode.value == Mode.DEFAULT) {
+        if (viewModel.mode.value == Mode.DEFAULT) {
             Log.i(TAG, "Item '${item.name}' is long pressed")
             navigateToNewItem(item.id)
         }
@@ -234,9 +237,9 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun setupObservables(view: View) {
-        mode.value = Mode.DEFAULT
+        viewModel.switchToDefaultMode()
 
-        mode.observe(viewLifecycleOwner) { mode ->
+        viewModel.mode.observe(viewLifecycleOwner) { mode ->
             when (mode) {
                 Mode.DEFAULT -> activateDefaultMode()
                 Mode.SELECT -> activateSelectMode()

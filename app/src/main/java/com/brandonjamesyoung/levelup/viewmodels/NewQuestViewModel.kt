@@ -26,13 +26,20 @@ class NewQuestViewModel @Inject constructor(
 
     var iconId: Int? = null
 
-    var mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
+    private var _mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
+
+    val mode: LiveData<Mode>
+        get() = _mode
 
     var editQuestId: Int? = null
 
     var questDataLoaded: Boolean = false
 
     var dateCreated: Instant? = null
+
+    fun switchToEditMode() {
+        _mode.value = Mode.EDIT
+    }
 
     fun getQuest(id: Int): LiveData<Quest> {
         return questRepository.observe(id).asLiveData()
@@ -100,7 +107,7 @@ class NewQuestViewModel @Inject constructor(
         iconId = null
         dateCreated = null
         editQuestId = null
-        mode.value = Mode.DEFAULT
+        _mode.value = Mode.DEFAULT
         questDataLoaded = false
     }
 

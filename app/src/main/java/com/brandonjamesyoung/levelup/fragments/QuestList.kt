@@ -14,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
-import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.constants.PROGRESS_BAR_ANIMATE_DURATION
 import com.brandonjamesyoung.levelup.R
@@ -43,17 +42,6 @@ class QuestList: Fragment(R.layout.quest_list) {
 
     private val args: QuestListArgs by navArgs()
 
-    private val selectedQuestIds: MutableSet<Int> = mutableSetOf()
-
-    private val selectedQuestIconIds: MutableSet<Int> = mutableSetOf()
-
-    private val difficultyColorMap = mapOf(
-        Difficulty.EASY to R.color.easy,
-        Difficulty.MEDIUM to R.color.medium,
-        Difficulty.HARD to R.color.hard,
-        Difficulty.EXPERT to R.color.expert
-    )
-
     private fun navigateToNameEntry() {
         val navController: NavController = NavHostFragment.findNavController(this)
         navController.navigate(R.id.action_questList_to_nameEntry)
@@ -79,11 +67,11 @@ class QuestList: Fragment(R.layout.quest_list) {
     }
 
     private fun isSelected(questId: Int) : Boolean {
-        return selectedQuestIds.contains(questId)
+        return viewModel.selectedQuestIds.contains(questId)
     }
 
     private fun completeQuests() {
-        viewModel.completeQuests(selectedQuestIds.toSet())
+        viewModel.completeQuests(viewModel.selectedQuestIds.toSet())
         viewModel.switchToDefaultMode()
     }
 
@@ -100,7 +88,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     }
 
     private fun deleteQuests() {
-        viewModel.deleteQuests(selectedQuestIds.toSet())
+        viewModel.deleteQuests(viewModel.selectedQuestIds.toSet())
         viewModel.switchToDefaultMode()
     }
 
@@ -116,12 +104,11 @@ class QuestList: Fragment(R.layout.quest_list) {
         )
     }
 
-    private fun cancelSelectedQuests() {
+    private fun deselectAllQuests() {
         val view = requireView()
-        val selectedIconIdsCopy = selectedQuestIconIds.toMutableList()
+        val selectedIconIdsCopy = viewModel.selectedQuestIconIds.toList()
 
         for (id in selectedIconIdsCopy) {
-            // TODO Need an easier way to swap between icon modes
             val questCardIcon : FloatingActionButton = view.findViewById(id)
             questCardIcon.callOnClick()
         }
@@ -132,7 +119,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         buttonConverter.convertNavButton(
             targetId = R.id.SettingsButton,
             iconDrawableId = R.drawable.cancel_icon,
-            buttonMethod = ::cancelSelectedQuests,
+            buttonMethod = ::deselectAllQuests,
             view = requireView(),
             resources = resources
         )
@@ -216,8 +203,8 @@ class QuestList: Fragment(R.layout.quest_list) {
     }
 
     private fun activateDefaultMode() {
-        selectedQuestIds.clear()
-        selectedQuestIconIds.clear()
+        viewModel.selectedQuestIds.clear()
+        viewModel.selectedQuestIconIds.clear()
         activateNewQuestButton()
         activateShopButton()
         activateSettingsButton()
@@ -231,8 +218,8 @@ class QuestList: Fragment(R.layout.quest_list) {
     private fun checkQuest(quest: Quest, button: FloatingActionButton) {
         Log.i(TAG, "Select quest ${quest.name}")
         val context = requireContext()
-        selectedQuestIds.add(quest.id)
-        selectedQuestIconIds.add(button.id)
+        viewModel.selectedQuestIds.add(quest.id)
+        viewModel.selectedQuestIconIds.add(button.id)
 
         val selectIcon = ResourcesCompat.getDrawable(
             resources,
@@ -253,21 +240,21 @@ class QuestList: Fragment(R.layout.quest_list) {
         )
     }
 
-    private fun uncheckQuest(quest: Quest, button: FloatingActionButton, iconId: Int?) {
+    private fun uncheckQuest(quest: Quest, button: FloatingActionButton) {
         Log.i(TAG, "De-select quest ${quest.name}")
-        selectedQuestIds.remove(quest.id)
-        selectedQuestIconIds.remove(button.id)
-        changeButtonIcon(button, iconId)
+        viewModel.selectedQuestIds.remove(quest.id)
+        viewModel.selectedQuestIconIds.remove(button.id)
+        changeButtonIcon(button, quest.iconId)
     }
 
-    private fun selectQuestIcon(quest: Quest, button: FloatingActionButton, iconId: Int?) {
+    private fun selectQuestIcon(quest: Quest, button: FloatingActionButton) {
         if (!isSelected(quest.id)) {
             checkQuest(quest, button)
         } else {
-            uncheckQuest(quest, button, iconId)
+            uncheckQuest(quest, button)
         }
 
-        if (selectedQuestIds.isNotEmpty()) {
+        if (viewModel.selectedQuestIds.isNotEmpty()) {
             viewModel.switchToSelectMode()
         } else {
             viewModel.switchToDefaultMode()
@@ -275,7 +262,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     }
 
     private fun createQuestCard(quest: Quest) : QuestCardView {
-        val difficultyColorId = difficultyColorMap[quest.difficulty]
+        val difficultyColorId = cardGenerator.difficultyColorMap[quest.difficulty]
             ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
 
         val view = requireView()
@@ -301,7 +288,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         }
 
         newCard.setOnIconClickListener {
-            selectQuestIcon(quest, newCard.iconButton, quest.iconId)
+            selectQuestIcon(quest, newCard.iconButton)
         }
 
         return newCard
@@ -414,6 +401,8 @@ class QuestList: Fragment(R.layout.quest_list) {
 
         lifecycleScope.launch(Dispatchers.Main) {
             Log.i(TAG, "On Quest List page")
+            viewModel.selectedQuestIds.clear()
+            viewModel.selectedQuestIconIds.clear()
             setupObservables()
         }
     }

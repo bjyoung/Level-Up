@@ -72,13 +72,11 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun activateEditModeButton() {
-        val setEditMode = { viewModel.mode.value = Mode.EDIT }
-
         convertButton(
             targetId = R.id.EditButton,
             iconDrawableId = R.drawable.white_arrow_icon,
             iconColorId = R.color.icon_primary,
-            buttonMethod = setEditMode,
+            buttonMethod = { viewModel.switchToEditMode() },
         )
     }
 
@@ -112,7 +110,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun setDefaultMode() {
-        viewModel.mode.value = Mode.DEFAULT
+        viewModel.switchToDefaultMode()
     }
 
     private fun activateSelectModeButton() {
@@ -134,7 +132,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         val currentAdapter = iconGroupAdapterMap[viewModel.currentIconGroup]
 
         if (currentAdapter == null) {
-            viewModel.mode.value = Mode.EDIT
+            viewModel.switchToEditMode()
             Log.e(TAG, "No RecyclerView adapter found")
             return
         }
@@ -197,7 +195,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
             return
         }
 
-        viewModel.mode.value = Mode.MOVE
+        viewModel.switchToMoveMode()
     }
 
     private fun activateMoveButton() {
@@ -294,7 +292,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         val currentAdapter = iconGroupAdapterMap[viewModel.currentIconGroup]
 
         if (currentAdapter == null) {
-            viewModel.mode.value = Mode.EDIT
+            viewModel.switchToEditMode()
             Log.e(TAG, "No RecyclerView adapter found")
             return
         }
@@ -335,7 +333,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         }
 
         viewModel.moveIcons(selectedIconIds, iconGroup)
-        viewModel.mode.value = Mode.EDIT
+        viewModel.switchToEditMode()
     }
 
     private fun findInsertPosition(icon: Icon, iconList: MutableList<Icon>) : Int {
@@ -408,7 +406,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun cancelMove() {
-        viewModel.mode.value = Mode.EDIT
+        viewModel.switchToEditMode()
     }
 
     private fun activateCancelButton() {
@@ -428,6 +426,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun setupMode() {
+        viewModel.switchToDefaultMode()
+
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
             when (mode) {
                 Mode.DEFAULT -> activateDefaultMode()

@@ -240,8 +240,8 @@ class NewQuest : Fragment(R.layout.new_quest) {
     }
 
     private fun setupMode() {
-        if (args.questId != INVALID_QUEST_ID) {
-            viewModel.mode.value = Mode.EDIT
+        if (needToLoadQuest()) {
+            viewModel.switchToEditMode()
             viewModel.editQuestId = args.questId
         }
 
@@ -252,6 +252,10 @@ class NewQuest : Fragment(R.layout.new_quest) {
                 else -> Log.e(TAG, "Unknown mode detected")
             }
         }
+    }
+
+    private fun needToLoadQuest() : Boolean {
+        return args.questId != INVALID_QUEST_ID
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -13,7 +13,6 @@ import com.brandonjamesyoung.levelup.data.CompletedQuest
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
 import com.brandonjamesyoung.levelup.utility.CardGenerator
 import com.brandonjamesyoung.levelup.utility.ColorHelper.Companion.darken
-import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.viewmodels.QuestHistoryViewModel
 import com.brandonjamesyoung.levelup.views.QuestCardView
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,13 +26,6 @@ class QuestHistory: Fragment(R.layout.quest_history) {
     @Inject lateinit var cardGenerator: CardGenerator
 
     @Inject lateinit var buttonConverter: ButtonConverter
-
-    private val difficultyColorMap = mapOf(
-        Difficulty.EASY to R.color.easy,
-        Difficulty.MEDIUM to R.color.medium,
-        Difficulty.HARD to R.color.hard,
-        Difficulty.EXPERT to R.color.expert
-    )
 
     private fun navigateToQuestList() {
         NavHostFragment.findNavController(this).navigate(R.id.action_questHistory_to_questList)
@@ -55,7 +47,7 @@ class QuestHistory: Fragment(R.layout.quest_history) {
         val view = requireView()
         val questName = completedQuest.name ?: getString(R.string.placeholder_text)
 
-        val difficultyColorId = difficultyColorMap[completedQuest.difficulty]
+        val difficultyColorId = cardGenerator.difficultyColorMap[completedQuest.difficulty]
             ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
 
         val theme = view.context.theme

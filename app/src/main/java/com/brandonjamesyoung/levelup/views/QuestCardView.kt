@@ -24,6 +24,7 @@ class QuestCardView @JvmOverloads constructor(
         val innerView = View.inflate(context, R.layout.quest_card_inner, this)
         nameView = innerView.findViewById(R.id.CardName)
         iconButton = innerView.findViewById(R.id.CardIcon)
+        iconButton.id = View.generateViewId()
     }
 
     override fun animateContentIn(delay: Int, duration: Int) {

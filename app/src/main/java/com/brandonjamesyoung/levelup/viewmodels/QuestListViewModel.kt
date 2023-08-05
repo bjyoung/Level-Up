@@ -33,6 +33,10 @@ class QuestListViewModel @Inject constructor(
     val mode: LiveData<Mode>
         get() = _mode
 
+    val selectedQuestIds: MutableSet<Int> = mutableSetOf()
+
+    val selectedQuestIconIds: MutableSet<Int> = mutableSetOf()
+
     override suspend fun getIcon(id: Int): Icon = withContext(ioDispatcher){
         iconRepository.get(id)
     }
@@ -70,8 +74,8 @@ class QuestListViewModel @Inject constructor(
         }
     }
 
-    fun completeQuests(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
-        val difficulties = questRepository.getDifficulties(ids)
+    fun completeQuests(questIds: Set<Int>) = viewModelScope.launch(ioDispatcher) {
+        val difficulties = questRepository.getDifficulties(questIds)
         val reward = calculateRewards(difficulties)
         val player = playerRepository.get()
         val settings = settingsRepository.get()
@@ -80,8 +84,8 @@ class QuestListViewModel @Inject constructor(
         player.gainExp(reward.exp, bonusPoints)
         player.gainPoints(reward.points)
         playerRepository.update(player)
-        questRepository.complete(ids)
-        val numQuestsCompleted = ids.count()
+        questRepository.complete(questIds)
+        val numQuestsCompleted = questIds.count()
         val pointsAcronym = settings.pointsAcronym
 
         val logMessage = "${player.name} completes $numQuestsCompleted quest(s) " +
@@ -92,9 +96,9 @@ class QuestListViewModel @Inject constructor(
         showSnackbar(displayedMessage)
     }
 
-    fun deleteQuests(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
-        questRepository.delete(ids)
-        val numDeleted = ids.count()
+    fun deleteQuests(questIds: Set<Int>) = viewModelScope.launch(ioDispatcher) {
+        questRepository.delete(questIds)
+        val numDeleted = questIds.count()
         Log.i(TAG, "Delete $numDeleted quest(s)")
     }
 
