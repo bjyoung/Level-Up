@@ -13,6 +13,10 @@ This document tracks all notables changes to the Level Up app.
   - Displays quests the user completed from most recently completed to the oldest
   - Card backgrounds are darker to distinguish from Quest List cards
 
+### Fixed
+
+- Fix some pop-up messages getting cut-off at the bottom
+
 ---
 
 ## 0.7.6
