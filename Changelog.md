@@ -16,6 +16,7 @@ This document tracks all notables changes to the Level Up app.
 ### Fixed
 
 - Fix some pop-up messages getting cut-off at the bottom
+- Fix save and cancel buttons being pushed up by the virtual keyboard sometimes
 
 ---
 
