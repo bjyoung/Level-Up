@@ -1,5 +1,6 @@
 package com.brandonjamesyoung.levelup.validation
 
+import android.content.res.Resources
 import android.util.Log
 import android.widget.EditText
 import androidx.fragment.app.Fragment
@@ -19,7 +20,7 @@ private val ACRONYM_VALIDATION_REGEX = Regex("^[a-zA-Z]+$")
 
 class InputValidator {
     // TODO can probably extract out similar lines of code here and in validateQuestName
-    fun validatePlayerName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
+    fun isValidPlayerName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
         val name = nameField.text.trim().toString()
         val hasValidLength = name.length <= MAX_PLAYER_NAME_LENGTH
 
@@ -44,7 +45,7 @@ class InputValidator {
         return true
     }
 
-    fun validateQuestName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
+    fun isValidQuestName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
         val name = nameField.text.trim().toString()
         val hasValidLength = name.length <= MAX_QUEST_NAME_LENGTH
         if (name == "") return true
@@ -70,71 +71,61 @@ class InputValidator {
         return str.toIntOrNull() != null
     }
 
-    fun validateNumField(
+    fun isValidNum(
         editText : EditText,
         minNumber : Int? = null,
         maxNumber : Int? = null,
-        fragment : Fragment
+        resources : Resources
     ) : Boolean {
         val textInput = editText.text.toString()
 
         if (textInput.isBlank() || !isNumber(textInput)) {
-            editText.error = fragment.resources.getString(R.string.not_a_number_error)
+            editText.error = resources.getString(R.string.not_a_number_error)
             return false
         }
 
         val numInput = textInput.toInt()
 
         if (minNumber != null && maxNumber != null && numInput !in minNumber..maxNumber) {
-            editText.error = fragment.resources.getString(
+            editText.error = resources.getString(
                 R.string.num_out_of_range_error,
                 minNumber,
                 maxNumber
             )
+
             return false
         }
 
         if (minNumber != null && maxNumber == null && numInput < minNumber) {
-            editText.error = fragment.resources.getString(
-                R.string.num_too_small_error,
-                minNumber
-            )
-
+            editText.error = resources.getString(R.string.num_too_small_error, minNumber)
             return false
         }
 
         if (minNumber == null && maxNumber != null && numInput > maxNumber) {
-            editText.error = fragment.resources.getString(
-                R.string.num_too_large_error,
-                maxNumber
-            )
-
+            editText.error = resources.getString(R.string.num_too_large_error, maxNumber)
             return false
         }
 
         return true
     }
 
-    fun validateAcronymField(acronymField: EditText, fragment: Fragment) : Boolean {
+    fun isValidAcronym(acronymField: EditText, resources: Resources) : Boolean {
         val textInput = acronymField.text.toString()
 
         if (textInput.isBlank()) {
-            acronymField.error = fragment.resources.getString(R.string.no_acronym_error)
+            acronymField.error = resources.getString(R.string.no_acronym_error)
             return false
         }
 
         val hasOnlyAlphabet = ACRONYM_VALIDATION_REGEX.matches(textInput)
 
         if (!hasOnlyAlphabet) {
-            acronymField.error = fragment.resources.getString(R.string.only_alpha_allowed_error)
+            acronymField.error = resources.getString(R.string.only_alpha_allowed_error)
             return false
         }
 
         if (textInput.length > MAX_ACRONYM_LENGTH) {
-            acronymField.error = fragment.resources.getString(
-                R.string.three_characters_limit_error
-            )
-
+            acronymField.error = resources.getString(R.string.three_characters_limit_error)
             return false
         }
 

@@ -1,6 +1,8 @@
 package com.brandonjamesyoung.levelup.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -72,7 +74,7 @@ class SettingsPage : Fragment(R.layout.settings) {
         }
     }
 
-    private fun validateDifficultySettings() : Boolean {
+    private fun difficultySettingsAreValid() : Boolean {
         val difficultyInputIds = listOf(
             R.id.EasyExpInput,
             R.id.EasyRtInput,
@@ -90,11 +92,11 @@ class SettingsPage : Fragment(R.layout.settings) {
         for (id in difficultyInputIds) {
             val editText = view.findViewById<EditText>(id)
 
-            val isValid = validator.validateNumField(
+            val isValid = validator.isValidNum(
                 editText = editText,
                 minNumber = -999,
                 maxNumber = 9999,
-                fragment = this
+                resources = resources
             )
 
             if (!isValid) difficultySettingsAreValid = false
@@ -103,28 +105,28 @@ class SettingsPage : Fragment(R.layout.settings) {
         return difficultySettingsAreValid
     }
 
-    private fun validateAcronym() : Boolean {
+    private fun acronymIsValid() : Boolean {
         val view = requireView()
         val acronymField : EditText = view.findViewById(R.id.PointsAcronymInput)
-        return validator.validateAcronymField(acronymField, this)
+        return validator.isValidAcronym(acronymField, resources)
     }
 
-    private fun validateLvlUpBonus() : Boolean {
+    private fun lvlUpBonusIsValid() : Boolean {
         val view = requireView()
         val lvlUpBonusInput = view.findViewById<EditText>(R.id.LevelUpBonusInput)
 
-        return validator.validateNumField(
+        return validator.isValidNum(
             editText = lvlUpBonusInput,
             minNumber = -99,
             maxNumber = 999,
-            fragment = this
+            resources = resources
         )
     }
 
     private fun validateInput() : Boolean {
-        val difficultySettingsAreValid = validateDifficultySettings()
-        val acronymIsValid = validateAcronym()
-        val bonusIsValid = validateLvlUpBonus()
+        val difficultySettingsAreValid = difficultySettingsAreValid()
+        val acronymIsValid = acronymIsValid()
+        val bonusIsValid = lvlUpBonusIsValid()
         return difficultySettingsAreValid && acronymIsValid && bonusIsValid
     }
 
@@ -244,6 +246,38 @@ class SettingsPage : Fragment(R.layout.settings) {
         lvlUpBonusInput.setText(settings.lvlUpBonus.toString())
     }
 
+    private fun updateAcronymLabels(newAcronym: String) {
+        val acronymTextViewIds: List<Int> = listOf(
+            R.id.EasyRtLabel,
+            R.id.MediumRtLabel,
+            R.id.HardRtLabel,
+            R.id.ExpertRtLabel,
+            R.id.LevelUpBonusRtLabel
+        )
+
+        val view = requireView()
+        val acronymTextViews: List<TextView> = acronymTextViewIds.map { view.findViewById(it) }
+        acronymTextViews.forEach { it.text = newAcronym.uppercase() }
+    }
+
+    private fun setupPointsAcronym() {
+        val view = requireView()
+        val acronymInput: EditText = view.findViewById(R.id.PointsAcronymInput)
+
+        acronymInput.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val newAcronym = s.toString()
+                if (newAcronym.isBlank() || acronymIsValid()) updateAcronymLabels(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+    }
+
     private fun setupObservables() {
         viewModel.difficulties.observe(viewLifecycleOwner) { difficulties ->
             updateDifficultyUi(difficulties)
@@ -261,6 +295,8 @@ class SettingsPage : Fragment(R.layout.settings) {
                 SnackbarHelper.showSnackbar(it, view, confirmButton)
             }
         }
+
+        setupPointsAcronym()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

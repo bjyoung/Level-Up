@@ -13,10 +13,15 @@ This document tracks all notables changes to the Level Up app.
   - Displays quests the user completed from most recently completed to the oldest
   - Card backgrounds are darker to distinguish from Quest List cards
 
+### Changed
+
+- Acronym labels in the Settings page now change in real-time based on what is entered in the acronym field
+
 ### Fixed
 
 - Fix some pop-up messages getting cut-off at the bottom
 - Fix save and cancel buttons being pushed up by the virtual keyboard sometimes
+- Fix spacing issues when using a 3-letter acronym
 
 ---
 

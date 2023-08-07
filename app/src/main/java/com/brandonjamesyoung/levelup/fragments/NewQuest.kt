@@ -120,7 +120,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
         val view = requireView()
         val nameInput = view.findViewById<EditText>(R.id.NameInput)
 
-        if (!validator.validateQuestName(nameInput, TAG, this)) {
+        if (!validator.isValidQuestName(nameInput, TAG, this)) {
             return false
         }
 

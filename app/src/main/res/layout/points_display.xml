@@ -8,7 +8,7 @@
     <TextView
         style="@style/Text"
         android:id="@+id/PointsLabel"
-        android:layout_width="30dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:hint="@string/placeholder_text"
         android:minHeight="48dp"

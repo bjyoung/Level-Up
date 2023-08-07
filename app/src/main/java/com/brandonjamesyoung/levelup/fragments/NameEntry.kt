@@ -26,7 +26,7 @@ class NameEntry : Fragment(R.layout.name_entry) {
     private fun validateInput() : Boolean {
         val view = requireView()
         val nameView = view.findViewById<EditText>(R.id.PlayerNameInput)
-        return validator.validatePlayerName(nameView, TAG, this)
+        return validator.isValidPlayerName(nameView, TAG, this)
     }
 
     private fun saveName() {
