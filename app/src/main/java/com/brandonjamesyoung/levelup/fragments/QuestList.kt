@@ -27,7 +27,6 @@ import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 import com.brandonjamesyoung.levelup.views.QuestCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -58,12 +57,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     private fun setupSettings(settings: Settings?) {
         if (settings == null) return
         if (!settings.nameEntered && !args.fromNameEntry) navigateToNameEntry()
-
-        lifecycleScope.launch(
-            Dispatchers.Default + CoroutineName("Update Points Acronym")
-        ) {
-            updatePointsAcronym(settings)
-        }
+        updatePointsAcronym(settings)
     }
 
     private fun isSelected(questId: Int) : Boolean {
