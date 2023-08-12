@@ -67,6 +67,20 @@ class QuestRepository @Inject constructor(
         }
 
         questDao.delete(ids)
-        for (quest in completedQuests) questHistoryDao.insert(quest)
+
+        for (quest in completedQuests) {
+            questHistoryDao.insert(quest)
+        }
+
+        val numCompletedQuests = questHistoryDao.getNumQuests()
+
+        if (numCompletedQuests > COMPLETED_QUEST_LIMIT) {
+            val numQuestsToDelete = numCompletedQuests - COMPLETED_QUEST_LIMIT
+            questHistoryDao.deleteLatest(numQuestsToDelete)
+        }
+    }
+
+    companion object {
+        private const val COMPLETED_QUEST_LIMIT = 200
     }
 }
