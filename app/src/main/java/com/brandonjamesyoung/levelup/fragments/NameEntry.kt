@@ -39,8 +39,7 @@ class NameEntry : Fragment(R.layout.name_entry) {
 
     private fun navigateToQuestList() {
         val navController: NavController = NavHostFragment.findNavController(this)
-        val action = NameEntryDirections.actionNameEntryToQuestList(true)
-        navController.navigate(action)
+        navController.navigate(R.id.action_nameEntry_to_questList)
         Log.i(TAG, "Going from Name Entry to Quest List")
     }
 
