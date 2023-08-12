@@ -21,7 +21,9 @@ import com.brandonjamesyoung.levelup.utility.SnackbarHelper
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -123,7 +125,7 @@ class SettingsPage : Fragment(R.layout.settings) {
         )
     }
 
-    private fun validateInput() : Boolean {
+    private fun isValidInput() : Boolean {
         val difficultySettingsAreValid = difficultySettingsAreValid()
         val acronymIsValid = acronymIsValid()
         val bonusIsValid = lvlUpBonusIsValid()
@@ -171,7 +173,7 @@ class SettingsPage : Fragment(R.layout.settings) {
         val confirmButton = view.findViewById<Button>(R.id.ConfirmButton)
 
         confirmButton.setOnClickListener{
-            if (validateInput()) {
+            if (isValidInput()) {
                 saveSettings()
                 navigateToPrevFragment()
             }
@@ -184,7 +186,9 @@ class SettingsPage : Fragment(R.layout.settings) {
         setupConfirmButton()
     }
 
-    private fun updateDifficultyUi(difficulties: List<Difficulty?>) {
+    private fun updateDifficultyUi(
+        difficulties: List<Difficulty?>
+    ) = lifecycleScope.launch(Dispatchers.IO) {
         val view = requireView()
 
         for (difficulty in difficulties) {
@@ -214,12 +218,19 @@ class SettingsPage : Fragment(R.layout.settings) {
                 }
             }
 
-            expInput?.setText(difficulty?.expReward.toString())
-            rtInput?.setText(difficulty?.pointsReward.toString())
+            withContext(Dispatchers.Main) {
+                expInput?.setText(difficulty?.expReward.toString())
+                rtInput?.setText(difficulty?.pointsReward.toString())
+            }
         }
     }
 
-    private fun updateSettingsUi(settings: Settings?) {
+    private suspend fun loadDifficultyData() = lifecycleScope.launch(Dispatchers.IO) {
+        val difficulties: List<Difficulty> = viewModel.getDifficulties()
+        updateDifficultyUi(difficulties)
+    }
+
+    private suspend fun updateSettingsUi(settings: Settings?) {
         if (settings == null) {
             Log.e(TAG, "No settings to load")
             return
@@ -235,15 +246,22 @@ class SettingsPage : Fragment(R.layout.settings) {
 
         val view = requireView()
 
-        for (id in rtLabelIds) {
-            val rtLabel = view.findViewById<TextView>(id)
-            rtLabel.text = settings.pointsAcronym
-        }
+        withContext(Dispatchers.Main) {
+            for (id in rtLabelIds) {
+                val rtLabel = view.findViewById<TextView>(id)
+                rtLabel.text = settings.pointsAcronym
+            }
 
-        val acronymInput = view.findViewById<EditText>(R.id.PointsAcronymInput)
-        acronymInput.setText(settings.pointsAcronym)
-        val lvlUpBonusInput = view.findViewById<EditText>(R.id.LevelUpBonusInput)
-        lvlUpBonusInput.setText(settings.lvlUpBonus.toString())
+            val acronymInput = view.findViewById<EditText>(R.id.PointsAcronymInput)
+            acronymInput.setText(settings.pointsAcronym)
+            val lvlUpBonusInput = view.findViewById<EditText>(R.id.LevelUpBonusInput)
+            lvlUpBonusInput.setText(settings.lvlUpBonus.toString())
+        }
+    }
+
+    private fun loadSettings() = lifecycleScope.launch(Dispatchers.IO) {
+        val settings = viewModel.getSettings()
+        updateSettingsUi(settings)
     }
 
     private fun updateAcronymLabels(newAcronym: String) {
@@ -279,14 +297,6 @@ class SettingsPage : Fragment(R.layout.settings) {
     }
 
     private fun setupObservables() {
-        viewModel.difficulties.observe(viewLifecycleOwner) { difficulties ->
-            updateDifficultyUi(difficulties)
-        }
-
-        viewModel.settings.observe(viewLifecycleOwner) { settings ->
-            updateSettingsUi(settings)
-        }
-
         val view = requireView()
 
         viewModel.message.observe(viewLifecycleOwner) { message ->
@@ -305,6 +315,8 @@ class SettingsPage : Fragment(R.layout.settings) {
         lifecycleScope.launch {
             Log.i(TAG, "On Settings page")
             setupButtons()
+            loadDifficultyData()
+            loadSettings()
             setupObservables()
         }
     }

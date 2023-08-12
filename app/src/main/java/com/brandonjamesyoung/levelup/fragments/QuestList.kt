@@ -13,7 +13,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.constants.PROGRESS_BAR_ANIMATE_DURATION
 import com.brandonjamesyoung.levelup.R
@@ -29,6 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,24 +39,24 @@ class QuestList: Fragment(R.layout.quest_list) {
 
     @Inject lateinit var buttonConverter: ButtonConverter
 
-    private val args: QuestListArgs by navArgs()
-
     private fun navigateToNameEntry() {
         val navController: NavController = NavHostFragment.findNavController(this)
         navController.navigate(R.id.action_questList_to_nameEntry)
         Log.i(TAG, "Going from Quest List to Name Entry")
     }
 
-    private fun updatePointsAcronym(settings: Settings?) {
+    private suspend fun updatePointsAcronym(settings: Settings?) {
         if (settings == null) return
         val view = requireView()
         val pointsLabel : TextView = view.findViewById(R.id.PointsLabel)
-        pointsLabel.text = settings.pointsAcronym
+
+        withContext(Dispatchers.Main) {
+            pointsLabel.text = settings.pointsAcronym
+        }
     }
 
-    private fun setupSettings(settings: Settings?) {
-        if (settings == null) return
-        if (!settings.nameEntered && !args.fromNameEntry) navigateToNameEntry()
+    private fun setupSettings() = lifecycleScope.launch(Dispatchers.IO) {
+        val settings = viewModel.getSettings()
         updatePointsAcronym(settings)
     }
 
@@ -360,10 +360,6 @@ class QuestList: Fragment(R.layout.quest_list) {
     private fun setupObservables() {
         val view = requireView()
 
-        viewModel.settings.observe(viewLifecycleOwner) { settings ->
-            setupSettings(settings)
-        }
-
         viewModel.switchToDefaultMode()
 
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
@@ -397,6 +393,7 @@ class QuestList: Fragment(R.layout.quest_list) {
             Log.i(TAG, "On Quest List page")
             viewModel.selectedQuestIds.clear()
             viewModel.selectedQuestIconIds.clear()
+            setupSettings()
             setupObservables()
         }
     }

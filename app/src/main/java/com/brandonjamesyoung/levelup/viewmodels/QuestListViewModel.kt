@@ -26,8 +26,6 @@ class QuestListViewModel @Inject constructor(
 
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
 
-    val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
-
     private var _mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
 
     val mode: LiveData<Mode>
@@ -108,6 +106,10 @@ class QuestListViewModel @Inject constructor(
 
     fun switchToSelectMode() {
         _mode.value = Mode.SELECT
+    }
+
+    suspend fun getSettings(): Settings {
+        return settingsRepository.get()
     }
 
     companion object {
