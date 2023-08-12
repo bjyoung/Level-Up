@@ -12,16 +12,19 @@ This document tracks all notables changes to the Level Up app.
   - Accessible via the clock button on Quest List
   - Displays quests the user completed from most recently completed to the oldest
   - Card backgrounds are darker to distinguish from Quest List cards
+  - Only keeps track of the latest 200 quests completed
 
 ### Changed
 
 - Acronym labels in the Settings page now change in real-time based on what is entered in the acronym field
+- Item cost allows empty values which defaults to zero points
 
 ### Fixed
 
 - Fix some pop-up messages getting cut-off at the bottom
 - Fix save and cancel buttons being pushed up by the virtual keyboard sometimes
 - Fix spacing issues when using a 3-letter acronym
+- Fix screen jitter on initial app start when displaying the Name Entry page
 
 ---
 

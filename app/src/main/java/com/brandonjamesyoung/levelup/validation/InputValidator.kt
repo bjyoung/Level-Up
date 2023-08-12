@@ -75,11 +75,14 @@ class InputValidator {
         editText : EditText,
         minNumber : Int? = null,
         maxNumber : Int? = null,
+        emptyValuesAllowed: Boolean = false,
         resources : Resources
     ) : Boolean {
         val textInput = editText.text.toString()
 
-        if (textInput.isBlank() || !isNumber(textInput)) {
+        if (emptyValuesAllowed && textInput.isBlank()) {
+            return true
+        } else if (textInput.isBlank() || !isNumber(textInput)) {
             editText.error = resources.getString(R.string.not_a_number_error)
             return false
         }

@@ -57,24 +57,19 @@ class NewItem : Fragment(R.layout.new_item) {
         }
     }
 
-    private fun validateInput() : Boolean {
+    private fun isValidInput() : Boolean {
         val view = requireView()
         val nameView = view.findViewById<EditText>(R.id.ItemNameInput)
         if (!validator.isValidQuestName(nameView, TAG, this)) return false
         val costView = view.findViewById<EditText>(R.id.CostInput)
 
-        val costIsValid = validator.isValidNum(
+        return validator.isValidNum(
             editText = costView,
             minNumber = -9999,
             maxNumber = 99999,
+            emptyValuesAllowed = true,
             resources = resources
         )
-
-        if (!costIsValid) {
-            return false
-        }
-
-        return true
     }
 
     private fun saveItem() {
@@ -87,7 +82,8 @@ class NewItem : Fragment(R.layout.new_item) {
         }
 
         val costInput = view.findViewById<EditText>(R.id.CostInput)
-        val cost = costInput.text.toString().toInt()
+        val costInputText = costInput.text
+        val cost = if (costInputText.isBlank()) DEFAULT_COST else costInputText.toString().toInt()
 
         val item = Item(
             name = name,
@@ -107,7 +103,7 @@ class NewItem : Fragment(R.layout.new_item) {
         val saveButton = view.findViewById<AppCompatButton>(R.id.ConfirmButton)
 
         saveButton.setOnClickListener {
-            if (validateInput()){
+            if (isValidInput()){
                 saveItem()
                 navigateToShop()
             }
@@ -166,5 +162,6 @@ class NewItem : Fragment(R.layout.new_item) {
     companion object {
         private const val TAG = "NewItem"
         private const val INVALID_ITEM_ID = 0
+        private const val DEFAULT_COST = 0
     }
 }
