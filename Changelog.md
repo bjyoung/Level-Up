@@ -4,6 +4,14 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.7.8
+
+### Changed
+
+- Limit total points earned to 999,999
+
+---
+
 ## 0.7.7
 
 ### Added

@@ -23,7 +23,7 @@ data class Player(
         return BASE_EXP + (1750 * (lvl - 1))
     }
 
-    fun getExpToNextLvl(): Int {
+    fun getExpToNextLvl() : Int {
         val totalExpToLvlUp = getExpToLvlUp()
         return totalExpToLvlUp - currentLvlExp
     }
@@ -34,7 +34,14 @@ data class Player(
     }
 
     fun gainPoints(pointsEarned: Int) {
-        points += if (points + pointsEarned > MAX_POINTS) MAX_POINTS - points else pointsEarned
+        val estimatedTotal = points + pointsEarned
+
+        if (estimatedTotal > MAX_POINTS) {
+            points += MAX_POINTS - points
+            return
+        }
+
+        points += pointsEarned
     }
 
     private fun levelUp(bonusPoints: Int) {
