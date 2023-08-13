@@ -6,6 +6,8 @@ import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
 import com.brandonjamesyoung.levelup.interfaces.IconReader
 import com.brandonjamesyoung.levelup.constants.Difficulty
+import com.brandonjamesyoung.levelup.constants.MAX_EXP_EARNED
+import com.brandonjamesyoung.levelup.constants.MAX_POINTS_EARNED
 import com.brandonjamesyoung.levelup.constants.Mode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -50,8 +52,21 @@ class QuestListViewModel @Inject constructor(
             val difficultyEntity = difficultyMap[difficulty]
 
             if (difficultyEntity != null) {
-                expEarned += difficultyEntity.expReward
-                pointsEarned += difficultyEntity.pointsReward
+                val estimatedExpEarned = expEarned + difficultyEntity.expReward
+
+                expEarned += if (estimatedExpEarned > MAX_EXP_EARNED) {
+                    estimatedExpEarned - MAX_EXP_EARNED
+                } else {
+                    difficultyEntity.expReward
+                }
+
+                val estimatedPointsEarned =  pointsEarned + difficultyEntity.pointsReward
+
+                pointsEarned += if (estimatedPointsEarned > MAX_POINTS_EARNED) {
+                    estimatedPointsEarned - MAX_POINTS_EARNED
+                } else {
+                    difficultyEntity.pointsReward
+                }
             } else {
                 Log.e(TAG, "Difficulty enum value not found")
             }
@@ -108,7 +123,7 @@ class QuestListViewModel @Inject constructor(
         _mode.value = Mode.SELECT
     }
 
-    suspend fun getSettings(): Settings {
+    suspend fun getSettings() : Settings {
         return settingsRepository.get()
     }
 

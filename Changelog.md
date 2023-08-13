@@ -9,6 +9,8 @@ This document tracks all notables changes to the Level Up app.
 ### Changed
 
 - Limit total points earned to 999,999
+- Limit how much exp and how many points can be earned in one Complete action to prevent overflows
+  - Exp and points are both limited to 999,999 in one go
 
 ---
 

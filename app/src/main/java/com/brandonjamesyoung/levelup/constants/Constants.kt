@@ -35,5 +35,7 @@ const val INIT_EXPERT_POINTS = 12
 // Maximum Constants
 const val MAX_LEVEL = 99
 const val MAX_NUM_LOOPS = 300
-const val MAX_TOTAL_EXP = 999999999999999999
+const val MAX_TOTAL_EXP: Long = 999999999999999999
+const val MAX_EXP_EARNED: Int = 999999999
 const val MAX_POINTS = 999999
+const val MAX_POINTS_EARNED: Int = 999999999
