@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.brandonjamesyoung.levelup.constants.MAX_POINTS_PER_PURCHASE
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
@@ -46,8 +47,25 @@ class ShopViewModel @Inject constructor(
         return "Bought $numItemsString for $cost $pointsAcronym"
     }
 
+    private fun calculateTotalCost(costs: List<Int>) : Int {
+        var totalCost = 0
+
+        for (cost in costs) {
+            val estimatedTotal = totalCost + cost
+
+            totalCost += if (estimatedTotal > MAX_POINTS_PER_PURCHASE) {
+                MAX_POINTS_PER_PURCHASE - totalCost
+            } else {
+                cost
+            }
+        }
+
+        return totalCost
+    }
+
     fun buyItems(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
-        val totalCost = itemRepository.getTotalCost(ids)
+        val costs: List<Int> = itemRepository.getCosts(ids)
+        val totalCost = calculateTotalCost(costs)
         val player = playerRepository.get()
         val pointsAcronym = settingsRepository.get().pointsAcronym
 

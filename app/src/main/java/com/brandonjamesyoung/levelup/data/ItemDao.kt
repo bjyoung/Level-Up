@@ -14,8 +14,8 @@ interface ItemDao {
     @Query("SELECT * FROM Item WHERE id = :id")
     fun get(id: Int): Item
 
-    @Query("SELECT SUM(cost) FROM Item WHERE id IN (:ids)")
-    fun getTotalCost(ids: Set<Int>): Int
+    @Query("SELECT cost FROM Item WHERE id IN (:ids)")
+    fun getCosts(ids: Set<Int>): List<Int>
 
     @Insert
     suspend fun insert(item: Item)

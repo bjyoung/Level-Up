@@ -56,10 +56,8 @@ class QuestListViewModel @Inject constructor(
             val difficultyEntity = difficultyMap[difficulty]
 
             if (difficultyEntity != null) {
-                val estimatedExpEarned = expEarned + difficultyEntity.expReward
-
-                expEarned += if (estimatedExpEarned > MAX_EXP_EARNED) {
-                    estimatedExpEarned - MAX_EXP_EARNED
+                expEarned += if (expEarned + difficultyEntity.expReward > MAX_EXP_EARNED) {
+                    MAX_EXP_EARNED - expEarned
                 } else {
                     difficultyEntity.expReward
                 }
@@ -67,7 +65,7 @@ class QuestListViewModel @Inject constructor(
                 val estimatedPointsEarned =  pointsEarned + difficultyEntity.pointsReward
 
                 pointsEarned += if (estimatedPointsEarned > MAX_POINTS_EARNED) {
-                    estimatedPointsEarned - MAX_POINTS_EARNED
+                    MAX_POINTS_EARNED - pointsEarned
                 } else {
                     difficultyEntity.pointsReward
                 }
