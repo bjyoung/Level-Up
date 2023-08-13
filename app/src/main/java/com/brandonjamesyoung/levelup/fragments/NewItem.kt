@@ -14,12 +14,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Item
-import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,15 +33,14 @@ class NewItem : Fragment(R.layout.new_item) {
 
     @Inject lateinit var validator: InputValidator
 
-    private fun updateAcronym(settings: Settings?) {
-        if (settings == null) {
-            Log.e(TAG, "No settings to load")
-            return
-        }
-
+    private fun loadPointsAcronym() = lifecycleScope.launch(Dispatchers.IO) {
+        val settings = viewModel.getSettings()
         val view = requireView()
         val acronymLabel = view.findViewById<TextView>(R.id.CostRtLabel)
-        acronymLabel.text = settings.pointsAcronym
+
+        withContext(Dispatchers.Main) {
+            acronymLabel.text = settings.pointsAcronym
+        }
     }
 
     private fun navigateToShop() {
@@ -152,10 +152,7 @@ class NewItem : Fragment(R.layout.new_item) {
             addNavigation()
             setupConfirmButton()
             setupMode()
-
-            viewModel.settings.observe(viewLifecycleOwner) { settings ->
-                updateAcronym(settings)
-            }
+            loadPointsAcronym()
         }
     }
 

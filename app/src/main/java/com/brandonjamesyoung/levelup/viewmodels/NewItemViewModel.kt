@@ -17,9 +17,11 @@ class NewItemViewModel @Inject constructor(
     private val itemRepository: ItemRepository,
     private val settingsRepository: SettingsRepository
 ) : BaseViewModel() {
-    val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
+    suspend fun getSettings() : Settings {
+        return settingsRepository.get()
+    }
 
-    fun getItem(id: Int): LiveData<Item> {
+    fun getItem(id: Int) : LiveData<Item> {
         return itemRepository.observe(id).asLiveData()
     }
 

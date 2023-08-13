@@ -24,12 +24,14 @@ class ShopViewModel @Inject constructor(
 
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
 
-    val settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
-
     private var _mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
 
     val mode: LiveData<Mode>
         get() = _mode
+
+    suspend fun getSettings() : Settings {
+        return settingsRepository.get()
+    }
 
     fun switchToDefaultMode() {
         _mode.value = Mode.DEFAULT
@@ -49,15 +51,12 @@ class ShopViewModel @Inject constructor(
         val player = playerRepository.get()
         val pointsAcronym = settingsRepository.get().pointsAcronym
 
-        if (totalCost > player.points) {
+        if (totalCost > 0 && totalCost > player.points) {
             Log.i(TAG, "Player does not have enough " +
                     "$pointsAcronym to purchase the selected items")
             showSnackbar("You do not have enough $pointsAcronym")
         } else {
-            player.apply {
-                points -= totalCost
-            }
-
+            player.points -= totalCost
             playerRepository.update(player)
             val numItemsBought = ids.count()
             Log.i(TAG, "Player bought $numItemsBought item(s) for $totalCost $pointsAcronym")

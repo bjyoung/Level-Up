@@ -15,13 +15,14 @@ import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.Player
-import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -229,11 +230,14 @@ class Shop : Fragment(R.layout.shop) {
         pointsAmount.text = rtStr
     }
 
-    private fun updatePointsAcronym(settings: Settings?) {
-        if (settings == null) return
+    private fun loadPointsAcronym() = lifecycleScope.launch(Dispatchers.IO) {
+        val settings = viewModel.getSettings()
         val view = requireView()
         val pointsLabel : TextView = view.findViewById(R.id.PointsLabel)
-        pointsLabel.text = settings.pointsAcronym
+
+        withContext(Dispatchers.Main) {
+            pointsLabel.text = settings.pointsAcronym
+        }
     }
 
     private fun setupObservables(view: View) {
@@ -261,10 +265,6 @@ class Shop : Fragment(R.layout.shop) {
             updatePoints(view, player)
         }
 
-        viewModel.settings.observe(viewLifecycleOwner) { settings ->
-            updatePointsAcronym(settings)
-        }
-
         viewModel.message.observe(viewLifecycleOwner) { message ->
             message.getContentIfNotHandled()?.let {
                 val questListButton: View = view.findViewById(R.id.QuestListButton)
@@ -278,6 +278,7 @@ class Shop : Fragment(R.layout.shop) {
 
         lifecycleScope.launch{
             Log.i(TAG, "On Shop page")
+            loadPointsAcronym()
             setupObservables(view)
         }
     }

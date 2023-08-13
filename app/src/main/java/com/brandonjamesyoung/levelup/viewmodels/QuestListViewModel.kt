@@ -37,6 +37,10 @@ class QuestListViewModel @Inject constructor(
 
     val selectedQuestIconIds: MutableSet<Int> = mutableSetOf()
 
+    suspend fun getSettings() : Settings {
+        return settingsRepository.get()
+    }
+
     override suspend fun getIcon(id: Int): Icon = withContext(ioDispatcher){
         iconRepository.get(id)
     }
@@ -121,10 +125,6 @@ class QuestListViewModel @Inject constructor(
 
     fun switchToSelectMode() {
         _mode.value = Mode.SELECT
-    }
-
-    suspend fun getSettings() : Settings {
-        return settingsRepository.get()
     }
 
     companion object {
