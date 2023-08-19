@@ -34,17 +34,19 @@ class SettingsPage : Fragment(R.layout.settings) {
 
     @Inject lateinit var validator: InputValidator
 
-    private val prevFragmentId: Int by lazy {
-        if (args.fragmentId != 0) args.fragmentId else R.id.QuestList
+    private fun setupAdvancedSettingsButton() {
+        val view = requireView()
+        val advancedSettingsButton = view.findViewById<Button>(R.id.AdvancedSettingsButton)
+
+        advancedSettingsButton.setOnClickListener{
+            navigateToAdvancedSettings()
+        }
     }
 
-    private fun setupBackupButton() {
-        val view = requireView()
-        val backupButton = view.findViewById<Button>(R.id.BackupButton)
-
-        backupButton.setOnClickListener{
-            viewModel.showSnackbar("Not implemented yet")
-        }
+    private fun navigateToAdvancedSettings() {
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_settings_to_advancedSettings)
+        Log.i(TAG, "Going from Settings to Advanced Settings")
     }
 
     private fun navigateToQuestList() {
@@ -60,8 +62,10 @@ class SettingsPage : Fragment(R.layout.settings) {
     }
 
     private fun navigateToPrevFragment() {
-        when (prevFragmentId) {
-            R.id.QuestList -> navigateToQuestList()
+        val prevFragmentIdCopy: Int? = viewModel.prevFragmentId
+        viewModel.prevFragmentId = null
+
+        when (prevFragmentIdCopy) {
             R.id.Shop -> navigateToShop()
             else -> navigateToQuestList()
         }
@@ -181,7 +185,7 @@ class SettingsPage : Fragment(R.layout.settings) {
     }
 
     private fun setupButtons() {
-        setupBackupButton()
+        setupAdvancedSettingsButton()
         setupCancelButton()
         setupConfirmButton()
     }
@@ -314,6 +318,7 @@ class SettingsPage : Fragment(R.layout.settings) {
 
         lifecycleScope.launch {
             Log.i(TAG, "On Settings page")
+            if (args.fragmentId != 0) viewModel.prevFragmentId = args.fragmentId
             setupButtons()
             loadDifficultyData()
             loadSettings()

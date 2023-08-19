@@ -6,6 +6,7 @@
     <dimen name="nav_button">48dp</dimen>
     <dimen name="big_round_button">64dp</dimen>
     <dimen name="action_button_width">150dp</dimen>
+    <dimen name="action_button_width_long">338dp</dimen>
 
     <!-- Quest List -->
     <dimen name="quest_card_corner_radius">12dp</dimen>
@@ -25,7 +26,6 @@
 
     <!-- Settings -->
     <dimen name="difficulty_button_small_height">36dp</dimen>
-    <dimen name="backup_button_width">338dp</dimen>
 
     <!-- Shop -->
     <dimen name="table_icon_padding">5dp</dimen>

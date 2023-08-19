@@ -7,7 +7,9 @@
 
     <!-- Name Entry strings -->
     <string name="name_entry_title">Enter Your Name</string>
-    <string name="player_name_length_error">Please enter a name with less than 15 characters</string>
+    <string name="player_name_length_error">
+        Please enter a name with less than 15 characters
+    </string>
     <string name="player_name_invalid_char_error">Only alphanumeric characters are allowed</string>
 
     <!-- Quest List strings -->
@@ -30,7 +32,9 @@
     <string name="name_label">Name</string>
     <string name="name_hint">Enter name here</string>
     <string name="name_length_error">Please enter a name with less than 40 characters</string>
-    <string name="name_invalid_char_error">Only alphanumeric and the following punctuation are allowed: !#$%&amp;:?()@_+/,.-</string>
+    <string name="name_invalid_char_error">
+        Only alphanumeric and the following punctuation are allowed: !#$%&amp;:?()@_+/,.-
+    </string>
     <string name="difficulty_selector_label">Difficulty</string>
     <string name="icon_input_label">Icon</string>
     <string name="icon_input_content_description">Icon selector</string>
@@ -68,8 +72,6 @@
     <string name="small_size_label">Small</string>
     <string name="medium_size_label">Medium</string>
     <string name="large_size_label">Large</string>
-    <string name="backup_button_label">Backup</string>
-    <string name="backup_button_content_description">Backup data</string>
     <string name="not_a_number_error">Please input a number</string>
     <string name="num_out_of_range_error">Please input a number between %1$d and %2$d</string>
     <string name="num_too_small_error">Please input a number greater than or equal to %1$d</string>
@@ -77,6 +79,23 @@
     <string name="no_acronym_error">Please input an acronym</string>
     <string name="only_alpha_allowed_error">Only alphabet characters are allowed</string>
     <string name="three_characters_limit_error">Must be 3 characters or less</string>
+    <string name="advanced_settings_content_description">Navigate to Advanced Settings</string>
+
+    <!-- Advanced Settings strings -->
+    <string name="advanced_settings_label">Advanced Settings</string>
+    <string name="backup_button_label">Back Up</string>
+    <string name="backup_button_content_description">Back Up data</string>
+    <string name="import_button_label">Import</string>
+    <string name="import_button_content_description">Import data from backup</string>
+    <string name="about_button_label">About</string>
+    <string name="about_button_content_description">Navigate to About page</string>
+    <string name="advanced_settings_back_button_content_description">
+        Navigate to Settings page
+    </string>
+    <string name="restore_defaults_button_content_description">
+        Reset app and restore default values
+    </string>
+    <string name="restore_defaults_button_label">Restore Defaults</string>
 
     <!-- Shop strings -->
     <string name="shop_label">Shop</string>

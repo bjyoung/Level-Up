@@ -94,6 +94,13 @@
             android:name="fragmentId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_settings_to_advancedSettings"
+            app:destination="@id/advancedSettings"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
     </fragment>
     <fragment
         android:id="@+id/shop"
@@ -199,5 +206,18 @@
             app:exitAnim="@anim/slide_out_down"
             app:popEnterAnim="@anim/slide_in_up"
             app:popExitAnim="@anim/slide_out_up" />
+    </fragment>
+    <fragment
+        android:id="@+id/advancedSettings"
+        android:name="com.brandonjamesyoung.levelup.fragments.AdvancedSettings"
+        android:label="AdvancedSettings"
+        tools:layout="@layout/advanced_settings">
+        <action
+            android:id="@+id/action_advancedSettings_to_settings"
+            app:destination="@id/settings"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
     </fragment>
 </navigation>

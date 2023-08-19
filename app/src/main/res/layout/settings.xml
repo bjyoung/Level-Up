@@ -10,16 +10,17 @@
     <include layout="@layout/save_button_set" />
 
     <Button
-        android:id="@+id/BackupButton"
+        android:id="@+id/AdvancedSettingsButton"
         style="@style/ActionButton"
-        android:layout_width="@dimen/backup_button_width"
-        android:contentDescription="@string/backup_button_content_description"
-        android:text="@string/backup_button_label"
+        android:layout_width="@dimen/action_button_width_long"
+        android:contentDescription="@string/advanced_settings_content_description"
+        android:text="@string/advanced_settings_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/SettingsRightGuideline"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
         app:layout_constraintTop_toTopOf="@+id/SettingsBottomGuideline"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.132" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/SettingsMediumButton"

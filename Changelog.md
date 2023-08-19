@@ -6,6 +6,10 @@ This document tracks all notables changes to the Level Up app.
 
 ## 0.7.8
 
+### Added
+
+- Add Advanced Settings page which is reachable from Settings
+
 ### Changed
 
 - Limit total points earned to 999,999

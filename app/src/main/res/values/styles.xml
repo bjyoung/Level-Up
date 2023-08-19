@@ -105,6 +105,10 @@
         <item name="android:src">@drawable/question_mark_icon</item>
         <item name="iconSize">24dp</item>
     </style>
+    <style name="ActionButton.Large">
+        <item name="android:layout_width">@dimen/action_button_width_long</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
     <style name="DifficultyButton" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">@dimen/difficulty_button_width</item>
         <item name="android:layout_height">@dimen/difficulty_button_height</item>

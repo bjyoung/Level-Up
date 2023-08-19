@@ -18,6 +18,8 @@ class SettingsViewModel @Inject constructor(
     private val difficultyRepository: DifficultyRepository,
     private val settingsRepository: SettingsRepository
 ) : BaseViewModel() {
+    var prevFragmentId: Int? = null
+
     suspend fun getDifficulties(): List<Difficulty> {
         return difficultyRepository.getAll()
     }

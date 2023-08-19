@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Settings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary">
+
+    <Button
+        android:id="@+id/AboutButton"
+        style="@style/ActionButton.Large"
+        android:contentDescription="@string/about_button_content_description"
+        android:text="@string/about_button_label"
+        app:layout_constraintBottom_toTopOf="@+id/BackupButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/SettingsTopGuideline" />
+
+    <Button
+        android:id="@+id/BackupButton"
+        style="@style/ActionButton.Large"
+        android:contentDescription="@string/backup_button_content_description"
+        android:text="@string/backup_button_label"
+        app:layout_constraintBottom_toTopOf="@+id/ImportButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AboutButton" />
+
+    <Button
+        android:id="@+id/ImportButton"
+        style="@style/ActionButton.Large"
+        android:contentDescription="@string/import_button_content_description"
+        android:text="@string/import_button_label"
+        app:layout_constraintBottom_toTopOf="@+id/RestoreDefaultsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BackupButton" />
+
+    <Button
+        android:id="@+id/RestoreDefaultsButton"
+        style="@style/ActionButton.Large"
+        android:contentDescription="@string/restore_defaults_button_content_description"
+        android:text="@string/restore_defaults_button_label"
+        app:layout_constraintBottom_toTopOf="@+id/SettingsBottomGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ImportButton" />
+
+    <Button
+        android:id="@+id/AdvancedSettingsBackButton"
+        style="@style/ActionButton.Large"
+        android:contentDescription="@string/advanced_settings_back_button_content_description"
+        app:icon="@drawable/down_arrow_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/SettingsRightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
+        app:layout_constraintTop_toTopOf="@+id/SettingsBottomGuideline" />
+
+    <TextView
+        android:id="@+id/SettingsLabel"
+        style="@style/Text"
+        android:text="@string/advanced_settings_label"
+        app:layout_constraintBottom_toTopOf="@+id/SettingsTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/SettingsTopGuideline"
+        style="@style/Guideline.Top" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/SettingsBottomGuideline"
+        style="@style/Guideline.Bottom" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/SettingsLeftGuideline"
+        style="@style/Guideline.FarLeft"
+        android:orientation="vertical" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/SettingsRightGuideline"
+        style="@style/Guideline.FarRight"
+        android:orientation="vertical" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
