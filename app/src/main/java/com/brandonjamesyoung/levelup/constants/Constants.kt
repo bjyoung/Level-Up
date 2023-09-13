@@ -17,7 +17,8 @@ enum class IconGroup {
 }
 
 // Animation Constants
-const val PROGRESS_BAR_ANIMATE_DURATION : Long = 450
+const val PROGRESS_BAR_ANIM_DURATION: Long = 450
+const val POINT_UPDATE_ANIM_DURATION: Long = 2500
 
 // Initialization Constants
 const val INIT_EASY_EXP = 100

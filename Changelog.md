@@ -16,6 +16,7 @@ This document tracks all notables changes to the Level Up app.
 - Limit how much exp and how many points can be earned in one Complete action to prevent overflows
   - Exp and points are both limited to 999,999 in one go
 - Limit how many points can be spent in one purchase in the shop to prevent overflows
+- Instead of jumping to the new value instantly, the points displayed now increments up to or decrements down to the actual value
 
 ### Fixed
 

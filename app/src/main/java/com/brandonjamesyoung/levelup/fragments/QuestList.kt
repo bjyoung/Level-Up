@@ -1,9 +1,11 @@
 package com.brandonjamesyoung.levelup.fragments
 
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -13,13 +15,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.brandonjamesyoung.levelup.constants.Mode
-import com.brandonjamesyoung.levelup.constants.PROGRESS_BAR_ANIMATE_DURATION
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.constants.POINT_UPDATE_ANIM_DURATION
+import com.brandonjamesyoung.levelup.constants.PROGRESS_BAR_ANIM_DURATION
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.data.Settings
-import com.brandonjamesyoung.levelup.utility.CardGenerator
 import com.brandonjamesyoung.levelup.utility.*
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
@@ -30,6 +32,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class QuestList: Fragment(R.layout.quest_list) {
@@ -48,7 +51,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     private suspend fun updatePointsAcronym(settings: Settings?) {
         if (settings == null) return
         val view = requireView()
-        val pointsLabel : TextView = view.findViewById(R.id.PointsLabel)
+        val pointsLabel: TextView = view.findViewById(R.id.PointsLabel)
 
         withContext(Dispatchers.Main) {
             pointsLabel.text = settings.pointsAcronym
@@ -318,11 +321,30 @@ class QuestList: Fragment(R.layout.quest_list) {
         usernameView.text = levelHeader
     }
 
+    // TODO extract out the same method in Shop.kt
     private fun updatePoints(view: View, player: Player?) {
-        val placeholderText = getString(R.string.placeholder_text)
-        val rtStr = player?.points?.toString() ?: placeholderText
         val pointsAmount = view.findViewById<TextView>(R.id.PointsAmount)
-        pointsAmount.text = rtStr
+
+        if (player == null) {
+            pointsAmount.text = getString(R.string.placeholder_text)
+            return
+        }
+
+        val prevPoints = if (pointsAmount.text == getString(R.string.placeholder_text)) {
+            0
+        } else {
+            Integer.parseInt(pointsAmount.text.toString())
+        }
+
+        val animator = ValueAnimator.ofInt(prevPoints, player.points)
+        animator.interpolator = DecelerateInterpolator()
+        animator.duration = POINT_UPDATE_ANIM_DURATION
+
+        animator.addUpdateListener {
+            animation -> pointsAmount.text = animation.animatedValue.toString()
+        }
+
+        animator.start()
     }
 
     private fun updateProgressBar(view: View, player: Player?) {
@@ -337,7 +359,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         }
 
         ObjectAnimator.ofInt(progressBar, "progress", progressInt)
-            .setDuration(PROGRESS_BAR_ANIMATE_DURATION)
+            .setDuration(PROGRESS_BAR_ANIM_DURATION)
             .start()
     }
 

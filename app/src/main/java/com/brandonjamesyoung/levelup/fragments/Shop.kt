@@ -1,10 +1,12 @@
 package com.brandonjamesyoung.levelup.fragments
 
+import android.animation.ValueAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +19,7 @@ import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
 import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.constants.POINT_UPDATE_ANIM_DURATION
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -224,10 +227,28 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun updatePoints(view: View, player: Player?) {
-        val placeholderText = getString(R.string.placeholder_text)
-        val rtStr = player?.points?.toString() ?: placeholderText
         val pointsAmount = view.findViewById<TextView>(R.id.PointsAmount)
-        pointsAmount.text = rtStr
+
+        if (player == null) {
+            pointsAmount.text = getString(R.string.placeholder_text)
+            return
+        }
+
+        val prevPoints = if (pointsAmount.text == getString(R.string.placeholder_text)) {
+            0
+        } else {
+            Integer.parseInt(pointsAmount.text.toString())
+        }
+
+        val animator = ValueAnimator.ofInt(prevPoints, player.points)
+        animator.interpolator = DecelerateInterpolator()
+        animator.duration = POINT_UPDATE_ANIM_DURATION
+
+        animator.addUpdateListener {
+                animation -> pointsAmount.text = animation.animatedValue.toString()
+        }
+
+        animator.start()
     }
 
     private fun loadPointsAcronym() = lifecycleScope.launch(Dispatchers.IO) {
