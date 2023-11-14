@@ -35,7 +35,7 @@
         android:id="@+id/QuestListQuestHistoryButton"
         style="@style/NavButton"
         android:contentDescription="@string/settings_button_description"
-        app:icon="@drawable/bullet_list_icon"
+        app:icon="@drawable/bullet_list_icon_large"
         app:layout_constraintBottom_toTopOf="@+id/QuestHistoryTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"

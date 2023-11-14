@@ -74,7 +74,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     private fun activateEditModeButton() {
         convertButton(
             targetId = R.id.EditButton,
-            iconDrawableId = R.drawable.white_arrow_icon,
+            iconDrawableId = R.drawable.arrow_pointer_icon_large,
             iconColorId = R.color.icon_primary,
             buttonMethod = { viewModel.switchToEditMode() },
         )
@@ -83,7 +83,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     private fun activateBackButton() {
         convertButton(
             targetId = R.id.BackButton,
-            iconDrawableId = R.drawable.left_arrow_icon,
+            iconDrawableId = R.drawable.arrow_left_icon_large,
             buttonMethod = ::navigateToNewQuest,
         )
     }
@@ -96,7 +96,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     private fun activateAddIconButton() {
         convertButton(
             targetId = R.id.AddNewIconButton,
-            iconDrawableId = R.drawable.plus_icon,
+            iconDrawableId = R.drawable.plus_icon_large,
             buttonMethod = ::navigateToNewIcon,
         )
     }
@@ -116,7 +116,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     private fun activateSelectModeButton() {
         convertButton(
             targetId = R.id.EditButton,
-            iconDrawableId = R.drawable.pencil_icon,
+            iconDrawableId = R.drawable.pencil_icon_large,
             iconColorId = R.color.icon_primary,
             buttonMethod = ::setDefaultMode,
         )
@@ -171,7 +171,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     private fun activateDeleteButton() {
         convertButton(
             targetId = R.id.BackButton,
-            iconDrawableId = R.drawable.trash_bin_icon,
+            iconDrawableId = R.drawable.trash_bin_icon_large,
             iconColorId = R.color.delete,
             buttonMethod = ::deleteIcons,
         )
@@ -201,7 +201,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     private fun activateMoveButton() {
         convertButton(
             targetId = R.id.AddNewIconButton,
-            iconDrawableId = R.drawable.dash_icon,
+            iconDrawableId = R.drawable.dash_icon_large,
             buttonMethod = ::setMoveMode,
         )
     }
@@ -375,6 +375,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         animator.start()
     }
 
+    // Move icon group buttons to center of screen and change to move icons on press
     private fun setupSelectableIconGroups() {
         val iconGroupIdAnimMap = mapOf(
             R.id.SpadesGroupButton to IconGroup.SPADES,
@@ -412,7 +413,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     private fun activateCancelButton() {
         convertButton(
             targetId = R.id.AddNewIconButton,
-            iconDrawableId = R.drawable.cancel_icon,
+            iconDrawableId = R.drawable.cancel_icon_large,
             buttonMethod = ::cancelMove,
         )
     }

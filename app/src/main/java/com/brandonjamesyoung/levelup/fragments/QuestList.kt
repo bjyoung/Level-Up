@@ -76,7 +76,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     private fun activateCompleteQuestsButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.AddNewQuestButton,
-            iconDrawableId = R.drawable.check_icon_green,
+            iconDrawableId = R.drawable.check_icon_green_large,
             iconColorId = R.color.confirm_icon,
             buttonMethod = ::completeQuests,
             view = requireView(),
@@ -93,7 +93,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     private fun activateDeleteButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.ShopButton,
-            iconDrawableId = R.drawable.trash_bin_icon,
+            iconDrawableId = R.drawable.trash_bin_icon_large,
             iconColorId = R.color.warning_icon,
             buttonMethod = ::deleteQuests,
             view = requireView(),
@@ -115,7 +115,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     private fun activateCancelButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.SettingsButton,
-            iconDrawableId = R.drawable.cancel_icon,
+            iconDrawableId = R.drawable.cancel_icon_large,
             buttonMethod = ::deselectAllQuests,
             view = requireView(),
             resources = resources
@@ -143,7 +143,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     private fun activateNewQuestButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.AddNewQuestButton,
-            iconDrawableId = R.drawable.plus_icon,
+            iconDrawableId = R.drawable.plus_icon_large,
             buttonMethod = ::navigateToNewQuest,
             view = requireView(),
             resources = resources
@@ -159,7 +159,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     private fun activateShopButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.ShopButton,
-            iconDrawableId = R.drawable.shopping_bag_icon,
+            iconDrawableId = R.drawable.shopping_bag_icon_large,
             buttonMethod = ::navigateToShop,
             view = requireView(),
             resources = resources
@@ -176,7 +176,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     private fun activateSettingsButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.SettingsButton,
-            iconDrawableId = R.drawable.gear_icon,
+            iconDrawableId = R.drawable.gear_icon_large,
             buttonMethod = ::navigateToSettings,
             view = requireView(),
             resources = resources
@@ -192,7 +192,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     private fun activateQuestHistoryButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.QuestHistoryButton,
-            iconDrawableId = R.drawable.clock_icon,
+            iconDrawableId = R.drawable.clock_icon_large,
             buttonMethod = ::navigateToQuestHistory,
             view = requireView(),
             resources = resources

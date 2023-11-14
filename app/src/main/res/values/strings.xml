@@ -85,8 +85,8 @@
     <string name="advanced_settings_label">Advanced Settings</string>
     <string name="backup_button_label">Back Up</string>
     <string name="backup_button_content_description">Back Up data</string>
-    <string name="import_button_label">Import</string>
-    <string name="import_button_content_description">Import data from backup</string>
+    <string name="import_button_label">Restore Data</string>
+    <string name="import_button_content_description">Restore data from a backup</string>
     <string name="about_button_label">About</string>
     <string name="about_button_content_description">Navigate to About page</string>
     <string name="advanced_settings_back_button_content_description">

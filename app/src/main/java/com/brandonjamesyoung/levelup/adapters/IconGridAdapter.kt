@@ -16,7 +16,6 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Icon
 import com.brandonjamesyoung.levelup.data.SelectedIcon
 import com.brandonjamesyoung.levelup.fragments.IconSelectDirections
-import com.brandonjamesyoung.levelup.utility.TypeConverter
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -35,11 +34,7 @@ class IconGridAdapter(
         private val nameView: TextView = view.findViewById(R.id.IconName)
 
         fun bind(icon: Icon) {
-            val drawable = TypeConverter.convertByteArrayToDrawable(
-                byteArray = icon.image,
-                resources = context.resources
-            )
-
+            val drawable = icon.getDrawable(context.resources)
             iconButton.setImageDrawable(drawable)
             nameView.text = if (icon.name != null) icon.name else "???"
         }
@@ -74,7 +69,7 @@ class IconGridAdapter(
 
         val checkmarkIcon = ResourcesCompat.getDrawable(
             fragment.resources,
-            R.drawable.check_icon_green,
+            R.drawable.check_icon_green_large,
             context.theme
         )
 
@@ -87,10 +82,7 @@ class IconGridAdapter(
     private fun uncheckIcon(icon: Icon, button: FloatingActionButton, fragment: Fragment) {
         Log.i(TAG, "De-select icon ${icon.name}")
 
-        val drawable = TypeConverter.convertByteArrayToDrawable(
-            byteArray = icon.image,
-            resources = fragment.resources
-        )
+        val drawable = icon.getDrawable(fragment.resources)
 
         selectedIcons.removeIf { selectedIcon -> selectedIcon.id == icon.id }
         button.setImageDrawable(drawable)

@@ -1,8 +1,14 @@
 package com.brandonjamesyoung.levelup.data
 
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.brandonjamesyoung.levelup.constants.ICON_SCALE_UP_RATE
 import com.brandonjamesyoung.levelup.constants.IconGroup
 import java.time.Instant
 
@@ -11,6 +17,7 @@ data class Icon(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     @ColumnInfo var name: String? = null,
     @ColumnInfo var image: ByteArray,
+    @ColumnInfo var imageSize: Int,
     @ColumnInfo var iconGroup: IconGroup = IconGroup.SPADES,
     @ColumnInfo val dateCreated: Instant? = Instant.now(),
 ) {
@@ -23,6 +30,7 @@ data class Icon(
         if (id != other.id) return false
         if (name != other.name) return false
         if (!image.contentEquals(other.image)) return false
+        if (imageSize != other.imageSize) return false
         if (iconGroup != other.iconGroup) return false
         if (dateCreated != other.dateCreated) return false
 
@@ -33,8 +41,24 @@ data class Icon(
         var result = id
         result = 31 * result + (name?.hashCode() ?: 0)
         result = 31 * result + image.contentHashCode()
+        result = 31 * result + imageSize.hashCode()
         result = 31 * result + iconGroup.hashCode()
         result = 31 * result + (dateCreated?.hashCode() ?: 0)
         return result
+    }
+
+    // Return the icon image as a drawable
+    fun getDrawable(resources: Resources): Drawable {
+        val bitmap = BitmapFactory.decodeByteArray(image, 0, image.size)
+
+        // Scale up so the icons are not blurry
+        val scaledBitmap = Bitmap.createScaledBitmap(
+            bitmap,
+            imageSize * ICON_SCALE_UP_RATE,
+            imageSize * ICON_SCALE_UP_RATE,
+            false
+        )
+
+        return BitmapDrawable(resources, scaledBitmap)
     }
 }

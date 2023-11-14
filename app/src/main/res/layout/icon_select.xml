@@ -10,7 +10,7 @@
         style="@style/ActionButton.Small"
         android:id="@+id/EditButton"
         android:contentDescription="@string/edit_button_content_description"
-        app:icon="@drawable/pencil_icon"
+        app:icon="@drawable/pencil_icon_large"
         app:iconTint="@color/icon_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/AddNewIconButton"
@@ -21,7 +21,7 @@
         style="@style/NavButton"
         android:id="@+id/BackButton"
         android:contentDescription="@string/shop_button_description"
-        app:icon="@drawable/left_arrow_icon"
+        app:icon="@drawable/arrow_left_icon_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
@@ -32,7 +32,7 @@
         style="@style/NavButton"
         android:id="@+id/AddNewIconButton"
         android:contentDescription="@string/new_quest_button_description"
-        app:icon="@drawable/plus_icon"
+        app:icon="@drawable/plus_icon_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -63,8 +63,8 @@
         app:layout_constraintGuide_percent="0.9015048" />
 
     <ImageButton
-        style="@style/IconGroupSelector"
         android:id="@+id/SpadesGroupButton"
+        style="@style/IconGroupSelector"
         android:contentDescription="@string/spades_icon_group_content_description"
         android:translationZ="1dp"
         app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"

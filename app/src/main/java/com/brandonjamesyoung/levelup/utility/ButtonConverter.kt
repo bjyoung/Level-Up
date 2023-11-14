@@ -7,7 +7,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.interfaces.IconReader
-import com.brandonjamesyoung.levelup.utility.TypeConverter.Companion.convertByteArrayToDrawable
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineName
@@ -47,7 +46,7 @@ class ButtonConverter {
         iconId : Int?,
         iconReader: IconReader,
         context: Context,
-        lifecycleScope: LifecycleCoroutineScope
+        lifecycleScope: LifecycleCoroutineScope,
     ) {
         if (iconId == null) {
             val drawable = IconHelper.getDefaultIcon(context)
@@ -55,11 +54,11 @@ class ButtonConverter {
             return
         }
 
-        lifecycleScope.launch(Dispatchers.Default + CoroutineName("Load Icons")) {
+        lifecycleScope.launch(Dispatchers.Main + CoroutineName("Load Icons")) {
             val icon = iconReader.getIcon(iconId)
             val resources = context.resources
-            val drawable = convertByteArrayToDrawable(icon.image, resources)
-            button.setImageDrawable(drawable)
+            val iconDrawable = icon.getDrawable(resources)
+            button.setImageDrawable(iconDrawable)
         }
     }
 }

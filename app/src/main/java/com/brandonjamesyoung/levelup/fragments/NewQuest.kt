@@ -17,7 +17,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Quest
-import com.brandonjamesyoung.levelup.utility.TypeConverter.Companion.convertByteArrayToDrawable
 import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.utility.IconHelper.Companion.getDefaultIcon
 import com.brandonjamesyoung.levelup.constants.Mode
@@ -180,7 +179,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
                 viewModel.getIcon(iconId)
             }
 
-            val drawable = convertByteArrayToDrawable(icon.image, resources)
+            val drawable = icon.getDrawable(resources)
             button.setImageDrawable(drawable)
         }
     }

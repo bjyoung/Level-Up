@@ -2,14 +2,14 @@ package com.brandonjamesyoung.levelup.data
 
 import android.content.Context
 import android.content.res.Resources.NotFoundException
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import android.util.DisplayMetrics
 import androidx.core.content.res.ResourcesCompat
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.brandonjamesyoung.levelup.constants.DATABASE_NAME
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.utility.*
-import com.brandonjamesyoung.levelup.utility.TypeConverter.Companion.convertDrawableToByteArray
+import com.brandonjamesyoung.levelup.constants.DATABASE_NAME
 import com.brandonjamesyoung.levelup.constants.Difficulty.*
 import com.brandonjamesyoung.levelup.constants.INIT_EASY_EXP
 import com.brandonjamesyoung.levelup.constants.INIT_EASY_POINTS
@@ -20,6 +20,8 @@ import com.brandonjamesyoung.levelup.constants.INIT_HARD_POINTS
 import com.brandonjamesyoung.levelup.constants.INIT_MEDIUM_EXP
 import com.brandonjamesyoung.levelup.constants.INIT_MEDIUM_POINTS
 import com.brandonjamesyoung.levelup.constants.IconGroup
+import com.brandonjamesyoung.levelup.utility.*
+import com.brandonjamesyoung.levelup.utility.TypeConverter.Companion.convertDrawableToByteArray
 import kotlinx.coroutines.*
 
 @Database(
@@ -113,10 +115,22 @@ abstract class AppDatabase : RoomDatabase() {
                 return drawable!!
             }
 
+            private fun getDrawableWidth(resourceId: Int): Int {
+                val options = BitmapFactory.Options()
+                options.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT
+                val bitmap = BitmapFactory.decodeResource(context.resources, resourceId, options)
+                return bitmap.width
+            }
+
             private suspend fun initializeIcons(iconDao: IconDao) {
                 val iconFileNameTriples = listOf(
                     Triple("Archive", R.drawable.archive_icon, IconGroup.HEARTS),
+                    Triple("Arrow (Left)", R.drawable.arrow_left_icon, IconGroup.DIAMONDS),
+                    Triple("Arrow (Right)", R.drawable.arrow_right_icon, IconGroup.DIAMONDS),
+                    Triple("Arrow (Up)", R.drawable.arrow_up_icon, IconGroup.DIAMONDS),
+                    Triple("Arrow (Down)", R.drawable.arrow_down_icon, IconGroup.DIAMONDS),
                     Triple("Bandage", R.drawable.bandage_icon, IconGroup.HEARTS),
+                    Triple("Bank", R.drawable.bank_icon, IconGroup.HEARTS),
                     Triple("Barcode", R.drawable.barcode_icon, IconGroup.DIAMONDS),
                     Triple("Battery", R.drawable.battery_icon, IconGroup.SPADES),
                     Triple("Beer", R.drawable.beer_icon, IconGroup.CLUBS),
@@ -131,6 +145,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Cent", R.drawable.cent_icon, IconGroup.DIAMONDS),
                     Triple("Clock", R.drawable.clock_icon, IconGroup.HEARTS),
                     Triple("Clubs", R.drawable.clubs_icon, IconGroup.CLUBS),
+                    Triple("Commit", R.drawable.commit_icon, IconGroup.SPADES),
                     Triple("Copy", R.drawable.copy_icon, IconGroup.SPADES),
                     Triple("Credit Card", R.drawable.credit_card_icon, IconGroup.HEARTS),
                     Triple("Crop", R.drawable.crop_icon, IconGroup.SPADES),
@@ -161,15 +176,21 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Martini Glass", R.drawable.martini_glass_icon, IconGroup.CLUBS),
                     Triple("Med Pack", R.drawable.med_pack_icon, IconGroup.CLUBS),
                     Triple("Minus", R.drawable.minus_icon, IconGroup.DIAMONDS),
+                    Triple("Moon", R.drawable.moon_icon, IconGroup.CLUBS),
                     Triple("Play", R.drawable.play_icon, IconGroup.SPADES),
                     Triple("Plus", R.drawable.plus_icon, IconGroup.DIAMONDS),
-                    Triple("Pointer Arrow", R.drawable.white_arrow_icon, IconGroup.SPADES),
+                    Triple("Pointer Arrow", R.drawable.arrow_pointer_icon, IconGroup.SPADES),
                     Triple("Potion", R.drawable.potion_icon, IconGroup.CLUBS),
                     Triple("Power", R.drawable.power_button_icon, IconGroup.SPADES),
+                    Triple("Print", R.drawable.print_icon, IconGroup.SPADES),
+                    Triple("Ranking", R.drawable.ranking_icon, IconGroup.CLUBS),
                     Triple("Road", R.drawable.road_icon, IconGroup.CLUBS),
                     Triple("Save", R.drawable.save_icon, IconGroup.SPADES),
+                    Triple("Shield", R.drawable.shield_icon, IconGroup.CLUBS),
+                    Triple("Shine", R.drawable.shine_icon, IconGroup.CLUBS),
                     Triple("Spades", R.drawable.spades_icon, IconGroup.SPADES),
                     Triple("Storage", R.drawable.storage_icon, IconGroup.HEARTS),
+                    Triple("Sword", R.drawable.sword_icon, IconGroup.CLUBS),
                     Triple("Target", R.drawable.target_icon, IconGroup.DIAMONDS),
                     Triple("Terminal", R.drawable.terminal_icon, IconGroup.SPADES),
                     Triple("Upload", R.drawable.upload_icon, IconGroup.SPADES),
@@ -177,13 +198,15 @@ abstract class AppDatabase : RoomDatabase() {
                 )
 
                 for (triple in iconFileNameTriples) {
-                    val iconId = triple.second
-                    val drawable = getDrawable(iconId)
-                    val byteArray = convertDrawableToByteArray(drawable)
+                    val iconId: Int = triple.second
+                    val drawable: Drawable = getDrawable(iconId)
+                    val drawableSize: Int = getDrawableWidth(iconId)
+                    val byteArray = convertDrawableToByteArray(drawable, drawableSize)
 
                     val icon = Icon(
                         name = triple.first,
                         image = byteArray,
+                        imageSize = drawableSize,
                         iconGroup = triple.third
                     )
 

@@ -42,3 +42,6 @@ const val MAX_EXP_EARNED: Int = INT_LIMIT
 const val MAX_POINTS = 999999
 const val MAX_POINTS_EARNED: Int = INT_LIMIT
 const val MAX_POINTS_PER_PURCHASE: Int = INT_LIMIT
+
+// Icon constants
+const val ICON_SCALE_UP_RATE: Int = 4

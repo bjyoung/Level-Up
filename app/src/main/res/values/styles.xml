@@ -84,7 +84,7 @@
     <style name="QuestIcon" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@drawable/question_mark_icon</item>
+        <item name="android:src">@drawable/question_mark_icon_large</item>
         <item name="android:backgroundTint">@color/quest_card_icon_background</item>
         <item name="android:clickable">true</item>
         <item name="elevation">@dimen/quest_card_elevation</item>
@@ -94,6 +94,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:backgroundTint">@color/action_button_background</item>
         <item name="iconTint">@color/action_button_icon</item>
+        <item name="iconSize">20dp</item>
         <item name="cornerRadius">0dp</item>
         <item name="iconGravity">textStart</item>
         <item name="android:textColor">@color/text_secondary</item>
@@ -132,7 +133,7 @@
     adjust in the layout file itself -->
     <style name="SaveButton" parent="ActionButton.Small">
         <item name="android:contentDescription">@string/confirm_button_content_description</item>
-        <item name="icon">@drawable/check_icon_green</item>
+        <item name="icon">@drawable/check_icon_green_large</item>
         <item name="iconTint">@color/confirm_icon</item>
     </style>
 

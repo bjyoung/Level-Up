@@ -10,7 +10,7 @@ class IconHelper {
         fun getDefaultIcon(context: Context) : Drawable? {
             return ResourcesCompat.getDrawable(
                 context.resources,
-                R.drawable.question_mark_icon,
+                R.drawable.question_mark_icon_large,
                 context.theme
             )
         }

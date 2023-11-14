@@ -52,7 +52,7 @@ class Shop : Fragment(R.layout.shop) {
     private fun activateNewItemButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.AddNewItemButton,
-            iconDrawableId = R.drawable.plus_icon,
+            iconDrawableId = R.drawable.plus_icon_large,
             buttonMethod = ::navigateToNewItem,
             view = requireView(),
             resources = resources
@@ -67,7 +67,7 @@ class Shop : Fragment(R.layout.shop) {
     private fun activateQuestListButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.QuestListButton,
-            iconDrawableId = R.drawable.bullet_list_icon,
+            iconDrawableId = R.drawable.bullet_list_icon_large,
             buttonMethod = ::navigateToQuestList,
             view = requireView(),
             resources = resources
@@ -83,7 +83,7 @@ class Shop : Fragment(R.layout.shop) {
     private fun activateSettingsButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.ShopSettingsButton,
-            iconDrawableId = R.drawable.gear_icon,
+            iconDrawableId = R.drawable.gear_icon_large,
             buttonMethod = ::navigateToSettings,
             view = requireView(),
             resources = resources
@@ -113,7 +113,7 @@ class Shop : Fragment(R.layout.shop) {
     private fun activateCancelButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.ShopSettingsButton,
-            iconDrawableId = R.drawable.cancel_icon,
+            iconDrawableId = R.drawable.cancel_icon_large,
             buttonMethod = ::cancelSelectedItems,
             view = requireView(),
             resources = resources
@@ -128,7 +128,7 @@ class Shop : Fragment(R.layout.shop) {
     private fun activateDeleteButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.AddNewItemButton,
-            iconDrawableId = R.drawable.trash_bin_icon,
+            iconDrawableId = R.drawable.trash_bin_icon_large,
             iconColorId = R.color.warning_icon,
             buttonMethod = ::deleteItems,
             view = requireView(),
@@ -144,7 +144,7 @@ class Shop : Fragment(R.layout.shop) {
     private fun activateBuyButton() {
         buttonConverter.convertNavButton(
             targetId = R.id.QuestListButton,
-            iconDrawableId = R.drawable.shopping_cart_icon,
+            iconDrawableId = R.drawable.shopping_cart_icon_large,
             iconColorId = R.color.confirm_icon,
             buttonMethod = ::buyItems,
             view = requireView(),
