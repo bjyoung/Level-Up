@@ -115,15 +115,16 @@ abstract class AppDatabase : RoomDatabase() {
                 return drawable!!
             }
 
-            private fun getDrawableWidth(resourceId: Int): Int {
+            private fun getDrawableWidth(resourceId: Int): Dimensions {
                 val options = BitmapFactory.Options()
                 options.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT
                 val bitmap = BitmapFactory.decodeResource(context.resources, resourceId, options)
-                return bitmap.width
+                return Dimensions(bitmap.width, bitmap.height)
             }
 
             private suspend fun initializeIcons(iconDao: IconDao) {
                 val iconFileNameTriples = listOf(
+                    Triple("Apple", R.drawable.apple_icon, IconGroup.HEARTS),
                     Triple("Archive", R.drawable.archive_icon, IconGroup.HEARTS),
                     Triple("Arrow (Left)", R.drawable.arrow_left_icon, IconGroup.DIAMONDS),
                     Triple("Arrow (Right)", R.drawable.arrow_right_icon, IconGroup.DIAMONDS),
@@ -149,6 +150,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Copy", R.drawable.copy_icon, IconGroup.SPADES),
                     Triple("Credit Card", R.drawable.credit_card_icon, IconGroup.HEARTS),
                     Triple("Crop", R.drawable.crop_icon, IconGroup.SPADES),
+                    Triple("Cross Stitch", R.drawable.cross_stitch_icon, IconGroup.CLUBS),
                     Triple("Dash", R.drawable.dash_icon, IconGroup.CLUBS),
                     Triple("Desk", R.drawable.desk_icon, IconGroup.HEARTS),
                     Triple("Diamond", R.drawable.diamond_icon, IconGroup.DIAMONDS),
@@ -159,6 +161,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Dot (Filled)", R.drawable.filled_dot_icon, IconGroup.DIAMONDS),
                     Triple("Download", R.drawable.download_icon, IconGroup.SPADES),
                     Triple("Dumbbell", R.drawable.dumbbell_icon, IconGroup.HEARTS),
+                    Triple("Egg", R.drawable.egg_icon, IconGroup.HEARTS),
                     Triple("Envelope", R.drawable.envelope_icon, IconGroup.HEARTS),
                     Triple("Fast Forward", R.drawable.fast_forward_icon, IconGroup.SPADES),
                     Triple("File", R.drawable.file_icon, IconGroup.SPADES),
@@ -187,12 +190,14 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Road", R.drawable.road_icon, IconGroup.CLUBS),
                     Triple("Save", R.drawable.save_icon, IconGroup.SPADES),
                     Triple("Shield", R.drawable.shield_icon, IconGroup.CLUBS),
-                    Triple("Shine", R.drawable.shine_icon, IconGroup.CLUBS),
+                    Triple("Shine", R.drawable.shine_icon, IconGroup.DIAMONDS),
                     Triple("Spades", R.drawable.spades_icon, IconGroup.SPADES),
                     Triple("Storage", R.drawable.storage_icon, IconGroup.HEARTS),
+                    Triple("Sun", R.drawable.sun_icon, IconGroup.CLUBS),
                     Triple("Sword", R.drawable.sword_icon, IconGroup.CLUBS),
                     Triple("Target", R.drawable.target_icon, IconGroup.DIAMONDS),
                     Triple("Terminal", R.drawable.terminal_icon, IconGroup.SPADES),
+                    Triple("Top Hat", R.drawable.top_hat_icon, IconGroup.HEARTS),
                     Triple("Upload", R.drawable.upload_icon, IconGroup.SPADES),
                     Triple("Window", R.drawable.window_icon, IconGroup.HEARTS),
                 )
@@ -200,13 +205,17 @@ abstract class AppDatabase : RoomDatabase() {
                 for (triple in iconFileNameTriples) {
                     val iconId: Int = triple.second
                     val drawable: Drawable = getDrawable(iconId)
-                    val drawableSize: Int = getDrawableWidth(iconId)
-                    val byteArray = convertDrawableToByteArray(drawable, drawableSize)
+                    val dimensions = getDrawableWidth(iconId)
+
+                    val byteArray = convertDrawableToByteArray(
+                        drawable, dimensions.width, dimensions.height
+                    )
 
                     val icon = Icon(
                         name = triple.first,
                         image = byteArray,
-                        imageSize = drawableSize,
+                        imageWidth = dimensions.width,
+                        imageHeight = dimensions.height,
                         iconGroup = triple.third
                     )
 

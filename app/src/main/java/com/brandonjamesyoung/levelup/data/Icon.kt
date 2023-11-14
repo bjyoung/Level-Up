@@ -17,7 +17,8 @@ data class Icon(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     @ColumnInfo var name: String? = null,
     @ColumnInfo var image: ByteArray,
-    @ColumnInfo var imageSize: Int,
+    @ColumnInfo var imageWidth: Int,
+    @ColumnInfo var imageHeight: Int,
     @ColumnInfo var iconGroup: IconGroup = IconGroup.SPADES,
     @ColumnInfo val dateCreated: Instant? = Instant.now(),
 ) {
@@ -30,7 +31,8 @@ data class Icon(
         if (id != other.id) return false
         if (name != other.name) return false
         if (!image.contentEquals(other.image)) return false
-        if (imageSize != other.imageSize) return false
+        if (imageWidth != other.imageWidth) return false
+        if (imageHeight != other.imageHeight) return false
         if (iconGroup != other.iconGroup) return false
         if (dateCreated != other.dateCreated) return false
 
@@ -41,7 +43,8 @@ data class Icon(
         var result = id
         result = 31 * result + (name?.hashCode() ?: 0)
         result = 31 * result + image.contentHashCode()
-        result = 31 * result + imageSize.hashCode()
+        result = 31 * result + imageWidth.hashCode()
+        result = 31 * result + imageHeight.hashCode()
         result = 31 * result + iconGroup.hashCode()
         result = 31 * result + (dateCreated?.hashCode() ?: 0)
         return result
@@ -54,8 +57,8 @@ data class Icon(
         // Scale up so the icons are not blurry
         val scaledBitmap = Bitmap.createScaledBitmap(
             bitmap,
-            imageSize * ICON_SCALE_UP_RATE,
-            imageSize * ICON_SCALE_UP_RATE,
+            imageWidth * ICON_SCALE_UP_RATE,
+            imageHeight * ICON_SCALE_UP_RATE,
             false
         )
 

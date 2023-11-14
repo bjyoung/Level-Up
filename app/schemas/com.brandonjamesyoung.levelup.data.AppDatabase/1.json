@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a33e199ed5b373f065e8488621791fbb",
+    "identityHash": "adc13231acd1ec121b31362a8d068284",
     "entities": [
       {
         "tableName": "Quest",
@@ -278,7 +278,7 @@
       },
       {
         "tableName": "Icon",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `image` BLOB NOT NULL, `imageSize` INTEGER NOT NULL, `iconGroup` TEXT NOT NULL, `dateCreated` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `image` BLOB NOT NULL, `imageWidth` INTEGER NOT NULL, `imageHeight` INTEGER NOT NULL, `iconGroup` TEXT NOT NULL, `dateCreated` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -299,8 +299,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "imageSize",
-            "columnName": "imageSize",
+            "fieldPath": "imageWidth",
+            "columnName": "imageWidth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageHeight",
+            "columnName": "imageHeight",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -330,7 +336,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a33e199ed5b373f065e8488621791fbb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'adc13231acd1ec121b31362a8d068284')"
     ]
   }
 }

@@ -11,8 +11,8 @@ import java.util.TimeZone
 
 class TypeConverter {
     companion object {
-        fun convertDrawableToByteArray(drawable: Drawable, drawableSize: Int) : ByteArray {
-            val bitmap = drawable.toBitmap(drawableSize, drawableSize)
+        fun convertDrawableToByteArray(drawable: Drawable, width: Int, height: Int) : ByteArray {
+            val bitmap = drawable.toBitmap(width, height)
             val stream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
             return stream.toByteArray()
