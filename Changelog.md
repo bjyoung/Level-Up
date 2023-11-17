@@ -9,6 +9,7 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - Add Advanced Settings page which is reachable from Settings
+- Add more icons
 
 ### Changed
 
@@ -17,10 +18,13 @@ This document tracks all notables changes to the Level Up app.
   - Exp and points are both limited to 999,999 in one go
 - Limit how many points can be spent in one purchase in the shop to prevent overflows
 - Instead of jumping to the new value instantly, the points displayed now increments up to or decrements down to the actual value
+- Increase default rewards for medium, hard and expert difficulties
 
 ### Fixed
 
 - Purchasing items in the shop with a total cost that is zero or negative is now allowed
+- Fix blurry icons
+- Fix floating text in action buttons
 
 ---
 
