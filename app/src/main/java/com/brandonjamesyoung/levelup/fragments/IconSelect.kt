@@ -1,5 +1,6 @@
 package com.brandonjamesyoung.levelup.fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -344,7 +345,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         return targetPosition.absoluteValue - 1
     }
 
-    // Calculate zoom-in deltas to translate to
+    // Calculate zoom-in deltas to translate to (center of screen, spread out horizontally)
     // Position must be between 1 and 4 inclusive
     private fun calculateZoomInDeltas(button: ImageButton, position: Int) : Pair<Float, Float> {
         val windowManager = requireActivity().windowManager
@@ -353,7 +354,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
         val buttonCenterX: Float = button.width.toFloat() / 2F
         val buttonCenterY: Float = button.height.toFloat() / 2F
         val interButtonSpacing: Float = (screenWidth - ZOOM_IN_MARGIN * 2F) / 4F
-        val toX: Float = ZOOM_IN_MARGIN + interButtonSpacing * (position - 1) + buttonCenterX
+        var toX: Float = ZOOM_IN_MARGIN + interButtonSpacing * (position - 1) + buttonCenterX
+        if (!inPortraitMode()) toX += 200 // TODO fix this method so it doesn't rely on magic number to center icons
         val toY: Float = screenHeight * 0.5F - buttonCenterY
         val fromX: Float = button.x - button.translationX
         val fromY: Float = button.y - button.translationY
@@ -532,14 +534,24 @@ class IconSelect : Fragment(R.layout.icon_select) {
         val view = requireView()
         val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
 
+        val numGridRows = if (inPortraitMode()) {
+            resources.getInteger(R.integer.grid_rows_port)
+        } else {
+            resources.getInteger(R.integer.grid_rows_land)
+        }
+
         val horizontalGridLayoutManager = GridLayoutManager(
             view.context,
-            resources.getInteger(R.integer.grid_rows),
+            numGridRows,
             GridLayoutManager.HORIZONTAL,
             false
         )
 
         iconGrid.layoutManager = horizontalGridLayoutManager
+    }
+
+    private fun inPortraitMode(): Boolean {
+        return resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
     }
 
     private fun showNoIconsMessage() {

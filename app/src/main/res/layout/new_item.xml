@@ -71,7 +71,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ItemNameLabel" />
 
-    <include layout="@layout/save_button_set" />
+    <Button
+        android:id="@+id/CancelButton"
+        style="@style/ActionButton.Small"
+        android:contentDescription="@string/cancel_button_content_description"
+        app:icon="@drawable/times_icon_red_large"
+        app:iconTint="@color/warning_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/NewItemBottomGuideline" />
+
+    <Button
+        style="@style/SaveButton"
+        android:id="@+id/ConfirmButton"
+        app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/CancelButton"
+        app:layout_constraintTop_toTopOf="@+id/CancelButton"
+        app:layout_constraintVertical_bias="0.95" />
 
     <androidx.constraintlayout.widget.Guideline
         style="@style/Guideline.Top"

@@ -23,7 +23,6 @@ class RpgSnackbar(
                 viewGroup,
                 false
             ) as RpgSnackbarView
-
             val snackbar = rpgSnackbarLayout.findViewById<TextView>(R.id.RpgSnackbarMessage)
             snackbar.text = message
 

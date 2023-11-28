@@ -9,7 +9,31 @@
 
     <TextView
         style="@style/Text"
-        android:id="@+id/NewIconLabel"
+        android:id="@+id/CostRtLabel"
+        android:layout_marginStart="10dp"
+        android:text="@string/points_acronym"
+        app:layout_constraintBottom_toBottomOf="@+id/CostInput"
+        app:layout_constraintStart_toEndOf="@+id/CostInput"
+        app:layout_constraintTop_toTopOf="@+id/CostInput" />
+
+    <EditText
+        android:id="@+id/CostInput"
+        style="@style/NumInput"
+        android:layout_width="175dp"
+        android:layout_height="48dp"
+        android:autofillHints="@string/cost_input_autofill_hint"
+        android:ems="10"
+        android:hint="@string/cost_input_hint"
+        android:maxLength="5"
+        app:layout_constraintBottom_toBottomOf="@+id/CostLabel"
+        app:layout_constraintEnd_toEndOf="@+id/ItemNameInput"
+        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintStart_toEndOf="@+id/CostLabel"
+        app:layout_constraintTop_toTopOf="@+id/CostLabel" />
+
+    <TextView
+        style="@style/Text"
+        android:id="@+id/NewItemLabel"
         android:text="@string/new_item_label"
         app:layout_constraintBottom_toTopOf="@+id/NewItemTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,18 +41,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/IconNameLabel"
+        android:id="@+id/ItemNameLabel"
         style="@style/Label"
         android:text="@string/name_label"
-        app:layout_constraintEnd_toEndOf="@+id/IconNameInput"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
+        app:layout_constraintEnd_toEndOf="@+id/ItemNameInput"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/IconNameInput"
-        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline" />
+        app:layout_constraintStart_toStartOf="@+id/ItemNameInput"
+        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintVertical_bias="0.19999999" />
+
+    <TextView
+        android:id="@+id/CostLabel"
+        style="@style/Label"
+        android:text="@string/cost_input_label"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
+        app:layout_constraintStart_toStartOf="@+id/ItemNameInput"
+        app:layout_constraintTop_toBottomOf="@+id/ItemNameInput"
+        app:layout_constraintVertical_bias="0.42000002" />
 
     <EditText
+        android:id="@+id/ItemNameInput"
         style="@style/TextInput"
-        android:id="@+id/IconNameInput"
-        android:layout_width="325dp"
+        android:layout_width="350dp"
         android:layout_marginTop="8dp"
         android:autofillHints="item_name"
         android:ems="10"
@@ -36,8 +71,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/IconNameLabel" />
-
+        app:layout_constraintTop_toBottomOf="@+id/ItemNameLabel" />
 
     <Button
         android:id="@+id/CancelButton"

@@ -147,11 +147,20 @@
     <style name="Guideline.Top">
         <item name="layout_constraintGuide_percent">0.1</item>
     </style>
+    <style name="Guideline.Top_Land">
+        <item name="layout_constraintGuide_percent">0.16</item>
+    </style>
     <style name="Guideline.Bottom">
         <item name="layout_constraintGuide_percent">0.8</item>
     </style>
+    <style name="Guideline.Bottom_Land">
+        <item name="layout_constraintGuide_percent">0.85</item>
+    </style>
     <style name="Guideline.FarBottom">
         <item name="layout_constraintGuide_percent">0.85</item>
+    </style>
+    <style name="Guideline.FarBottom_Land">
+        <item name="layout_constraintGuide_percent">0.79</item>
     </style>
     <style name="Guideline.Left">
         <item name="layout_constraintGuide_percent">0.15</item>

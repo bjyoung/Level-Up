@@ -4,6 +4,14 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.7.9
+
+### Fixed
+
+- Make the app work in landscape mode
+
+---
+
 ## 0.7.8
 
 ### Added

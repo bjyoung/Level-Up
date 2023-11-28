@@ -10,17 +10,17 @@
     <TextView
         android:id="@+id/ShopNameLabel"
         style="@style/Text"
-        android:layout_marginBottom="2dp"
         android:text="@string/name_label"
-        app:layout_constraintBottom_toTopOf="@+id/TableDivider"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline" />
 
     <TextView
         android:id="@+id/PriceLabel"
         style="@style/Text"
-        android:layout_marginBottom="2dp"
         android:text="@string/price_column_label"
-        app:layout_constraintBottom_toTopOf="@+id/ItemListScrollView"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
         app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline" />
 
     <com.google.android.material.button.MaterialButton
@@ -87,11 +87,11 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/ShopTopGuideline"
-        style="@style/Guideline.Top" />
+        style="@style/Guideline.Top_Land" />
 
     <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.FarBottom"
-        android:id="@+id/ShopBottomGuideline" />
+        android:id="@+id/ShopBottomGuideline"
+        style="@style/Guideline.FarBottom_Land" />
 
     <androidx.constraintlayout.widget.Guideline
         style="@style/Guideline.Left"
@@ -108,23 +108,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/table_icon_padding"
-        android:layout_marginBottom="2dp"
         android:background="@drawable/arrow_down_icon"
         android:backgroundTint="@color/white"
         android:contentDescription="@string/name_sort_icon_content_description"
         app:iconTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/TableDivider"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
         app:layout_constraintStart_toEndOf="@+id/ShopNameLabel" />
 
     <View
         android:id="@+id/TableDivider"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:layout_marginTop="20dp"
         android:background="#c0c0c0"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
         app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
-        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
-        app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
+        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline" />
 
     <ScrollView
         android:id="@+id/ItemListScrollView"
@@ -132,9 +130,11 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/ShopBottomGuideline"
         app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/TableDivider"
+        app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
