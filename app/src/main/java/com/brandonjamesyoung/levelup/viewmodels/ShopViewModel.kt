@@ -18,6 +18,7 @@ import javax.inject.Inject
 class ShopViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val itemRepository: ItemRepository,
+    private val itemHistoryRepository: ItemHistoryRepository,
     private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository,
 ) : BaseViewModel() {
@@ -76,6 +77,7 @@ class ShopViewModel @Inject constructor(
         } else {
             player.points -= totalCost
             playerRepository.update(player)
+            itemHistoryRepository.record(ids)
             val numItemsBought = ids.count()
             Log.i(TAG, "Player bought $numItemsBought item(s) for $totalCost $pointsAcronym")
             val displayedMessage = getPurchaseMessage(numItemsBought, totalCost, pointsAcronym)

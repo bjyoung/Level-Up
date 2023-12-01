@@ -32,6 +32,7 @@ import kotlinx.coroutines.*
         Settings::class,
         Difficulty::class,
         Item::class,
+        PurchasedItem::class,
         Icon::class
     ],
     version = 1,
@@ -49,6 +50,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun difficultyDao(): DifficultyDao
 
     abstract fun itemDao(): ItemDao
+
+    abstract fun itemHistoryDao(): ItemHistoryDao
 
     abstract fun iconDao(): IconDao
 

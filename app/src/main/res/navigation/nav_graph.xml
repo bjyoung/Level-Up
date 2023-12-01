@@ -128,6 +128,13 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_shop_to_itemHistory"
+            app:destination="@id/itemHistory"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
     </fragment>
     <fragment
         android:id="@+id/newItem"
@@ -219,5 +226,19 @@
             app:exitAnim="@anim/slide_out_up"
             app:popEnterAnim="@anim/slide_in_down"
             app:popExitAnim="@anim/slide_out_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemHistory"
+        android:name="com.brandonjamesyoung.levelup.fragments.ItemHistory"
+        android:label="ItemHistory"
+        tools:layout="@layout/item_history"
+        >
+        <action
+            android:id="@+id/action_itemHistory_to_shop"
+            app:destination="@id/shop"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
     </fragment>
 </navigation>

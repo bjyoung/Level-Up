@@ -16,80 +16,26 @@
         app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline" />
 
     <TextView
-        android:id="@+id/PriceLabel"
+        android:id="@+id/CostLabel"
         style="@style/Text"
-        android:layout_marginBottom="2dp"
-        android:text="@string/price_column_label"
-        app:layout_constraintBottom_toTopOf="@+id/ItemListScrollView"
+        android:text="@string/cost_column_label"
+        app:layout_constraintBottom_toBottomOf="@+id/ShopNameLabel"
         app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/ShopButton"
         style="@style/NavButton"
-        android:id="@+id/QuestListButton"
-        android:contentDescription="@string/quest_list_button_description"
-        app:icon="@drawable/bullet_list_icon_large"
-        app:layout_constraintBottom_toBottomOf="@+id/AddNewItemButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ShopRightGuideline"
-        app:layout_constraintTop_toTopOf="@+id/AddNewItemButton" />
-
-    <com.google.android.material.button.MaterialButton
-        style="@style/NavButton"
-        android:id="@+id/AddNewItemButton"
-        android:contentDescription="@string/new_item_button_description"
-        app:icon="@drawable/plus_icon_large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ShopLeftGuideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ShopBottomGuideline" />
-
-    <com.google.android.material.button.MaterialButton
-        style="@style/NavButton"
-        android:id="@+id/ShopSettingsButton"
-        android:contentDescription="@string/settings_button_description"
-        app:icon="@drawable/gear_icon_large"
-        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
-        app:layout_constraintEnd_toEndOf="@+id/QuestListButton"
-        app:layout_constraintStart_toStartOf="@+id/QuestListButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/ItemHistoryButton"
-        style="@style/NavButton"
-        android:contentDescription="@string/item_history_button_description"
-        app:icon="@drawable/clock_icon_large"
+        android:contentDescription="@string/shop_button_description"
+        app:icon="@drawable/shopping_bag_icon_large"
         app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
         app:layout_constraintEnd_toStartOf="@+id/ShopLeftGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/PointsLabel"
-        style="@style/Text"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:hint="@string/placeholder_text"
-        android:minHeight="48dp"
-        android:text="@string/points_acronym"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
-        app:layout_constraintEnd_toStartOf="@+id/ShopLabel"
-        app:layout_constraintStart_toEndOf="@+id/ItemHistoryButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
-
-    <TextView
-        style="@style/Text"
-        android:id="@+id/PointsAmount"
-        android:text="@string/points_amount"
-        app:layout_constraintEnd_toEndOf="@+id/PointsLabel"
-        app:layout_constraintStart_toStartOf="@+id/PointsLabel"
-        app:layout_constraintTop_toBottomOf="@+id/PointsLabel" />
 
     <TextView
         style="@style/Text"
         android:id="@+id/ShopLabel"
-        android:text="@string/shop_label"
+        android:text="@string/item_history_label"
         app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +83,7 @@
         app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
 
     <ScrollView
-        android:id="@+id/ItemListScrollView"
+        android:id="@+id/ItemHistoryScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -148,7 +94,7 @@
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
-            android:id="@+id/ItemListLinearLayout"
+            android:id="@+id/ItemHistoryLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

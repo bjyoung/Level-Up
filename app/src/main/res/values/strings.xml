@@ -105,9 +105,14 @@
     <string name="points_acronym_default">RT</string>
     <string name="name_sort_icon_content_description">White arrow pointing down</string>
     <string name="quest_list_button_description">Navigate to the Quest List page</string>
+    <string name="item_history_button_description">Navigate to the Item History page</string>
     <string name="new_item_button_description">Navigate to the New Item page</string>
     <string name="example_item_name">Item Name</string>
     <string name="example_item_cost">1</string>
+
+    <!-- Item History strings -->
+    <string name="item_history_label">Item History</string>
+    <string name="cost_column_label">Cost</string>
 
     <!-- New Item strings -->
     <string name="new_item_label">New Item</string>

@@ -33,7 +33,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class QuestList: Fragment(R.layout.quest_list) {
     private val viewModel: QuestListViewModel by activityViewModels()

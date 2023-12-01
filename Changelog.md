@@ -6,6 +6,13 @@ This document tracks all notables changes to the Level Up app.
 
 ## 0.7.9
 
+### Added
+
+- Add Item History page
+  - Accessible via the clock button on the Shop
+  - Displays items the user bought from latest to oldest
+  - Only keeps track of the latest 200 items purchased
+
 ### Fixed
 
 - Make the app work in landscape mode

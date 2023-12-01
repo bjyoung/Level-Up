@@ -74,6 +74,11 @@ class Shop : Fragment(R.layout.shop) {
         )
     }
 
+    private fun navigateToItemHistory() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_itemHistory)
+        Log.i(TAG, "Going from Shop to Item History")
+    }
+
     private fun navigateToSettings() {
         val action = ShopDirections.actionShopToSettings(R.id.Shop)
         NavHostFragment.findNavController(this).navigate(action)
@@ -90,12 +95,23 @@ class Shop : Fragment(R.layout.shop) {
         )
     }
 
+    private fun activateItemHistoryButton() {
+        buttonConverter.convertNavButton(
+            targetId = R.id.ItemHistoryButton,
+            iconDrawableId = R.drawable.clock_icon_large,
+            buttonMethod = ::navigateToItemHistory,
+            view = requireView(),
+            resources = resources
+        )
+    }
+
     private fun activateDefaultMode() {
         selectedItemIds.clear()
         selectedItemRowIds.clear()
         activateNewItemButton()
         activateQuestListButton()
         activateSettingsButton()
+        activateItemHistoryButton()
     }
 
     private fun cancelSelectedItems() {
@@ -156,6 +172,7 @@ class Shop : Fragment(R.layout.shop) {
         activateCancelButton()
         activateDeleteButton()
         activateBuyButton()
+        activateItemHistoryButton()
     }
 
     private fun isSelected(itemId: Int) : Boolean {
