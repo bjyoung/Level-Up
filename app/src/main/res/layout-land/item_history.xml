@@ -2,62 +2,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Shop"
+    android:id="@+id/ItemHistory"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_primary">
 
     <TextView
-        android:id="@+id/ShopNameLabel"
+        android:id="@+id/ItemNameLabel"
         style="@style/Text"
         android:layout_marginBottom="2dp"
         android:text="@string/name_label"
         app:layout_constraintBottom_toTopOf="@+id/TableDivider"
-        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline" />
+        app:layout_constraintStart_toStartOf="@+id/ItemHistoryLeftGuideline" />
 
     <TextView
         android:id="@+id/CostLabel"
         style="@style/Text"
         android:text="@string/cost_column_label"
-        app:layout_constraintBottom_toBottomOf="@+id/ShopNameLabel"
-        app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline" />
+        app:layout_constraintBottom_toBottomOf="@+id/ItemNameLabel"
+        app:layout_constraintEnd_toStartOf="@+id/ItemHistoryRightGuideline" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/ShopButton"
         style="@style/NavButton"
         android:contentDescription="@string/shop_button_description"
         app:icon="@drawable/shopping_bag_icon_large"
-        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
-        app:layout_constraintEnd_toStartOf="@+id/ShopLeftGuideline"
+        app:layout_constraintBottom_toTopOf="@+id/ItemHistoryTopGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/ItemHistoryLeftGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         style="@style/Text"
-        android:id="@+id/ShopLabel"
+        android:id="@+id/ItemHistoryLabel"
         android:text="@string/item_history_label"
-        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintBottom_toTopOf="@+id/ItemHistoryTopGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ShopTopGuideline"
+        android:id="@+id/ItemHistoryTopGuideline"
         style="@style/Guideline.Top_Land" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ShopBottomGuideline"
+        android:id="@+id/ItemHistoryBottomGuideline"
         style="@style/Guideline.FarBottom_Land" />
 
     <androidx.constraintlayout.widget.Guideline
         style="@style/Guideline.Left"
         android:orientation="vertical"
-        android:id="@+id/ShopLeftGuideline" />
+        android:id="@+id/ItemHistoryLeftGuideline" />
 
     <androidx.constraintlayout.widget.Guideline
         style="@style/Guideline.Right"
         android:orientation="vertical"
-        android:id="@+id/ShopRightGuideline" />
+        android:id="@+id/ItemHistoryRightGuideline" />
 
     <ImageView
         android:id="@+id/NameSortIcon"
@@ -70,27 +70,27 @@
         android:contentDescription="@string/name_sort_icon_content_description"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/TableDivider"
-        app:layout_constraintStart_toEndOf="@+id/ShopNameLabel" />
+        app:layout_constraintStart_toEndOf="@+id/ItemNameLabel" />
 
     <View
         android:id="@+id/TableDivider"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="#c0c0c0"
-        app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
-        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
-        app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
+        app:layout_constraintEnd_toStartOf="@+id/ItemHistoryRightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/ItemHistoryLeftGuideline"
+        app:layout_constraintTop_toTopOf="@+id/ItemHistoryTopGuideline" />
 
     <ScrollView
         android:id="@+id/ItemHistoryScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/ItemHistoryRightGuideline"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ShopBottomGuideline"
-        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
-        app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintStart_toEndOf="@+id/ItemHistoryBottomGuideline"
+        app:layout_constraintStart_toStartOf="@+id/ItemHistoryLeftGuideline"
+        app:layout_constraintTop_toTopOf="@+id/ItemHistoryTopGuideline"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck">
 

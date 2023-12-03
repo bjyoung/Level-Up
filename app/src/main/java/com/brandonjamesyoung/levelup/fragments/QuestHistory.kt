@@ -3,6 +3,7 @@ package com.brandonjamesyoung.levelup.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -33,13 +34,12 @@ class QuestHistory: Fragment(R.layout.quest_history) {
     }
 
     private fun activateQuestListButton() {
-        buttonConverter.convertNavButton(
-            targetId = R.id.QuestListQuestHistoryButton,
-            iconDrawableId = R.drawable.bullet_list_icon,
-            buttonMethod = ::navigateToQuestList,
-            view = requireView(),
-            resources = resources
-        )
+        val view = requireView()
+        val questListButton = view.findViewById<Button>(R.id.QuestListQuestHistoryButton)
+
+        questListButton.setOnClickListener {
+            navigateToQuestList()
+        }
     }
 
     // TODO similar to createQuestCard() in QuestList.kt, possible simplification opportunity

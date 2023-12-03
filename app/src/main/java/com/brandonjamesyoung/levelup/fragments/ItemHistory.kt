@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -31,13 +32,12 @@ class ItemHistory : Fragment(R.layout.item_history) {
     }
 
     private fun activateShopButton() {
-        buttonConverter.convertNavButton(
-            targetId = R.id.ShopButton,
-            iconDrawableId = R.drawable.shopping_bag_icon_large,
-            buttonMethod = ::navigateToShop,
-            view = requireView(),
-            resources = resources
-        )
+        val view = requireView()
+        val questListButton = view.findViewById<Button>(R.id.ShopButton)
+
+        questListButton.setOnClickListener {
+            navigateToShop()
+        }
     }
 
     private fun createItemRow(
