@@ -44,6 +44,7 @@
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_hint</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
     <style name="NumInput" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">wrap_content</item>
@@ -55,6 +56,7 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textColorHint">@color/hint_primary</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
     <style name="NumInput.Small">
         <item name="android:layout_width">0dp</item>
