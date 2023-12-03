@@ -31,32 +31,30 @@
     </style>
 
     <!-- Input Fields -->
-    <style name="TextInput" parent="Widget.AppCompat.EditText">
+    <style name="EditText" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/rounded_rectangle</item>
-        <item name="android:backgroundTint">@color/background_secondary</item>
         <item name="android:fontFamily">@font/press_start_2p</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+    <style name="TextInput" parent="EditText">
+        <item name="android:background">@drawable/rounded_rectangle</item>
+        <item name="android:backgroundTint">@color/background_secondary</item>
         <item name="android:minHeight">48dp</item>
         <item name="android:paddingHorizontal">15dp</item>
         <item name="android:paddingVertical">10dp</item>
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_hint</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textCursorDrawable">@null</item>
     </style>
-    <style name="NumInput" parent="Widget.AppCompat.EditText">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="NumInput" parent="EditText">
         <item name="android:background">@drawable/white_border</item>
-        <item name="android:fontFamily">@font/press_start_2p</item>
-        <item name="android:includeFontPadding">false</item>
         <item name="android:inputType">numberSigned</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textColorHint">@color/hint_primary</item>
-        <item name="android:textCursorDrawable">@null</item>
     </style>
     <style name="NumInput.Small">
         <item name="android:layout_width">0dp</item>

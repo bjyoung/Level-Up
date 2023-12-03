@@ -17,6 +17,7 @@ This document tracks all notables changes to the Level Up app.
 
 - Make the app work in landscape mode
 - Change input field cursor color to match the input text so it is easier to see
+- Prevent jumps between input fields on confirmation
 
 ---
 
