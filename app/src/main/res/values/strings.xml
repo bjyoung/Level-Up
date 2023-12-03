@@ -138,4 +138,9 @@
 
     <!-- Quest History strings -->
     <string name="quest_history_label">Quest History</string>
+
+    <!-- About strings -->
+    <string name="authorship">By Brandon Young</string>
+    <string name="app_version">Version %1$s</string>
+    <string name="back_button_content_description">Back button</string>
 </resources>

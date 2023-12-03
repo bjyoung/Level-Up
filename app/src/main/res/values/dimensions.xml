@@ -40,4 +40,7 @@
     <!-- Icon Select -->
     <dimen name="icon_group_button_width">50dp</dimen>
     <dimen name="icon_group_button_height">25dp</dimen>
+
+    <!-- About -->
+    <dimen name="about_description_margin">25dp</dimen>
 </resources>

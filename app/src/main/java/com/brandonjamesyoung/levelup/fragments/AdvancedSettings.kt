@@ -18,12 +18,18 @@ import kotlinx.coroutines.launch
 class AdvancedSettings : Fragment(R.layout.advanced_settings) {
     private val viewModel: AdvancedSettingsViewModel by activityViewModels()
 
+    private fun navigateToAboutPage() {
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_advancedSettings_to_about)
+        Log.i(TAG, "Going from Advanced Settings to About")
+    }
+
     private fun setupAboutButton() {
         val view = requireView()
         val aboutButton = view.findViewById<Button>(R.id.AboutButton)
 
         aboutButton.setOnClickListener{
-            viewModel.showSnackbar("Not implemented yet")
+            navigateToAboutPage()
         }
     }
 

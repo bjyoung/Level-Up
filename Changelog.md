@@ -12,6 +12,9 @@ This document tracks all notables changes to the Level Up app.
   - Accessible via the clock button on the Shop
   - Displays items the user bought from latest to oldest
   - Only keeps track of the latest 200 items purchased
+- Add About page
+  - Provides basic details about the app
+  - Accessible from the Advanced Settings page
 
 ### Fixed
 

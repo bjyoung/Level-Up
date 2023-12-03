@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/About"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary">
+
+    <TextView
+        android:id="@+id/AboutLabel"
+        style="@style/Text.About"
+        android:text="@string/app_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35000002" />
+
+    <TextView
+        android:id="@+id/AboutAuthor"
+        style="@style/Text.About"
+        android:layout_marginTop="@dimen/about_description_margin"
+        android:text="@string/authorship"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AboutLabel" />
+
+    <TextView
+        android:id="@+id/VersionDescription"
+        style="@style/Text.About"
+        android:layout_marginTop="@dimen/about_description_margin"
+        android:text="@string/app_version"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AboutAuthor" />
+
+    <Button
+        android:id="@+id/BackButton"
+        style="@style/ActionButton.Large"
+        android:contentDescription="@string/back_button_content_description"
+        app:icon="@drawable/arrow_down_icon_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/AboutBottomGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        style="@style/Guideline.FarBottom"
+        android:id="@+id/AboutBottomGuideline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
