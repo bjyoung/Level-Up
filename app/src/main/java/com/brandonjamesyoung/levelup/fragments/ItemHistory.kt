@@ -2,6 +2,7 @@ package com.brandonjamesyoung.levelup.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -13,8 +14,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.constants.ITEM_ROW_LANDSCAPE_WIDTH_DP
 import com.brandonjamesyoung.levelup.data.PurchasedItem
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
+import com.brandonjamesyoung.levelup.utility.OrientationManager
 import com.brandonjamesyoung.levelup.viewmodels.ItemHistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -53,6 +56,19 @@ class ItemHistory : Fragment(R.layout.item_history) {
         newItemRow.id = View.generateViewId()
         val itemName = newItemRow.findViewById<TextView>(R.id.ItemName)
         val defaultName = getString(R.string.placeholder_text)
+
+        // TODO instead of setting a constant for item row width, set up constraints so
+        //  that item name is automatically extended no matter what device it is on
+        if (!OrientationManager.inPortraitMode(resources)) {
+            val itemNameLandscapeWidth = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                ITEM_ROW_LANDSCAPE_WIDTH_DP,
+                resources.displayMetrics
+            )
+
+            itemName.layoutParams.width = itemNameLandscapeWidth.toInt()
+        }
+
         itemName.text = purchasedItem.name ?: defaultName
         val itemCost = newItemRow.findViewById<TextView>(R.id.ItemCost)
         itemCost.text = purchasedItem.cost.toString()

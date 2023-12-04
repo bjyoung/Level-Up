@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
@@ -15,11 +16,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.constants.ITEM_ROW_LANDSCAPE_WIDTH_DP
 import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.constants.POINT_UPDATE_ANIM_DURATION
+import com.brandonjamesyoung.levelup.utility.OrientationManager.Companion.inPortraitMode
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -221,6 +224,19 @@ class Shop : Fragment(R.layout.shop) {
         val itemName = newItemRow.findViewById<TextView>(R.id.ItemName)
         val defaultName = getString(R.string.placeholder_text)
         itemName.text = item.name ?: defaultName
+
+        // TODO instead of setting a constant for item row width, set up constraints so
+        //  that item name is automatically extended no matter what device it is on
+        if (!inPortraitMode(resources)) {
+            val itemNameLandscapeWidth = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                ITEM_ROW_LANDSCAPE_WIDTH_DP,
+                resources.displayMetrics
+            )
+
+            itemName.layoutParams.width = itemNameLandscapeWidth.toInt()
+        }
+
         val itemCost = newItemRow.findViewById<TextView>(R.id.ItemCost)
         itemCost.text = item.cost.toString()
 

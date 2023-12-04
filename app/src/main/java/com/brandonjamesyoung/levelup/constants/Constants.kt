@@ -45,3 +45,6 @@ const val MAX_POINTS_PER_PURCHASE: Int = INT_LIMIT
 
 // Icon constants
 const val ICON_SCALE_UP_RATE: Int = 4
+
+// Shop/Item History constants
+const val ITEM_ROW_LANDSCAPE_WIDTH_DP = 500f

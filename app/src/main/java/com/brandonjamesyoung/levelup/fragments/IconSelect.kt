@@ -1,6 +1,5 @@
 package com.brandonjamesyoung.levelup.fragments
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,6 +22,7 @@ import com.brandonjamesyoung.levelup.adapters.IconGridAdapter
 import com.brandonjamesyoung.levelup.data.Icon
 import com.brandonjamesyoung.levelup.data.SelectedIcon
 import com.brandonjamesyoung.levelup.utility.*
+import com.brandonjamesyoung.levelup.utility.OrientationManager.Companion.inPortraitMode
 import com.brandonjamesyoung.levelup.utility.ScreenHelper.Companion.getScreenHeight
 import com.brandonjamesyoung.levelup.utility.ScreenHelper.Companion.getScreenWidth
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
@@ -355,7 +355,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         val buttonCenterY: Float = button.height.toFloat() / 2F
         val interButtonSpacing: Float = (screenWidth - ZOOM_IN_MARGIN * 2F) / 4F
         var toX: Float = ZOOM_IN_MARGIN + interButtonSpacing * (position - 1) + buttonCenterX
-        if (!inPortraitMode()) toX += 200 // TODO fix this method so it doesn't rely on magic number to center icons
+        if (!inPortraitMode(resources)) toX += 200 // TODO fix this method so it doesn't rely on magic number to center icons
         val toY: Float = screenHeight * 0.5F - buttonCenterY
         val fromX: Float = button.x - button.translationX
         val fromY: Float = button.y - button.translationY
@@ -534,7 +534,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         val view = requireView()
         val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
 
-        val numGridRows = if (inPortraitMode()) {
+        val numGridRows = if (inPortraitMode(resources)) {
             resources.getInteger(R.integer.grid_rows_port)
         } else {
             resources.getInteger(R.integer.grid_rows_land)
@@ -548,10 +548,6 @@ class IconSelect : Fragment(R.layout.icon_select) {
         )
 
         iconGrid.layoutManager = horizontalGridLayoutManager
-    }
-
-    private fun inPortraitMode(): Boolean {
-        return resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
     }
 
     private fun showNoIconsMessage() {
