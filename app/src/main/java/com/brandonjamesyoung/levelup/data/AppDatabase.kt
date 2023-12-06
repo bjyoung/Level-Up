@@ -20,7 +20,6 @@ import com.brandonjamesyoung.levelup.constants.INIT_HARD_POINTS
 import com.brandonjamesyoung.levelup.constants.INIT_MEDIUM_EXP
 import com.brandonjamesyoung.levelup.constants.INIT_MEDIUM_POINTS
 import com.brandonjamesyoung.levelup.constants.IconGroup
-import com.brandonjamesyoung.levelup.utility.*
 import com.brandonjamesyoung.levelup.utility.TypeConverter.Companion.convertDrawableToByteArray
 import kotlinx.coroutines.*
 
@@ -31,7 +30,7 @@ import kotlinx.coroutines.*
         Player::class,
         Settings::class,
         Difficulty::class,
-        Item::class,
+        ShopItem::class,
         PurchasedItem::class,
         Icon::class
     ],
@@ -49,7 +48,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun difficultyDao(): DifficultyDao
 
-    abstract fun itemDao(): ItemDao
+    abstract fun shopItemDao(): ShopItemDao
 
     abstract fun itemHistoryDao(): ItemHistoryDao
 

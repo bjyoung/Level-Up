@@ -8,32 +8,32 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ItemRepository @Inject constructor(
+class ShopItemRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
-    private val itemDao: ItemDao
+    private val shopItemDao: ShopItemDao
 ) {
-    fun observeAll() = itemDao.observeAll()
+    fun observeAll() = shopItemDao.observeAll()
 
-    fun observe(id: Int) = itemDao.observe(id)
+    fun observe(id: Int) = shopItemDao.observe(id)
 
-    fun get(id: Int) = itemDao.get(id)
+    fun get(id: Int) = shopItemDao.get(id)
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun getCosts(ids: Set<Int>) = itemDao.getCosts(ids)
+    suspend fun getCosts(ids: Set<Int>) = shopItemDao.getCosts(ids)
 
     @WorkerThread
-    suspend fun insert(item: Item) = externalScope.launch {
-        itemDao.insert(item)
+    suspend fun insert(shopItem: ShopItem) = externalScope.launch {
+        shopItemDao.insert(shopItem)
     }
 
     @WorkerThread
-    suspend fun update(item: Item) = externalScope.launch {
-        itemDao.update(item)
+    suspend fun update(shopItem: ShopItem) = externalScope.launch {
+        shopItemDao.update(shopItem)
     }
 
     @WorkerThread
     suspend fun delete(ids: Set<Int>) = externalScope.launch {
-        itemDao.delete(ids)
+        shopItemDao.delete(ids)
     }
 }

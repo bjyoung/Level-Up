@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.data.Item
+import com.brandonjamesyoung.levelup.data.ShopItem
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewItemViewModel
@@ -85,16 +85,16 @@ class NewItem : Fragment(R.layout.new_item) {
         val costInputText = costInput.text
         val cost = if (costInputText.isBlank()) DEFAULT_COST else costInputText.toString().toInt()
 
-        val item = Item(
+        val shopItem = ShopItem(
             name = name,
             cost = cost,
         )
 
         if (mode.value == Mode.DEFAULT) {
-            viewModel.insert(item)
+            viewModel.insert(shopItem)
         } else if (mode.value == Mode.EDIT) {
-            item.id = args.itemId
-            viewModel.update(item)
+            shopItem.id = args.itemId
+            viewModel.update(shopItem)
         }
     }
 
@@ -110,12 +110,12 @@ class NewItem : Fragment(R.layout.new_item) {
         }
     }
 
-    private fun loadItem(item: Item) {
+    private fun loadItem(shopItem: ShopItem) {
         val view = requireView()
         val nameInput = view.findViewById<EditText>(R.id.ItemNameInput)
-        nameInput.setText(item.name)
+        nameInput.setText(shopItem.name)
         val costInput = view.findViewById<EditText>(R.id.CostInput)
-        costInput.setText(item.cost.toString())
+        costInput.setText(shopItem.cost.toString())
     }
 
     private fun activateEditMode() {

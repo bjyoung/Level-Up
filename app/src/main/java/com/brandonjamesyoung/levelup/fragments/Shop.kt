@@ -4,10 +4,9 @@ import android.animation.ValueAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,15 +15,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.constants.ITEM_ROW_LANDSCAPE_WIDTH_DP
-import com.brandonjamesyoung.levelup.data.Item
+import com.brandonjamesyoung.levelup.data.ShopItem
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.constants.POINT_UPDATE_ANIM_DURATION
-import com.brandonjamesyoung.levelup.utility.OrientationManager.Companion.inPortraitMode
+import com.brandonjamesyoung.levelup.utility.ItemTableManager
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,6 +39,8 @@ class Shop : Fragment(R.layout.shop) {
     private val selectedItemRowIds: MutableSet<Int> = mutableSetOf()
 
     @Inject lateinit var buttonConverter: ButtonConverter
+
+    @Inject lateinit var itemTableManager: ItemTableManager
 
     private fun navigateToNewItem(itemId: Int? = null) {
         val action = if (itemId != null) {
@@ -99,13 +100,12 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun activateItemHistoryButton() {
-        buttonConverter.convertNavButton(
-            targetId = R.id.ItemHistoryButton,
-            iconDrawableId = R.drawable.clock_icon_large,
-            buttonMethod = ::navigateToItemHistory,
-            view = requireView(),
-            resources = resources
-        )
+        val view = requireView()
+        val itemHistoryButton = view.findViewById<MaterialButton>(R.id.ItemHistoryButton)
+
+        itemHistoryButton.setOnClickListener {
+            navigateToItemHistory()
+        }
     }
 
     private fun activateDefaultMode() {
@@ -206,56 +206,33 @@ class Shop : Fragment(R.layout.shop) {
         }
     }
 
-    private fun longPressItemRow(item: Item) {
+    private fun longPressItemRow(shopItem: ShopItem) {
         if (viewModel.mode.value == Mode.DEFAULT) {
-            Log.i(TAG, "Item '${item.name}' is long pressed")
-            navigateToNewItem(item.id)
+            Log.i(TAG, "Item '${shopItem.name}' is long pressed")
+            navigateToNewItem(shopItem.id)
         }
     }
 
-    private fun createItemRow(item: Item, parentLayout: ViewGroup) : ConstraintLayout {
-        val newItemRow = layoutInflater.inflate(
-            R.layout.item_row,
-            parentLayout,
-            false
-        ) as ConstraintLayout
+    private fun addItemRow(shopItem: ShopItem) {
+        val view = requireView()
+        val itemListLayout = view.findViewById<LinearLayout>(R.id.ItemListLinearLayout)
 
-        newItemRow.id = View.generateViewId()
-        val itemName = newItemRow.findViewById<TextView>(R.id.ItemName)
-        val defaultName = getString(R.string.placeholder_text)
-        itemName.text = item.name ?: defaultName
+        val itemRow: ConstraintLayout = itemTableManager.createItemRow(
+            shopItem,
+            layoutInflater,
+            itemListLayout,
+            resources
+        )
 
-        // TODO instead of setting a constant for item row width, set up constraints so
-        //  that item name is automatically extended no matter what device it is on
-        if (!inPortraitMode(resources)) {
-            val itemNameLandscapeWidth = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                ITEM_ROW_LANDSCAPE_WIDTH_DP,
-                resources.displayMetrics
-            )
-
-            itemName.layoutParams.width = itemNameLandscapeWidth.toInt()
+        itemRow.setOnClickListener{
+            selectItem(shopItem.id, itemRow)
         }
 
-        val itemCost = newItemRow.findViewById<TextView>(R.id.ItemCost)
-        itemCost.text = item.cost.toString()
-
-        newItemRow.setOnClickListener{
-            selectItem(item.id, newItemRow)
-        }
-
-        newItemRow.setOnLongClickListener {
-            longPressItemRow(item)
+        itemRow.setOnLongClickListener {
+            longPressItemRow(shopItem)
             true
         }
 
-        return newItemRow
-    }
-
-    private fun addItemRow(item: Item) {
-        val view = requireView()
-        val itemListLayout = view.findViewById<LinearLayout>(R.id.ItemListLinearLayout)
-        val itemRow = createItemRow(item, itemListLayout)
         itemListLayout.addView(itemRow)
     }
 
@@ -305,14 +282,11 @@ class Shop : Fragment(R.layout.shop) {
             }
         }
 
-        viewModel.itemList.observe(viewLifecycleOwner) { itemList ->
+        viewModel.shopItemList.observe(viewLifecycleOwner) { itemList ->
             val itemListLayout = view.findViewById<LinearLayout>(R.id.ItemListLinearLayout)
             itemListLayout.removeAllViews()
             val sortedItemList = itemList.sortedBy { it.dateCreated }
-
-            for (item in sortedItemList) {
-                addItemRow(item)
-            }
+            sortedItemList.forEach { item -> addItemRow(item) }
         }
 
         viewModel.player.observe(viewLifecycleOwner) { player ->

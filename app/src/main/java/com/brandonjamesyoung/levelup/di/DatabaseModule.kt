@@ -41,8 +41,8 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideItemDao(appDatabase: AppDatabase): ItemDao {
-        return appDatabase.itemDao()
+    fun provideShopItemDao(appDatabase: AppDatabase): ShopItemDao {
+        return appDatabase.shopItemDao()
     }
 
     @Provides

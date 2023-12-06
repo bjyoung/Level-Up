@@ -14,44 +14,44 @@ import javax.inject.Inject
 @HiltViewModel
 class NewItemViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val itemRepository: ItemRepository,
+    private val shopItemRepository: ShopItemRepository,
     private val settingsRepository: SettingsRepository
 ) : BaseViewModel() {
     suspend fun getSettings() : Settings {
         return settingsRepository.get()
     }
 
-    fun getItem(id: Int) : LiveData<Item> {
-        return itemRepository.observe(id).asLiveData()
+    fun getItem(id: Int) : LiveData<ShopItem> {
+        return shopItemRepository.observe(id).asLiveData()
     }
 
-    private suspend fun logItemSave(item: Item, isEdit: Boolean = false) {
+    private suspend fun logItemSave(shopItem: ShopItem, isEdit: Boolean = false) {
         var logMessage = if (!isEdit) {
             "Add new item with "
         } else {
             "Edit item to have "
         }
 
-        logMessage += if (item.name != null) "name '${item.name}'" else "no name"
+        logMessage += if (shopItem.name != null) "name '${shopItem.name}'" else "no name"
 
         logMessage += if (!isEdit) {
-            " that costs ${item.cost} "
+            " that costs ${shopItem.cost} "
         } else {
-            " and cost ${item.cost} "
+            " and cost ${shopItem.cost} "
         }
 
         logMessage += settingsRepository.get().pointsAcronym
         Log.i(TAG, logMessage)
     }
 
-    fun insert(item: Item) = viewModelScope.launch(ioDispatcher) {
-        itemRepository.insert(item)
-        logItemSave(item)
+    fun insert(shopItem: ShopItem) = viewModelScope.launch(ioDispatcher) {
+        shopItemRepository.insert(shopItem)
+        logItemSave(shopItem)
     }
 
-    fun update(item: Item) = viewModelScope.launch(ioDispatcher) {
-        itemRepository.update(item)
-        logItemSave(item = item, isEdit = true)
+    fun update(shopItem: ShopItem) = viewModelScope.launch(ioDispatcher) {
+        shopItemRepository.update(shopItem)
+        logItemSave(shopItem = shopItem, isEdit = true)
     }
 
     companion object {

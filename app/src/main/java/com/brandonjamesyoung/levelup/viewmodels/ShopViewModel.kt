@@ -17,12 +17,12 @@ import javax.inject.Inject
 @HiltViewModel
 class ShopViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val itemRepository: ItemRepository,
+    private val shopItemRepository: ShopItemRepository,
     private val itemHistoryRepository: ItemHistoryRepository,
     private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository,
 ) : BaseViewModel() {
-    val itemList: LiveData<List<Item>> = itemRepository.observeAll().asLiveData()
+    val shopItemList: LiveData<List<ShopItem>> = shopItemRepository.observeAll().asLiveData()
 
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
 
@@ -65,7 +65,7 @@ class ShopViewModel @Inject constructor(
     }
 
     fun buyItems(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
-        val costs: List<Int> = itemRepository.getCosts(ids)
+        val costs: List<Int> = shopItemRepository.getCosts(ids)
         val totalCost = calculateTotalCost(costs)
         val player = playerRepository.get()
         val pointsAcronym = settingsRepository.get().pointsAcronym
@@ -86,7 +86,7 @@ class ShopViewModel @Inject constructor(
     }
 
     fun deleteItems(ids: Set<Int>) = viewModelScope.launch(ioDispatcher) {
-        itemRepository.delete(ids)
+        shopItemRepository.delete(ids)
         val numDeleted = ids.count()
         Log.i(TAG, "Delete $numDeleted item(s)")
     }

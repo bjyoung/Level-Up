@@ -11,7 +11,7 @@ import javax.inject.Singleton
 class ItemHistoryRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val itemHistoryDao: ItemHistoryDao,
-    private val itemDao: ItemDao
+    private val shopItemDao: ShopItemDao
 ) {
     fun observeAll() = itemHistoryDao.observeAll()
 
@@ -21,20 +21,20 @@ class ItemHistoryRepository @Inject constructor(
     }
 
     private fun convertToPurchasedItem(
-        item: Item
+        shopItem: ShopItem
     ) : PurchasedItem {
         return PurchasedItem(
-            name = item.name,
-            cost = item.cost,
-            dateCreated = item.dateCreated
+            name = shopItem.name,
+            cost = shopItem.cost,
+            dateCreated = shopItem.dateCreated
         )
     }
 
     @WorkerThread
     suspend fun record(itemIds: Set<Int>) = externalScope.launch {
-        val items: List<Item> = itemDao.get(itemIds)
+        val shopItems: List<ShopItem> = shopItemDao.get(itemIds)
 
-        val purchasedItems: List<PurchasedItem> = items.map {
+        val purchasedItems: List<PurchasedItem> = shopItems.map {
             convertToPurchasedItem(it)
         }
 
