@@ -7,8 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -17,8 +16,7 @@ import com.brandonjamesyoung.levelup.BuildConfig
 @AndroidEntryPoint
 class About : Fragment(R.layout.about) {
     private fun navigateToAdvancedSettings() {
-        val navController: NavController = NavHostFragment.findNavController(this)
-        navController.navigate(R.id.action_about_to_advancedSettings)
+        findNavController().navigate(R.id.action_about_to_advancedSettings)
         Log.i(TAG, "Going from About to Advanced Settings")
     }
 

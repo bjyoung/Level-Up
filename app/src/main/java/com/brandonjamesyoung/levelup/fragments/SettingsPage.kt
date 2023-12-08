@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.Difficulty as DifficultyCode
@@ -34,6 +34,11 @@ class SettingsPage : Fragment(R.layout.settings) {
 
     @Inject lateinit var validator: InputValidator
 
+    private fun navigateToAdvancedSettings() {
+        findNavController().navigate(R.id.action_settings_to_advancedSettings)
+        Log.i(TAG, "Going from Settings to Advanced Settings")
+    }
+
     private fun setupAdvancedSettingsButton() {
         val view = requireView()
         val advancedSettingsButton = view.findViewById<Button>(R.id.AdvancedSettingsButton)
@@ -43,21 +48,13 @@ class SettingsPage : Fragment(R.layout.settings) {
         }
     }
 
-    private fun navigateToAdvancedSettings() {
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_settings_to_advancedSettings)
-        Log.i(TAG, "Going from Settings to Advanced Settings")
-    }
-
     private fun navigateToQuestList() {
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_settings_to_questList)
+        findNavController().navigate(R.id.action_settings_to_questList)
         Log.i(TAG, "Going from Settings to Quest List")
     }
 
     private fun navigateToShop() {
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_settings_to_shop)
+        findNavController().navigate(R.id.action_settings_to_shop)
         Log.i(TAG, "Going from Settings to Shop")
     }
 

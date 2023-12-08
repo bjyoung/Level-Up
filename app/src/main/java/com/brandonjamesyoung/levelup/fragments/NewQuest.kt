@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Quest
@@ -143,7 +143,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
 
     private fun navigateToQuestList() {
         viewModel.resetPage()
-        NavHostFragment.findNavController(this).navigate(R.id.action_newQuest_to_questList)
+        findNavController().navigate(R.id.action_newQuest_to_questList)
         Log.i(TAG, "Going from New Quest to Quest List")
     }
 
@@ -157,7 +157,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     }
 
     private fun navigateToIconSelect() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_newQuest_to_iconSelect)
+        findNavController().navigate(R.id.action_newQuest_to_iconSelect)
         Log.i(TAG, "Going from New Quest to Icon Select")
     }
 

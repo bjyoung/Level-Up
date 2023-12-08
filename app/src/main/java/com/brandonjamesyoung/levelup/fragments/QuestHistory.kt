@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.CompletedQuest
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
@@ -29,7 +29,7 @@ class QuestHistory: Fragment(R.layout.quest_history) {
     @Inject lateinit var buttonConverter: ButtonConverter
 
     private fun navigateToQuestList() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_questHistory_to_questList)
+        findNavController().navigate(R.id.action_questHistory_to_questList)
         Log.i(TAG, "Going from Quest History to Quest List")
     }
 

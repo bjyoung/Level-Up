@@ -7,7 +7,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper
 import com.brandonjamesyoung.levelup.viewmodels.AdvancedSettingsViewModel
@@ -19,8 +19,7 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
     private val viewModel: AdvancedSettingsViewModel by activityViewModels()
 
     private fun navigateToAboutPage() {
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_advancedSettings_to_about)
+        findNavController().navigate(R.id.action_advancedSettings_to_about)
         Log.i(TAG, "Going from Advanced Settings to About")
     }
 
@@ -52,8 +51,7 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
     }
 
     private fun navigateToSettings() {
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_advancedSettings_to_settings)
+        findNavController().navigate(R.id.action_advancedSettings_to_settings)
         Log.i(TAG, "Going from Advanced Settings to Settings")
     }
 

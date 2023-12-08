@@ -6,14 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.ShopItem
 import com.brandonjamesyoung.levelup.data.Player
@@ -49,7 +48,7 @@ class Shop : Fragment(R.layout.shop) {
             ShopDirections.actionShopToNewItem()
         }
 
-        NavHostFragment.findNavController(this).navigate(action)
+        findNavController().navigate(action)
         Log.i(TAG, "Going from Shop to New Item")
     }
 
@@ -64,7 +63,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun navigateToQuestList() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_questList)
+        findNavController().navigate(R.id.action_shop_to_questList)
         Log.i(TAG, "Going from Shop to Quest List")
     }
 
@@ -79,13 +78,13 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun navigateToItemHistory() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_shop_to_itemHistory)
+        findNavController().navigate(R.id.action_shop_to_itemHistory)
         Log.i(TAG, "Going from Shop to Item History")
     }
 
     private fun navigateToSettings() {
         val action = ShopDirections.actionShopToSettings(R.id.Shop)
-        NavHostFragment.findNavController(this).navigate(action)
+        findNavController().navigate(action)
         Log.i(TAG, "Going from Shop to Settings")
     }
 
@@ -114,7 +113,6 @@ class Shop : Fragment(R.layout.shop) {
         activateNewItemButton()
         activateQuestListButton()
         activateSettingsButton()
-        activateItemHistoryButton()
     }
 
     private fun cancelSelectedItems() {
@@ -175,7 +173,6 @@ class Shop : Fragment(R.layout.shop) {
         activateCancelButton()
         activateDeleteButton()
         activateBuyButton()
-        activateItemHistoryButton()
     }
 
     private fun isSelected(itemId: Int) : Boolean {
@@ -272,6 +269,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun setupObservables(view: View) {
+        activateItemHistoryButton()
         viewModel.switchToDefaultMode()
 
         viewModel.mode.observe(viewLifecycleOwner) { mode ->

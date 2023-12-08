@@ -8,8 +8,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NameEntryViewModel
@@ -38,8 +37,7 @@ class NameEntry : Fragment(R.layout.name_entry) {
     }
 
     private fun navigateToQuestList() {
-        val navController: NavController = NavHostFragment.findNavController(this)
-        navController.navigate(R.id.action_nameEntry_to_questList)
+        findNavController().navigate(R.id.action_nameEntry_to_questList)
         Log.i(TAG, "Going from Name Entry to Quest List")
     }
 

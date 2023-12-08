@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.ShopItem
@@ -44,7 +44,7 @@ class NewItem : Fragment(R.layout.new_item) {
     }
 
     private fun navigateToShop() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_newItem_to_shop)
+        findNavController().navigate(R.id.action_newItem_to_shop)
         Log.i(TAG, "Going from New Item to Shop")
     }
 

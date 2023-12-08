@@ -9,7 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.PurchasedItem
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
@@ -28,7 +28,7 @@ class ItemHistory : Fragment(R.layout.item_history) {
     @Inject lateinit var itemTableManager: ItemTableManager
 
     private fun navigateToShop() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_itemHistory_to_shop)
+        findNavController().navigate(R.id.action_itemHistory_to_shop)
         Log.i(TAG, "Going from Item History to Shop")
     }
 

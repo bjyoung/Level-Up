@@ -11,7 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brandonjamesyoung.levelup.constants.IconGroup
@@ -90,7 +90,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun navigateToNewIcon() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_iconSelect_to_newIcon)
+        findNavController().navigate(R.id.action_iconSelect_to_newIcon)
         Log.i(TAG, "Going from Icon Select to New Icon")
     }
 
@@ -442,7 +442,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun navigateToNewQuest() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_iconSelect_to_newQuest)
+        findNavController().navigate(R.id.action_iconSelect_to_newQuest)
         Log.i(TAG, "Going from Icon Select to Quest List")
     }
 

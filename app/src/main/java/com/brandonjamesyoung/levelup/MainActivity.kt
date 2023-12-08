@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeStartingFragment(navId: Int) {
-        val fragment = supportFragmentManager.findFragmentById(R.id.navHostFragment)
-        val navHostFragment = fragment as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment)
+                as NavHostFragment
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.nav_graph)
         graph.setStartDestination(navId)

@@ -7,7 +7,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper
 import com.brandonjamesyoung.levelup.validation.InputValidator
@@ -23,7 +23,7 @@ class NewIcon : Fragment(R.layout.new_icon) {
     @Inject lateinit var validator: InputValidator
 
     private fun navigateToIconSelect() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_newIcon_to_iconSelect)
+        findNavController().navigate(R.id.action_newIcon_to_iconSelect)
         Log.i(TAG, "Going from New Icon to Icon Select")
     }
 

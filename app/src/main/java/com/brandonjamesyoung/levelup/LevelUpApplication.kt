@@ -7,5 +7,5 @@ import kotlinx.coroutines.SupervisorJob
 
 @HiltAndroidApp
 class LevelUpApplication : Application() {
-    val applicationScope  = CoroutineScope(SupervisorJob())
+    val applicationScope = CoroutineScope(SupervisorJob())
 }
