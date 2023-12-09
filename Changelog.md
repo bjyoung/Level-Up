@@ -15,6 +15,14 @@ This document tracks all notables changes to the Level Up app.
 - Add About page
   - Provides basic details about the app
   - Accessible from the Advanced Settings page
+- Long pressing the user's name or the experience bar in Quest List will bring the user to the Name Entry page
+  - This allows the user to change their username whenever they want
+
+### Changed
+
+- Reduce the max character limit for player name to 7
+- Since Name Entry is more accessible now, users can now navigate back to Name Entry using the phone back action
+  - This works even after accessing the app for the first time
 
 ### Fixed
 

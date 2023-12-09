@@ -31,17 +31,19 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left" />
         <action
-            android:id="@+id/action_questList_to_nameEntry"
-            app:destination="@id/nameEntry"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_questList_to_questHistory"
             app:destination="@id/questHistory"
             app:enterAnim="@anim/slide_in_up"
             app:exitAnim="@anim/slide_out_up"
             app:popEnterAnim="@anim/slide_in_down"
             app:popExitAnim="@anim/slide_out_down" />
+        <action
+            android:id="@+id/action_questList_to_nameEntry"
+            app:destination="@id/nameEntry"
+            app:enterAnim="@anim/zoom_in_from_front"
+            app:exitAnim="@anim/zoom_to_back"
+            app:popEnterAnim="@anim/zoom_in_from_back"
+            app:popExitAnim="@anim/zoom_to_front" />
     </fragment>
     <fragment
         android:id="@+id/newQuest"
@@ -184,9 +186,7 @@
             app:enterAnim="@anim/zoom_in_from_back"
             app:exitAnim="@anim/zoom_to_front"
             app:popEnterAnim="@anim/zoom_in_from_front"
-            app:popExitAnim="@anim/zoom_to_back"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/zoom_to_back" />
     </fragment>
     <fragment
         android:id="@+id/newIcon"

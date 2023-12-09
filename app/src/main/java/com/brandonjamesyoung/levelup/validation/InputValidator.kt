@@ -6,7 +6,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.brandonjamesyoung.levelup.R
 
-private const val MAX_PLAYER_NAME_LENGTH = 15
+private const val MAX_PLAYER_NAME_LENGTH = 7
 
 private val PLAYER_NAME_VALIDATION_REGEX = Regex("^[a-zA-Z\\d\\p{L}]+$")
 

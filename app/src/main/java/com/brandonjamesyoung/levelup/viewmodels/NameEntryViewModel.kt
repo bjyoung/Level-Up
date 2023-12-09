@@ -1,6 +1,8 @@
 package com.brandonjamesyoung.levelup.viewmodels
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
@@ -15,6 +17,8 @@ class NameEntryViewModel @Inject constructor(
     private val playerRepository: PlayerRepository,
     private val settingsRepository: SettingsRepository
 ) : BaseViewModel() {
+    val player: LiveData<Player> = playerRepository.observe().asLiveData()
+
     fun update(name: String?) = viewModelScope.launch(ioDispatcher) {
         val player = playerRepository.get()
         player.name = name

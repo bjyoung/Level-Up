@@ -13,8 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.constants.POINT_UPDATE_ANIM_DURATION
@@ -26,6 +25,7 @@ import com.brandonjamesyoung.levelup.utility.*
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
 import com.brandonjamesyoung.levelup.views.QuestCardView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -41,9 +41,25 @@ class QuestList: Fragment(R.layout.quest_list) {
 
     @Inject lateinit var buttonConverter: ButtonConverter
 
+    private fun setupUsernameNavigation() {
+        val view = requireView()
+        val username = view.findViewById<TextView>(R.id.Username)
+
+        username.setOnLongClickListener {
+            navigateToNameEntry()
+            true
+        }
+
+        val experienceBar = view.findViewById<ProgressBar>(R.id.ProgressBar)
+
+        experienceBar.setOnLongClickListener {
+            navigateToNameEntry()
+            true
+        }
+    }
+
     private fun navigateToNameEntry() {
-        val navController: NavController = NavHostFragment.findNavController(this)
-        navController.navigate(R.id.action_questList_to_nameEntry)
+        findNavController().navigate(R.id.action_questList_to_nameEntry)
         Log.i(TAG, "Going from Quest List to Name Entry")
     }
 
@@ -134,7 +150,7 @@ class QuestList: Fragment(R.layout.quest_list) {
             QuestListDirections.actionQuestListToNewQuest()
         }
 
-        NavHostFragment.findNavController(this).navigate(action)
+        findNavController().navigate(action)
         Log.i(TAG, "Going from Quest List to New Quest")
     }
 
@@ -150,7 +166,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     }
 
     private fun navigateToShop() {
-        NavHostFragment.findNavController(this).navigate(R.id.action_questList_to_shop)
+        findNavController().navigate(R.id.action_questList_to_shop)
         Log.i(TAG, "Going from Quest List to Shop")
     }
 
@@ -167,7 +183,7 @@ class QuestList: Fragment(R.layout.quest_list) {
 
     private fun navigateToSettings() {
         val action = QuestListDirections.actionQuestListToSettings(R.id.QuestList)
-        NavHostFragment.findNavController(this).navigate(action)
+        findNavController().navigate(action)
         Log.i(TAG, "Going from Quest List to Settings")
     }
 
@@ -183,19 +199,17 @@ class QuestList: Fragment(R.layout.quest_list) {
     }
 
     private fun navigateToQuestHistory() {
-        val navController = NavHostFragment.findNavController(this)
-        navController.navigate(R.id.action_questList_to_questHistory)
+        findNavController().navigate(R.id.action_questList_to_questHistory)
         Log.i(TAG, "Going from Quest List to Quest History")
     }
 
     private fun activateQuestHistoryButton() {
-        buttonConverter.convertNavButton(
-            targetId = R.id.QuestHistoryButton,
-            iconDrawableId = R.drawable.clock_icon_large,
-            buttonMethod = ::navigateToQuestHistory,
-            view = requireView(),
-            resources = resources
-        )
+        val view = requireView()
+        val questHistoryButton = view.findViewById<MaterialButton>(R.id.QuestHistoryButton)
+
+        questHistoryButton.setOnClickListener {
+            navigateToQuestHistory()
+        }
     }
 
     private fun activateDefaultMode() {
@@ -204,7 +218,6 @@ class QuestList: Fragment(R.layout.quest_list) {
         activateNewQuestButton()
         activateShopButton()
         activateSettingsButton()
-        activateQuestHistoryButton()
     }
 
     private fun editQuest(questId: Int) {
@@ -380,7 +393,6 @@ class QuestList: Fragment(R.layout.quest_list) {
 
     private fun setupObservables() {
         val view = requireView()
-
         viewModel.switchToDefaultMode()
 
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
@@ -415,6 +427,8 @@ class QuestList: Fragment(R.layout.quest_list) {
             viewModel.selectedQuestIds.clear()
             viewModel.selectedQuestIconIds.clear()
             setupSettings()
+            setupUsernameNavigation()
+            activateQuestHistoryButton()
             setupObservables()
         }
     }

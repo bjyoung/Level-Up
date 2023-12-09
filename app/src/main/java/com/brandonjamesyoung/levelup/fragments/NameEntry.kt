@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NameEntryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +42,18 @@ class NameEntry : Fragment(R.layout.name_entry) {
         Log.i(TAG, "Going from Name Entry to Quest List")
     }
 
+    private fun loadName(player: Player) {
+        val view = requireView()
+        val nameInput = view.findViewById<EditText>(R.id.PlayerNameInput)
+        nameInput.setText(player.name)
+    }
+
+    private fun setupNameField() {
+        viewModel.player.observe(viewLifecycleOwner) {
+            loadName(it)
+        }
+    }
+
     private fun setupConfirmButton() {
         val view = requireView()
         val saveButton = view.findViewById<AppCompatButton>(R.id.ConfirmButton)
@@ -60,6 +73,7 @@ class NameEntry : Fragment(R.layout.name_entry) {
         lifecycleScope.launch {
             Log.i(TAG, "On Name Entry page")
             setupConfirmButton()
+            setupNameField()
         }
     }
 

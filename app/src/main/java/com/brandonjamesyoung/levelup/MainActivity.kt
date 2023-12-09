@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun playerNameEntered(): Boolean {
         val settings: Settings? = getSettings().await()
-        return settings == null || !settings.nameEntered
+        return settings != null && settings.nameEntered
     }
 
     private fun changeStartingFragment(navId: Int) {
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         runBlocking {
-            if (playerNameEntered()) changeStartingFragment(R.id.nameEntry)
+            if (!playerNameEntered()) changeStartingFragment(R.id.nameEntry)
         }
     }
 }
