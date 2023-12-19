@@ -174,7 +174,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
             return
         }
 
-        lifecycleScope.launch(Dispatchers.Default) {
+        lifecycleScope.launch(Dispatchers.Main) {
             val icon = withContext(Dispatchers.IO) {
                 viewModel.getIcon(iconId)
             }

@@ -10,6 +10,10 @@ This document tracks all notables changes to the Level Up app.
 
 - Add app launcher icon
 
+### Fixed
+
+- Fix bug where app crashes when rapidly switching between Quest List and Edit Quest pages
+
 ---
 
 ## 0.7.9
