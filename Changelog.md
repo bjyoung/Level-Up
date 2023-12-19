@@ -4,6 +4,14 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.8.0
+
+### Added
+
+- Add app launcher icon
+
+---
+
 ## 0.7.9
 
 ### Added
