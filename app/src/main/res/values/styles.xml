@@ -92,6 +92,7 @@
         <item name="android:clickable">true</item>
         <item name="elevation">@dimen/quest_card_elevation</item>
         <item name="fabCustomSize">@dimen/big_round_button</item>
+        <item name="maxImageSize">@dimen/quest_icon_size</item>
     </style>
     <style name="ActionButton" parent="TextAppearance.AppCompat.Button">
         <item name="android:layout_height">wrap_content</item>

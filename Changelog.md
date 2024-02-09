@@ -19,6 +19,7 @@ This document tracks all notables changes to the Level Up app.
     - Diamonds: hobby/money/food
     - Hearts: home
     - Clubs: game/outdoors
+- Increase quest icon size
 
 ### Fixed
 

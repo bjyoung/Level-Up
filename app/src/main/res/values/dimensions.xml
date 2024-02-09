@@ -17,6 +17,7 @@
     <dimen name="quest_card_padding">10dp</dimen>
     <dimen name="quest_card_elevation">0dp</dimen>
     <dimen name="quest_card_font_size">9sp</dimen>
+    <dimen name="quest_icon_size">32dp</dimen>
     <dimen name="point_left_margin">30dp</dimen>
 
     <!-- New Quest -->
