@@ -12,8 +12,9 @@
     <!-- Quest List -->
     <dimen name="quest_card_corner_radius">12dp</dimen>
     <dimen name="quest_card_margin">15dp</dimen>
-    <dimen name="quest_card_width">140dp</dimen>
-    <dimen name="quest_card_height">150dp</dimen>
+    <dimen name="quest_card_width">160dp</dimen>
+    <dimen name="quest_card_height">160dp</dimen>
+    <dimen name="quest_card_padding">10dp</dimen>
     <dimen name="quest_card_elevation">0dp</dimen>
     <dimen name="quest_card_font_size">9sp</dimen>
     <dimen name="point_left_margin">30dp</dimen>
