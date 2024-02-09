@@ -9,6 +9,16 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - Add app launcher icon
+- Add more quest icons
+
+### Changed
+
+- Re-organized how quest icons are grouped so that they are spread out more evenly
+  - New group definitions:
+    - Spades: tech/abstract
+    - Diamonds: hobby/money/food
+    - Hearts: home
+    - Clubs: game/outdoors
 
 ### Fixed
 
