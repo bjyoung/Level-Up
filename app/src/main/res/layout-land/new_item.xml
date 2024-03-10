@@ -23,7 +23,7 @@
         android:autofillHints="@string/cost_input_autofill_hint"
         android:ems="10"
         android:hint="@string/cost_input_hint"
-        android:maxLength="5"
+        android:maxLength="@integer/max_cost_length"
         app:layout_constraintBottom_toBottomOf="@+id/CostLabel"
         app:layout_constraintEnd_toEndOf="@+id/ItemNameInput"
         app:layout_constraintHorizontal_bias="0.65"
@@ -68,6 +68,7 @@
         android:ems="10"
         android:hint="@string/name_hint"
         android:inputType="textPersonName"
+        android:maxLength="@integer/max_item_name_length"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ItemNameLabel" />

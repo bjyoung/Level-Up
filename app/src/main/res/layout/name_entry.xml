@@ -23,6 +23,7 @@
         android:ems="10"
         android:hint="@string/name_hint"
         android:inputType="textPersonName"
+        android:maxLength="@integer/max_player_name_length"
         app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

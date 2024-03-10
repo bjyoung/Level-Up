@@ -31,7 +31,7 @@
     <string name="edit_quest_label">Edit Quest</string>
     <string name="name_label">Name</string>
     <string name="name_hint">Enter name here</string>
-    <string name="name_length_error">Please enter a name with less than 30 characters</string>
+    <string name="quest_name_length_error">Please enter a name with less than 30 characters</string>
     <string name="name_invalid_char_error">
         Only alphanumeric and the following punctuation are allowed: !#$%&amp;:?()@_+/,.-
     </string>

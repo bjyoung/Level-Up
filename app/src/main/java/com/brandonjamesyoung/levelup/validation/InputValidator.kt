@@ -12,6 +12,8 @@ private val PLAYER_NAME_VALIDATION_REGEX = Regex("^[a-zA-Z\\d\\p{L}]+$")
 
 private const val MAX_QUEST_NAME_LENGTH = 30
 
+private const val MAX_ITEM_NAME_LENGTH = 40
+
 private val QUEST_NAME_VALIDATION_REGEX = Regex("^[a-zA-Z\\d\\p{L}'\"!#$%&:?,.() @_+/*-]+$")
 
 private const val MAX_ACRONYM_LENGTH = 3
@@ -45,14 +47,27 @@ class InputValidator {
         return true
     }
 
+    fun isValidItemName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
+        return isValidName(MAX_ITEM_NAME_LENGTH, nameField, tag, fragment)
+    }
+
     fun isValidQuestName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
+        return isValidName(MAX_QUEST_NAME_LENGTH, nameField, tag, fragment)
+    }
+
+    private fun isValidName(
+        maxLength: Int,
+        nameField: EditText,
+        tag: String,
+        fragment: Fragment
+    ) : Boolean {
         val name = nameField.text.trim().toString()
-        val hasValidLength = name.length <= MAX_QUEST_NAME_LENGTH
+        val hasValidLength = name.length <= maxLength
         if (name == "") return true
 
         if (!hasValidLength) {
-            nameField.error = fragment.resources.getString(R.string.name_length_error)
-            Log.e(tag, "Name is longer than $MAX_QUEST_NAME_LENGTH characters")
+            nameField.error = fragment.resources.getString(R.string.quest_name_length_error)
+            Log.e(tag, "Name is longer than $maxLength characters")
             return false
         }
 
