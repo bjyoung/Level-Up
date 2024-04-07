@@ -17,9 +17,10 @@ This document tracks all notables changes to the Level Up app.
   - New group definitions:
     - Spades: tech/abstract
     - Diamonds: hobby/money/food
-    - Hearts: home
+    - Hearts: home/health
     - Clubs: game/outdoors
 - Increase quest icon size
+- Increase input field cursor size and thickness to better resemble arcade-style games
 
 ### Fixed
 
