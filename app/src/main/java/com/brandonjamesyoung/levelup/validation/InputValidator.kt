@@ -10,7 +10,7 @@ private const val MAX_PLAYER_NAME_LENGTH = 7
 
 private val PLAYER_NAME_VALIDATION_REGEX = Regex("^[a-zA-Z\\d\\p{L}]+$")
 
-private const val MAX_QUEST_NAME_LENGTH = 30
+private const val MAX_QUEST_NAME_LENGTH = 40
 
 private const val MAX_ITEM_NAME_LENGTH = 40
 
