@@ -126,7 +126,7 @@ abstract class AppDatabase : RoomDatabase() {
 
             private suspend fun initializeIcons(iconDao: IconDao) {
                 val iconFileNameTriples = listOf(
-                    Triple("Apple", R.drawable.apple_icon, IconGroup.HEARTS),
+                    Triple("Apple", R.drawable.apple_icon, IconGroup.DIAMONDS),
                     Triple("Archive", R.drawable.archive_icon, IconGroup.HEARTS),
                     Triple("Arrow (Left)", R.drawable.arrow_left_icon, IconGroup.SPADES),
                     Triple("Arrow (Right)", R.drawable.arrow_right_icon, IconGroup.SPADES),
@@ -169,7 +169,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Dot (Filled)", R.drawable.filled_dot_icon, IconGroup.SPADES),
                     Triple("Download", R.drawable.download_icon, IconGroup.SPADES),
                     Triple("Dumbbell", R.drawable.dumbbell_icon, IconGroup.HEARTS),
-                    Triple("Egg", R.drawable.egg_icon, IconGroup.HEARTS),
+                    Triple("Egg", R.drawable.egg_icon, IconGroup.DIAMONDS),
                     Triple("Envelope", R.drawable.envelope_icon, IconGroup.HEARTS),
                     Triple("Fast Forward", R.drawable.fast_forward_icon, IconGroup.SPADES),
                     Triple("File", R.drawable.file_icon, IconGroup.SPADES),
@@ -202,7 +202,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Pencil", R.drawable.pencil_icon, IconGroup.DIAMONDS),
                     Triple("Phone", R.drawable.phone_icon, IconGroup.HEARTS),
                     Triple("Picture Frame", R.drawable.picture_frame_icon, IconGroup.HEARTS),
-                    Triple("Pie", R.drawable.pie_icon, IconGroup.HEARTS),
+                    Triple("Pie", R.drawable.pie_icon, IconGroup.DIAMONDS),
                     Triple("Play", R.drawable.play_icon, IconGroup.SPADES),
                     Triple("Plug", R.drawable.plug_icon, IconGroup.HEARTS),
                     Triple("Plus", R.drawable.plus_icon, IconGroup.SPADES),
