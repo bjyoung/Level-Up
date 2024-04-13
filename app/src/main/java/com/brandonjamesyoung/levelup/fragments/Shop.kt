@@ -175,6 +175,18 @@ class Shop : Fragment(R.layout.shop) {
         activateBuyButton()
     }
 
+    private fun showNoItemsMessage() {
+        val view = requireView()
+        val noIconsMessage = view.findViewById<TextView>(R.id.NoItemsMessage)
+        noIconsMessage.visibility = View.VISIBLE
+    }
+
+    private fun hideNoItemsMessage() {
+        val view = requireView()
+        val noIconsMessage = view.findViewById<TextView>(R.id.NoItemsMessage)
+        noIconsMessage.visibility = View.GONE
+    }
+
     private fun isSelected(itemId: Int) : Boolean {
         return selectedItemIds.contains(itemId)
     }
@@ -285,6 +297,7 @@ class Shop : Fragment(R.layout.shop) {
             itemListLayout.removeAllViews()
             val sortedItemList = itemList.sortedBy { it.dateCreated }
             sortedItemList.forEach { item -> addItemRow(item) }
+            if (itemList.isEmpty()) showNoItemsMessage() else hideNoItemsMessage()
         }
 
         viewModel.player.observe(viewLifecycleOwner) { player ->

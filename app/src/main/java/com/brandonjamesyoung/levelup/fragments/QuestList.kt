@@ -315,6 +315,18 @@ class QuestList: Fragment(R.layout.quest_list) {
         }
     }
 
+    private fun showNoQuestsMessage() {
+        val view = requireView()
+        val noIconsMessage = view.findViewById<TextView>(R.id.NoQuestsMessage)
+        noIconsMessage.visibility = View.VISIBLE
+    }
+
+    private fun hideNoQuestsMessage() {
+        val view = requireView()
+        val noIconsMessage = view.findViewById<TextView>(R.id.NoQuestsMessage)
+        noIconsMessage.visibility = View.GONE
+    }
+
     private fun updateUsername(view: View, player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
         val name: String
@@ -405,6 +417,7 @@ class QuestList: Fragment(R.layout.quest_list) {
 
         viewModel.questList.observe(viewLifecycleOwner) {
             setupQuestList(it)
+            if (it.isEmpty()) showNoQuestsMessage() else hideNoQuestsMessage()
         }
 
         viewModel.player.observe(viewLifecycleOwner) {

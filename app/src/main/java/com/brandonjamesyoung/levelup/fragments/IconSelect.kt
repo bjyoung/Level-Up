@@ -1,5 +1,6 @@
 package com.brandonjamesyoung.levelup.fragments
 
+import android.app.ProgressDialog.show
 import android.os.Bundle
 import android.util.Log
 import android.view.View

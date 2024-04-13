@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -67,6 +68,18 @@ class QuestHistory: Fragment(R.layout.quest_history) {
         return newCard
     }
 
+    private fun showNoQuestsMessage() {
+        val view = requireView()
+        val noIconsMessage = view.findViewById<TextView>(R.id.NoQuestsMessage)
+        noIconsMessage.visibility = View.VISIBLE
+    }
+
+    private fun hideNoQuestsMessage() {
+        val view = requireView()
+        val noIconsMessage = view.findViewById<TextView>(R.id.NoQuestsMessage)
+        noIconsMessage.visibility = View.GONE
+    }
+
     private fun setupObservables() {
         viewModel.questHistoryList.observe(viewLifecycleOwner) { questList ->
             val view = requireView()
@@ -78,6 +91,8 @@ class QuestHistory: Fragment(R.layout.quest_history) {
                 val newCard = createQuestHistoryCard(completedQuest)
                 questListLayout.addView(newCard)
             }
+
+            if (questList.isEmpty()) showNoQuestsMessage() else hideNoQuestsMessage()
         }
     }
 

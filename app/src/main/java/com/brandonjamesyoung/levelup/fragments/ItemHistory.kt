@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -55,6 +56,18 @@ class ItemHistory : Fragment(R.layout.item_history) {
         itemHistoryLinearLayout.addView(itemRow)
     }
 
+    private fun showNoItemsMessage() {
+        val view = requireView()
+        val noIconsMessage = view.findViewById<TextView>(R.id.NoItemsMessage)
+        noIconsMessage.visibility = View.VISIBLE
+    }
+
+    private fun hideNoItemsMessage() {
+        val view = requireView()
+        val noIconsMessage = view.findViewById<TextView>(R.id.NoItemsMessage)
+        noIconsMessage.visibility = View.GONE
+    }
+
     private fun setupObservables() {
         viewModel.itemHistoryList.observe(viewLifecycleOwner) { itemList ->
             val view = requireView()
@@ -62,6 +75,7 @@ class ItemHistory : Fragment(R.layout.item_history) {
             itemListLayout.removeAllViews()
             val sortedItemHistory = itemList.sortedByDescending { it.datePurchased }
             sortedItemHistory.forEach { item -> addItemRow(item) }
+            if (itemList.isEmpty()) showNoItemsMessage() else hideNoItemsMessage()
         }
     }
 
