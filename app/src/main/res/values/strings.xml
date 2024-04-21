@@ -57,12 +57,12 @@
     <string name="easy_exp_input_hint">100</string>
     <string name="medium_exp_input_hint">250</string>
     <string name="hard_exp_input_hint">600</string>
-    <string name="expert_exp_input_hint">1500</string>
+    <string name="expert_exp_input_hint">2500</string>
     <string name="points_input_autofill_hint">points</string>
     <string name="easy_points_input_hint">1</string>
     <string name="medium_points_input_hint">4</string>
     <string name="hard_points_input_hint">10</string>
-    <string name="expert_points_input_hint">35</string>
+    <string name="expert_points_input_hint">40</string>
     <string name="exp_acronym">XP</string>
     <string name="points_acronym_label">Points Acronym</string>
     <string name="points_acronym_autofill_hint">pointsAcronym</string>

@@ -20,7 +20,8 @@ This document tracks all notables changes to the Level Up app.
     - Hearts: home/health
     - Clubs: game/outdoors
 - Increase quest icon size
-- Increase input field cursor size and thickness to better resemble arcade-style games
+- Increase input field cursor size and thickness so it is easier to see and to better resemble arcade-style games
+- Increase default expert experience to 2500 and points to 40
 
 ### Fixed
 

@@ -30,8 +30,8 @@ const val INIT_MEDIUM_POINTS = 4
 const val INIT_HARD_EXP = 600
 const val INIT_HARD_POINTS = 10
 
-const val INIT_EXPERT_EXP = 1500
-const val INIT_EXPERT_POINTS = 35
+const val INIT_EXPERT_EXP = 2500
+const val INIT_EXPERT_POINTS = 40
 
 // Maximum Constants
 const val INT_LIMIT = 999999999
