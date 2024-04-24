@@ -232,7 +232,7 @@ class QuestList: Fragment(R.layout.quest_list) {
 
         val selectIcon = ResourcesCompat.getDrawable(
             resources,
-            R.drawable.check_icon_green,
+            R.drawable.check_icon_green_large,
             context.theme
         )
 
