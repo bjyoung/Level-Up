@@ -1,15 +1,13 @@
 package com.brandonjamesyoung.levelup.data
 
 import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.brandonjamesyoung.levelup.constants.ICON_SCALE_UP_RATE
 import com.brandonjamesyoung.levelup.constants.IconGroup
+import com.brandonjamesyoung.levelup.utility.IconHelper.Companion.scaleUpByteArray
 import java.time.Instant
 
 @Entity
@@ -52,16 +50,6 @@ data class Icon(
 
     // Return the icon image as a drawable
     fun getDrawable(resources: Resources): Drawable {
-        val bitmap = BitmapFactory.decodeByteArray(image, 0, image.size)
-
-        // Scale up so the icons are not blurry
-        val scaledBitmap = Bitmap.createScaledBitmap(
-            bitmap,
-            imageWidth * ICON_SCALE_UP_RATE,
-            imageHeight * ICON_SCALE_UP_RATE,
-            false
-        )
-
-        return BitmapDrawable(resources, scaledBitmap)
+        return scaleUpByteArray(image, imageWidth, imageHeight, ICON_SCALE_UP_RATE, resources)
     }
 }

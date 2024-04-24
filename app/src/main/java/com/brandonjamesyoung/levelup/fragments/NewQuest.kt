@@ -118,15 +118,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
     private fun validateInput() : Boolean {
         val view = requireView()
         val nameInput = view.findViewById<EditText>(R.id.NameInput)
-
-        if (!validator.isValidQuestName(nameInput, TAG, this)) {
-            return false
-        }
-
-        // TODO Check if icon is a valid id
-        // val iconView = view.findViewById<FloatingActionButton>(R.id.IconButton)
-
-        return true
+        return validator.isValidQuestName(nameInput, TAG, this)
     }
 
     private fun setupConfirmButton() {
