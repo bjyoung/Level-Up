@@ -195,6 +195,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Martini Glass", R.drawable.martini_glass_icon, IconGroup.DIAMONDS),
                     Triple("Med Pack", R.drawable.med_pack_icon, IconGroup.CLUBS),
                     Triple("Minus", R.drawable.minus_icon, IconGroup.SPADES),
+                    Triple("Music Note", R.drawable.music_note_icon, IconGroup.DIAMONDS),
                     Triple("Monitor", R.drawable.monitor_icon, IconGroup.SPADES),
                     Triple("Moon", R.drawable.moon_icon, IconGroup.CLUBS),
                     Triple("Notepad", R.drawable.notepad_icon, IconGroup.HEARTS),
