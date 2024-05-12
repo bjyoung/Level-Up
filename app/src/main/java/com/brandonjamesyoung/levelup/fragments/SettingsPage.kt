@@ -8,13 +8,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.constants.Difficulty as DifficultyCode
 import com.brandonjamesyoung.levelup.data.Difficulty
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper
@@ -25,6 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import com.brandonjamesyoung.levelup.constants.Difficulty as DifficultyCode
 
 @AndroidEntryPoint
 class SettingsPage : Fragment(R.layout.settings) {
@@ -33,6 +34,13 @@ class SettingsPage : Fragment(R.layout.settings) {
     private val viewModel: SettingsViewModel by activityViewModels()
 
     @Inject lateinit var validator: InputValidator
+
+    private val difficultyInputMap = mapOf(
+        DifficultyCode.EASY to Pair(R.id.EasyExpInput, R.id.EasyRtInput),
+        DifficultyCode.MEDIUM to Pair(R.id.MediumExpInput, R.id.MediumRtInput),
+        DifficultyCode.HARD to Pair(R.id.HardExpInput, R.id.HardRtInput),
+        DifficultyCode.EXPERT to Pair(R.id.ExpertExpInput, R.id.ExpertRtInput)
+    )
 
     private fun navigateToAdvancedSettings() {
         findNavController().navigate(R.id.action_settings_to_advancedSettings)
@@ -44,6 +52,7 @@ class SettingsPage : Fragment(R.layout.settings) {
         val advancedSettingsButton = view.findViewById<Button>(R.id.AdvancedSettingsButton)
 
         advancedSettingsButton.setOnClickListener{
+            viewModel.clearUserInput()
             navigateToAdvancedSettings()
         }
     }
@@ -73,6 +82,7 @@ class SettingsPage : Fragment(R.layout.settings) {
         val button = view.findViewById<View>(R.id.CancelButton)
 
         button.setOnClickListener{
+            viewModel.clearUserInput()
             navigateToPrevFragment()
         }
     }
@@ -134,13 +144,6 @@ class SettingsPage : Fragment(R.layout.settings) {
     }
 
     private fun saveSettings() {
-        val difficultyInputMap = mapOf(
-            DifficultyCode.EASY to Pair(R.id.EasyExpInput, R.id.EasyRtInput),
-            DifficultyCode.MEDIUM to Pair(R.id.MediumExpInput, R.id.MediumRtInput),
-            DifficultyCode.HARD to Pair(R.id.HardExpInput, R.id.HardRtInput),
-            DifficultyCode.EXPERT to Pair(R.id.ExpertExpInput, R.id.ExpertRtInput)
-        )
-
         val view = requireView()
         val newDifficulties = mutableListOf<Difficulty>()
 
@@ -176,6 +179,7 @@ class SettingsPage : Fragment(R.layout.settings) {
         confirmButton.setOnClickListener{
             if (isValidInput()) {
                 saveSettings()
+                viewModel.clearUserInput()
                 navigateToPrevFragment()
             }
         }
@@ -193,35 +197,24 @@ class SettingsPage : Fragment(R.layout.settings) {
         val view = requireView()
 
         for (difficulty in difficulties) {
-            var expInput : EditText?
-            var rtInput : EditText?
-
-            when (difficulty?.code) {
-                DifficultyCode.EASY -> {
-                    expInput = view.findViewById(R.id.EasyExpInput)
-                    rtInput = view.findViewById(R.id.EasyRtInput)
-                }
-                DifficultyCode.MEDIUM -> {
-                    expInput = view.findViewById(R.id.MediumExpInput)
-                    rtInput = view.findViewById(R.id.MediumRtInput)
-                }
-                DifficultyCode.HARD -> {
-                    expInput = view.findViewById(R.id.HardExpInput)
-                    rtInput = view.findViewById(R.id.HardRtInput)
-                }
-                DifficultyCode.EXPERT -> {
-                    expInput = view.findViewById(R.id.ExpertExpInput)
-                    rtInput = view.findViewById(R.id.ExpertRtInput)
-                }
-                else -> {
-                    expInput = null
-                    rtInput = null
-                }
-            }
+            if (difficulty == null) continue
+            val difficultyViewIdPair = difficultyInputMap[difficulty.code] ?: continue
+            val expInputId = difficultyViewIdPair.first
+            val pointsInputId = difficultyViewIdPair.second
+            val expInput: EditText? = view.findViewById(expInputId)
+            val rtInput: EditText? = view.findViewById(pointsInputId)
 
             withContext(Dispatchers.Main) {
-                expInput?.setText(difficulty?.expReward.toString())
-                rtInput?.setText(difficulty?.pointsReward.toString())
+                val userInput = viewModel.settingsInput.difficultySettingsMap[difficulty.code]
+                val defaultExp = difficulty.expReward.toString()
+                val userExpInput = userInput?.expReward
+                val expFieldValue = userExpInput ?: defaultExp
+                expInput?.setText(expFieldValue)
+
+                val userPointsInput = userInput?.pointsReward
+                val defaultPoints = difficulty.pointsReward.toString()
+                val pointsFieldValue = userPointsInput ?: defaultPoints
+                rtInput?.setText(pointsFieldValue)
             }
         }
     }
@@ -237,7 +230,7 @@ class SettingsPage : Fragment(R.layout.settings) {
             return
         }
 
-        val rtLabelIds = listOf(
+        val pointLabelIds = listOf(
             R.id.EasyRtLabel,
             R.id.MediumRtLabel,
             R.id.HardRtLabel,
@@ -248,15 +241,22 @@ class SettingsPage : Fragment(R.layout.settings) {
         val view = requireView()
 
         withContext(Dispatchers.Main) {
-            for (id in rtLabelIds) {
+            for (id in pointLabelIds) {
                 val rtLabel = view.findViewById<TextView>(id)
                 rtLabel.text = settings.pointsAcronym
             }
 
             val acronymInput = view.findViewById<EditText>(R.id.PointsAcronymInput)
-            acronymInput.setText(settings.pointsAcronym)
+            val defaultAcronym = settings.pointsAcronym
+            val userAcronymInput = viewModel.settingsInput.pointsAcronym
+            val acronymFieldValue = userAcronymInput ?: defaultAcronym
+            acronymInput.setText(acronymFieldValue)
+
             val lvlUpBonusInput = view.findViewById<EditText>(R.id.LevelUpBonusInput)
-            lvlUpBonusInput.setText(settings.lvlUpBonus.toString())
+            val defaultLvlBonus = settings.lvlUpBonus.toString()
+            val userLvlBonusInput = viewModel.settingsInput.lvlUpBonus
+            val lvlBonusFieldValue = userLvlBonusInput ?: defaultLvlBonus
+            lvlUpBonusInput.setText(lvlBonusFieldValue)
         }
     }
 
@@ -297,6 +297,75 @@ class SettingsPage : Fragment(R.layout.settings) {
         })
     }
 
+    private fun addTextChangedListener(
+        inputView: EditText,
+        onTextChange: (s: CharSequence ) -> Unit
+    ) {
+        inputView.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                onTextChange(s)
+            }
+        })
+    }
+
+    private fun expOnTextChangeGenerator(difficultyCode: DifficultyCode): (s:CharSequence) -> Unit {
+        return { s: CharSequence ->
+            val expInput = s.toString()
+            val difficultySetting = viewModel.settingsInput.difficultySettingsMap[difficultyCode]
+            difficultySetting?.expReward = expInput
+        }
+    }
+
+    private fun pointsOnTextChangeGenerator(
+        difficultyCode: DifficultyCode
+    ): (s:CharSequence) -> Unit {
+        return { s: CharSequence ->
+            val pointsInput = s.toString()
+            val difficultySetting = viewModel.settingsInput.difficultySettingsMap[difficultyCode]
+            difficultySetting?.pointsReward = pointsInput
+        }
+    }
+
+    private fun acronymOnTextChange(s: CharSequence) {
+        val acronymInput = s.toString()
+        viewModel.settingsInput.pointsAcronym = acronymInput
+    }
+
+    private fun lvlBonusOnTextChange(s: CharSequence) {
+        val bonusInput = s.toString()
+        viewModel.settingsInput.lvlUpBonus = bonusInput
+    }
+
+    private fun setupInputFieldListeners() {
+        val view = requireView()
+
+        for (difficultyCode in difficultyInputMap.keys) {
+            val difficultyViewIdPair = difficultyInputMap[difficultyCode] ?: continue
+
+            val expInputId = difficultyViewIdPair.first
+            val expInput = view.findViewById<EditText>(expInputId)
+            val expOnTextChange = expOnTextChangeGenerator(difficultyCode)
+            addTextChangedListener(expInput, expOnTextChange)
+
+            val pointsInputId = difficultyViewIdPair.second
+            val pointsInput = view.findViewById<EditText>(pointsInputId)
+            val pointsOnTextChange = pointsOnTextChangeGenerator(difficultyCode)
+            addTextChangedListener(pointsInput, pointsOnTextChange)
+        }
+
+        val acronymInput = view.findViewById<EditText>(R.id.PointsAcronymInput)
+        addTextChangedListener(acronymInput, ::acronymOnTextChange)
+
+        val lvlBonusInput = view.findViewById<EditText>(R.id.LevelUpBonusInput)
+        addTextChangedListener(lvlBonusInput, ::lvlBonusOnTextChange)
+    }
+
     private fun setupObservables() {
         val view = requireView()
 
@@ -308,6 +377,17 @@ class SettingsPage : Fragment(R.layout.settings) {
         }
 
         setupPointsAcronym()
+        setupInputFieldListeners()
+    }
+
+    private fun overrideBackButton() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (findNavController().currentBackStackEntry != null) {
+                viewModel.clearUserInput()
+            }
+
+            findNavController().popBackStack()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -320,6 +400,7 @@ class SettingsPage : Fragment(R.layout.settings) {
             loadDifficultyData()
             loadSettings()
             setupObservables()
+            overrideBackButton()
         }
     }
 

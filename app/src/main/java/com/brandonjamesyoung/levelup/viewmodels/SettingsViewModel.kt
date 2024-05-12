@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.Difficulty
 import com.brandonjamesyoung.levelup.data.DifficultyRepository
 import com.brandonjamesyoung.levelup.data.Settings
+import com.brandonjamesyoung.levelup.data.SettingsInput
 import com.brandonjamesyoung.levelup.data.SettingsRepository
 import com.brandonjamesyoung.levelup.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,8 @@ class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : BaseViewModel() {
     var prevFragmentId: Int? = null
+
+    var settingsInput: SettingsInput = SettingsInput()
 
     suspend fun getDifficulties(): List<Difficulty> {
         return difficultyRepository.getAll()
@@ -96,6 +99,10 @@ class SettingsViewModel @Inject constructor(
         val oldAcronym = currSettings.pointsAcronym
         val newAcronym = newSettings.pointsAcronym
         updateDifficulties(newDifficulties, oldAcronym, newAcronym)
+    }
+
+    fun clearUserInput() {
+        settingsInput.clear()
     }
 
     companion object {
