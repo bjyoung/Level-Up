@@ -55,7 +55,7 @@
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_hint</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textCursorDrawable">@drawable/input_cursor</item>
+        <item name="android:textCursorDrawable">@drawable/input_cursor_black</item>
     </style>
     <style name="NumInput" parent="EditText">
         <item name="android:background">@drawable/white_border</item>
@@ -63,6 +63,7 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textColorHint">@color/hint_primary</item>
+        <item name="android:textCursorDrawable">@drawable/input_cursor_white</item>
     </style>
     <style name="NumInput.Small">
         <item name="android:layout_width">0dp</item>
