@@ -20,6 +20,7 @@ import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.utility.IconHelper.Companion.getDefaultIcon
 import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.interfaces.Resettable
 import com.brandonjamesyoung.levelup.utility.TypeConverter
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
@@ -32,7 +33,7 @@ import java.time.Instant
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NewQuest : Fragment(R.layout.new_quest) {
+class NewQuest : Fragment(R.layout.new_quest), Resettable {
     private val viewModel: NewQuestViewModel by activityViewModels()
 
     private val args: NewQuestArgs by navArgs()
@@ -249,6 +250,15 @@ class NewQuest : Fragment(R.layout.new_quest) {
         return args.questId != INVALID_QUEST_ID
     }
 
+    private fun setupBackNavigation() {
+        onBackNavigation(
+            viewModel::resetPage,
+            requireActivity(),
+            viewLifecycleOwner,
+            findNavController()
+        )
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -257,6 +267,7 @@ class NewQuest : Fragment(R.layout.new_quest) {
             setupInputFields()
             setupButtons()
             setupMode()
+            setupBackNavigation()
         }
     }
 

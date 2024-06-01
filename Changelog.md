@@ -28,8 +28,9 @@ This document tracks all notables changes to the Level Up app.
 - Fix bug where app crashes when rapidly switching between Quest List and Edit Quest pages
 - Increase quest card size so that long quest names are not blocked by the icon
 - Fix blurry checkmark icon when selecting quests in Quest List
-- User input in Settings is no longer lost on screen rotate
+- Data input in Settings is no longer lost on screen rotate
 - Fix input field cursor not appearing for white-on-black input fields
+- Fix Edit Quest page sometimes appearing when clicking the New Quest button from the Quest List page
 
 ---
 

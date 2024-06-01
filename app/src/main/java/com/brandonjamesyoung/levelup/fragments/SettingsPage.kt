@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Difficulty
 import com.brandonjamesyoung.levelup.data.Settings
+import com.brandonjamesyoung.levelup.interfaces.Resettable
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.SettingsViewModel
@@ -28,7 +28,7 @@ import javax.inject.Inject
 import com.brandonjamesyoung.levelup.constants.Difficulty as DifficultyCode
 
 @AndroidEntryPoint
-class SettingsPage : Fragment(R.layout.settings) {
+class SettingsPage : Fragment(R.layout.settings), Resettable {
     private val args: SettingsPageArgs by navArgs()
 
     private val viewModel: SettingsViewModel by activityViewModels()
@@ -380,14 +380,13 @@ class SettingsPage : Fragment(R.layout.settings) {
         setupInputFieldListeners()
     }
 
-    private fun overrideBackButton() {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (findNavController().currentBackStackEntry != null) {
-                viewModel.clearUserInput()
-            }
-
-            findNavController().popBackStack()
-        }
+    private fun setupBackNavigation() {
+        onBackNavigation(
+            viewModel::clearUserInput,
+            requireActivity(),
+            viewLifecycleOwner,
+            findNavController()
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -400,7 +399,7 @@ class SettingsPage : Fragment(R.layout.settings) {
             loadDifficultyData()
             loadSettings()
             setupObservables()
-            overrideBackButton()
+            setupBackNavigation()
         }
     }
 
