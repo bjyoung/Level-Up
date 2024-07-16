@@ -19,10 +19,14 @@ data class Player(
     @ColumnInfo var totalExp: Long = 0,
     @ColumnInfo var currentLvlExp: Int = 0,
 ) {
-    fun getExpToLvlUp() : Int {
-        return BASE_EXP + (1750 * (lvl - 1))
+    // Get the exact amount of EXP needed to level up starting at the beginning
+    // of the given level. Defaults to the player's current level.
+    fun getExpToLvlUp(targetLvl: Int? = null) : Int {
+        val levelToUse = targetLvl ?: lvl
+        return BASE_EXP + (1750 * (levelToUse - 1))
     }
 
+    // Get the amount of EXP the player needs to reach the next level
     fun getExpToNextLvl() : Int {
         val totalExpToLvlUp = getExpToLvlUp()
         return totalExpToLvlUp - currentLvlExp
@@ -70,7 +74,9 @@ data class Player(
         }
     }
 
-    private fun addExp(expEarned: Int, bonusPoints: Int) {
+    // Give EXP to the player
+    // Returns the amount of levels earned (which can be negative)
+    private fun addExp(expEarned: Int, bonusPoints: Int) : Int {
         var expLeft = expEarned
         var numLoops = 0
 
@@ -88,9 +94,12 @@ data class Player(
         val currLvlExpEarned = if (lvl < MAX_LEVEL) expLeft else 0
         currentLvlExp += currLvlExpEarned
         gainTotalExp(expEarned)
+        return numLoops
     }
 
-    private fun subtractExp(expEarned: Int, bonusPoints: Int) {
+    // Remove EXP from the player, which can de-level them
+    // Returns the amount of levels earned (which can be negative)
+    private fun subtractExp(expEarned: Int, bonusPoints: Int) : Int {
         var expLost = -expEarned
         var numLoops = 0
 
@@ -113,10 +122,17 @@ data class Player(
 
         gainTotalExp(expEarned)
         currentLvlExp -= currLvlExpLost
+        return numLoops * -1
     }
 
-    fun gainExp(expEarned: Int, bonusPoints: Int) {
-        if (expEarned >= 0) addExp(expEarned, bonusPoints) else subtractExp(expEarned, bonusPoints)
+    // Give the player EXP
+    // Returns the amount of levels earned (which can be negative)
+    fun gainExp(expEarned: Int, bonusPoints: Int) : Int {
+        return if (expEarned >= 0) {
+            addExp(expEarned, bonusPoints)
+        } else {
+            subtractExp(expEarned, bonusPoints)
+        }
     }
 
     companion object {

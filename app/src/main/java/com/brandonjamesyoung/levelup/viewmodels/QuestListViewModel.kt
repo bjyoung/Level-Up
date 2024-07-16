@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.math.abs
 
 @HiltViewModel
 class QuestListViewModel @Inject constructor(
@@ -78,15 +79,47 @@ class QuestListViewModel @Inject constructor(
     }
 
     private fun getQuestCompleteMessage(
-        willLevelUp: Boolean,
+        levelsEarned: Int,
         reward: Reward,
         pointsAcronym : String
     ) : String {
-        return if (willLevelUp) {
-            "You levelled up and earned ${reward.exp} exp and ${reward.points} $pointsAcronym!"
+        val introMessage: String = if (levelsEarned > 0) {
+            "You levelled up and"
+        } else if (levelsEarned == 0) {
+            "You"
         } else {
-            "You earned ${reward.exp} exp and ${reward.points} $pointsAcronym"
+            "You levelled down and"
         }
+
+        val displayedRewards = Reward(abs(reward.exp), abs(reward.points))
+        val expAmountMessage = "${displayedRewards.exp} exp"
+
+        val expMessage = if (reward.exp >= 0) {
+            "earned $expAmountMessage"
+        } else {
+            "lost $expAmountMessage"
+        }
+
+        val pointsAmountMessage = "${displayedRewards.points} $pointsAcronym"
+
+        val pointsMessage = if ((reward.points >= 0 && reward.exp >= 0)
+            || (reward.points < 0 && reward.exp < 0)) {
+            pointsAmountMessage
+        } else if (reward.points >= 0) {
+            "earned $pointsAmountMessage"
+        } else {
+            "lost $pointsAmountMessage"
+        }
+
+        val punctuation: String = if (levelsEarned > 0) {
+            "!"
+        } else if (levelsEarned == 0) {
+            ""
+        } else {
+            "..."
+        }
+
+        return "$introMessage $expMessage and $pointsMessage$punctuation"
     }
 
     fun completeQuests(questIds: Set<Int>) = viewModelScope.launch(ioDispatcher) {
@@ -94,20 +127,19 @@ class QuestListViewModel @Inject constructor(
         val reward = calculateRewards(difficulties)
         val player = playerRepository.get()
         val settings = settingsRepository.get()
-        val bonusPoints = settings.lvlUpBonus
-        val willLevelUp = player.canLevelUp(reward.exp)
-        player.gainExp(reward.exp, bonusPoints)
+        val levelsEarned = player.gainExp(reward.exp, settings.lvlUpBonus)
         player.gainPoints(reward.points)
         playerRepository.update(player)
         questRepository.complete(questIds)
         val numQuestsCompleted = questIds.count()
         val pointsAcronym = settings.pointsAcronym
+        reward.points += settings.lvlUpBonus * levelsEarned
 
         val logMessage = "${player.name} completes $numQuestsCompleted quest(s) " +
                 "and earns ${reward.exp} exp and ${reward.points} $pointsAcronym"
 
         Log.i(TAG, logMessage)
-        val displayedMessage = getQuestCompleteMessage(willLevelUp, reward, pointsAcronym)
+        val displayedMessage = getQuestCompleteMessage(levelsEarned, reward, pointsAcronym)
         showSnackbar(displayedMessage)
     }
 
