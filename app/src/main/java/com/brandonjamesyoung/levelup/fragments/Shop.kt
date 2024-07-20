@@ -1,11 +1,9 @@
 package com.brandonjamesyoung.levelup.fragments
 
-import android.animation.ValueAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,8 +16,8 @@ import com.brandonjamesyoung.levelup.data.ShopItem
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
 import com.brandonjamesyoung.levelup.constants.Mode
-import com.brandonjamesyoung.levelup.constants.POINT_UPDATE_ANIM_DURATION
 import com.brandonjamesyoung.levelup.utility.ItemTableManager
+import com.brandonjamesyoung.levelup.utility.PointsDisplay
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.ShopViewModel
 import com.google.android.material.button.MaterialButton
@@ -40,6 +38,10 @@ class Shop : Fragment(R.layout.shop) {
     @Inject lateinit var buttonConverter: ButtonConverter
 
     @Inject lateinit var itemTableManager: ItemTableManager
+
+    @Inject lateinit var pointsDisplay: PointsDisplay
+
+    private var pointsLoaded: Boolean = false
 
     private fun navigateToNewItem(itemId: Int? = null) {
         val action = if (itemId != null) {
@@ -245,29 +247,16 @@ class Shop : Fragment(R.layout.shop) {
         itemListLayout.addView(itemRow)
     }
 
-    private fun updatePoints(view: View, player: Player?) {
-        val pointsAmount = view.findViewById<TextView>(R.id.PointsAmount)
+    private fun updatePointsDisplay(player: Player?) {
+        pointsDisplay.updatePointsText(
+            player,
+            R.id.PointsAmount,
+            pointsLoaded,
+            requireView(),
+            resources
+        )
 
-        if (player == null) {
-            pointsAmount.text = getString(R.string.placeholder_text)
-            return
-        }
-
-        val prevPoints = if (pointsAmount.text == getString(R.string.placeholder_text)) {
-            0
-        } else {
-            Integer.parseInt(pointsAmount.text.toString())
-        }
-
-        val animator = ValueAnimator.ofInt(prevPoints, player.points)
-        animator.interpolator = DecelerateInterpolator()
-        animator.duration = POINT_UPDATE_ANIM_DURATION
-
-        animator.addUpdateListener {
-                animation -> pointsAmount.text = animation.animatedValue.toString()
-        }
-
-        animator.start()
+        pointsLoaded = true
     }
 
     private fun loadPointsAcronym() = lifecycleScope.launch(Dispatchers.IO) {
@@ -280,7 +269,8 @@ class Shop : Fragment(R.layout.shop) {
         }
     }
 
-    private fun setupObservables(view: View) {
+    private fun setupObservables() {
+        val view = requireView()
         activateItemHistoryButton()
         viewModel.switchToDefaultMode()
 
@@ -301,7 +291,7 @@ class Shop : Fragment(R.layout.shop) {
         }
 
         viewModel.player.observe(viewLifecycleOwner) { player ->
-            updatePoints(view, player)
+            updatePointsDisplay(player)
         }
 
         viewModel.message.observe(viewLifecycleOwner) { message ->
@@ -318,7 +308,7 @@ class Shop : Fragment(R.layout.shop) {
         lifecycleScope.launch{
             Log.i(TAG, "On Shop page")
             loadPointsAcronym()
-            setupObservables(view)
+            setupObservables()
         }
     }
 

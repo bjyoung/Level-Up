@@ -1,11 +1,9 @@
 package com.brandonjamesyoung.levelup.fragments
 
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -16,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.Mode
-import com.brandonjamesyoung.levelup.constants.POINT_UPDATE_ANIM_DURATION
 import com.brandonjamesyoung.levelup.constants.PROGRESS_BAR_ANIM_DURATION
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Quest
@@ -40,6 +37,10 @@ class QuestList: Fragment(R.layout.quest_list) {
     @Inject lateinit var cardGenerator: CardGenerator
 
     @Inject lateinit var buttonConverter: ButtonConverter
+
+    @Inject lateinit var pointsDisplay: PointsDisplay
+
+    private var pointsLoaded: Boolean = false
 
     private fun setupUsernameNavigation() {
         val view = requireView()
@@ -327,7 +328,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         noIconsMessage.visibility = View.GONE
     }
 
-    private fun updateUsername(view: View, player: Player?) {
+    private fun updateUsername(player: Player?) {
         val placeholderText = getString(R.string.placeholder_text)
         val name: String
         val lvlStr: String
@@ -341,38 +342,24 @@ class QuestList: Fragment(R.layout.quest_list) {
         }
 
         val levelHeader = getString(R.string.username_level_header, lvlStr, name)
-        val usernameView = view.findViewById<TextView>(R.id.Username)
+        val usernameView = requireView().findViewById<TextView>(R.id.Username)
         usernameView.text = levelHeader
     }
 
-    // TODO extract out the same method in Shop.kt
-    private fun updatePoints(view: View, player: Player?) {
-        val pointsAmount = view.findViewById<TextView>(R.id.PointsAmount)
+    private fun updatePointsDisplay(player: Player?) {
+        pointsDisplay.updatePointsText(
+            player,
+            R.id.PointsAmount,
+            pointsLoaded,
+            requireView(),
+            resources
+        )
 
-        if (player == null) {
-            pointsAmount.text = getString(R.string.placeholder_text)
-            return
-        }
-
-        val prevPoints = if (pointsAmount.text == getString(R.string.placeholder_text)) {
-            0
-        } else {
-            Integer.parseInt(pointsAmount.text.toString())
-        }
-
-        val animator = ValueAnimator.ofInt(prevPoints, player.points)
-        animator.interpolator = DecelerateInterpolator()
-        animator.duration = POINT_UPDATE_ANIM_DURATION
-
-        animator.addUpdateListener {
-            animation -> pointsAmount.text = animation.animatedValue.toString()
-        }
-
-        animator.start()
+        pointsLoaded = true
     }
 
-    private fun updateProgressBar(view: View, player: Player?) {
-        val progressBar =  view.findViewById<ProgressBar>(R.id.ProgressBar)
+    private fun updateProgressBar(player: Player?) {
+        val progressBar =  requireView().findViewById<ProgressBar>(R.id.ProgressBar)
         var progressInt = 0
 
         if (player != null) {
@@ -387,24 +374,22 @@ class QuestList: Fragment(R.layout.quest_list) {
             .start()
     }
 
-    private fun updateNextLvlProgress(view: View, player: Player?) {
+    private fun updateNextLvlProgress(player: Player?) {
         if (player == null) return
-        val nextLvlExpView : TextView =  view.findViewById(R.id.NextLvlExp)
+        val nextLvlExpView : TextView = requireView().findViewById(R.id.NextLvlExp)
         val expToNextLvl = player.getExpToNextLvl()
         nextLvlExpView.text = expToNextLvl.toString()
     }
 
     private fun setupPlayerUi(player: Player?) {
         if (player == null) return
-        val view = requireView()
-        updateUsername(view, player)
-        updatePoints(view, player)
-        updateProgressBar(view, player)
-        updateNextLvlProgress(view, player)
+        updateUsername(player)
+        updatePointsDisplay(player)
+        updateProgressBar(player)
+        updateNextLvlProgress(player)
     }
 
     private fun setupObservables() {
-        val view = requireView()
         viewModel.switchToDefaultMode()
 
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
@@ -423,6 +408,8 @@ class QuestList: Fragment(R.layout.quest_list) {
         viewModel.player.observe(viewLifecycleOwner) {
             setupPlayerUi(it)
         }
+
+        val view = requireView()
 
         viewModel.message.observe(viewLifecycleOwner) { message ->
             message.getContentIfNotHandled()?.let {

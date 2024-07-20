@@ -4,6 +4,14 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.8.1
+
+### Fixed
+
+- Fixed points display incrementing upwards from zero everytime you load into Quest List or Shop
+
+---
+
 ## 0.8.0
 
 ### Added
