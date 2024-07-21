@@ -1,6 +1,5 @@
 package com.brandonjamesyoung.levelup.fragments
 
-import android.app.ProgressDialog.show
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -174,7 +173,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         convertButton(
             targetId = R.id.BackButton,
             iconDrawableId = R.drawable.trash_bin_icon_large,
-            iconColorId = R.color.delete,
+            iconColorId = R.color.warning_icon,
             buttonMethod = ::deleteIcons,
         )
     }

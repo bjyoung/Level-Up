@@ -6,9 +6,13 @@ This document tracks all notables changes to the Level Up app.
 
 ## 0.8.1
 
+### Changed
+
+- Modify button colors on-press to stand out more
+
 ### Fixed
 
-- Fixed points display incrementing upwards from zero everytime you load into Quest List or Shop
+- Fix points display incrementing upwards from zero everytime you load into Quest List or Shop
 
 ---
 
@@ -21,7 +25,7 @@ This document tracks all notables changes to the Level Up app.
 
 ### Changed
 
-- Re-organized how quest icons are grouped so that they are spread out more evenly
+- Re-organize how quest icons are grouped so that they are spread out more evenly
   - New group definitions:
     - Spades: tech/abstract
     - Diamonds: hobby/money/food
