@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/settings"
-        android:name="com.brandonjamesyoung.levelup.fragments.SettingsPage"
+        android:name="com.brandonjamesyoung.levelup.fragments.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/settings">
         <action

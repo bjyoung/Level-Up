@@ -3,7 +3,7 @@ package com.brandonjamesyoung.levelup.utility
 open class Event<out T>(private val content: T) {
     private var hasBeenHandled = false
 
-    // Returns the content and prevents its use again.
+    // Returns content as long as it is new
     fun getContentIfNotHandled(): T? {
         return if (hasBeenHandled) {
             null

@@ -28,8 +28,8 @@ import javax.inject.Inject
 import com.brandonjamesyoung.levelup.constants.Difficulty as DifficultyCode
 
 @AndroidEntryPoint
-class SettingsPage : Fragment(R.layout.settings), Resettable {
-    private val args: SettingsPageArgs by navArgs()
+class SettingsFragment : Fragment(R.layout.settings), Resettable {
+    private val args: SettingsFragmentArgs by navArgs()
 
     private val viewModel: SettingsViewModel by activityViewModels()
 
