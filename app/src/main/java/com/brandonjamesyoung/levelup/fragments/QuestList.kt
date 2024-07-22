@@ -96,7 +96,6 @@ class QuestList: Fragment(R.layout.quest_list) {
             iconColorId = R.color.confirm_icon,
             buttonMethod = ::completeQuests,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -113,7 +112,6 @@ class QuestList: Fragment(R.layout.quest_list) {
             iconColorId = R.color.warning_icon,
             buttonMethod = ::deleteQuests,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -134,7 +132,6 @@ class QuestList: Fragment(R.layout.quest_list) {
             iconDrawableId = R.drawable.cancel_icon_large,
             buttonMethod = ::deselectAllQuests,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -162,7 +159,6 @@ class QuestList: Fragment(R.layout.quest_list) {
             iconDrawableId = R.drawable.plus_icon_large,
             buttonMethod = ::navigateToNewQuest,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -178,7 +174,6 @@ class QuestList: Fragment(R.layout.quest_list) {
             iconDrawableId = R.drawable.shopping_bag_icon_large,
             buttonMethod = ::navigateToShop,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -195,7 +190,6 @@ class QuestList: Fragment(R.layout.quest_list) {
             iconDrawableId = R.drawable.gear_icon_large,
             buttonMethod = ::navigateToSettings,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -245,7 +239,6 @@ class QuestList: Fragment(R.layout.quest_list) {
             button = button,
             iconId = iconId,
             iconReader = viewModel,
-            context = requireContext(),
             lifecycleScope = lifecycleScope
         )
     }
@@ -351,8 +344,7 @@ class QuestList: Fragment(R.layout.quest_list) {
             player,
             R.id.PointsAmount,
             pointsLoaded,
-            requireView(),
-            resources
+            requireView()
         )
 
         pointsLoaded = true

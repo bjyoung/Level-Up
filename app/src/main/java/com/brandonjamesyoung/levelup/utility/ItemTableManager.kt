@@ -1,6 +1,6 @@
 package com.brandonjamesyoung.levelup.utility
 
-import android.content.res.Resources
+import android.content.Context
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +11,11 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.ITEM_ROW_LANDSCAPE_WIDTH_DP
 import com.brandonjamesyoung.levelup.data.Item
 
-class ItemTableManager {
+class ItemTableManager (val context: Context) {
     fun createItemRow(
         item: Item,
         layoutInflater: LayoutInflater,
-        parentLayout: ViewGroup,
-        resources: Resources
+        parentLayout: ViewGroup
     ) : ConstraintLayout {
         val newItemRow = layoutInflater.inflate(
             R.layout.item_row,
@@ -26,6 +25,7 @@ class ItemTableManager {
 
         newItemRow.id = View.generateViewId()
         val itemName = newItemRow.findViewById<TextView>(R.id.ItemName)
+        val resources = context.resources
         val defaultName = resources.getString(R.string.placeholder_text)
         itemName.text = item.name ?: defaultName
 

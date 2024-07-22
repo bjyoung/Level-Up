@@ -1,9 +1,11 @@
 package com.brandonjamesyoung.levelup.di
 
+import android.content.Context
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -12,7 +14,7 @@ import javax.inject.Singleton
 class ButtonModule {
     @Singleton
     @Provides
-    fun provideButtonConverter(): ButtonConverter {
-        return ButtonConverter()
+    fun provideButtonConverter(@ApplicationContext context: Context): ButtonConverter {
+        return ButtonConverter(context)
     }
 }

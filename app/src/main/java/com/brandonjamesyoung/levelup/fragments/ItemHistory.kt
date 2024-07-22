@@ -49,8 +49,7 @@ class ItemHistory : Fragment(R.layout.item_history) {
         val itemRow: ConstraintLayout = itemTableManager.createItemRow(
             purchasedItem,
             layoutInflater,
-            itemHistoryLinearLayout,
-            resources
+            itemHistoryLinearLayout
         )
 
         itemHistoryLinearLayout.addView(itemRow)

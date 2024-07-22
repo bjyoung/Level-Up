@@ -60,7 +60,6 @@ class Shop : Fragment(R.layout.shop) {
             iconDrawableId = R.drawable.plus_icon_large,
             buttonMethod = ::navigateToNewItem,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -75,7 +74,6 @@ class Shop : Fragment(R.layout.shop) {
             iconDrawableId = R.drawable.bullet_list_icon_large,
             buttonMethod = ::navigateToQuestList,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -96,7 +94,6 @@ class Shop : Fragment(R.layout.shop) {
             iconDrawableId = R.drawable.gear_icon_large,
             buttonMethod = ::navigateToSettings,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -135,7 +132,6 @@ class Shop : Fragment(R.layout.shop) {
             iconDrawableId = R.drawable.cancel_icon_large,
             buttonMethod = ::cancelSelectedItems,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -151,7 +147,6 @@ class Shop : Fragment(R.layout.shop) {
             iconColorId = R.color.warning_icon,
             buttonMethod = ::deleteItems,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -167,7 +162,6 @@ class Shop : Fragment(R.layout.shop) {
             iconColorId = R.color.confirm_icon,
             buttonMethod = ::buyItems,
             view = requireView(),
-            resources = resources
         )
     }
 
@@ -231,8 +225,7 @@ class Shop : Fragment(R.layout.shop) {
         val itemRow: ConstraintLayout = itemTableManager.createItemRow(
             shopItem,
             layoutInflater,
-            itemListLayout,
-            resources
+            itemListLayout
         )
 
         itemRow.setOnClickListener{
@@ -252,8 +245,7 @@ class Shop : Fragment(R.layout.shop) {
             player,
             R.id.PointsAmount,
             pointsLoaded,
-            requireView(),
-            resources
+            requireView()
         )
 
         pointsLoaded = true

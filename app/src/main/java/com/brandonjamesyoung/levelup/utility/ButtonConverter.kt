@@ -1,7 +1,6 @@
 package com.brandonjamesyoung.levelup.utility
 
 import android.content.Context
-import android.content.res.Resources
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -13,7 +12,7 @@ import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ButtonConverter {
+class ButtonConverter (val context: Context) {
     // Change Material button's icon and on click method
     fun convertNavButton(
         targetId: Int,
@@ -21,10 +20,10 @@ class ButtonConverter {
         iconColorId: Int = R.color.nav_button_icon,
         buttonMethod: () -> Unit,
         view: View,
-        resources: Resources
     ) {
         val button = view.findViewById<MaterialButton>(targetId)
-        val theme = view.context.theme
+        val theme = context.theme
+        val resources = context.resources
 
         val drawable = ResourcesCompat.getDrawable(
             resources,
@@ -45,7 +44,6 @@ class ButtonConverter {
         button: FloatingActionButton,
         iconId : Int?,
         iconReader: IconReader,
-        context: Context,
         lifecycleScope: LifecycleCoroutineScope,
     ) {
         if (iconId == null) {

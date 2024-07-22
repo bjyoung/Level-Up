@@ -1,9 +1,11 @@
 package com.brandonjamesyoung.levelup.di
 
+import android.content.Context
 import com.brandonjamesyoung.levelup.utility.ItemTableManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -12,7 +14,7 @@ import javax.inject.Singleton
 class ItemModule {
     @Singleton
     @Provides
-    fun provideItemTableManager(): ItemTableManager {
-        return ItemTableManager()
+    fun provideItemTableManager(@ApplicationContext context: Context): ItemTableManager {
+        return ItemTableManager(context)
     }
 }

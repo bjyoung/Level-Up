@@ -1,5 +1,6 @@
 package com.brandonjamesyoung.levelup.utility
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -8,8 +9,8 @@ import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.interfaces.IconReader
 import com.brandonjamesyoung.levelup.views.QuestCardView
 
-class CardGenerator {
-    private val buttonConverter: ButtonConverter = ButtonConverter()
+class CardGenerator (val context: Context) {
+    private val buttonConverter: ButtonConverter = ButtonConverter(context)
 
     // Maps
     val difficultyColorMap = mapOf(
@@ -35,7 +36,6 @@ class CardGenerator {
             button = newCard.iconButton,
             iconId = iconId,
             iconReader = iconReader,
-            context = view.context,
             lifecycleScope = lifecycleScope
         )
 

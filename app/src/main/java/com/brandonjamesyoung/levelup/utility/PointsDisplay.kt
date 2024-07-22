@@ -11,8 +11,9 @@ import com.brandonjamesyoung.levelup.data.Player
 
 class PointsDisplay {
     // Set points value in UI without any animation
-    private fun setPoints(points: Int?, pointsViewId: Int, rootView: View, resources: Resources) {
+    private fun setPoints(points: Int?, pointsViewId: Int, rootView: View) {
         val pointsAmount = rootView.findViewById<TextView>(pointsViewId)
+        val resources = rootView.resources
         if (points == null) pointsAmount.text = resources.getString(R.string.placeholder_text)
         pointsAmount.text = points.toString()
     }
@@ -21,15 +22,16 @@ class PointsDisplay {
     private fun animatePoints(
         player: Player?,
         pointsViewId: Int,
-        rootView: View,
-        resources: Resources
+        rootView: View
     ) {
         val pointsAmount = rootView.findViewById<TextView>(pointsViewId)
 
         if (player == null) {
-            setPoints(null, pointsViewId, rootView, resources)
+            setPoints(null, pointsViewId, rootView)
             return
         }
+
+        val resources = rootView.resources
 
         val prevPoints = if (pointsAmount.text == resources.getString(R.string.placeholder_text)) {
             0
@@ -55,18 +57,17 @@ class PointsDisplay {
         player: Player?,
         pointsViewId: Int,
         pointsLoaded: Boolean,
-        view: View,
-        resources: Resources
+        view: View
     ) {
         if (player == null) {
-            setPoints(null, pointsViewId, view, resources)
+            setPoints(null, pointsViewId, view)
             return
         }
 
         if (pointsLoaded) {
-            animatePoints(player, pointsViewId, view, resources)
+            animatePoints(player, pointsViewId, view)
         } else {
-            setPoints(player.points, pointsViewId, view, resources)
+            setPoints(player.points, pointsViewId, view)
         }
     }
 }

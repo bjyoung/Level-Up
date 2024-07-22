@@ -63,7 +63,6 @@ class IconSelect : Fragment(R.layout.icon_select) {
             iconColorId = iconColorId,
             buttonMethod = buttonMethod,
             view = requireView(),
-            resources = resources
         )
     }
 
