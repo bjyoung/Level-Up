@@ -107,6 +107,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun activateDefaultMode() {
+        Log.i(TAG, "Activating DEFAULT mode in Shop")
         selectedItemIds.clear()
         selectedItemRowIds.clear()
         activateNewItemButton()
@@ -166,6 +167,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun activateSelectMode() {
+        Log.i(TAG, "Activating SELECT mode in Shop")
         activateCancelButton()
         activateDeleteButton()
         activateBuyButton()
@@ -188,21 +190,27 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun selectItem(itemId: Int, itemRow: ConstraintLayout) {
-        if (!isSelected(itemId)) {
-            selectedItemIds.add(itemId)
-            selectedItemRowIds.add(itemRow.id)
+        Log.i(TAG, "Selecting item $itemId")
+        selectedItemIds.add(itemId)
+        selectedItemRowIds.add(itemRow.id)
 
-            val selectedColor: Int = resources.getColor(
-                R.color.selected,
-                requireContext().theme,
-            )
+        val selectedColor: Int = resources.getColor(
+            R.color.selected,
+            requireContext().theme,
+        )
 
-            itemRow.setBackgroundColor(selectedColor)
-        } else {
-            selectedItemIds.remove(itemId)
-            selectedItemRowIds.remove(itemRow.id)
-            itemRow.setBackgroundColor(Color.TRANSPARENT)
-        }
+        itemRow.setBackgroundColor(selectedColor)
+    }
+
+    private fun deselectItem(itemId: Int, itemRow: ConstraintLayout) {
+        Log.i(TAG, "De-selecting item $itemId")
+        selectedItemIds.remove(itemId)
+        selectedItemRowIds.remove(itemRow.id)
+        itemRow.setBackgroundColor(Color.TRANSPARENT)
+    }
+
+    private fun tapItem(itemId: Int, itemRow: ConstraintLayout) {
+        if (!isSelected(itemId)) selectItem(itemId, itemRow) else deselectItem(itemId, itemRow)
 
         if (selectedItemIds.isNotEmpty()) {
             viewModel.switchToSelectMode()
@@ -229,7 +237,7 @@ class Shop : Fragment(R.layout.shop) {
         )
 
         itemRow.setOnClickListener{
-            selectItem(shopItem.id, itemRow)
+            tapItem(shopItem.id, itemRow)
         }
 
         itemRow.setOnLongClickListener {
@@ -297,7 +305,7 @@ class Shop : Fragment(R.layout.shop) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch{
+        lifecycleScope.launch(Dispatchers.Main) {
             Log.i(TAG, "On Shop page")
             loadPointsAcronym()
             setupObservables()
