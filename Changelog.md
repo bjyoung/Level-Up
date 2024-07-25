@@ -6,6 +6,10 @@ This document tracks all notables changes to the Level Up app.
 
 ## 0.8.1
 
+### Added
+
+- Add cheese icon
+
 ### Changed
 
 - Modify button colors on-press to stand out more

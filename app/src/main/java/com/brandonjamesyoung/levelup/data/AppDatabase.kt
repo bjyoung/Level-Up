@@ -151,6 +151,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Car", R.drawable.car_icon, IconGroup.DIAMONDS),
                     Triple("Camera", R.drawable.camera_icon, IconGroup.DIAMONDS),
                     Triple("Cent", R.drawable.cent_icon, IconGroup.SPADES),
+                    Triple("Cheese", R.drawable.cheese_icon, IconGroup.DIAMONDS),
                     Triple("Clock", R.drawable.clock_icon, IconGroup.HEARTS),
                     Triple("Clubs", R.drawable.clubs_icon, IconGroup.CLUBS),
                     Triple("Cookie", R.drawable.cookie_icon, IconGroup.DIAMONDS),
