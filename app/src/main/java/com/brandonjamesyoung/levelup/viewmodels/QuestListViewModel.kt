@@ -35,11 +35,10 @@ class QuestListViewModel @Inject constructor(
     val player: LiveData<Player>
         get() = _player
 
-    private var _mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
-
-    val mode: LiveData<Mode>
-        get() = _mode
-
+    init {
+        validModes = listOf(Mode.DEFAULT, Mode.SELECT)
+    }
+    
     val selectedQuestIds: MutableSet<Int> = mutableSetOf()
 
     val selectedQuestIconIds: MutableSet<Int> = mutableSetOf()
@@ -153,14 +152,6 @@ class QuestListViewModel @Inject constructor(
         questRepository.delete(questIds)
         val numDeleted = questIds.count()
         Log.i(TAG, "Delete $numDeleted quest(s)")
-    }
-
-    fun switchToDefaultMode() {
-        _mode.value = Mode.DEFAULT
-    }
-
-    fun switchToSelectMode() {
-        _mode.value = Mode.SELECT
     }
 
     companion object {

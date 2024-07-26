@@ -233,7 +233,7 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
 
     private fun setupMode() {
         if (needToLoadQuest()) {
-            viewModel.switchToEditMode()
+            viewModel.switchMode(Mode.EDIT)
             viewModel.editQuestId = args.questId
         }
 

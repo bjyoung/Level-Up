@@ -85,7 +85,7 @@ class QuestList: Fragment(R.layout.quest_list) {
 
     private fun completeQuests() {
         viewModel.completeQuests(viewModel.selectedQuestIds.toSet())
-        viewModel.switchToDefaultMode()
+        viewModel.switchMode(Mode.DEFAULT)
     }
 
     // Change New Quest button to Complete Quests button
@@ -101,7 +101,7 @@ class QuestList: Fragment(R.layout.quest_list) {
 
     private fun deleteQuests() {
         viewModel.deleteQuests(viewModel.selectedQuestIds.toSet())
-        viewModel.switchToDefaultMode()
+        viewModel.switchMode(Mode.DEFAULT)
     }
 
     // Change Shop button to Delete button
@@ -251,17 +251,9 @@ class QuestList: Fragment(R.layout.quest_list) {
     }
 
     private fun selectQuestIcon(quest: Quest, button: FloatingActionButton) {
-        if (!isSelected(quest.id)) {
-            checkQuest(quest, button)
-        } else {
-            uncheckQuest(quest, button)
-        }
-
-        if (viewModel.selectedQuestIds.isNotEmpty()) {
-            viewModel.switchToSelectMode()
-        } else {
-            viewModel.switchToDefaultMode()
-        }
+        if (!isSelected(quest.id)) checkQuest(quest, button) else uncheckQuest(quest, button)
+        val targetMode = if (viewModel.selectedQuestIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
+        viewModel.switchMode(targetMode)
     }
 
     private fun createQuestCard(quest: Quest) : QuestCardView {
@@ -382,7 +374,7 @@ class QuestList: Fragment(R.layout.quest_list) {
     }
 
     private fun setupObservables() {
-        viewModel.switchToDefaultMode()
+        viewModel.switchMode(Mode.DEFAULT)
 
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
             when (mode) {

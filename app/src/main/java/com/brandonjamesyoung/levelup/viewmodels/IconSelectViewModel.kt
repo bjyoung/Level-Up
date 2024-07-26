@@ -25,11 +25,6 @@ class IconSelectViewModel @Inject constructor(
 
     var selectedIconGroup: MutableLiveData<IconGroup?> = MutableLiveData(null)
 
-    private var _mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
-
-    val mode: LiveData<Mode>
-        get() = _mode
-
     val spadesIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.SPADES).asLiveData()
 
@@ -42,16 +37,8 @@ class IconSelectViewModel @Inject constructor(
     val clubsIcons: LiveData<List<Icon>> =
         iconRepository.observeGroup(IconGroup.CLUBS).asLiveData()
 
-    fun switchToDefaultMode() {
-        _mode.value = Mode.DEFAULT
-    }
-
-    fun switchToEditMode() {
-        _mode.value = Mode.EDIT
-    }
-
-    fun switchToMoveMode() {
-        _mode.value = Mode.MOVE
+    init {
+        validModes = listOf(Mode.DEFAULT, Mode.EDIT, Mode.MOVE)
     }
 
     fun deleteIcons(iconIds: List<Int>) = viewModelScope.launch(ioDispatcher) {

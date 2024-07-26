@@ -2,7 +2,6 @@ package com.brandonjamesyoung.levelup.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.constants.MAX_POINTS_PER_PURCHASE
@@ -26,21 +25,12 @@ class ShopViewModel @Inject constructor(
 
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
 
-    private var _mode: MutableLiveData<Mode> = MutableLiveData<Mode>(Mode.DEFAULT)
-
-    val mode: LiveData<Mode>
-        get() = _mode
+    init {
+        validModes = listOf(Mode.DEFAULT, Mode.SELECT)
+    }
 
     suspend fun getSettings() : Settings {
         return settingsRepository.get()
-    }
-
-    fun switchToDefaultMode() {
-        _mode.value = Mode.DEFAULT
-    }
-
-    fun switchToSelectMode() {
-        _mode.value = Mode.SELECT
     }
 
     private fun getPurchaseMessage(numItems: Int, cost: Int, pointsAcronym: String) : String {

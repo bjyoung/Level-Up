@@ -138,7 +138,7 @@ class Shop : Fragment(R.layout.shop) {
 
     private fun deleteItems() {
         viewModel.deleteItems(selectedItemIds.toSet())
-        viewModel.switchToDefaultMode()
+        viewModel.switchMode(Mode.DEFAULT)
     }
 
     private fun activateDeleteButton() {
@@ -211,12 +211,8 @@ class Shop : Fragment(R.layout.shop) {
 
     private fun tapItem(itemId: Int, itemRow: ConstraintLayout) {
         if (!isSelected(itemId)) selectItem(itemId, itemRow) else deselectItem(itemId, itemRow)
-
-        if (selectedItemIds.isNotEmpty()) {
-            viewModel.switchToSelectMode()
-        } else {
-            viewModel.switchToDefaultMode()
-        }
+        val targetMode = if (selectedItemIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
+        viewModel.switchMode(targetMode)
     }
 
     private fun longPressItemRow(shopItem: ShopItem) {
@@ -272,7 +268,7 @@ class Shop : Fragment(R.layout.shop) {
     private fun setupObservables() {
         val view = requireView()
         activateItemHistoryButton()
-        viewModel.switchToDefaultMode()
+        viewModel.switchMode(Mode.DEFAULT)
 
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
             when (mode) {
