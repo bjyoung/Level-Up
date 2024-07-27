@@ -15,12 +15,14 @@ import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.ShopItem
 import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.utility.DateLabelManager
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Instant
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,6 +34,8 @@ class NewItem : Fragment(R.layout.new_item) {
     private val args: NewItemArgs by navArgs()
 
     @Inject lateinit var validator: InputValidator
+
+    @Inject lateinit var dateLabelManager: DateLabelManager
 
     private fun loadPointsAcronym() = lifecycleScope.launch(Dispatchers.IO) {
         val settings = viewModel.getSettings()
@@ -110,12 +114,19 @@ class NewItem : Fragment(R.layout.new_item) {
         }
     }
 
+    private fun setupDate(dateCreated: Instant?) {
+        if (dateCreated == null) return
+        val dateCreatedView = requireView().findViewById<TextView>(R.id.DateCreatedLabel)
+        dateLabelManager.setupDateCreatedLabel(dateCreated, dateCreatedView)
+    }
+
     private fun loadItem(shopItem: ShopItem) {
         val view = requireView()
         val nameInput = view.findViewById<EditText>(R.id.ItemNameInput)
         nameInput.setText(shopItem.name)
         val costInput = view.findViewById<EditText>(R.id.CostInput)
         costInput.setText(shopItem.cost.toString())
+        setupDate(shopItem.dateCreated)
     }
 
     private fun activateEditMode() {

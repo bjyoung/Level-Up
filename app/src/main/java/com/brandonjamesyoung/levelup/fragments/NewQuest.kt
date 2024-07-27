@@ -21,7 +21,7 @@ import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.utility.IconHelper.Companion.getDefaultIcon
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.interfaces.Resettable
-import com.brandonjamesyoung.levelup.utility.TypeConverter
+import com.brandonjamesyoung.levelup.utility.DateLabelManager
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -39,6 +39,8 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
     private val args: NewQuestArgs by navArgs()
 
     @Inject lateinit var validator: InputValidator
+
+    @Inject lateinit var dateLabelManager: DateLabelManager
 
     private val buttonIdToDifficultyMap = mapOf(
         R.id.EasyButton to Difficulty.EASY,
@@ -198,13 +200,11 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
         setupCancelButton()
     }
 
-    private fun setupDateCreatedLabel(dateCreated: Instant?) {
+    private fun setupDate(dateCreated: Instant?) {
         if (dateCreated == null) return
         viewModel.dateCreated = dateCreated
         val dateCreatedView = requireView().findViewById<TextView>(R.id.DateCreatedLabel)
-        val dateString = TypeConverter.convertInstantToString(dateCreated)
-        dateCreatedView.text = getString(R.string.date_created_label, dateString)
-        dateCreatedView.visibility = View.VISIBLE
+        dateLabelManager.setupDateCreatedLabel(dateCreated, dateCreatedView)
     }
 
     private fun loadQuest(quest: Quest) {
@@ -213,7 +213,7 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
         nameInput.setText(quest.name)
         setSelectedDifficulty(quest.difficulty)
         changeIcon(quest.iconId)
-        setupDateCreatedLabel(quest.dateCreated)
+        setupDate(quest.dateCreated)
     }
 
     private fun activateEditMode() {
@@ -227,7 +227,7 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
                 viewModel.questDataLoaded = true
             }
         } else {
-            setupDateCreatedLabel(viewModel.dateCreated)
+            setupDate(viewModel.dateCreated)
         }
     }
 
