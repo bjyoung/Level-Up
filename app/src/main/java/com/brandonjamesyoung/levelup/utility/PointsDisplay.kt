@@ -1,7 +1,6 @@
 package com.brandonjamesyoung.levelup.utility
 
 import android.animation.ValueAnimator
-import android.content.res.Resources
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
@@ -64,7 +63,9 @@ class PointsDisplay {
             return
         }
 
-        if (pointsLoaded) {
+        val pointsAmount = view.findViewById<TextView>(pointsViewId)
+
+        if (pointsLoaded && pointsAmount.text != "0") {
             animatePoints(player, pointsViewId, view)
         } else {
             setPoints(player.points, pointsViewId, view)

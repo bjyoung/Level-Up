@@ -16,7 +16,7 @@ This document tracks all notables changes to the Level Up app.
 
 ### Fixed
 
-- Fix points display incrementing upwards from zero everytime you load into Quest List or Shop
+- Fix points display incrementing upwards from zero everytime you load into Quest List/Shop or when navigating backwards to Quest List/Shop
 - Fix Shop buttons not switching sometimes when an item is selected or de-selected
 
 ---
