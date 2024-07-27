@@ -210,6 +210,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun tapItem(itemId: Int, itemRow: ConstraintLayout) {
+        if (!viewModel.mode.hasObservers()) setupModeObserver()
         if (!isSelected(itemId)) selectItem(itemId, itemRow) else deselectItem(itemId, itemRow)
         val targetMode = if (selectedItemIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
         viewModel.switchMode(targetMode)
@@ -265,11 +266,7 @@ class Shop : Fragment(R.layout.shop) {
         }
     }
 
-    private fun setupObservables() {
-        val view = requireView()
-        activateItemHistoryButton()
-        viewModel.switchMode(Mode.DEFAULT)
-
+    private fun setupModeObserver() {
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
             when (mode) {
                 Mode.DEFAULT -> activateDefaultMode()
@@ -277,25 +274,38 @@ class Shop : Fragment(R.layout.shop) {
                 else -> Log.e(TAG, "Unknown mode detected")
             }
         }
+    }
 
+    private fun setupItemListObserver() {
         viewModel.shopItemList.observe(viewLifecycleOwner) { itemList ->
-            val itemListLayout = view.findViewById<LinearLayout>(R.id.ItemListLinearLayout)
+            val itemListLayout = requireView().findViewById<LinearLayout>(R.id.ItemListLinearLayout)
             itemListLayout.removeAllViews()
             val sortedItemList = itemList.sortedBy { it.dateCreated }
             sortedItemList.forEach { item -> addItemRow(item) }
             if (itemList.isEmpty()) showNoItemsMessage() else hideNoItemsMessage()
         }
+    }
+
+    private fun setupMessageObserver() {
+        viewModel.message.observe(viewLifecycleOwner) { message ->
+            message.getContentIfNotHandled()?.let {
+                val questListButton: View = requireView().findViewById(R.id.QuestListButton)
+                showSnackbar(it, requireView(), questListButton)
+            }
+        }
+    }
+
+    private fun setupObservables() {
+        activateItemHistoryButton()
+        viewModel.switchMode(Mode.DEFAULT)
+        setupModeObserver()
+        setupItemListObserver()
 
         viewModel.player.observe(viewLifecycleOwner) { player ->
             updatePointsDisplay(player)
         }
 
-        viewModel.message.observe(viewLifecycleOwner) { message ->
-            message.getContentIfNotHandled()?.let {
-                val questListButton: View = view.findViewById(R.id.QuestListButton)
-                showSnackbar(it, requireView(), questListButton)
-            }
-        }
+        setupMessageObserver()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
