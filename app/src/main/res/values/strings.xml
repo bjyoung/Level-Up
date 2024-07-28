@@ -111,6 +111,8 @@
     <string name="example_item_name">Item Name</string>
     <string name="example_item_cost">1</string>
     <string name="no_items_found_message">No items found</string>
+    <string name="shop_sort_button_message">Sort shop items</string>
+    <string name="sort_button_text">Sort By:</string>
 
     <!-- Item History strings -->
     <string name="item_history_label">Item History</string>

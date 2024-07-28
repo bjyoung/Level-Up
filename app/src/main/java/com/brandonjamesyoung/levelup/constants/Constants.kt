@@ -16,6 +16,14 @@ enum class IconGroup {
     SPADES, DIAMONDS, HEARTS, CLUBS
 }
 
+enum class SortType {
+    DATE_CREATED, NAME, PRICE, DIFFICULTY
+}
+
+enum class SortOrder {
+    ASC, DESC
+}
+
 // Animation Constants
 const val PROGRESS_BAR_ANIM_DURATION: Long = 450
 const val POINT_UPDATE_ANIM_DURATION: Long = 2500

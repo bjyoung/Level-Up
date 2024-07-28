@@ -6,6 +6,7 @@
     <dimen name="nav_button">48dp</dimen>
     <dimen name="big_round_button">64dp</dimen>
     <dimen name="action_button_width">150dp</dimen>
+    <dimen name="action_button_width_medium">250dp</dimen>
     <dimen name="action_button_width_long">338dp</dimen>
     <dimen name="button_icon_size">20dp</dimen>
     <dimen name="input_cursor_width">6dip</dimen>

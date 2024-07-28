@@ -18,8 +18,8 @@ class ButtonConverter (val context: Context) {
         targetId: Int,
         iconDrawableId: Int = R.drawable.question_mark_icon,
         iconColorId: Int = R.color.nav_button_icon,
-        buttonMethod: () -> Unit,
-        view: View,
+        buttonMethod: (() -> Unit)? = null,
+        view: View
     ) {
         val button = view.findViewById<MaterialButton>(targetId)
         val theme = context.theme
@@ -34,8 +34,10 @@ class ButtonConverter (val context: Context) {
         button.icon = drawable
         button.iconTint = resources.getColorStateList(iconColorId, theme)
 
-        button.setOnClickListener{
-            buttonMethod()
+        if (buttonMethod != null) {
+            button.setOnClickListener{
+                buttonMethod()
+            }
         }
     }
 

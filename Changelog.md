@@ -9,7 +9,8 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - Add cheese icon
-- Display date the item was created when editing it
+- Display date the item was created when editing items
+- Add Sort button to Shop
 
 ### Changed
 

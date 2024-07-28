@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +17,8 @@ import com.brandonjamesyoung.levelup.data.ShopItem
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
 import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.constants.SortOrder
+import com.brandonjamesyoung.levelup.constants.SortType
 import com.brandonjamesyoung.levelup.utility.ItemTableManager
 import com.brandonjamesyoung.levelup.utility.PointsDisplay
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
@@ -266,6 +269,11 @@ class Shop : Fragment(R.layout.shop) {
         }
     }
 
+    private fun setupSortButton() {
+        val sortButton: Button = requireView().findViewById(R.id.SortButton)
+        sortButton.setOnClickListener { viewModel.switchSortType() }
+    }
+
     private fun setupModeObserver() {
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
             when (mode) {
@@ -276,13 +284,72 @@ class Shop : Fragment(R.layout.shop) {
         }
     }
 
+    private fun changeSortIcon() {
+        val sortType: SortType? = viewModel.sortType.value
+
+        val possibleSortIcons: List<Int> = when (sortType) {
+            SortType.NAME -> listOf(
+                R.drawable.sort_alpha_up_icon,
+                R.drawable.sort_alpha_down_icon
+            )
+            SortType.PRICE -> listOf(
+                R.drawable.sort_price_up_icon,
+                R.drawable.sort_price_down_icon
+            )
+            else -> listOf(
+                R.drawable.sort_date_up_icon,
+                R.drawable.sort_date_down_icon
+            )
+        }
+
+        val sortOrder: SortOrder? = viewModel.sortOrder.value
+
+        val sortIconId: Int = when (sortOrder) {
+            SortOrder.ASC -> possibleSortIcons[1]
+            else -> possibleSortIcons[0]
+        }
+
+        buttonConverter.convertNavButton(
+            targetId = R.id.SortButton,
+            iconDrawableId = sortIconId,
+            iconColorId = R.color.icon_primary,
+            view = requireView(),
+        )
+    }
+
+    private fun reloadItemList(itemList: List<ShopItem>) {
+        val itemListLayout = requireView().findViewById<LinearLayout>(R.id.ItemListLinearLayout)
+        itemListLayout.removeAllViews()
+
+        var sortedItemList = when (viewModel.sortType.value) {
+            SortType.NAME -> itemList.sortedBy { it.name }
+            SortType.PRICE -> itemList.sortedBy { it.cost }
+            else -> itemList.sortedBy { it.dateCreated }
+        }
+
+        if (viewModel.sortOrder.value == SortOrder.ASC) {
+            sortedItemList = sortedItemList.reversed()
+        }
+
+        sortedItemList.forEach { item -> addItemRow(item) }
+        if (itemList.isEmpty()) showNoItemsMessage() else hideNoItemsMessage()
+    }
+
     private fun setupItemListObserver() {
         viewModel.shopItemList.observe(viewLifecycleOwner) { itemList ->
-            val itemListLayout = requireView().findViewById<LinearLayout>(R.id.ItemListLinearLayout)
-            itemListLayout.removeAllViews()
-            val sortedItemList = itemList.sortedBy { it.dateCreated }
-            sortedItemList.forEach { item -> addItemRow(item) }
-            if (itemList.isEmpty()) showNoItemsMessage() else hideNoItemsMessage()
+            reloadItemList(itemList)
+        }
+    }
+
+    private fun setupSortObservers() {
+        viewModel.sortType.observe(viewLifecycleOwner) {
+            changeSortIcon()
+            viewModel.shopItemList.value?.let { reloadItemList(it) }
+        }
+
+        viewModel.sortOrder.observe(viewLifecycleOwner) {
+            changeSortIcon()
+            viewModel.shopItemList.value?.let { reloadItemList(it) }
         }
     }
 
@@ -300,6 +367,7 @@ class Shop : Fragment(R.layout.shop) {
         viewModel.switchMode(Mode.DEFAULT)
         setupModeObserver()
         setupItemListObserver()
+        setupSortObservers()
 
         viewModel.player.observe(viewLifecycleOwner) { player ->
             updatePointsDisplay(player)
@@ -314,6 +382,7 @@ class Shop : Fragment(R.layout.shop) {
         lifecycleScope.launch(Dispatchers.Main) {
             Log.i(TAG, "On Shop page")
             loadPointsAcronym()
+            setupSortButton()
             setupObservables()
         }
     }
