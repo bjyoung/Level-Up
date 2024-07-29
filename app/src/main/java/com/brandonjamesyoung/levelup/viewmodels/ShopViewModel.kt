@@ -28,18 +28,17 @@ class ShopViewModel @Inject constructor(
 
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
 
-    private var _sortType: MutableLiveData<SortType> =
-        MutableLiveData<SortType>(SortType.DATE_CREATED)
+    private lateinit var _sortType: MutableLiveData<SortType>
 
     val sortType: MutableLiveData<SortType>
         get() = _sortType
 
-    private var _sortOrder: MutableLiveData<SortOrder> = MutableLiveData<SortOrder>(SortOrder.DESC)
+    private lateinit var _sortOrder: MutableLiveData<SortOrder>
 
     val sortOrder: MutableLiveData<SortOrder>
         get() = _sortOrder
 
-    private var validSortTypes: List<SortType> = listOf(
+    private var sortTypes: List<SortType> = listOf(
         SortType.DATE_CREATED,
         SortType.NAME,
         SortType.PRICE
@@ -47,6 +46,13 @@ class ShopViewModel @Inject constructor(
 
     init {
         validModes = listOf(Mode.DEFAULT, Mode.SELECT)
+        loadSortProperties()
+    }
+
+    private fun loadSortProperties() = viewModelScope.launch(ioDispatcher) {
+        val settings = settingsRepository.get()
+        _sortType = MutableLiveData<SortType>(settings.shopSortType)
+        _sortOrder = MutableLiveData<SortOrder>(settings.shopSortOrder)
     }
 
     suspend fun getSettings() : Settings {
@@ -101,18 +107,33 @@ class ShopViewModel @Inject constructor(
         Log.i(TAG, "Delete $numDeleted item(s)")
     }
 
-    fun switchSortType() {
+    private fun saveSortProperties(sortType: SortType? = null, sortOrder: SortOrder? = null) {
+        if (sortType == null && sortOrder == null) return
+
+        viewModelScope.launch(ioDispatcher) {
+            val settings = settingsRepository.get()
+            if (sortType != null) settings.shopSortType = sortType
+            if (sortOrder != null) settings.shopSortOrder = sortOrder
+            settingsRepository.update(settings)
+        }
+    }
+
+    // Change how the shop items are sorted
+    fun switchSort() {
         if (_sortOrder.value == SortOrder.DESC) {
             _sortOrder.value = SortOrder.ASC
+            saveSortProperties(sortOrder = SortOrder.ASC)
             return
         }
 
         // Go down the sort list and if end is reached loop back to beginning sort type
-        var currSortTypeIndex: Int = validSortTypes.indexOf(_sortType.value)
+        var currSortTypeIndex: Int = sortTypes.indexOf(_sortType.value)
         currSortTypeIndex += 1
-        if (currSortTypeIndex >= validSortTypes.size) currSortTypeIndex = 0
-        _sortType.value = validSortTypes[currSortTypeIndex]
+        if (currSortTypeIndex >= sortTypes.size) currSortTypeIndex = 0
+        val newSortType = sortTypes[currSortTypeIndex]
+        _sortType.value = newSortType
         _sortOrder.value = SortOrder.DESC
+        saveSortProperties(newSortType, SortOrder.DESC)
     }
 
     companion object {

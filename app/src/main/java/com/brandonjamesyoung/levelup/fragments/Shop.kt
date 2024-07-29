@@ -271,7 +271,7 @@ class Shop : Fragment(R.layout.shop) {
 
     private fun setupSortButton() {
         val sortButton: Button = requireView().findViewById(R.id.SortButton)
-        sortButton.setOnClickListener { viewModel.switchSortType() }
+        sortButton.setOnClickListener { viewModel.switchSort() }
     }
 
     private fun setupModeObserver() {

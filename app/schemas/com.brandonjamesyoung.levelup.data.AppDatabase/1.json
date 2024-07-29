@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "aa0e8b1859017b1cef8c051587986760",
+    "identityHash": "dedf1dd09328caf024bcc1f504a4acaa",
     "entities": [
       {
         "tableName": "Quest",
@@ -162,7 +162,7 @@
       },
       {
         "tableName": "Settings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pointsAcronym` TEXT NOT NULL DEFAULT 'RT', `lvlUpBonus` INTEGER NOT NULL DEFAULT 5, `nameEntered` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pointsAcronym` TEXT NOT NULL DEFAULT 'RT', `lvlUpBonus` INTEGER NOT NULL DEFAULT 5, `nameEntered` INTEGER NOT NULL, `shopSortType` TEXT NOT NULL, `shopSortOrder` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -188,6 +188,18 @@
             "fieldPath": "nameEntered",
             "columnName": "nameEntered",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shopSortType",
+            "columnName": "shopSortType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shopSortOrder",
+            "columnName": "shopSortOrder",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -380,7 +392,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aa0e8b1859017b1cef8c051587986760')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dedf1dd09328caf024bcc1f504a4acaa')"
     ]
   }
 }

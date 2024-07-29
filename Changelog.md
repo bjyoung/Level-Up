@@ -11,6 +11,7 @@ This document tracks all notables changes to the Level Up app.
 - Add cheese icon
 - Display date the item was created when editing items
 - Add Sort button to Shop
+  - Sort setting is saved whenever the user changes the sort mode or exits the app
 
 ### Changed
 
