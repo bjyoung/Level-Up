@@ -125,7 +125,7 @@ class Shop : Fragment(R.layout.shop) {
         for (id in selectedRowIdCopy) {
             // TODO probably better to de-select all programmatically
             //  instead of simulating button presses
-            val itemRow : ConstraintLayout = view.findViewById(id)
+            val itemRow: ConstraintLayout = view.findViewById(id)
             itemRow.callOnClick()
         }
     }
@@ -192,17 +192,20 @@ class Shop : Fragment(R.layout.shop) {
         return selectedItemIds.contains(itemId)
     }
 
-    private fun selectItem(itemId: Int, itemRow: ConstraintLayout) {
-        Log.i(TAG, "Selecting item $itemId")
-        selectedItemIds.add(itemId)
-        selectedItemRowIds.add(itemRow.id)
-
+    private fun highlightRow(itemRow: ConstraintLayout) {
         val selectedColor: Int = resources.getColor(
             R.color.selected,
             requireContext().theme,
         )
 
         itemRow.setBackgroundColor(selectedColor)
+    }
+
+    private fun selectItem(itemId: Int, itemRow: ConstraintLayout) {
+        Log.i(TAG, "Selecting item $itemId")
+        selectedItemIds.add(itemId)
+        selectedItemRowIds.add(itemRow.id)
+        highlightRow(itemRow)
     }
 
     private fun deselectItem(itemId: Int, itemRow: ConstraintLayout) {
@@ -235,6 +238,11 @@ class Shop : Fragment(R.layout.shop) {
             layoutInflater,
             itemListLayout
         )
+
+        if (selectedItemIds.contains(shopItem.id)) {
+            highlightRow(itemRow)
+            selectedItemRowIds.add(itemRow.id)
+        }
 
         itemRow.setOnClickListener{
             tapItem(shopItem.id, itemRow)
@@ -331,6 +339,7 @@ class Shop : Fragment(R.layout.shop) {
             sortedItemList = sortedItemList.reversed()
         }
 
+        selectedItemRowIds.clear()
         sortedItemList.forEach { item -> addItemRow(item) }
         if (itemList.isEmpty()) showNoItemsMessage() else hideNoItemsMessage()
     }
