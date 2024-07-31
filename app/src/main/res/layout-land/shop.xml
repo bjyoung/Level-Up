@@ -49,6 +49,7 @@
         android:text="@string/sort_button_text"
         app:icon="@drawable/sort_date_down_icon"
         app:iconGravity="textEnd"
+        app:iconSize="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/TableDivider"
         app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
