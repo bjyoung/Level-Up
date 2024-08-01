@@ -121,6 +121,7 @@ class ShopViewModel @Inject constructor(
     // Change how the shop items are sorted
     fun switchSort() {
         if (_sortOrder.value == SortOrder.DESC) {
+            Log.i(TAG, "Sort items by ${_sortType.value} in ascending order")
             _sortOrder.value = SortOrder.ASC
             saveSortProperties(sortOrder = SortOrder.ASC)
             return
@@ -133,6 +134,7 @@ class ShopViewModel @Inject constructor(
         val newSortType = sortTypes[currSortTypeIndex]
         _sortType.value = newSortType
         _sortOrder.value = SortOrder.DESC
+        Log.i(TAG, "Sort items by $newSortType in descending order")
         saveSortProperties(newSortType, SortOrder.DESC)
     }
 

@@ -117,13 +117,14 @@
         <item name="android:src">@drawable/question_mark_icon</item>
         <item name="iconSize">24dp</item>
     </style>
-    <style name="ActionButton.Medium">
-        <item name="android:layout_width">@dimen/action_button_width_medium</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
     <style name="ActionButton.Large">
         <item name="android:layout_width">@dimen/action_button_width_long</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="SortButton" parent="ActionButton">
+        <item name="android:layout_width">@dimen/action_button_width_medium</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:visibility">invisible</item>
     </style>
     <style name="DifficultyButton" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">@dimen/difficulty_button_width</item>
@@ -144,12 +145,18 @@
         <item name="android:background">@drawable/white_border_thin</item>
         <item name="tint">@color/icon_secondary</item>
     </style>
-    <!-- TODO Probably don't need a whole separate style for save button, just
-    adjust in the layout file itself -->
+    <!-- TODO Probably don't need a separate style for save button
+    just adjust in the layout file itself -->
     <style name="SaveButton" parent="ActionButton.Small">
         <item name="android:contentDescription">@string/confirm_button_content_description</item>
         <item name="icon">@drawable/check_icon_green_large</item>
         <item name="iconTint">@color/confirm_icon</item>
+    </style>
+
+    <style name="InvisibleTrigger" parent="TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">@dimen/trigger_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <!-- Guidelines -->

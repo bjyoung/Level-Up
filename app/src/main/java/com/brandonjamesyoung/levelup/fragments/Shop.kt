@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -17,6 +18,7 @@ import com.brandonjamesyoung.levelup.data.ShopItem
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
 import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.constants.POP_UP_BUTTON_WAIT_PERIOD
 import com.brandonjamesyoung.levelup.constants.SortOrder
 import com.brandonjamesyoung.levelup.constants.SortType
 import com.brandonjamesyoung.levelup.utility.ItemTableManager
@@ -28,7 +30,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Timer
 import javax.inject.Inject
+import kotlin.concurrent.timer
 
 @AndroidEntryPoint
 class Shop : Fragment(R.layout.shop) {
@@ -45,6 +49,8 @@ class Shop : Fragment(R.layout.shop) {
     @Inject lateinit var pointsDisplay: PointsDisplay
 
     private var pointsLoaded: Boolean = false
+
+    private var sortTimer: Timer? = null
 
     private fun navigateToNewItem(itemId: Int? = null) {
         val action = if (itemId != null) {
@@ -277,9 +283,56 @@ class Shop : Fragment(R.layout.shop) {
         }
     }
 
+    private fun startSortTimer() {
+        val sortButton: Button = requireView().findViewById(R.id.SortButton)
+        val sortTrigger: Button = requireView().findViewById(R.id.SortTrigger)
+        val waitPeriod: Long = POP_UP_BUTTON_WAIT_PERIOD
+
+        sortTimer = timer(initialDelay = waitPeriod, period = waitPeriod) {
+            lifecycleScope.launch {
+                Log.i(TAG, "Hiding sort button")
+                val animateSlideDown = AnimationUtils.loadAnimation(
+                    context,
+                    R.anim.button_slide_out_down
+                )
+
+                sortButton.isEnabled = false
+                sortTrigger.visibility = View.VISIBLE
+                sortButton.startAnimation(animateSlideDown)
+                sortTimer?.cancel()
+                sortTimer = null
+            }
+        }
+    }
+
+    // If show button isn't already visible, then animate it entering the page
+    // If the animation is already triggered, then do nothing
+    private fun showSortButton() {
+        Log.i(TAG, "Showing sort button")
+        val sortButton: Button = requireView().findViewById(R.id.SortButton)
+        val animateSlideUp = AnimationUtils.loadAnimation(context, R.anim.button_slide_in_up)
+        sortButton.startAnimation(animateSlideUp)
+        sortButton.visibility = View.VISIBLE
+        sortButton.isEnabled = true
+        val sortTrigger: Button = requireView().findViewById(R.id.SortTrigger)
+        sortTrigger.visibility = View.INVISIBLE
+        startSortTimer()
+    }
+
+    private fun setupSortTrigger() {
+        val sortTrigger: Button = requireView().findViewById(R.id.SortTrigger)
+        sortTrigger.setOnClickListener { showSortButton() }
+    }
+
     private fun setupSortButton() {
         val sortButton: Button = requireView().findViewById(R.id.SortButton)
-        sortButton.setOnClickListener { viewModel.switchSort() }
+
+        sortButton.setOnClickListener {
+            sortTimer?.cancel()
+            startSortTimer()
+            Log.d(TAG, "Sort hide timer reset")
+            viewModel.switchSort()
+        }
     }
 
     private fun setupModeObserver() {
@@ -391,6 +444,7 @@ class Shop : Fragment(R.layout.shop) {
         lifecycleScope.launch(Dispatchers.Main) {
             Log.i(TAG, "On Shop page")
             loadPointsAcronym()
+            setupSortTrigger()
             setupSortButton()
             setupObservables()
         }

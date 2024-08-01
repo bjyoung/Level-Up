@@ -12,4 +12,7 @@
     <!-- Number of rows for icon select grid -->
     <integer name="grid_rows_port">5</integer>
     <integer name="grid_rows_land">2</integer>
+
+    <!-- Animation lengths -->
+    <integer name="very_long_anim_time">600</integer>
 </resources>

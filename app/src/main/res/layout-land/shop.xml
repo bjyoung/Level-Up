@@ -44,7 +44,7 @@
 
     <Button
         android:id="@+id/SortButton"
-        style="@style/ActionButton.Medium"
+        style="@style/SortButton"
         android:contentDescription="@string/shop_sort_button_message"
         android:text="@string/sort_button_text"
         app:icon="@drawable/sort_date_down_icon"
@@ -54,6 +54,14 @@
         app:layout_constraintEnd_toEndOf="@+id/TableDivider"
         app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
         app:layout_constraintTop_toTopOf="@+id/ShopBottomGuideline" />
+
+    <Button
+        android:id="@+id/SortTrigger"
+        style="@style/InvisibleTrigger"
+        app:layout_constraintBottom_toBottomOf="@+id/SortButton"
+        app:layout_constraintEnd_toStartOf="@+id/QuestListButton"
+        app:layout_constraintStart_toEndOf="@+id/AddNewItemButton"
+        app:layout_constraintTop_toTopOf="@+id/SortButton" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/ItemHistoryButton"
@@ -125,18 +133,6 @@
         android:orientation="vertical"
         android:id="@+id/ShopRightGuideline" />
 
-    <ImageView
-        android:id="@+id/NameSortIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/table_icon_padding"
-        android:background="@drawable/arrow_down_icon"
-        android:backgroundTint="@color/white"
-        android:contentDescription="@string/name_sort_icon_content_description"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
-        app:layout_constraintStart_toEndOf="@+id/ShopNameLabel" />
-
     <View
         android:id="@+id/TableDivider"
         android:layout_width="0dp"
@@ -150,7 +146,7 @@
         android:id="@+id/ItemListScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/SortButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/ShopBottomGuideline"

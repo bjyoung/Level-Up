@@ -44,7 +44,7 @@
 
     <Button
         android:id="@+id/SortButton"
-        style="@style/ActionButton.Medium"
+        style="@style/SortButton"
         android:contentDescription="@string/shop_sort_button_message"
         android:text="@string/sort_button_text"
         app:icon="@drawable/sort_date_down_icon"
@@ -139,7 +139,7 @@
         android:id="@+id/ItemListScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/SortButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
         app:layout_constraintStart_toEndOf="@+id/ShopBottomGuideline"
         app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
@@ -161,5 +161,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/SortTrigger"
+        style="@style/InvisibleTrigger"
+        app:layout_constraintBottom_toBottomOf="@+id/SortButton"
+        app:layout_constraintEnd_toStartOf="@+id/QuestListButton"
+        app:layout_constraintStart_toEndOf="@+id/AddNewItemButton"
+        app:layout_constraintTop_toTopOf="@+id/SortButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,7 @@ enum class SortOrder {
 // Animation Constants
 const val PROGRESS_BAR_ANIM_DURATION: Long = 450
 const val POINT_UPDATE_ANIM_DURATION: Long = 2500
+const val POP_UP_BUTTON_WAIT_PERIOD: Long = 4500
 
 // Initialization Constants
 const val INIT_EASY_EXP = 100
