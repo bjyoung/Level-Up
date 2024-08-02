@@ -2,6 +2,7 @@ package com.brandonjamesyoung.levelup.di
 
 import android.content.Context
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
+import com.brandonjamesyoung.levelup.utility.SortButtonManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,5 +17,11 @@ class ButtonModule {
     @Provides
     fun provideButtonConverter(@ApplicationContext context: Context): ButtonConverter {
         return ButtonConverter(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSortButtonManager(@ApplicationContext context: Context): SortButtonManager {
+        return SortButtonManager(context)
     }
 }
