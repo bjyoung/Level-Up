@@ -13,5 +13,7 @@ data class Settings(
     @ColumnInfo(defaultValue = "5") var lvlUpBonus: Int = 5,
     @ColumnInfo var nameEntered: Boolean = false,
     @ColumnInfo var shopSortType: SortType = SortType.DATE_CREATED,
-    @ColumnInfo var shopSortOrder: SortOrder = SortOrder.ASC
+    @ColumnInfo var shopSortOrder: SortOrder = SortOrder.ASC,
+    @ColumnInfo var questListSortType: SortType = SortType.DATE_CREATED,
+    @ColumnInfo var questListSortOrder: SortOrder = SortOrder.ASC
 )

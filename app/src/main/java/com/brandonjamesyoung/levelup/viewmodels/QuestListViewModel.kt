@@ -9,6 +9,8 @@ import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.constants.MAX_EXP_EARNED
 import com.brandonjamesyoung.levelup.constants.MAX_POINTS_EARNED
 import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.constants.SortOrder
+import com.brandonjamesyoung.levelup.constants.SortType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -35,13 +37,24 @@ class QuestListViewModel @Inject constructor(
     val player: LiveData<Player>
         get() = _player
 
-    init {
-        validModes = listOf(Mode.DEFAULT, Mode.SELECT)
-    }
-    
+    private var _settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
+
+    val settings: LiveData<Settings>
+        get() = _settings
+
+    private var sortTypes: List<SortType> = listOf(
+        SortType.DATE_CREATED,
+        SortType.NAME,
+        SortType.DIFFICULTY
+    )
+
     val selectedQuestIds: MutableSet<Int> = mutableSetOf()
 
     val selectedQuestIconIds: MutableSet<Int> = mutableSetOf()
+
+    init {
+        validModes = listOf(Mode.DEFAULT, Mode.SELECT)
+    }
 
     suspend fun getSettings() : Settings {
         return settingsRepository.get()
@@ -152,6 +165,37 @@ class QuestListViewModel @Inject constructor(
         questRepository.delete(questIds)
         val numDeleted = questIds.count()
         Log.i(TAG, "Delete $numDeleted quest(s)")
+    }
+
+    private fun saveSortProperties(sortType: SortType? = null, sortOrder: SortOrder? = null) {
+        if (sortType == null && sortOrder == null) return
+
+        viewModelScope.launch(ioDispatcher) {
+            val settings = settingsRepository.get()
+            if (sortType != null) settings.questListSortType = sortType
+            if (sortOrder != null) settings.questListSortOrder = sortOrder
+            settingsRepository.update(settings)
+        }
+    }
+
+    // Change how the shop items are sorted
+    suspend fun switchSort() {
+        val settings: Settings = settingsRepository.get()
+        val sortType: SortType = settings.questListSortType
+
+        if (settings.questListSortOrder == SortOrder.DESC) {
+            Log.i(TAG, "Sort items by $sortType in ascending order")
+            saveSortProperties(sortOrder = SortOrder.ASC)
+            return
+        }
+
+        // Go down the sort list and if end is reached loop back to beginning sort type
+        var currSortTypeIndex: Int = sortTypes.indexOf(sortType)
+        currSortTypeIndex += 1
+        if (currSortTypeIndex >= sortTypes.size) currSortTypeIndex = 0
+        val newSortType = sortTypes[currSortTypeIndex]
+        Log.i(TAG, "Sort items by $newSortType in descending order")
+        saveSortProperties(newSortType, SortOrder.DESC)
     }
 
     companion object {

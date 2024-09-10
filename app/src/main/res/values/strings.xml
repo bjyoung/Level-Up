@@ -26,6 +26,7 @@
     <string name="next_lvl_exp_label">Next Lvl Exp</string>
     <string name="next_lvl_exp_default">0</string>
     <string name="no_quests_found_message">No quests found</string>
+    <string name="quest_list_sort_button_message">Sort quests</string>
 
     <!-- New Quest strings -->
     <string name="new_quest_label">New Quest</string>

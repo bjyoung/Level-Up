@@ -125,6 +125,10 @@
         <item name="android:layout_width">@dimen/action_button_width_medium</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:visibility">invisible</item>
+        <item name="android:text">@string/sort_button_text</item>
+        <item name="iconSize">0dp</item>
+        <item name="iconGravity">textEnd</item>
+        <item name="icon">@drawable/sort_date_down_icon</item>
     </style>
     <style name="DifficultyButton" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">@dimen/difficulty_button_width</item>

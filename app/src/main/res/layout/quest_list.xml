@@ -150,4 +150,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/SortButton"
+        style="@style/SortButton"
+        android:contentDescription="@string/quest_list_sort_button_message"
+        app:layout_constraintBottom_toBottomOf="@+id/AddNewQuestButton"
+        app:layout_constraintEnd_toStartOf="@+id/AddNewQuestButton"
+        app:layout_constraintStart_toEndOf="@+id/ShopButton"
+        app:layout_constraintTop_toTopOf="@+id/AddNewQuestButton" />
+
+    <Button
+        android:id="@+id/SortTrigger"
+        style="@style/InvisibleTrigger"
+        app:layout_constraintBottom_toBottomOf="@+id/AddNewQuestButton"
+        app:layout_constraintEnd_toStartOf="@+id/AddNewQuestButton"
+        app:layout_constraintStart_toEndOf="@+id/ShopButton"
+        app:layout_constraintTop_toTopOf="@+id/AddNewQuestButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

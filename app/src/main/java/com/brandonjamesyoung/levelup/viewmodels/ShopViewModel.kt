@@ -2,7 +2,6 @@ package com.brandonjamesyoung.levelup.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.constants.MAX_POINTS_PER_PURCHASE
@@ -28,15 +27,10 @@ class ShopViewModel @Inject constructor(
 
     val player: LiveData<Player> = playerRepository.observe().asLiveData()
 
-    private lateinit var _sortType: MutableLiveData<SortType>
+    private var _settings: LiveData<Settings> = settingsRepository.observe().asLiveData()
 
-    val sortType: MutableLiveData<SortType>
-        get() = _sortType
-
-    private lateinit var _sortOrder: MutableLiveData<SortOrder>
-
-    val sortOrder: MutableLiveData<SortOrder>
-        get() = _sortOrder
+    val settings: LiveData<Settings>
+        get() = _settings
 
     private var sortTypes: List<SortType> = listOf(
         SortType.DATE_CREATED,
@@ -46,13 +40,6 @@ class ShopViewModel @Inject constructor(
 
     init {
         validModes = listOf(Mode.DEFAULT, Mode.SELECT)
-        loadSortProperties()
-    }
-
-    private fun loadSortProperties() = viewModelScope.launch(ioDispatcher) {
-        val settings = settingsRepository.get()
-        _sortType = MutableLiveData<SortType>(settings.shopSortType)
-        _sortOrder = MutableLiveData<SortOrder>(settings.shopSortOrder)
     }
 
     suspend fun getSettings() : Settings {
@@ -119,21 +106,21 @@ class ShopViewModel @Inject constructor(
     }
 
     // Change how the shop items are sorted
-    fun switchSort() {
-        if (_sortOrder.value == SortOrder.DESC) {
-            Log.i(TAG, "Sort items by ${_sortType.value} in ascending order")
-            _sortOrder.value = SortOrder.ASC
+    suspend fun switchSort() {
+        val settings: Settings = settingsRepository.get()
+        val sortType: SortType = settings.shopSortType
+
+        if (settings.shopSortOrder == SortOrder.DESC) {
+            Log.i(TAG, "Sort items by $sortType in ascending order")
             saveSortProperties(sortOrder = SortOrder.ASC)
             return
         }
 
         // Go down the sort list and if end is reached loop back to beginning sort type
-        var currSortTypeIndex: Int = sortTypes.indexOf(_sortType.value)
+        var currSortTypeIndex: Int = sortTypes.indexOf(sortType)
         currSortTypeIndex += 1
         if (currSortTypeIndex >= sortTypes.size) currSortTypeIndex = 0
         val newSortType = sortTypes[currSortTypeIndex]
-        _sortType.value = newSortType
-        _sortOrder.value = SortOrder.DESC
         Log.i(TAG, "Sort items by $newSortType in descending order")
         saveSortProperties(newSortType, SortOrder.DESC)
     }

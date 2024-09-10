@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -14,7 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.constants.POP_UP_BUTTON_WAIT_PERIOD
 import com.brandonjamesyoung.levelup.constants.PROGRESS_BAR_ANIM_DURATION
+import com.brandonjamesyoung.levelup.constants.SortOrder
+import com.brandonjamesyoung.levelup.constants.SortType
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.data.Settings
@@ -28,7 +32,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Timer
 import javax.inject.Inject
+import kotlin.concurrent.timer
 
 @AndroidEntryPoint
 class QuestList: Fragment(R.layout.quest_list) {
@@ -40,7 +46,11 @@ class QuestList: Fragment(R.layout.quest_list) {
 
     @Inject lateinit var pointsDisplay: PointsDisplay
 
+    @Inject lateinit var sorter: SortButtonManager
+
     private var pointsLoaded: Boolean = false
+
+    private var sortTimer: Timer? = null
 
     private fun setupUsernameNavigation() {
         val view = requireView()
@@ -207,6 +217,88 @@ class QuestList: Fragment(R.layout.quest_list) {
         }
     }
 
+    private fun startSortTimer() {
+        val sortButton: Button = requireView().findViewById(R.id.SortButton)
+        val sortTrigger: Button = requireView().findViewById(R.id.SortTrigger)
+        val waitPeriod: Long = POP_UP_BUTTON_WAIT_PERIOD
+
+        sortTimer = timer(initialDelay = waitPeriod, period = waitPeriod) {
+            lifecycleScope.launch {
+                sorter.hideSortButton(sortButton, sortTrigger)
+                sortTimer?.cancel()
+                sortTimer = null
+            }
+        }
+    }
+
+    private fun setupSortTrigger() {
+        val view = requireView()
+        val sortButton: Button = view.findViewById(R.id.SortButton)
+        val sortTrigger: Button = view.findViewById(R.id.SortTrigger)
+
+        sortTrigger.setOnClickListener {
+            sorter.showSortButton(sortButton, sortTrigger)
+            startSortTimer()
+        }
+    }
+
+    private fun setupSortButton() {
+        val sortButton: Button = requireView().findViewById(R.id.SortButton)
+
+        sortButton.setOnClickListener {
+            sortTimer?.cancel()
+            startSortTimer()
+            Log.d(TAG, "Sort hide timer reset")
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.switchSort()
+            }
+        }
+    }
+
+    private fun changeSortIcon() {
+        val sortType: SortType? = viewModel.settings.value?.questListSortType
+
+        val possibleSortIcons: List<Int> = when (sortType) {
+            SortType.NAME -> listOf(
+                R.drawable.sort_alpha_up_icon,
+                R.drawable.sort_alpha_down_icon
+            )
+            SortType.DIFFICULTY -> listOf(
+                R.drawable.sort_difficulty_up_icon,
+                R.drawable.sort_difficulty_down_icon
+            )
+            else -> listOf(
+                R.drawable.sort_date_up_icon,
+                R.drawable.sort_date_down_icon
+            )
+        }
+
+        val sortOrder: SortOrder? = viewModel.settings.value?.questListSortOrder
+
+        val sortIconId: Int = when (sortOrder) {
+            SortOrder.ASC -> possibleSortIcons[1]
+            else -> possibleSortIcons[0]
+        }
+
+        buttonConverter.convertNavButton(
+            targetId = R.id.SortButton,
+            iconDrawableId = sortIconId,
+            iconColorId = R.color.icon_primary,
+            view = requireView(),
+        )
+    }
+
+    private fun setupSort() {
+        setupSortTrigger()
+        setupSortButton()
+
+        viewModel.settings.observe(viewLifecycleOwner) { _ ->
+            changeSortIcon()
+            viewModel.questList.value?.let { reloadQuestList(it) }
+        }
+    }
+
     private fun activateDefaultMode() {
         viewModel.selectedQuestIds.clear()
         viewModel.selectedQuestIconIds.clear()
@@ -219,19 +311,21 @@ class QuestList: Fragment(R.layout.quest_list) {
         if (viewModel.mode.value == Mode.DEFAULT) navigateToNewQuest(questId)
     }
 
-    private fun checkQuest(quest: Quest, button: FloatingActionButton) {
-        Log.i(TAG, "Select quest ${quest.name}")
-        val context = requireContext()
-        viewModel.selectedQuestIds.add(quest.id)
-        viewModel.selectedQuestIconIds.add(button.id)
-
-        val selectIcon = ResourcesCompat.getDrawable(
+    private fun setCheckIcon(button: FloatingActionButton) {
+        val checkIcon = ResourcesCompat.getDrawable(
             resources,
             R.drawable.check_icon_green_large,
-            context.theme
+            requireContext().theme
         )
 
-        button.setImageDrawable(selectIcon)
+        button.setImageDrawable(checkIcon)
+    }
+
+    private fun checkQuest(quest: Quest, button: FloatingActionButton) {
+        Log.i(TAG, "Select quest ${quest.name}")
+        viewModel.selectedQuestIds.add(quest.id)
+        viewModel.selectedQuestIconIds.add(button.id)
+        setCheckIcon(button)
     }
 
     private fun changeButtonIcon(button: FloatingActionButton, iconId : Int?) {
@@ -289,16 +383,37 @@ class QuestList: Fragment(R.layout.quest_list) {
         return newCard
     }
 
-    private fun setupQuestList(questList: List<Quest>) {
+    private fun reloadQuestList(questList: List<Quest>) {
         val view = requireView()
         val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
         questListLayout.removeAllViews()
-        val sortedQuestList = questList.sortedBy { it.dateCreated }
+        val settings: Settings? = viewModel.settings.value
+
+        var sortedQuestList = when (settings?.questListSortType) {
+            SortType.NAME -> questList.sortedBy { it.name }
+            SortType.DIFFICULTY -> questList.sortedBy { it.difficulty }
+            else -> questList.sortedBy { it.dateCreated }
+        }
+
+        if (settings?.questListSortOrder == SortOrder.ASC) {
+            sortedQuestList = sortedQuestList.reversed()
+        }
+
+        // Since card buttons are being remade, need to track their new IDs
+        viewModel.selectedQuestIconIds.clear()
 
         for (quest in sortedQuestList) {
             val newCard = createQuestCard(quest)
+
+            if (viewModel.selectedQuestIds.contains(quest.id)) {
+                viewModel.selectedQuestIconIds.add(newCard.iconButton.id)
+                setCheckIcon(newCard.iconButton)
+            }
+
             questListLayout.addView(newCard)
         }
+
+        if (questList.isEmpty()) showNoQuestsMessage() else hideNoQuestsMessage()
     }
 
     private fun showNoQuestsMessage() {
@@ -385,8 +500,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         }
 
         viewModel.questList.observe(viewLifecycleOwner) {
-            setupQuestList(it)
-            if (it.isEmpty()) showNoQuestsMessage() else hideNoQuestsMessage()
+            reloadQuestList(it)
         }
 
         viewModel.player.observe(viewLifecycleOwner) {
@@ -413,6 +527,7 @@ class QuestList: Fragment(R.layout.quest_list) {
             setupSettings()
             setupUsernameNavigation()
             activateQuestHistoryButton()
+            setupSort()
             setupObservables()
         }
     }
