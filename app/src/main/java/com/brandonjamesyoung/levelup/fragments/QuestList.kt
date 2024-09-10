@@ -350,7 +350,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         viewModel.switchMode(targetMode)
     }
 
-    private fun createQuestCard(quest: Quest) : QuestCardView {
+    private fun createQuestCard(quest: Quest, isSelected: Boolean = false) : QuestCardView {
         val difficultyColorId = cardGenerator.difficultyColorMap[quest.difficulty]
             ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
 
@@ -362,6 +362,7 @@ class QuestList: Fragment(R.layout.quest_list) {
             name = questName,
             backgroundColorInt = colorInt,
             iconId = quest.iconId,
+            isSelected = isSelected,
             view = view,
             iconReader = viewModel,
             lifecycleScope = lifecycleScope
@@ -403,13 +404,9 @@ class QuestList: Fragment(R.layout.quest_list) {
         viewModel.selectedQuestIconIds.clear()
 
         for (quest in sortedQuestList) {
-            val newCard = createQuestCard(quest)
-
-            if (viewModel.selectedQuestIds.contains(quest.id)) {
-                viewModel.selectedQuestIconIds.add(newCard.iconButton.id)
-                setCheckIcon(newCard.iconButton)
-            }
-
+            val isSelected: Boolean = viewModel.selectedQuestIds.contains(quest.id)
+            val newCard = createQuestCard(quest, isSelected)
+            if (isSelected) viewModel.selectedQuestIconIds.add(newCard.iconButton.id)
             questListLayout.addView(newCard)
         }
 

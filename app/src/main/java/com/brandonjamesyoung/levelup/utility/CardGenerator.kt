@@ -3,6 +3,7 @@ package com.brandonjamesyoung.levelup.utility
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.Difficulty
@@ -24,6 +25,7 @@ class CardGenerator (val context: Context) {
         name: String,
         backgroundColorInt: Int,
         iconId: Int?,
+        isSelected: Boolean = false,
         view: View,
         iconReader: IconReader,
         lifecycleScope: LifecycleCoroutineScope
@@ -32,12 +34,22 @@ class CardGenerator (val context: Context) {
         newCard.setCardBackgroundColor(backgroundColorInt)
         newCard.setName(name)
 
-        buttonConverter.changeQuestIcon(
-            button = newCard.iconButton,
-            iconId = iconId,
-            iconReader = iconReader,
-            lifecycleScope = lifecycleScope
-        )
+        if (isSelected) {
+            val checkIcon = ResourcesCompat.getDrawable(
+                view.resources,
+                R.drawable.check_icon_green_large,
+                view.context.theme
+            )
+
+            newCard.iconButton.setImageDrawable(checkIcon)
+        } else {
+            buttonConverter.changeQuestIcon(
+                button = newCard.iconButton,
+                iconId = iconId,
+                iconReader = iconReader,
+                lifecycleScope = lifecycleScope
+            )
+        }
 
         return newCard
     }
