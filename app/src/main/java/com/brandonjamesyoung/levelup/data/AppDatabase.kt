@@ -143,6 +143,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Book", R.drawable.book_icon, IconGroup.HEARTS),
                     Triple("Bookmark", R.drawable.bookmark_icon, IconGroup.HEARTS),
                     Triple("Bow", R.drawable.bow_and_arrow_icon, IconGroup.CLUBS),
+                    Triple("Bug", R.drawable.bug_icon, IconGroup.SPADES),
                     Triple("Building", R.drawable.building_icon, IconGroup.DIAMONDS),
                     Triple("Bullet List", R.drawable.bullet_list_icon, IconGroup.SPADES),
                     Triple("Cactus", R.drawable.cactus_icon, IconGroup.CLUBS),
@@ -183,6 +184,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Folder", R.drawable.folder_icon, IconGroup.SPADES),
                     Triple("Gate", R.drawable.gate_icon, IconGroup.CLUBS),
                     Triple("Gear", R.drawable.gear_icon, IconGroup.DIAMONDS),
+                    Triple("Glasses", R.drawable.glasses_icon, IconGroup.HEARTS),
                     Triple("Group", R.drawable.group_icon, IconGroup.SPADES),
                     Triple("Headphones", R.drawable.headphones_icon, IconGroup.HEARTS),
                     Triple("Heart", R.drawable.heart_icon, IconGroup.HEARTS),
@@ -252,6 +254,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Unlock", R.drawable.unlock_icon, IconGroup.HEARTS),
                     Triple("Update", R.drawable.update_file_icon, IconGroup.SPADES),
                     Triple("Upload", R.drawable.upload_icon, IconGroup.SPADES),
+                    Triple("Vaccine", R.drawable.vaccine_icon, IconGroup.HEARTS),
                     Triple("Video Camera", R.drawable.video_camera_icon, IconGroup.DIAMONDS),
                     Triple("Window", R.drawable.window_icon, IconGroup.HEARTS),
                     Triple("Wrench", R.drawable.wrench_icon, IconGroup.DIAMONDS)

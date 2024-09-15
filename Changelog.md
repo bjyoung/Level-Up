@@ -8,14 +8,14 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Add cheese icon
+- Add more icons
 - Display date the item was created when editing items
 - Add Sort button to Shop and Quest List
   - Tapping the area between the bottom two corner buttons makes the sort button appear
   - The sort button moves off-screen when left alone after a short period of time
   - Sort setting is saved whenever the user changes the sort mode or exits the app
   - Shop can be sorted by name, price and date created
-  - Quest List can be sorted by name, difficulty and date created 
+  - Quest List can be sorted by name, difficulty and date created
 
 ### Changed
 
