@@ -4,7 +4,7 @@ import java.time.Instant
 
 interface Item {
     var id: Int
-    val name: String?
-    val cost: Int
+    var name: String?
+    var cost: Int
     val dateCreated: Instant?
 }

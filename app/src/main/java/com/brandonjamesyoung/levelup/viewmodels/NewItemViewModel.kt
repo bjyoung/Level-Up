@@ -50,8 +50,15 @@ class NewItemViewModel @Inject constructor(
     }
 
     fun update(shopItem: ShopItem) = viewModelScope.launch(ioDispatcher) {
-        shopItemRepository.update(shopItem)
-        logItemSave(shopItem = shopItem, isEdit = true)
+        val currentItem: ShopItem = shopItemRepository.get(shopItem.id)
+
+        currentItem.apply {
+            name = shopItem.name
+            cost = shopItem.cost
+        }
+
+        shopItemRepository.update(currentItem)
+        logItemSave(shopItem = currentItem, isEdit = true)
     }
 
     companion object {
