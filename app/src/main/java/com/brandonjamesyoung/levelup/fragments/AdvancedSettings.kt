@@ -119,7 +119,6 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
         backupDbCallback.launch(backupFileName)
     }
 
-    // TODO finish backup
     private fun setupBackupButton() {
         val view = requireView()
         val backupButton = view.findViewById<Button>(R.id.BackupButton)

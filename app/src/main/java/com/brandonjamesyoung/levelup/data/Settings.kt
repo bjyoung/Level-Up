@@ -9,7 +9,7 @@ import com.brandonjamesyoung.levelup.constants.SortType
 @Entity
 data class Settings(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(defaultValue = "RT") var pointsAcronym: String = "RT",
+    @ColumnInfo(defaultValue = "BP") var pointsAcronym: String = "BP",
     @ColumnInfo(defaultValue = "5") var lvlUpBonus: Int = 5,
     @ColumnInfo var nameEntered: Boolean = false,
     @ColumnInfo var shopSortType: SortType = SortType.DATE_CREATED,
