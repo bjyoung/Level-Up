@@ -4,6 +4,14 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.8.2
+
+### Added
+
+- Implemented backup button
+
+---
+
 ## 0.8.1
 
 ### Added
