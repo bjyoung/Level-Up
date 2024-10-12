@@ -242,10 +242,8 @@ class QuestList: Fragment(R.layout.quest_list) {
         }
     }
 
-    private fun setupSortButton() {
-        val sortButton: Button = requireView().findViewById(R.id.SortButton)
-
-        sortButton.setOnClickListener {
+    private fun triggerSortButton() {
+        try {
             sortTimer?.cancel()
             startSortTimer()
             Log.d(TAG, "Sort hide timer reset")
@@ -253,6 +251,17 @@ class QuestList: Fragment(R.layout.quest_list) {
             lifecycleScope.launch(Dispatchers.IO) {
                 viewModel.switchSort()
             }
+        } catch (ex: Exception) {
+            Log.e(TAG, ex.message.toString())
+            viewModel.showSnackbar("Sort failed")
+        }
+    }
+
+    private fun setupSortButton() {
+        val sortButton: Button = requireView().findViewById(R.id.SortButton)
+
+        sortButton.setOnClickListener {
+            triggerSortButton()
         }
     }
 

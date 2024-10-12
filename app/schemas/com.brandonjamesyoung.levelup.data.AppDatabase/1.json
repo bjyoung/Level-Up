@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7ee33b188272a0d4f3c4d57746f41ce7",
+    "identityHash": "3bfe5f11e2c5ba9faba57791b701dc35",
     "entities": [
       {
         "tableName": "Quest",
@@ -162,7 +162,7 @@
       },
       {
         "tableName": "Settings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pointsAcronym` TEXT NOT NULL DEFAULT 'RT', `lvlUpBonus` INTEGER NOT NULL DEFAULT 5, `nameEntered` INTEGER NOT NULL, `shopSortType` TEXT NOT NULL, `shopSortOrder` TEXT NOT NULL, `questListSortType` TEXT NOT NULL, `questListSortOrder` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pointsAcronym` TEXT NOT NULL DEFAULT 'BP', `lvlUpBonus` INTEGER NOT NULL DEFAULT 5, `nameEntered` INTEGER NOT NULL, `shopSortType` TEXT NOT NULL, `shopSortOrder` TEXT NOT NULL, `questListSortType` TEXT NOT NULL, `questListSortOrder` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -175,7 +175,7 @@
             "columnName": "pointsAcronym",
             "affinity": "TEXT",
             "notNull": true,
-            "defaultValue": "'RT'"
+            "defaultValue": "'BP'"
           },
           {
             "fieldPath": "lvlUpBonus",
@@ -404,7 +404,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7ee33b188272a0d4f3c4d57746f41ce7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3bfe5f11e2c5ba9faba57791b701dc35')"
     ]
   }
 }

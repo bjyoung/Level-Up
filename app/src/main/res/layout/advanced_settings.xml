@@ -21,13 +21,13 @@
         style="@style/ActionButton.Large"
         android:contentDescription="@string/backup_button_content_description"
         android:text="@string/backup_button_label"
-        app:layout_constraintBottom_toTopOf="@+id/ImportButton"
+        app:layout_constraintBottom_toTopOf="@+id/RestoreDataButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AboutButton" />
 
     <Button
-        android:id="@+id/ImportButton"
+        android:id="@+id/RestoreDataButton"
         style="@style/ActionButton.Large"
         android:contentDescription="@string/import_button_content_description"
         android:text="@string/import_button_label"
@@ -44,7 +44,7 @@
         app:layout_constraintBottom_toTopOf="@+id/SettingsBottomGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImportButton" />
+        app:layout_constraintTop_toBottomOf="@+id/RestoreDataButton" />
 
     <Button
         android:id="@+id/AdvancedSettingsBackButton"

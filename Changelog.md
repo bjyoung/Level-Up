@@ -8,7 +8,11 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Implemented backup button
+- Implement backup and restore data buttons
+
+### Changed
+
+- Changed default points acronym from "RT" to "BP"
 
 ---
 

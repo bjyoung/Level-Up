@@ -172,16 +172,24 @@ class SettingsFragment : Fragment(R.layout.settings), Resettable {
         Log.i(TAG, "Update settings")
     }
 
+    private fun onConfirmTrigger() {
+        if (!isValidInput()) return
+
+        try {
+            saveSettings()
+            viewModel.clearUserInput()
+            navigateToPrevFragment()
+        } catch (ex: Exception) {
+            Log.e(TAG, ex.message.toString())
+        }
+    }
+
     private fun setupConfirmButton() {
         val view = requireView()
         val confirmButton = view.findViewById<Button>(R.id.ConfirmButton)
 
         confirmButton.setOnClickListener{
-            if (isValidInput()) {
-                saveSettings()
-                viewModel.clearUserInput()
-                navigateToPrevFragment()
-            }
+            onConfirmTrigger()
         }
     }
 
