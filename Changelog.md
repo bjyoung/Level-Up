@@ -9,6 +9,7 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - Implement backup and restore data buttons
+- Add more icons
 
 ### Changed
 

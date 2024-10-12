@@ -137,7 +137,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Barcode", R.drawable.barcode_icon, IconGroup.DIAMONDS),
                     Triple("Battery", R.drawable.battery_icon, IconGroup.HEARTS),
                     Triple("Beer", R.drawable.beer_icon, IconGroup.DIAMONDS),
-                    Triple("Bicycle", R.drawable.bicycle_icon, IconGroup.CLUBS),
+                    Triple("Bike", R.drawable.bike_icon, IconGroup.CLUBS),
                     Triple("Boat", R.drawable.boat_icon, IconGroup.CLUBS),
                     Triple("Bone", R.drawable.bone_icon, IconGroup.CLUBS),
                     Triple("Book", R.drawable.book_icon, IconGroup.HEARTS),
@@ -191,6 +191,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Helmet", R.drawable.helmet_icon, IconGroup.CLUBS),
                     Triple("House", R.drawable.house_icon, IconGroup.HEARTS),
                     Triple("Hourglass", R.drawable.hourglass_icon, IconGroup.HEARTS),
+                    Triple("Ice Cream", R.drawable.ice_cream_icon, IconGroup.HEARTS),
                     Triple("Key", R.drawable.key_icon, IconGroup.HEARTS),
                     Triple("Landscape", R.drawable.landscape_icon, IconGroup.CLUBS),
                     Triple("Layers", R.drawable.layers_icon, IconGroup.SPADES),
@@ -257,6 +258,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Triple("Upload", R.drawable.upload_icon, IconGroup.SPADES),
                     Triple("Vaccine", R.drawable.vaccine_icon, IconGroup.HEARTS),
                     Triple("Video Camera", R.drawable.video_camera_icon, IconGroup.DIAMONDS),
+                    Triple("Water", R.drawable.water_icon, IconGroup.SPADES),
                     Triple("Window", R.drawable.window_icon, IconGroup.HEARTS),
                     Triple("Wrench", R.drawable.wrench_icon, IconGroup.DIAMONDS)
                 )
