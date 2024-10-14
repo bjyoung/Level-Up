@@ -24,6 +24,14 @@ enum class SortOrder {
     ASC, DESC
 }
 
+enum class BackupDbError {
+    OUTPUT_STREAM_ERROR, COPY_ERROR
+}
+
+enum class RestoreDbError {
+    LOCAL_BACKUP_FAILED, INPUT_STREAM_ERROR, COPY_ERROR
+}
+
 // Animation Constants
 const val PROGRESS_BAR_ANIM_DURATION: Long = 450
 const val POINT_UPDATE_ANIM_DURATION: Long = 2500

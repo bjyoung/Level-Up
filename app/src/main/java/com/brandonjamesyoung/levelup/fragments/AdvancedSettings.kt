@@ -11,23 +11,20 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.constants.DATABASE_NAME
+import com.brandonjamesyoung.levelup.constants.BackupDbError
+import com.brandonjamesyoung.levelup.constants.RestoreDbError
+import com.brandonjamesyoung.levelup.utility.BackupManager
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper
 import com.brandonjamesyoung.levelup.viewmodels.AdvancedSettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.OutputStream
 import java.util.Calendar
-
 
 @AndroidEntryPoint
 class AdvancedSettings : Fragment(R.layout.advanced_settings) {
     private val viewModel: AdvancedSettingsViewModel by activityViewModels()
+
+    private lateinit var backupManager: BackupManager
 
     private var backupFileUri: Uri? = null
 
@@ -83,169 +80,49 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
         }
 
         Log.i(TAG, "Attempting to back up data")
+        val backupDbError = backupManager.backupDb(backupLocationUri)
 
-        // Setup source file for copying
-        val context = requireContext()
-        val dbFile: File = context.getDatabasePath(DATABASE_NAME)
-        val contentResolver = context.contentResolver
-        val inputStream: FileInputStream = dbFile.inputStream()
-
-        // Setup copy destination
-        val outputStream: OutputStream? = contentResolver.openOutputStream(backupLocationUri)
-
-        if (outputStream == null) {
-            Log.e(TAG, "Could not create outputStream for backupUri")
-            viewModel.showSnackbar(BACKUP_FAIL_MESSAGE)
-            inputStream.close()
-            return
-        }
-
-        // Create copy of the file at the destination
-        try {
-            outputStream.use { fileOut ->
-                inputStream.copyTo(fileOut)
+        if (backupDbError != null) {
+            if (backupDbError == BackupDbError.OUTPUT_STREAM_ERROR) {
+                Log.e(TAG, "Could not create output stream")
+            } else if (backupDbError == BackupDbError.COPY_ERROR) {
+                Log.e(TAG, "Something went wrong with copying the backup file")
             }
-        } catch (ex: Exception) {
-            Log.e(TAG, ex.message.toString())
+
             viewModel.showSnackbar(BACKUP_FAIL_MESSAGE)
-            inputStream.close()
-            outputStream.close()
             return
         }
 
         viewModel.showSnackbar("Back up successful")
-        inputStream.close()
-        outputStream.close()
     }
 
-    private fun createLocalDbBackup() {
-        // Setup input stream
-        val context = requireContext()
-        val dbFile: File = context.getDatabasePath(DATABASE_NAME)
-        var inputStream: FileInputStream? = null
-        var outputStream: FileOutputStream? = null
-
-        try {
-            inputStream = dbFile.inputStream()
-
-            // Setup output stream
-            val internalDir: File = context.filesDir
-            val backupFolder = File(internalDir, LOCAL_BACKUP_DIR_NAME)
-            if (!backupFolder.exists()) backupFolder.mkdirs()
-            val tempDbBackup = File(backupFolder, TEMP_DB_BACKUP_NAME)
-            outputStream = tempDbBackup.outputStream()
-
-            // Copy file over
-            outputStream.use { fileOut ->
-                inputStream.copyTo(fileOut)
-            }
-        } catch (ex: Exception) {
-            Log.e(TAG, "Local backup failed")
-            Log.e(TAG, ex.message.toString())
-            viewModel.showSnackbar(RESTORE_DATA_FAIL_MESSAGE)
-        }
-
-        inputStream?.close()
-        outputStream?.close()
-    }
-
-    private fun restoreLocalDbBackup() {
-        val context = requireContext()
-        var inputStream: FileInputStream? = null
-        var outputStream: FileOutputStream? = null
-
-        try {
-            val internalDir: File = context.filesDir
-            val backupFolder = File(internalDir, LOCAL_BACKUP_DIR_NAME)
-            val tempDbFile = File(backupFolder, TEMP_DB_BACKUP_NAME)
-            inputStream = tempDbFile.inputStream()
-
-            val dbFile: File = context.getDatabasePath(DATABASE_NAME)
-            outputStream = dbFile.outputStream()
-
-            outputStream.use { fileOut ->
-                inputStream.copyTo(fileOut)
-            }
-        } catch (ex: Exception) {
-            Log.e(TAG, "Restore local backup file failed")
-            Log.e(TAG, ex.message.toString())
-            viewModel.showSnackbar(RESTORE_DATA_FAIL_MESSAGE)
-        }
-
-        inputStream?.close()
-        outputStream?.close()
-    }
-
-    private fun deleteLocalBackupDb() {
-        val internalDir: File = requireContext().filesDir
-        val backupFolder = File(internalDir, LOCAL_BACKUP_DIR_NAME)
-        val tempDbFile = File(backupFolder, TEMP_DB_BACKUP_NAME)
-        if (tempDbFile.exists()) tempDbFile.delete()
-    }
-
-    private fun restoreDb(restoreFileUri: Uri?) {
+    // Restore database using the selected file
+    private fun restoreData(restoreFileUri: Uri?) {
         if (restoreFileUri == null) {
             Log.d(TAG, "No uri given. Restore data process aborted.")
             return
         }
 
-        Log.i(TAG, "Attempting to restore db data")
-        createLocalDbBackup()
+        val restoreDbError = backupManager.restoreData(restoreFileUri)
 
-        // Setup source file for copying
-        val context = requireContext()
-        val contentResolver = context.contentResolver
-        val inputStream: InputStream?
-
-        try {
-            inputStream = contentResolver.openInputStream(restoreFileUri)
-        } catch (ex: FileNotFoundException) {
-            Log.e(TAG, "Could not create input stream from selected file")
-            viewModel.showSnackbar(RESTORE_DATA_FAIL_MESSAGE)
-            deleteLocalBackupDb()
-            return
-        }
-
-        if (inputStream == null) {
-            Log.e(TAG, "Could not create input stream from selected file")
-            viewModel.showSnackbar(RESTORE_DATA_FAIL_MESSAGE)
-            deleteLocalBackupDb()
-            return
-        }
-
-        // Setup copy destination
-        val dbFile: File = context.getDatabasePath(DATABASE_NAME)
-        val outputStream: FileOutputStream
-
-        try {
-            outputStream = dbFile.outputStream()
-        } catch (ex: Exception) {
-            Log.e(TAG, "Could not create outputStream from the database")
-            viewModel.showSnackbar(RESTORE_DATA_FAIL_MESSAGE)
-            inputStream.close()
-            deleteLocalBackupDb()
-            return
-        }
-
-        // Copy database data over
-        try {
-            outputStream.use { fileOut ->
-                inputStream.copyTo(fileOut)
+        if (restoreDbError != null) {
+            when (restoreDbError) {
+                RestoreDbError.LOCAL_BACKUP_FAILED -> {
+                    Log.e(TAG, "Local database backup failed")
+                }
+                RestoreDbError.INPUT_STREAM_ERROR -> {
+                    Log.e(TAG, "Could not create input stream from selected file")
+                }
+                RestoreDbError.COPY_ERROR -> {
+                    Log.e(TAG, "Something went wrong with replacing the existing db")
+                }
             }
-        } catch (ex: Exception) {
-            Log.e(TAG, ex.message.toString())
+
             viewModel.showSnackbar(RESTORE_DATA_FAIL_MESSAGE)
-            inputStream.close()
-            outputStream.close()
-            restoreLocalDbBackup()
-            deleteLocalBackupDb()
             return
         }
 
-        viewModel.showSnackbar("Restoration successful")
-        deleteLocalBackupDb()
-        inputStream.close()
-        outputStream.close()
+        viewModel.showSnackbar("Date restoration successful")
     }
 
     private fun generateBackupFileName() : String {
@@ -317,16 +194,6 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        lifecycleScope.launch {
-            Log.i(TAG, "On Advanced Settings page")
-            setupButtons()
-            setupObservables()
-        }
-    }
-
     private fun resetBackupStatus() {
         backupFileUri = null
         backupDestReturned = false
@@ -346,8 +213,20 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
         }
 
         if (restoreFilePicked) {
-            restoreDb(restoreFileUri)
+            restoreData(restoreFileUri)
+            backupManager.deleteLocalBackupDb()
             resetRestoreDataStatus()
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        lifecycleScope.launch {
+            Log.i(TAG, "On Advanced Settings page")
+            backupManager = BackupManager(requireContext())
+            setupButtons()
+            setupObservables()
         }
     }
 
@@ -355,7 +234,5 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
         private const val TAG = "AdvancedSettings"
         private const val BACKUP_FAIL_MESSAGE = "Back up failed"
         private const val RESTORE_DATA_FAIL_MESSAGE = "Data restoration failed"
-        private const val LOCAL_BACKUP_DIR_NAME = "TempBackups"
-        private const val TEMP_DB_BACKUP_NAME = "TempBackup"
     }
 }
