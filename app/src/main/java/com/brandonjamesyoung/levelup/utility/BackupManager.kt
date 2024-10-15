@@ -40,6 +40,45 @@ class BackupManager (val context: Context) {
         return null
     }
 
+    // Save selected file to the app directory and return a File for it
+    private fun saveFileToAppDir(selectedFileUri: Uri) : File? {
+        val inputStream = context.contentResolver.openInputStream(selectedFileUri)
+
+        if (inputStream == null) {
+            Log.e(TAG, "Could not create input stream from selected file")
+            return null
+        }
+
+        val targetFile: File
+
+        inputStream.use { fileIn ->
+            val internalDir: File = context.filesDir
+            val backupFolder = File(internalDir, LOCAL_BACKUP_DIR_NAME)
+            if (!backupFolder.exists()) backupFolder.mkdirs()
+            targetFile = File(backupFolder, TEMP_RECOVERY_FILE_NAME)
+
+            targetFile.outputStream().use { fileOut ->
+                fileIn.copyTo(fileOut)
+            }
+        }
+
+        return targetFile
+    }
+
+    private fun deleteTempUserFile() {
+        val internalDir: File = context.filesDir
+        val backupFolder = File(internalDir, LOCAL_BACKUP_DIR_NAME)
+        if (!backupFolder.exists()) return
+        val tempUserFile = File(backupFolder, TEMP_RECOVERY_FILE_NAME)
+        if (tempUserFile.exists()) tempUserFile.delete()
+    }
+
+    // Check that the selected file is the expected MIME type
+    private fun isValidDbFile(selectedFileUri: Uri) : Boolean {
+        val fileType: String? = context.contentResolver.getType(selectedFileUri)
+        return fileType != null && fileType == EXPECTED_DB_MIME_TYPE
+    }
+
     // Return File object pointing to the temporary local db copy location
     private fun getLocalDbBackupFile() : File {
         val internalDir: File = context.filesDir
@@ -104,6 +143,7 @@ class BackupManager (val context: Context) {
     fun deleteLocalBackupDb() {
         val internalDir: File = context.filesDir
         val backupFolder = File(internalDir, LOCAL_BACKUP_DIR_NAME)
+        if (!backupFolder.exists()) return
         val tempDbFile = File(backupFolder, TEMP_DB_BACKUP_NAME)
         if (tempDbFile.exists()) tempDbFile.delete()
     }
@@ -117,8 +157,7 @@ class BackupManager (val context: Context) {
 
     // Restore database using selected file
     fun restoreData(selectedFileUri: Uri) : RestoreDbError? {
-        // TODO Validate chosen file
-        // TODO Save selected file locally, then check if the file is actually a viable database
+        if (!isValidDbFile(selectedFileUri)) return RestoreDbError.INVALID_FILE
 
         // Create backup of current database in case something goes wrong
         val localBackupSuccessful: Boolean = createLocalDbBackup()
@@ -145,7 +184,7 @@ class BackupManager (val context: Context) {
         val dbFile: File = context.getDatabasePath(DATABASE_NAME)
         val outputStream: FileOutputStream = dbFile.outputStream()
 
-        // Replace database with
+        // Replace database with the selected file
         try {
             outputStream.use { fileOut ->
                 inputStream.copyTo(fileOut)
@@ -170,5 +209,7 @@ class BackupManager (val context: Context) {
         private const val TAG = "BackupManager"
         private const val LOCAL_BACKUP_DIR_NAME = "TempBackups"
         private const val TEMP_DB_BACKUP_NAME = "TempBackup"
+        private const val TEMP_RECOVERY_FILE_NAME = "TempRecovery"
+        private const val EXPECTED_DB_MIME_TYPE = "application/octet-stream"
     }
 }

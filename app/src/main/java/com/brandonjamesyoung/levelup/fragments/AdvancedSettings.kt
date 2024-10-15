@@ -107,6 +107,9 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
 
         if (restoreDbError != null) {
             when (restoreDbError) {
+                RestoreDbError.INVALID_FILE -> {
+                    Log.e(TAG, "Invalid file selected")
+                }
                 RestoreDbError.LOCAL_BACKUP_FAILED -> {
                     Log.e(TAG, "Local database backup failed")
                 }
@@ -118,7 +121,13 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
                 }
             }
 
-            viewModel.showSnackbar(RESTORE_DATA_FAIL_MESSAGE)
+            val snackbarErrorMessage: String = if (restoreDbError == RestoreDbError.INVALID_FILE) {
+                "Invalid file selected"
+            } else {
+                RESTORE_DATA_FAIL_MESSAGE
+            }
+
+            viewModel.showSnackbar(snackbarErrorMessage)
             return
         }
 

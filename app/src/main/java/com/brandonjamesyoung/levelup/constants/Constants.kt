@@ -29,7 +29,7 @@ enum class BackupDbError {
 }
 
 enum class RestoreDbError {
-    LOCAL_BACKUP_FAILED, INPUT_STREAM_ERROR, COPY_ERROR
+    INVALID_FILE, LOCAL_BACKUP_FAILED, INPUT_STREAM_ERROR, COPY_ERROR
 }
 
 // Animation Constants
