@@ -14,8 +14,8 @@ class SortButtonManager (val context: Context) {
         Log.i(TAG, "Showing sort button")
         val animateSlideUp = AnimationUtils.loadAnimation(context, R.anim.button_slide_in_up)
         sortButton.startAnimation(animateSlideUp)
-        sortButton.visibility = View.VISIBLE
         sortButton.isEnabled = true
+        sortButton.visibility = View.VISIBLE
         sortTrigger.visibility = View.INVISIBLE
     }
 
@@ -28,9 +28,10 @@ class SortButtonManager (val context: Context) {
             R.anim.button_slide_out_down
         )
 
-        sortButton.isEnabled = false
-        sortTrigger.visibility = View.VISIBLE
         sortButton.startAnimation(animateSlideDown)
+        sortButton.isEnabled = false
+        sortButton.visibility = View.INVISIBLE
+        sortTrigger.visibility = View.VISIBLE
     }
 
     companion object {

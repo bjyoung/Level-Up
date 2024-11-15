@@ -13,7 +13,12 @@ This document tracks all notables changes to the Level Up app.
 
 ### Changed
 
-- Changed default points acronym from "RT" to "BP"
+- Change default points acronym from "RT" to "BP"
+- Move sort button trigger to the empty space to the sides of Quest List and Shop pages
+
+### Fixed
+
+- Fix sort button trigger covering quests and shop items on the bottom of the screen
 
 ---
 

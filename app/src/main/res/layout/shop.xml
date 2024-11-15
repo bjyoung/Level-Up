@@ -161,9 +161,8 @@
     <Button
         android:id="@+id/SortTrigger"
         style="@style/InvisibleTrigger"
-        app:layout_constraintBottom_toBottomOf="@+id/SortButton"
-        app:layout_constraintEnd_toStartOf="@+id/QuestListButton"
-        app:layout_constraintStart_toEndOf="@+id/AddNewItemButton"
-        app:layout_constraintTop_toTopOf="@+id/SortButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/ItemListScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

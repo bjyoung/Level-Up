@@ -126,6 +126,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:visibility">invisible</item>
         <item name="android:text">@string/sort_button_text</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">@dimen/elevation_ui</item>
         <item name="iconSize">0dp</item>
         <item name="iconGravity">textEnd</item>
         <item name="icon">@drawable/sort_date_down_icon</item>
@@ -159,8 +161,10 @@
 
     <style name="InvisibleTrigger" parent="TextAppearance.AppCompat.Button">
         <item name="android:layout_width">@dimen/trigger_width</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/trigger_height</item>
         <item name="android:background">@android:color/transparent</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">@dimen/elevation_background</item>
     </style>
 
     <!-- Guidelines -->
