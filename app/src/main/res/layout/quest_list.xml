@@ -163,8 +163,11 @@
     <Button
         android:id="@+id/SortTrigger"
         style="@style/InvisibleTrigger"
-        app:layout_constraintBottom_toBottomOf="@+id/QuestScrollView"
+        android:layout_width="@dimen/trigger_portrait_width"
+        android:layout_height="@dimen/trigger_portrait_height"
+        app:layout_constraintBottom_toTopOf="@+id/SortButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/QuestHistoryButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

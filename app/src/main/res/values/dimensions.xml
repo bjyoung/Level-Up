@@ -8,8 +8,10 @@
     <dimen name="action_button_width">150dp</dimen>
     <dimen name="action_button_width_medium">250dp</dimen>
     <dimen name="action_button_width_long">338dp</dimen>
-    <dimen name="trigger_width">380dp</dimen>
-    <dimen name="trigger_height">200dp</dimen>
+    <dimen name="trigger_portrait_width">400dp</dimen>
+    <dimen name="trigger_portrait_height">525dp</dimen>
+    <dimen name="trigger_landscape_width">725dp</dimen>
+    <dimen name="trigger_landscape_height">280dp</dimen>
     <dimen name="button_icon_size">20dp</dimen>
     <dimen name="input_cursor_width">6dip</dimen>
     <dimen name="input_cursor_padding">5sp</dimen>
