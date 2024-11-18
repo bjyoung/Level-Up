@@ -21,7 +21,7 @@
         <item name="android:layout_marginStart">10dp</item>
     </style>
     <style name="Message" parent="Text">
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/rpg_snackbar_background</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">20dp</item>
@@ -31,7 +31,6 @@
     </style>
     <style name="NotFoundMessage" parent="Message">
         <item name="android:visibility">invisible</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="Text.About">
         <item name="android:textSize">20sp</item>

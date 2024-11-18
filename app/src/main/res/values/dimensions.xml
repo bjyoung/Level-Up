@@ -40,6 +40,9 @@
     <!-- Settings -->
     <dimen name="difficulty_button_small_height">36dp</dimen>
 
+    <!-- Restore Defaults -->
+    <dimen name="reset_warning_width">350dp</dimen>
+
     <!-- Shop -->
     <dimen name="table_icon_padding">5dp</dimen>
     <dimen name="table_header_bottom_padding">5dp</dimen>

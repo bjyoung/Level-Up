@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ResetSettings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/ResetSettingsLabel"
+        style="@style/Text"
+        android:text="@string/reset_settings_label"
+        app:layout_constraintBottom_toTopOf="@+id/ResetSettingsTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ResetSettingsWarning"
+        style="@style/Message"
+        android:layout_width="@dimen/reset_warning_width"
+        android:text="@string/reset_settings_warning"
+        app:layout_constraintBottom_toTopOf="@+id/CancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ResetSettingsLabel" />
+
+    <Button
+        android:id="@+id/ConfirmButton"
+        style="@style/SaveButton"
+        app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/CancelButton"
+        app:layout_constraintTop_toTopOf="@+id/CancelButton"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <Button
+        android:id="@+id/CancelButton"
+        style="@style/ActionButton.Small"
+        android:contentDescription="@string/cancel_button_content_description"
+        app:icon="@drawable/times_icon_red_large"
+        app:iconTint="@color/warning_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ResetSettingsBottomGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ResetSettingsTopGuideline"
+        style="@style/Guideline.Top" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ResetSettingsBottomGuideline"
+        style="@style/Guideline.Bottom" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

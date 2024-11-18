@@ -1,16 +1,9 @@
 package com.brandonjamesyoung.levelup.data
 
 import android.content.Context
-import android.content.res.Resources.NotFoundException
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
-import android.util.DisplayMetrics
-import androidx.core.content.res.ResourcesCompat
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.DATABASE_NAME
-import com.brandonjamesyoung.levelup.utility.TypeConverter.Companion.convertDrawableToByteArray
 import kotlinx.coroutines.*
 
 @Database(
@@ -71,51 +64,6 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
-            private fun getDrawable(id: Int) : Drawable {
-                val drawable = try {
-                    ResourcesCompat.getDrawable(context.resources, id, context.theme)
-                } catch(e: NotFoundException) {
-                    ResourcesCompat.getDrawable(
-                        context.resources,
-                        R.drawable.question_mark_icon,
-                        context.theme
-                    )
-                }
-
-                return drawable!!
-            }
-
-            private fun getDrawableWidth(resourceId: Int): Dimensions {
-                val options = BitmapFactory.Options()
-                options.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT
-                val bitmap = BitmapFactory.decodeResource(context.resources, resourceId, options)
-                return Dimensions(bitmap.width, bitmap.height)
-            }
-
-            private suspend fun initializeIcons(iconDao: IconDao) {
-                val iconFileNameTriples = initDb.getInitIconData()
-
-                for (triple in iconFileNameTriples) {
-                    val iconId: Int = triple.second
-                    val drawable: Drawable = getDrawable(iconId)
-                    val dimensions = getDrawableWidth(iconId)
-
-                    val byteArray = convertDrawableToByteArray(
-                        drawable, dimensions.width, dimensions.height
-                    )
-
-                    val icon = Icon(
-                        name = triple.first,
-                        image = byteArray,
-                        imageWidth = dimensions.width,
-                        imageHeight = dimensions.height,
-                        iconGroup = triple.third
-                    )
-
-                    iconDao.insert(icon)
-                }
-            }
-
             suspend fun initializeDatabase(
                 playerDao: PlayerDao,
                 settingsDao: SettingsDao,
@@ -127,7 +75,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val initSettings = Settings()
                 settingsDao.insert(initSettings)
                 initializeDifficulties(difficultyDao)
-                initializeIcons(iconDao)
+                initDb.initializeDefaultIcons(iconDao, context)
             }
 
             override fun onCreate(db: SupportSQLiteDatabase) {

@@ -99,6 +99,34 @@
     </string>
     <string name="restore_defaults_button_label">Restore Defaults</string>
 
+    <!-- Restore Defaults strings -->
+    <string name="restore_defaults_label">Restore Defaults</string>
+    <string name="restore_defaults_back_button_description">Go back to Advanced Settings</string>
+
+    <!-- Reset Icons strings -->
+    <string name="reset_icons_label">Reset Icons</string>
+    <string name="reset_icons_description">
+        Replace all Icon Select icons with the default ones
+    </string>
+    <string name="reset_icons_warning">Are you sure you want to restore default icons?</string>
+    <string name="reset_icons_confirm_button_description">
+        Restore default icons and go back to Restore Defaults page
+    </string>
+    <string name="reset_icons_cancel_button_description">Go back to Restore Defaults</string>
+
+    <!-- Reset Settings strings -->
+    <string name="reset_settings_label">Reset Settings</string>
+    <string name="reset_settings_description">
+        Reset all settings back to their default values
+    </string>
+    <string name="reset_settings_warning">
+        Are you sure you want to restore default settings?
+    </string>
+    <string name="reset_settings_confirm_button_description">
+        Restore default settings and go back to Restore Defaults page
+    </string>
+    <string name="reset_settings_cancel_button_description">Go back to Restore Defaults</string>
+
     <!-- Shop strings -->
     <string name="shop_label">Shop</string>
     <string name="price_column_label">Price</string>

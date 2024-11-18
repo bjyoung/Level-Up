@@ -132,7 +132,6 @@
     <TextView
         android:id="@+id/NoIconsMessage"
         style="@style/Message"
-        android:layout_height="wrap_content"
         android:text="@string/no_icons_found_message"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

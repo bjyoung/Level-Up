@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RestoreDefaults"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/ResetIconsButton"
+        style="@style/ActionButton.Large"
+        android:contentDescription="@string/reset_icons_description"
+        android:text="@string/reset_icons_label"
+        app:layout_constraintBottom_toTopOf="@+id/ResetSettingsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/SettingsTopGuideline" />
+
+    <Button
+        android:id="@+id/ResetSettingsButton"
+        style="@style/ActionButton.Large"
+        android:contentDescription="@string/reset_settings_description"
+        android:text="@string/reset_settings_label"
+        app:layout_constraintBottom_toTopOf="@+id/SettingsBottomGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ResetIconsButton" />
+
+    <Button
+        android:id="@+id/RestoreDefaultsBackButton"
+        style="@style/ActionButton.Large"
+        android:contentDescription="@string/restore_defaults_back_button_description"
+        app:icon="@drawable/arrow_left_icon_large"
+        app:iconSize="@dimen/button_icon_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/SettingsBottomGuideline" />
+
+    <TextView
+        android:id="@+id/RestoreDefaultsLabel"
+        style="@style/Text"
+        android:text="@string/restore_defaults_label"
+        app:layout_constraintBottom_toTopOf="@+id/SettingsTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/SettingsTopGuideline"
+        style="@style/Guideline.Top" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/SettingsBottomGuideline"
+        style="@style/Guideline.Bottom" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -175,12 +175,17 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
         }
     }
 
-    private fun setupRestoredDefaultsButton() {
+    private fun navigateToRestoreDefaults() {
+        findNavController().navigate(R.id.action_advancedSettings_to_restoreDefaults)
+        Log.i(TAG, "Going from Advanced Settings to Restore Defaults")
+    }
+
+    private fun setupRestoreDefaultsButton() {
         val view = requireView()
         val restoreDefaultsButton = view.findViewById<Button>(R.id.RestoreDefaultsButton)
 
         restoreDefaultsButton.setOnClickListener{
-            viewModel.showSnackbar("Not implemented yet")
+            navigateToRestoreDefaults()
         }
     }
 
@@ -189,7 +194,7 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
         setupAboutButton()
         setupBackupButton()
         setupRestoreDataButton()
-        setupRestoredDefaultsButton()
+        setupRestoreDefaultsButton()
     }
 
     private fun setupObservables() {

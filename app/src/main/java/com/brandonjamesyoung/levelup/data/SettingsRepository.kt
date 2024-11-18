@@ -1,6 +1,8 @@
 package com.brandonjamesyoung.levelup.data
 
 import androidx.annotation.WorkerThread
+import com.brandonjamesyoung.levelup.constants.DEFAULT_LVL_UP_BONUS
+import com.brandonjamesyoung.levelup.constants.DEFAULT_POINTS_ACRONYM
 import com.brandonjamesyoung.levelup.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -21,5 +23,13 @@ class SettingsRepository @Inject constructor(
     @WorkerThread
     suspend fun update(settings: Settings) = externalScope.launch {
         settingsDao.update(settings)
+    }
+
+    @WorkerThread
+    suspend fun resetToDefault() = externalScope.launch {
+        val settings: Settings = get()
+        settings.lvlUpBonus = DEFAULT_LVL_UP_BONUS
+        settings.pointsAcronym = DEFAULT_POINTS_ACRONYM
+        update(settings)
     }
 }

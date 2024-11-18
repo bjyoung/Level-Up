@@ -26,4 +26,7 @@ interface IconDao {
 
     @Query("DELETE FROM Icon WHERE id IN (:ids)")
     suspend fun delete(ids: Set<Int>)
+
+    @Query("DELETE FROM Icon")
+    suspend fun deleteAll()
 }

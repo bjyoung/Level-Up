@@ -2,6 +2,7 @@ package com.brandonjamesyoung.levelup.data
 
 import androidx.annotation.WorkerThread
 import com.brandonjamesyoung.levelup.di.ApplicationScope
+import com.brandonjamesyoung.levelup.constants.Difficulty as DifficultyCode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,5 +22,22 @@ class DifficultyRepository @Inject constructor(
     @WorkerThread
     suspend fun update(difficulties: List<Difficulty>) = externalScope.launch {
         difficultyDao.update(difficulties)
+    }
+
+    @WorkerThread
+    suspend fun resetToDefault() = externalScope.launch {
+        val existingDifficulties: List<Difficulty> = getAll()
+        val initDb = InitDatabase()
+
+        val defaultDifficulties: Map<DifficultyCode, Difficulty> =
+            initDb.getInitDifficulties().associateBy({it.code}, {it})
+
+        for (currDifficulty in existingDifficulties) {
+            val defaultDiff: Difficulty = defaultDifficulties[currDifficulty.code] ?: continue
+            currDifficulty.expReward = defaultDiff.expReward
+            currDifficulty.pointsReward = defaultDiff.pointsReward
+        }
+
+        update(existingDifficulties)
     }
 }

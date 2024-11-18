@@ -56,9 +56,15 @@ class ButtonConverter (val context: Context) {
 
         lifecycleScope.launch(Dispatchers.Main + CoroutineName("Load Icons")) {
             val icon = iconReader.getIcon(iconId)
-            val resources = context.resources
-            val iconDrawable = icon.getDrawable(resources)
-            button.setImageDrawable(iconDrawable)
+
+            if (icon == null) {
+                val drawable = IconHelper.getDefaultIcon(context)
+                button.setImageDrawable(drawable)
+            } else {
+                val resources = context.resources
+                val iconDrawable = icon.getDrawable(resources)
+                button.setImageDrawable(iconDrawable)
+            }
         }
     }
 }

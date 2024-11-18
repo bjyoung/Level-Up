@@ -202,6 +202,59 @@
             app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
+        android:id="@+id/restoreDefaults"
+        android:name="com.brandonjamesyoung.levelup.fragments.RestoreDefaults"
+        android:label="RestoreDefaults"
+        tools:layout="@layout/restore_defaults">
+        <action
+            android:id="@+id/action_restoreDefaults_to_advancedSettings"
+            app:destination="@id/advancedSettings"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_restoreDefaults_to_resetIcons"
+            app:destination="@id/resetIcons"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
+        <action
+            android:id="@+id/action_restoreDefaults_to_resetSettings"
+            app:destination="@id/resetSettings"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetSettings"
+        android:name="com.brandonjamesyoung.levelup.fragments.ResetSettings"
+        android:label="ResetSettings"
+        tools:layout="@layout/reset_settings">
+        <action
+            android:id="@+id/action_resetSettings_to_restoreDefaults"
+            app:destination="@id/restoreDefaults"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetIcons"
+        android:name="com.brandonjamesyoung.levelup.fragments.ResetIcons"
+        android:label="ResetIcons"
+        tools:layout="@layout/reset_icons">
+        <action
+            android:id="@+id/action_resetIcons_to_restoreDefaults"
+            app:destination="@id/restoreDefaults"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
+    </fragment>
+    <fragment
         android:id="@+id/questHistory"
         android:name="com.brandonjamesyoung.levelup.fragments.QuestHistory"
         android:label="QuestHistory"
@@ -233,6 +286,13 @@
             app:exitAnim="@anim/slide_out_down"
             app:popEnterAnim="@anim/slide_in_up"
             app:popExitAnim="@anim/slide_out_up" />
+        <action
+            android:id="@+id/action_advancedSettings_to_restoreDefaults"
+            app:destination="@id/restoreDefaults"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/itemHistory"

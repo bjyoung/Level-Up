@@ -1,5 +1,6 @@
 package com.brandonjamesyoung.levelup.data
 
+import android.content.Context
 import androidx.annotation.WorkerThread
 import com.brandonjamesyoung.levelup.di.ApplicationScope
 import com.brandonjamesyoung.levelup.constants.IconGroup
@@ -13,7 +14,7 @@ class IconRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val iconDao: IconDao,
     private val questDao: QuestDao,
-    private val questHistoryDao: QuestHistoryDao
+    private val questHistoryDao: QuestHistoryDao,
 ) {
     fun observeGroup(iconGroup: IconGroup) = iconDao.observeGroup(iconGroup)
 
@@ -42,5 +43,11 @@ class IconRepository @Inject constructor(
         questDao.clearDeletedIcons(ids)
         questHistoryDao.clearDeletedIcons(ids)
         iconDao.delete(ids)
+    }
+
+    @WorkerThread
+    suspend fun resetToDefault(context: Context) = externalScope.launch {
+        val initDatabase = InitDatabase()
+        initDatabase.initializeDefaultIcons(iconDao, context)
     }
 }

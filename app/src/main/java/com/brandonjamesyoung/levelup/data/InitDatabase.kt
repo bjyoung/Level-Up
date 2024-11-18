@@ -1,50 +1,58 @@
 package com.brandonjamesyoung.levelup.data
 
+import android.content.Context
+import android.content.res.Resources
+import android.content.res.Resources.NotFoundException
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
+import android.util.DisplayMetrics
+import androidx.core.content.res.ResourcesCompat
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.Difficulty.EASY
 import com.brandonjamesyoung.levelup.constants.Difficulty.EXPERT
 import com.brandonjamesyoung.levelup.constants.Difficulty.HARD
 import com.brandonjamesyoung.levelup.constants.Difficulty.MEDIUM
-import com.brandonjamesyoung.levelup.constants.INIT_EASY_EXP
-import com.brandonjamesyoung.levelup.constants.INIT_EASY_POINTS
-import com.brandonjamesyoung.levelup.constants.INIT_EXPERT_EXP
-import com.brandonjamesyoung.levelup.constants.INIT_EXPERT_POINTS
-import com.brandonjamesyoung.levelup.constants.INIT_HARD_EXP
-import com.brandonjamesyoung.levelup.constants.INIT_HARD_POINTS
-import com.brandonjamesyoung.levelup.constants.INIT_MEDIUM_EXP
-import com.brandonjamesyoung.levelup.constants.INIT_MEDIUM_POINTS
+import com.brandonjamesyoung.levelup.constants.DEFAULT_EASY_EXP
+import com.brandonjamesyoung.levelup.constants.DEFAULT_EASY_POINTS
+import com.brandonjamesyoung.levelup.constants.DEFAULT_EXPERT_EXP
+import com.brandonjamesyoung.levelup.constants.DEFAULT_EXPERT_POINTS
+import com.brandonjamesyoung.levelup.constants.DEFAULT_HARD_EXP
+import com.brandonjamesyoung.levelup.constants.DEFAULT_HARD_POINTS
+import com.brandonjamesyoung.levelup.constants.DEFAULT_MEDIUM_EXP
+import com.brandonjamesyoung.levelup.constants.DEFAULT_MEDIUM_POINTS
 import com.brandonjamesyoung.levelup.constants.IconGroup
+import com.brandonjamesyoung.levelup.utility.TypeConverter.Companion.convertDrawableToByteArray
 
 class InitDatabase {
     fun getInitDifficulties() : List<Difficulty> {
         val easy = Difficulty(
             code = EASY,
-            expReward = INIT_EASY_EXP,
-            pointsReward = INIT_EASY_POINTS
+            expReward = DEFAULT_EASY_EXP,
+            pointsReward = DEFAULT_EASY_POINTS
         )
 
         val medium = Difficulty(
             code = MEDIUM,
-            expReward = INIT_MEDIUM_EXP,
-            pointsReward = INIT_MEDIUM_POINTS
+            expReward = DEFAULT_MEDIUM_EXP,
+            pointsReward = DEFAULT_MEDIUM_POINTS
         )
 
         val hard = Difficulty(
             code = HARD,
-            expReward = INIT_HARD_EXP,
-            pointsReward = INIT_HARD_POINTS
+            expReward = DEFAULT_HARD_EXP,
+            pointsReward = DEFAULT_HARD_POINTS
         )
 
         val expert = Difficulty(
             code = EXPERT,
-            expReward = INIT_EXPERT_EXP,
-            pointsReward = INIT_EXPERT_POINTS
+            expReward = DEFAULT_EXPERT_EXP,
+            pointsReward = DEFAULT_EXPERT_POINTS
         )
 
         return listOf(easy, medium, hard, expert)
     }
 
-    fun getInitIconData() : List<Triple<String, Int, IconGroup>> {
+    private fun getInitIconData() : List<Triple<String, Int, IconGroup>> {
         return listOf(
             Triple("Apple", R.drawable.apple_icon, IconGroup.DIAMONDS),
             Triple("Archive", R.drawable.archive_icon, IconGroup.HEARTS),
@@ -182,5 +190,52 @@ class InitDatabase {
             Triple("Window", R.drawable.window_icon, IconGroup.HEARTS),
             Triple("Wrench", R.drawable.wrench_icon, IconGroup.DIAMONDS)
         )
+    }
+
+    private fun getDrawable(id: Int, context: Context) : Drawable {
+        val drawable = try {
+            ResourcesCompat.getDrawable(context.resources, id, context.theme)
+        } catch(e: NotFoundException) {
+            ResourcesCompat.getDrawable(
+                context.resources,
+                R.drawable.question_mark_icon,
+                context.theme
+            )
+        }
+
+        return drawable!!
+    }
+
+    private fun getDrawableWidth(resourceId: Int, resources: Resources): Dimensions {
+        val options = BitmapFactory.Options()
+        options.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT
+        val bitmap = BitmapFactory.decodeResource(resources, resourceId, options)
+        return Dimensions(bitmap.width, bitmap.height)
+    }
+
+    // Clear icon database and add all default icons back in
+    suspend fun initializeDefaultIcons(iconDao: IconDao, context: Context) {
+        iconDao.deleteAll()
+        val iconFileNameTriples = getInitIconData()
+
+        for (triple in iconFileNameTriples) {
+            val iconId: Int = triple.second
+            val drawable: Drawable = getDrawable(iconId, context)
+            val dimensions = getDrawableWidth(iconId, context.resources)
+
+            val byteArray = convertDrawableToByteArray(
+                drawable, dimensions.width, dimensions.height
+            )
+
+            val icon = Icon(
+                name = triple.first,
+                image = byteArray,
+                imageWidth = dimensions.width,
+                imageHeight = dimensions.height,
+                iconGroup = triple.third
+            )
+
+            iconDao.insert(icon)
+        }
     }
 }

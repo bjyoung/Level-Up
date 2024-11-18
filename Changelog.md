@@ -8,7 +8,8 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Implement backup and restore data buttons
+- Add backup and restore data options
+- Add reset icons and reset settings options
 - Add more icons
 
 ### Changed
@@ -19,6 +20,7 @@ This document tracks all notables changes to the Level Up app.
 ### Fixed
 
 - Fix sort button trigger covering quests and shop items on the bottom of the screen
+- Fix app crashing when deleting an icon that is used by an quest in Quest List or Quest History
 
 ---
 

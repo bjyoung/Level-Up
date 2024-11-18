@@ -37,18 +37,22 @@ const val PROGRESS_BAR_ANIM_DURATION: Long = 450
 const val POINT_UPDATE_ANIM_DURATION: Long = 2500
 const val POP_UP_BUTTON_WAIT_PERIOD: Long = 4500
 
-// Initialization Constants
-const val INIT_EASY_EXP = 100
-const val INIT_EASY_POINTS = 1
+// Default difficulty values
+const val DEFAULT_EASY_EXP = 100
+const val DEFAULT_EASY_POINTS = 1
 
-const val INIT_MEDIUM_EXP = 250
-const val INIT_MEDIUM_POINTS = 4
+const val DEFAULT_MEDIUM_EXP = 250
+const val DEFAULT_MEDIUM_POINTS = 4
 
-const val INIT_HARD_EXP = 600
-const val INIT_HARD_POINTS = 10
+const val DEFAULT_HARD_EXP = 600
+const val DEFAULT_HARD_POINTS = 10
 
-const val INIT_EXPERT_EXP = 2500
-const val INIT_EXPERT_POINTS = 40
+const val DEFAULT_EXPERT_EXP = 2500
+const val DEFAULT_EXPERT_POINTS = 40
+
+// Default settings
+const val DEFAULT_POINTS_ACRONYM = "BP"
+const val DEFAULT_LVL_UP_BONUS = 5
 
 // Maximum Constants
 const val INT_LIMIT = 999999999

@@ -1,5 +1,7 @@
 package com.brandonjamesyoung.levelup.fragments
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,6 +22,7 @@ import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.utility.IconHelper.Companion.getDefaultIcon
 import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.data.Icon
 import com.brandonjamesyoung.levelup.interfaces.Resettable
 import com.brandonjamesyoung.levelup.utility.DateLabelManager
 import com.brandonjamesyoung.levelup.validation.InputValidator
@@ -156,7 +159,29 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
         Log.i(TAG, "Going from New Quest to Icon Select")
     }
 
-    // TODO Extract this duplicate method used across QuestList, New Quest, QuestHistory
+    private fun setIconDrawable(iconId: Int) = lifecycleScope.launch(Dispatchers.Main) {
+        val icon: Icon = withContext(Dispatchers.IO) {
+            viewModel.getIcon(iconId)
+        }
+
+        val view = requireView()
+        val button = view.findViewById<FloatingActionButton>(R.id.IconButton)
+        val buttonDrawable: Drawable?
+
+        // In case icon is still null, use default icon instead
+        if (icon == null) {
+            val pageName = if (viewModel.mode.value == Mode.EDIT) "Edit Quest" else "New Quest"
+            Log.e(TAG, "No icon found in $pageName page. Setting default icon instead.")
+            val context = requireContext()
+            buttonDrawable = getDefaultIcon(context)
+        } else {
+            buttonDrawable = icon.getDrawable(resources)
+        }
+
+        button.setImageDrawable(buttonDrawable)
+    }
+
+    // TODO Extract this duplicate method used across QuestList, New Quest, Quest History
     private fun changeIcon(iconId : Int?) {
         viewModel.iconId = iconId
         val view = requireView()
@@ -169,14 +194,7 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
             return
         }
 
-        lifecycleScope.launch(Dispatchers.Main) {
-            val icon = withContext(Dispatchers.IO) {
-                viewModel.getIcon(iconId)
-            }
-
-            val drawable = icon.getDrawable(resources)
-            button.setImageDrawable(drawable)
-        }
+        setIconDrawable(iconId)
     }
 
     private fun setupIconSelectButton() {
