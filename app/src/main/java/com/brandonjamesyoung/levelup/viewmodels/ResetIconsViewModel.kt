@@ -17,7 +17,7 @@ class ResetIconsViewModel @Inject constructor(
 ) : BaseViewModel() {
     fun resetIcons(context: Context) = viewModelScope.launch(ioDispatcher) {
         iconRepository.resetToDefault(context)
-        Log.i(TAG, "Reset icons to default")
+        Log.i(TAG, "Icons reset to default")
     }
 
     companion object {

@@ -621,9 +621,9 @@ class IconSelect : Fragment(R.layout.icon_select) {
             IconGroup.CLUBS to viewModel.clubsIcons
         )
 
-        for (iconGroupIconsPair in viewModelIconLists) {
-            val iconGroup = iconGroupIconsPair.key
-            val liveIcons = iconGroupIconsPair.value
+        for (groupIconsPair in viewModelIconLists) {
+            val iconGroup = groupIconsPair.key
+            val liveIcons = groupIconsPair.value
 
             liveIcons.observe(viewLifecycleOwner) { icons ->
                 addToIconGroupMap(iconGroup, icons)

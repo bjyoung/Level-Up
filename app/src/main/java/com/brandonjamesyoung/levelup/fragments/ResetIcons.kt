@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.ResetIconsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -29,6 +30,7 @@ class ResetIcons : Fragment(R.layout.reset_icons){
         confirmButton.setOnClickListener {
             val context = requireContext()
             viewModel.resetIcons(context)
+            viewModel.showSnackbar("Icons reset to default")
             navigateToRestoreDefaults()
         }
     }
@@ -47,12 +49,24 @@ class ResetIcons : Fragment(R.layout.reset_icons){
         setupCancelButton()
     }
 
+    private fun setupSnackbar() {
+        val view = requireView()
+
+        viewModel.message.observe(viewLifecycleOwner) { message ->
+            message.getContentIfNotHandled()?.let {
+                val cancelButton: View = view.findViewById(R.id.CancelButton)
+                showSnackbar(it, view, cancelButton)
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
             Log.i(TAG, "On Reset Icons page")
             setupButtons()
+            setupSnackbar()
         }
     }
 

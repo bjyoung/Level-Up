@@ -17,9 +17,8 @@ class ResetSettingsViewModel @Inject constructor(
 ) : BaseViewModel() {
     fun resetSettings() = viewModelScope.launch(ioDispatcher) {
         settingsRepository.resetToDefault()
-        Log.i(TAG, "Reset settings to default values")
         difficultyRepository.resetToDefault()
-        Log.i(TAG, "Reset difficulties to default values")
+        Log.i(TAG, "Settings reset to default values")
     }
 
     companion object {
