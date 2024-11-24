@@ -16,6 +16,8 @@ This document tracks all notables changes to the Level Up app.
 
 - Change default points acronym from "RT" to "BP"
 - Move sort button trigger to the empty space to the sides of Quest List and Shop pages
+- Change level up bonus setting from a flat bonus value to a multiplier
+  - For example, levelling up from 3 to 4 with a multiplier of 2 earns you 3 * 2 = 6 bonus points
 
 ### Fixed
 

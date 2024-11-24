@@ -36,10 +36,10 @@ class SettingsFragment : Fragment(R.layout.settings), Resettable {
     @Inject lateinit var validator: InputValidator
 
     private val difficultyInputMap = mapOf(
-        DifficultyCode.EASY to Pair(R.id.EasyExpInput, R.id.EasyRtInput),
-        DifficultyCode.MEDIUM to Pair(R.id.MediumExpInput, R.id.MediumRtInput),
-        DifficultyCode.HARD to Pair(R.id.HardExpInput, R.id.HardRtInput),
-        DifficultyCode.EXPERT to Pair(R.id.ExpertExpInput, R.id.ExpertRtInput)
+        DifficultyCode.EASY to Pair(R.id.EasyExpInput, R.id.EasyPointsInput),
+        DifficultyCode.MEDIUM to Pair(R.id.MediumExpInput, R.id.MediumPointsInput),
+        DifficultyCode.HARD to Pair(R.id.HardExpInput, R.id.HardPointsInput),
+        DifficultyCode.EXPERT to Pair(R.id.ExpertExpInput, R.id.ExpertPointsInput)
     )
 
     private fun navigateToAdvancedSettings() {
@@ -90,13 +90,13 @@ class SettingsFragment : Fragment(R.layout.settings), Resettable {
     private fun difficultySettingsAreValid() : Boolean {
         val difficultyInputIds = listOf(
             R.id.EasyExpInput,
-            R.id.EasyRtInput,
+            R.id.EasyPointsInput,
             R.id.MediumExpInput,
-            R.id.MediumRtInput,
+            R.id.MediumPointsInput,
             R.id.HardExpInput,
-            R.id.HardRtInput,
+            R.id.HardPointsInput,
             R.id.ExpertExpInput,
-            R.id.ExpertRtInput
+            R.id.ExpertPointsInput
         )
 
         val view = requireView()
@@ -239,11 +239,11 @@ class SettingsFragment : Fragment(R.layout.settings), Resettable {
         }
 
         val pointLabelIds = listOf(
-            R.id.EasyRtLabel,
-            R.id.MediumRtLabel,
-            R.id.HardRtLabel,
-            R.id.ExpertRtLabel,
-            R.id.LevelUpBonusRtLabel
+            R.id.EasyPointsLabel,
+            R.id.MediumPointsLabel,
+            R.id.HardPointsLabel,
+            R.id.ExpertPointsLabel,
+            R.id.LevelUpBonusPointsLabel
         )
 
         val view = requireView()
@@ -275,11 +275,11 @@ class SettingsFragment : Fragment(R.layout.settings), Resettable {
 
     private fun updateAcronymLabels(newAcronym: String) {
         val acronymTextViewIds: List<Int> = listOf(
-            R.id.EasyRtLabel,
-            R.id.MediumRtLabel,
-            R.id.HardRtLabel,
-            R.id.ExpertRtLabel,
-            R.id.LevelUpBonusRtLabel
+            R.id.EasyPointsLabel,
+            R.id.MediumPointsLabel,
+            R.id.HardPointsLabel,
+            R.id.ExpertPointsLabel,
+            R.id.LevelUpBonusPointsLabel
         )
 
         val view = requireView()

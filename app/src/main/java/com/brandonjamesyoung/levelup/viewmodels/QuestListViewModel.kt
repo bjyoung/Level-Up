@@ -140,18 +140,69 @@ class QuestListViewModel @Inject constructor(
         return "$introMessage $expMessage and $pointsMessage$punctuation"
     }
 
+    private fun calculateLevelUpBonus(startingLvl: Int, levelsEarned: Int, lvlUpBonus: Int) : Int {
+        var totalLvlUpBonus = 0
+        val endingLvl = startingLvl + levelsEarned
+
+        val lowerLvl: Int
+        val higherLvl: Int
+
+        if (startingLvl <= endingLvl) {
+            lowerLvl = startingLvl
+            higherLvl = endingLvl
+        } else {
+            lowerLvl = endingLvl
+            higherLvl = startingLvl
+        }
+
+        for (lvl in lowerLvl until higherLvl) totalLvlUpBonus += lvlUpBonus * lvl
+        val gainedLevels: Boolean = levelsEarned >= 0
+        if (!gainedLevels) totalLvlUpBonus *= -1
+
+        return totalLvlUpBonus
+    }
+
+    private fun getLevelUpBonusLogMessage(
+        playerName: String?,
+        levelsEarned: Int,
+        lvlUpBonus: Int,
+        pointsAcronym: String
+    ) : String {
+        var lvlUpBonusLogMessage: String = playerName ?: "???"
+        val gainedLevels: Boolean = levelsEarned >= 0
+        lvlUpBonusLogMessage += if (gainedLevels) " earns" else " loses"
+        lvlUpBonusLogMessage += " $lvlUpBonus $pointsAcronym for levelling"
+        lvlUpBonusLogMessage += if (gainedLevels) " up" else " down"
+        return lvlUpBonusLogMessage
+    }
+
     fun completeQuests(questIds: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         val difficulties = questRepository.getDifficulties(questIds)
         val reward = calculateRewards(difficulties)
         val player = playerRepository.get()
         val settings = settingsRepository.get()
+        val startingLvl = player.lvl
         val levelsEarned = player.gainExp(reward.exp, settings.lvlUpBonus)
         player.gainPoints(reward.points)
         playerRepository.update(player)
         questRepository.complete(questIds)
         val numQuestsCompleted = questIds.count()
         val pointsAcronym = settings.pointsAcronym
-        reward.points += settings.lvlUpBonus * levelsEarned
+
+        // Calculate level up bonus (bonus * level)
+        if (levelsEarned != 0) {
+            val levelUpBonus = calculateLevelUpBonus(startingLvl, levelsEarned, settings.lvlUpBonus)
+
+            val lvlUpBonusLogMessage = getLevelUpBonusLogMessage(
+                player.name,
+                levelsEarned,
+                levelUpBonus,
+                pointsAcronym
+            )
+
+            Log.i(TAG, lvlUpBonusLogMessage)
+            reward.points += levelUpBonus
+        }
 
         val logMessage = "${player.name} completes $numQuestsCompleted quest(s) " +
                 "and earns ${reward.exp} exp and ${reward.points} $pointsAcronym"

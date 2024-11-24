@@ -51,7 +51,7 @@
         android:text="@string/hard_label"
         app:layout_constraintEnd_toEndOf="@+id/SettingsEasyButton"
         app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
-        app:layout_constraintTop_toBottomOf="@+id/EasyRtInput"
+        app:layout_constraintTop_toBottomOf="@+id/EasyPointsInput"
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
@@ -94,7 +94,7 @@
         android:text="@string/points_acronym_label"
         app:layout_constraintBottom_toTopOf="@+id/LevelUpBonusLabel"
         app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/HardRtInput"
+        app:layout_constraintTop_toBottomOf="@+id/HardPointsInput"
         app:layout_constraintVertical_bias="0.66" />
 
     <TextView
@@ -122,7 +122,7 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        android:id="@+id/hardExpLabel"
+        android:id="@+id/HardExpLabel"
         style="@style/XpLabel"
         app:layout_constraintBottom_toBottomOf="@+id/HardExpInput"
         app:layout_constraintStart_toEndOf="@+id/HardExpInput"
@@ -138,42 +138,44 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        android:id="@+id/EasyRtLabel"
-        style="@style/RtLabel"
-        app:layout_constraintBottom_toBottomOf="@+id/EasyRtInput"
-        app:layout_constraintStart_toEndOf="@+id/EasyRtInput"
-        app:layout_constraintTop_toTopOf="@+id/EasyRtInput"
+        android:id="@+id/EasyPointsLabel"
+        style="@style/PointsLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/EasyPointsInput"
+        app:layout_constraintStart_toEndOf="@+id/EasyPointsInput"
+        app:layout_constraintTop_toTopOf="@+id/EasyPointsInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        android:id="@+id/HardRtLabel"
-        style="@style/RtLabel"
-        app:layout_constraintBottom_toBottomOf="@+id/HardRtInput"
-        app:layout_constraintStart_toEndOf="@+id/HardRtInput"
-        app:layout_constraintTop_toTopOf="@+id/HardRtInput"
+        android:id="@+id/HardPointsLabel"
+        style="@style/PointsLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/HardPointsInput"
+        app:layout_constraintStart_toEndOf="@+id/HardPointsInput"
+        app:layout_constraintTop_toTopOf="@+id/HardPointsInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        android:id="@+id/ExpertRtLabel"
-        style="@style/RtLabel"
-        app:layout_constraintBottom_toBottomOf="@+id/ExpertRtInput"
-        app:layout_constraintStart_toEndOf="@+id/ExpertRtInput"
-        app:layout_constraintTop_toTopOf="@+id/ExpertRtInput" />
+        android:id="@+id/ExpertPointsLabel"
+        style="@style/PointsLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/ExpertPointsInput"
+        app:layout_constraintStart_toEndOf="@+id/ExpertPointsInput"
+        app:layout_constraintTop_toTopOf="@+id/ExpertPointsInput" />
 
     <TextView
-        android:id="@+id/LevelUpBonusRtLabel"
-        style="@style/RtLabel"
+        android:id="@+id/LevelUpBonusPointsLabel"
+        style="@style/Text"
+        android:layout_marginStart="10dp"
+        android:text="X"
         app:layout_constraintBottom_toBottomOf="@+id/LevelUpBonusInput"
         app:layout_constraintStart_toEndOf="@+id/LevelUpBonusInput"
         app:layout_constraintTop_toTopOf="@+id/LevelUpBonusInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <TextView
-        android:id="@+id/MediumRtLabel"
-        style="@style/RtLabel"
-        app:layout_constraintBottom_toBottomOf="@+id/MediumRtInput"
-        app:layout_constraintStart_toEndOf="@+id/MediumRtInput"
-        app:layout_constraintTop_toTopOf="@+id/MediumRtInput"
+        android:id="@+id/MediumPointsLabel"
+        style="@style/PointsLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/MediumPointsInput"
+        app:layout_constraintStart_toEndOf="@+id/MediumPointsInput"
+        app:layout_constraintTop_toTopOf="@+id/MediumPointsInput"
         app:layout_constraintVertical_bias="0.5" />
 
     <EditText
@@ -217,8 +219,8 @@
         app:layout_constraintTop_toBottomOf="@+id/SettingsMediumButton" />
 
     <EditText
-        android:id="@+id/EasyRtInput"
-        style="@style/RtInput"
+        android:id="@+id/EasyPointsInput"
+        style="@style/PointsInput"
         android:layout_marginTop="10dp"
         android:hint="@string/easy_points_input_hint"
         app:layout_constraintEnd_toEndOf="@+id/SettingsEasyButton"
@@ -227,8 +229,8 @@
         app:layout_constraintTop_toBottomOf="@+id/EasyExpInput" />
 
     <EditText
-        android:id="@+id/HardRtInput"
-        style="@style/RtInput"
+        android:id="@+id/HardPointsInput"
+        style="@style/PointsInput"
         android:layout_marginTop="10dp"
         android:hint="@string/hard_points_input_hint"
         app:layout_constraintEnd_toEndOf="@+id/HardExpInput"
@@ -237,8 +239,8 @@
         app:layout_constraintTop_toBottomOf="@+id/HardExpInput" />
 
     <EditText
-        android:id="@+id/ExpertRtInput"
-        style="@style/RtInput"
+        android:id="@+id/ExpertPointsInput"
+        style="@style/PointsInput"
         android:layout_marginTop="10dp"
         android:hint="@string/expert_points_input_hint"
         app:layout_constraintEnd_toEndOf="@+id/ExpertExpInput"
@@ -264,7 +266,7 @@
 
     <EditText
         android:id="@+id/LevelUpBonusInput"
-        style="@style/RtInput"
+        style="@style/PointsInput"
         android:layout_marginStart="30dp"
         android:hint="@string/level_up_bonus_hint"
         android:maxLength="@integer/max_level_up_bonus_length"
@@ -275,8 +277,8 @@
         app:layout_constraintTop_toTopOf="@+id/LevelUpBonusLabel" />
 
     <EditText
-        android:id="@+id/MediumRtInput"
-        style="@style/RtInput"
+        android:id="@+id/MediumPointsInput"
+        style="@style/PointsInput"
         android:layout_marginTop="10dp"
         android:hint="@string/medium_points_input_hint"
         app:layout_constraintEnd_toEndOf="@+id/MediumExpInput"

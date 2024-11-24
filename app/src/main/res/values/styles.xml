@@ -16,7 +16,7 @@
         <item name="android:text">XP</item>
         <item name="android:layout_marginStart">10dp</item>
     </style>
-    <style name="RtLabel" parent="Text">
+    <style name="PointsLabel" parent="Text">
         <item name="android:text">RT</item>
         <item name="android:layout_marginStart">10dp</item>
     </style>
@@ -73,7 +73,7 @@
         <item name="android:autofillHints">@string/exp_input_autofill_hint</item>
         <item name="android:maxLength">4</item>
     </style>
-    <style name="RtInput" parent="NumInput.Small">
+    <style name="PointsInput" parent="NumInput.Small">
         <item name="android:autofillHints">@string/points_input_autofill_hint</item>
         <item name="android:maxLength">4</item>
     </style>
