@@ -32,6 +32,9 @@ interface QuestDao {
     @Query("UPDATE Quest SET iconId = null WHERE iconId IN (:iconIds)")
     suspend fun clearDeletedIcons(iconIds: Set<Int>)
 
+    @Query("UPDATE Quest SET iconId = null")
+    suspend fun clearAllIcons()
+
     @Query("DELETE FROM Quest WHERE id IN (:ids)")
     suspend fun delete(ids: Set<Int>)
 }

@@ -40,7 +40,7 @@ class NewItem : Fragment(R.layout.new_item) {
     private fun loadPointsAcronym() = lifecycleScope.launch(Dispatchers.IO) {
         val settings = viewModel.getSettings()
         val view = requireView()
-        val acronymLabel = view.findViewById<TextView>(R.id.CostRtLabel)
+        val acronymLabel = view.findViewById<TextView>(R.id.CostAcronymLabel)
 
         withContext(Dispatchers.Main) {
             acronymLabel.text = settings.pointsAcronym

@@ -8,7 +8,7 @@
 
     <TextView
         style="@style/Text"
-        android:id="@+id/CostRtLabel"
+        android:id="@+id/CostAcronymLabel"
         android:layout_marginStart="10dp"
         android:text="@string/points_acronym"
         app:layout_constraintBottom_toBottomOf="@+id/CostInput"

@@ -49,5 +49,7 @@ class IconRepository @Inject constructor(
     suspend fun resetToDefault(context: Context) = externalScope.launch {
         val initDatabase = InitDatabase()
         initDatabase.initializeDefaultIcons(iconDao, context)
+        questDao.clearAllIcons()
+        questHistoryDao.clearAllIcons()
     }
 }

@@ -108,7 +108,10 @@
     <string name="reset_icons_description">
         Replace all Icon Select icons with the default ones
     </string>
-    <string name="reset_icons_warning">Are you sure you want to restore default icons?</string>
+    <string name="reset_icons_warning">
+        Are you sure you want to restore default icons? All
+        quest and quest history icons will be cleared.
+    </string>
     <string name="reset_icons_confirm_button_description">
         Restore default icons and go back to Restore Defaults page
     </string>
@@ -131,8 +134,8 @@
     <string name="shop_label">Shop</string>
     <string name="price_column_label">Price</string>
     <string name="points_amount">0</string>
-    <string name="points_acronym">RT</string>
-    <string name="points_acronym_default">RT</string>
+    <string name="points_acronym">BP</string>
+    <string name="points_acronym_default">BP</string>
     <string name="name_sort_icon_content_description">White arrow pointing down</string>
     <string name="quest_list_button_description">Navigate to the Quest List page</string>
     <string name="item_history_button_description">Navigate to the Item History page</string>

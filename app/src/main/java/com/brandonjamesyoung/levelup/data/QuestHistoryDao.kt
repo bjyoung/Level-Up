@@ -17,6 +17,9 @@ interface QuestHistoryDao {
     @Query("UPDATE CompletedQuest SET iconId = null WHERE iconId IN (:iconIds)")
     suspend fun clearDeletedIcons(iconIds: Set<Int>)
 
+    @Query("UPDATE Quest SET iconId = null")
+    suspend fun clearAllIcons()
+
     @Query("SELECT COUNT(*) FROM CompletedQuest")
     suspend fun getNumQuests(): Int
 }
