@@ -58,19 +58,6 @@
         android:orientation="vertical"
         android:id="@+id/ItemHistoryRightGuideline" />
 
-    <ImageView
-        android:id="@+id/NameSortIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/table_icon_padding"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/arrow_down_icon"
-        android:backgroundTint="@color/white"
-        android:contentDescription="@string/name_sort_icon_content_description"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/TableDivider"
-        app:layout_constraintStart_toEndOf="@+id/ItemNameLabel" />
-
     <View
         android:id="@+id/TableDivider"
         android:layout_width="0dp"
