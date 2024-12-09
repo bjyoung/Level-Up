@@ -19,6 +19,7 @@ class ButtonConverter (val context: Context) {
         iconDrawableId: Int = R.drawable.question_mark_icon,
         iconColorId: Int = R.color.nav_button_icon,
         buttonMethod: (() -> Unit)? = null,
+        tooltip: String? = null,
         view: View
     ) {
         val button = view.findViewById<MaterialButton>(targetId)
@@ -39,6 +40,8 @@ class ButtonConverter (val context: Context) {
                 buttonMethod()
             }
         }
+
+        button.tooltipText = tooltip
     }
 
     // Change quest's floating action button icon

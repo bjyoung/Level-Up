@@ -25,6 +25,7 @@
     <com.google.android.material.button.MaterialButton
         style="@style/NavButton"
         android:id="@+id/QuestListButton"
+        android:tooltipText="@string/quest_list_button_tooltip"
         android:contentDescription="@string/quest_list_button_description"
         app:icon="@drawable/bullet_list_icon_large"
         app:layout_constraintBottom_toBottomOf="@+id/AddNewItemButton"
@@ -35,7 +36,8 @@
     <com.google.android.material.button.MaterialButton
         style="@style/NavButton"
         android:id="@+id/AddNewItemButton"
-        android:contentDescription="@string/new_item_button_description"
+        android:tooltipText="@string/add_item_button_tooltip"
+        android:contentDescription="@string/add_item_button_description"
         app:icon="@drawable/plus_icon_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ShopLeftGuideline"
@@ -45,6 +47,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/ItemHistoryButton"
         style="@style/NavButton"
+        android:tooltipText="@string/item_history_button_tooltip"
         android:contentDescription="@string/item_history_button_description"
         app:icon="@drawable/clock_icon_large"
         app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
@@ -55,6 +58,7 @@
     <com.google.android.material.button.MaterialButton
         style="@style/NavButton"
         android:id="@+id/ShopSettingsButton"
+        android:tooltipText="@string/settings_button_tooltip"
         android:contentDescription="@string/settings_button_description"
         app:icon="@drawable/gear_icon_large"
         app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"

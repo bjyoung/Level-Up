@@ -168,7 +168,8 @@ class QuestList: Fragment(R.layout.quest_list) {
             targetId = R.id.AddNewQuestButton,
             iconDrawableId = R.drawable.plus_icon_large,
             buttonMethod = ::navigateToNewQuest,
-            view = requireView(),
+            tooltip = getString(R.string.new_quest_button_tooltip),
+            view = requireView()
         )
     }
 
@@ -183,7 +184,8 @@ class QuestList: Fragment(R.layout.quest_list) {
             targetId = R.id.ShopButton,
             iconDrawableId = R.drawable.shopping_bag_icon_large,
             buttonMethod = ::navigateToShop,
-            view = requireView(),
+            tooltip = getString(R.string.shop_button_tooltip),
+            view = requireView()
         )
     }
 
@@ -199,7 +201,8 @@ class QuestList: Fragment(R.layout.quest_list) {
             targetId = R.id.SettingsButton,
             iconDrawableId = R.drawable.gear_icon_large,
             buttonMethod = ::navigateToSettings,
-            view = requireView(),
+            tooltip = getString(R.string.settings_button_tooltip),
+            view = requireView()
         )
     }
 

@@ -18,9 +18,13 @@
     <string name="username_level_header_placeholder">Lvl 1 Player</string>
     <string name="username_level_header">Lvl %1$s %2$s</string>
     <string name="placeholder_text">\?\?\?</string>
+    <string name="new_quest_button_tooltip">New Quest</string>
     <string name="new_quest_button_description">Navigate to the New Quest page</string>
+    <string name="settings_button_tooltip">Settings</string>
     <string name="settings_button_description">Navigate to the Settings page</string>
+    <string name="shop_button_tooltip">Shop</string>
     <string name="shop_button_description">Navigate to the Shop page</string>
+    <string name="quest_history_button_tooltip">Quest History</string>
     <string name="quest_history_button_description">Navigate to the Quest History page</string>
     <string name="quest_icon_description">Quest icon</string>
     <string name="next_lvl_exp_label">Next Lvl Exp</string>
@@ -67,7 +71,8 @@
     <string name="exp_acronym">XP</string>
     <string name="points_acronym_label">Points Acronym</string>
     <string name="points_acronym_autofill_hint">pointsAcronym</string>
-    <string name="level_up_bonus_label">Level Up Bonus</string>
+    <string name="level_up_bonus_label">Level Up Mult</string>
+    <string name="level_up_mult_tooltip">Affects points earned on level up (mult * lvl)</string>
     <string name="level_up_bonus_hint">5</string>
     <string name="level_up_bonus_autofill_hint">levelUpBonus</string>
     <string name="font_size_selector_label">Font Size</string>
@@ -86,9 +91,11 @@
     <!-- Advanced Settings strings -->
     <string name="advanced_settings_label">Advanced Settings</string>
     <string name="backup_button_label">Back Up</string>
+    <string name="backup_button_tooltip">Save a copy of the app\'s data to your phone</string>
     <string name="backup_button_content_description">Back Up data</string>
-    <string name="import_button_label">Restore Data</string>
-    <string name="import_button_content_description">Restore data from a backup</string>
+    <string name="restore_data_button_label">Restore Data</string>
+    <string name="restore_data_button_tooltip">Restore app data using a backup file</string>
+    <string name="restore_data_button_content_description">Restore data from a backup</string>
     <string name="about_button_label">About</string>
     <string name="about_button_content_description">Navigate to About page</string>
     <string name="advanced_settings_back_button_content_description">
@@ -98,6 +105,7 @@
         Reset app and restore default values
     </string>
     <string name="restore_defaults_button_label">Restore Defaults</string>
+    <string name="restore_defaults_tooltip">Restore icons or settings to default values</string>
 
     <!-- Restore Defaults strings -->
     <string name="restore_defaults_label">Restore Defaults</string>
@@ -109,8 +117,8 @@
         Replace all Icon Select icons with the default ones
     </string>
     <string name="reset_icons_warning">
-        Are you sure you want to restore default icons? All
-        quest and quest history icons will be cleared.
+        Are you sure you want to restore default icons? All quest
+        icons will be reset to default too.
     </string>
     <string name="reset_icons_confirm_button_description">
         Restore default icons and go back to Restore Defaults page
@@ -137,9 +145,12 @@
     <string name="points_acronym">BP</string>
     <string name="points_acronym_default">BP</string>
     <string name="name_sort_icon_content_description">White arrow pointing down</string>
+    <string name="quest_list_button_tooltip">Quest List</string>
     <string name="quest_list_button_description">Navigate to the Quest List page</string>
+    <string name="item_history_button_tooltip">Item History</string>
     <string name="item_history_button_description">Navigate to the Item History page</string>
-    <string name="new_item_button_description">Navigate to the New Item page</string>
+    <string name="add_item_button_tooltip">New Item</string>
+    <string name="add_item_button_description">Navigate to the New Item page</string>
     <string name="example_item_name">Item Name</string>
     <string name="example_item_cost">1</string>
     <string name="no_items_found_message">No items found</string>
@@ -163,11 +174,16 @@
     <string name="diamonds_icon_group_content_description">Diamonds icon group</string>
     <string name="hearts_icon_group_content_description">Hearts icon group</string>
     <string name="clubs_icon_group_content_description">Clubs icon group</string>
-    <string name="edit_button_content_description">Pencil icon</string>
+    <string name="edit_icons_button_tooltip">Switch to Edit mode</string>
+    <string name="edit_icons_button_content_description">Pencil icon</string>
     <string name="default_icon_name">Icon</string>
     <string name="no_icons_found_message">No icons found</string>
     <string name="no_icons_selected_message">No icons selected</string>
     <string name="select_another_icon_group_message">Choose another icon group</string>
+    <string name="add_icon_button_tooltip">Add icon</string>
+    <string name="select_mode_button_tooltip">Switch to Select mode</string>
+    <string name="delete_icons_button_tooltip">Delete selected icons</string>
+    <string name="move_icons_button_tooltip">Move selected icons to another icon group</string>
 
     <!-- New Icon strings -->
     <string name="new_icon_label">New Icon</string>

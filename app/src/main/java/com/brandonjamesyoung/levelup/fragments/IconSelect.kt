@@ -55,13 +55,15 @@ class IconSelect : Fragment(R.layout.icon_select) {
         targetId: Int,
         iconDrawableId: Int,
         iconColorId: Int = R.color.nav_button_icon,
-        buttonMethod: () -> Unit
+        buttonMethod: () -> Unit,
+        tooltip: String? = null
     ) {
         buttonConverter.convertNavButton(
             targetId = targetId,
             iconDrawableId = iconDrawableId,
             iconColorId = iconColorId,
             buttonMethod = buttonMethod,
+            tooltip = tooltip,
             view = requireView()
         )
     }
@@ -76,7 +78,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
             targetId = R.id.EditButton,
             iconDrawableId = R.drawable.arrow_pointer_icon_large,
             iconColorId = R.color.icon_primary,
-            buttonMethod = { viewModel.switchMode(Mode.EDIT) }
+            buttonMethod = { viewModel.switchMode(Mode.EDIT) },
+            tooltip = getString(R.string.edit_icons_button_tooltip)
         )
     }
 
@@ -84,7 +87,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         convertButton(
             targetId = R.id.BackButton,
             iconDrawableId = R.drawable.arrow_left_icon_large,
-            buttonMethod = ::navigateToNewQuest
+            buttonMethod = ::navigateToNewQuest,
         )
     }
 
@@ -97,7 +100,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
         convertButton(
             targetId = R.id.AddNewIconButton,
             iconDrawableId = R.drawable.plus_icon_large,
-            buttonMethod = ::navigateToNewIcon
+            buttonMethod = ::navigateToNewIcon,
+            tooltip = getString(R.string.add_icon_button_tooltip)
         )
     }
 
@@ -114,7 +118,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
             targetId = R.id.EditButton,
             iconDrawableId = R.drawable.pencil_icon_large,
             iconColorId = R.color.icon_primary,
-            buttonMethod = { viewModel.switchMode(Mode.DEFAULT) }
+            buttonMethod = { viewModel.switchMode(Mode.DEFAULT) },
+            tooltip = getString(R.string.select_mode_button_tooltip)
         )
     }
 
@@ -169,7 +174,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
             targetId = R.id.BackButton,
             iconDrawableId = R.drawable.trash_bin_icon_large,
             iconColorId = R.color.warning_icon,
-            buttonMethod = ::deleteIcons
+            buttonMethod = ::deleteIcons,
+            tooltip = getString(R.string.delete_icons_button_tooltip)
         )
     }
 
@@ -198,7 +204,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
         convertButton(
             targetId = R.id.AddNewIconButton,
             iconDrawableId = R.drawable.dash_icon_large,
-            buttonMethod = ::setMoveMode
+            buttonMethod = ::setMoveMode,
+            tooltip = getString(R.string.move_icons_button_tooltip)
         )
     }
 

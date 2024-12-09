@@ -71,7 +71,8 @@ class Shop : Fragment(R.layout.shop) {
             targetId = R.id.AddNewItemButton,
             iconDrawableId = R.drawable.plus_icon_large,
             buttonMethod = ::navigateToNewItem,
-            view = requireView(),
+            tooltip = getString(R.string.add_item_button_tooltip),
+            view = requireView()
         )
     }
 
@@ -85,7 +86,8 @@ class Shop : Fragment(R.layout.shop) {
             targetId = R.id.QuestListButton,
             iconDrawableId = R.drawable.bullet_list_icon_large,
             buttonMethod = ::navigateToQuestList,
-            view = requireView(),
+            tooltip = getString(R.string.quest_list_button_tooltip),
+            view = requireView()
         )
     }
 
@@ -105,7 +107,8 @@ class Shop : Fragment(R.layout.shop) {
             targetId = R.id.ShopSettingsButton,
             iconDrawableId = R.drawable.gear_icon_large,
             buttonMethod = ::navigateToSettings,
-            view = requireView(),
+            tooltip = getString(R.string.settings_button_tooltip),
+            view = requireView()
         )
     }
 

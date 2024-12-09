@@ -12,6 +12,7 @@ This document tracks all notables changes to the Level Up app.
 - Add reset icons and reset settings options
   - When resetting icons, all quest and quest history icons are cleared and default to the question mark icon
 - Add more icons
+- Add tooltips to several buttons and fields to clarify what their purpose is
 
 ### Changed
 

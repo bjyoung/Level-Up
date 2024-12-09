@@ -9,7 +9,8 @@
     <Button
         style="@style/ActionButton.Small"
         android:id="@+id/EditButton"
-        android:contentDescription="@string/edit_button_content_description"
+        android:tooltipText="@string/edit_icons_button_tooltip"
+        android:contentDescription="@string/edit_icons_button_content_description"
         app:icon="@drawable/pencil_icon_large"
         app:iconTint="@color/icon_primary"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,6 +32,7 @@
     <com.google.android.material.button.MaterialButton
         style="@style/NavButton"
         android:id="@+id/AddNewIconButton"
+        android:tooltipText="@string/add_icon_button_tooltip"
         android:contentDescription="@string/new_quest_button_description"
         app:icon="@drawable/plus_icon_large"
         app:layout_constraintBottom_toBottomOf="parent"

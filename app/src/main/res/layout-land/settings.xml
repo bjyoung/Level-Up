@@ -38,7 +38,7 @@
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/easy"
         android:text="@string/easy_label"
-        app:layout_constraintStart_toStartOf="@+id/DifficultySettingsLabel"
+        app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
         app:layout_constraintTop_toBottomOf="@+id/DifficultySettingsLabel"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -67,7 +67,8 @@
         android:id="@+id/DifficultySettingsLabel"
         style="@style/Label"
         android:text="@string/difficulty_settings_label"
-        app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/SettingsTopGuideline" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -102,6 +103,7 @@
         android:id="@+id/LevelUpBonusLabel"
         style="@style/Text"
         android:text="@string/level_up_bonus_label"
+        android:tooltipText="@string/level_up_mult_tooltip"
         app:layout_constraintBottom_toBottomOf="@+id/PointsAcronymLabel"
         app:layout_constraintStart_toStartOf="@+id/LevelUpBonusInput"
         app:layout_constraintTop_toTopOf="@+id/PointsAcronymLabel" />
