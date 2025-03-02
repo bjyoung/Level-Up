@@ -16,7 +16,7 @@ class QuestHistoryViewModel @Inject constructor(
     questHistoryRepository: QuestHistoryRepository,
     private val iconRepository: IconRepository
 ) : BaseViewModel(), IconReader {
-    val questHistoryList: LiveData<List<CompletedQuest>> =
+    val questHistoryList: LiveData<List<CompletedQuestWithIcon>> =
         questHistoryRepository.observeAll().asLiveData()
 
     override suspend fun getIcon(id: Int): Icon = withContext(ioDispatcher){

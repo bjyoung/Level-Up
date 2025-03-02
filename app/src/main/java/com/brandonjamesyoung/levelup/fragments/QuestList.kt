@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,15 +18,15 @@ import com.brandonjamesyoung.levelup.constants.POP_UP_BUTTON_WAIT_PERIOD
 import com.brandonjamesyoung.levelup.constants.PROGRESS_BAR_ANIM_DURATION
 import com.brandonjamesyoung.levelup.constants.SortOrder
 import com.brandonjamesyoung.levelup.constants.SortType
-import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.Quest
+import com.brandonjamesyoung.levelup.data.Player
+import com.brandonjamesyoung.levelup.data.QuestCard
+import com.brandonjamesyoung.levelup.data.QuestWithIcon
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.utility.*
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.QuestListViewModel
-import com.brandonjamesyoung.levelup.views.QuestCardView
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,7 +39,9 @@ import kotlin.concurrent.timer
 class QuestList: Fragment(R.layout.quest_list) {
     private val viewModel: QuestListViewModel by activityViewModels()
 
-    @Inject lateinit var cardGenerator: CardGenerator
+    private var latestQuests: List<QuestWithIcon> = mutableListOf()
+
+    @Inject lateinit var cardCreator: CardGridCreator
 
     @Inject lateinit var buttonConverter: ButtonConverter
 
@@ -90,11 +91,12 @@ class QuestList: Fragment(R.layout.quest_list) {
     }
 
     private fun isSelected(questId: Int) : Boolean {
-        return viewModel.selectedQuestIds.contains(questId)
+        return questId in viewModel.selectedQuestIds
     }
 
     private fun completeQuests() {
         viewModel.completeQuests(viewModel.selectedQuestIds.toSet())
+        viewModel.selectedQuestIds.clear()
         viewModel.switchMode(Mode.DEFAULT)
     }
 
@@ -111,6 +113,7 @@ class QuestList: Fragment(R.layout.quest_list) {
 
     private fun deleteQuests() {
         viewModel.deleteQuests(viewModel.selectedQuestIds.toSet())
+        viewModel.selectedQuestIds.clear()
         viewModel.switchMode(Mode.DEFAULT)
     }
 
@@ -126,13 +129,10 @@ class QuestList: Fragment(R.layout.quest_list) {
     }
 
     private fun deselectAllQuests() {
-        val view = requireView()
-        val selectedIconIdsCopy = viewModel.selectedQuestIconIds.toList()
-
-        for (id in selectedIconIdsCopy) {
-            val questCardIcon : FloatingActionButton = view.findViewById(id)
-            questCardIcon.callOnClick()
-        }
+        viewModel.selectedQuestIds.clear()
+        val targetMode = if (viewModel.selectedQuestIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
+        viewModel.switchMode(targetMode)
+        reloadLazyQuestGrid(latestQuests)
     }
 
     // Switch Settings button to Cancel button
@@ -141,7 +141,7 @@ class QuestList: Fragment(R.layout.quest_list) {
             targetId = R.id.SettingsButton,
             iconDrawableId = R.drawable.cancel_icon_large,
             buttonMethod = ::deselectAllQuests,
-            view = requireView(),
+            view = requireView()
         )
     }
 
@@ -245,7 +245,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         }
     }
 
-    private fun triggerSortButton() {
+    private fun switchSortMode() {
         try {
             sortTimer?.cancel()
             startSortTimer()
@@ -264,7 +264,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         val sortButton: Button = requireView().findViewById(R.id.SortButton)
 
         sortButton.setOnClickListener {
-            triggerSortButton()
+            switchSortMode()
         }
     }
 
@@ -297,23 +297,55 @@ class QuestList: Fragment(R.layout.quest_list) {
             targetId = R.id.SortButton,
             iconDrawableId = sortIconId,
             iconColorId = R.color.icon_primary,
+            buttonMethod = ::switchSortMode,
             view = requireView(),
         )
+    }
+
+    private fun sortQuests(
+        quests: List<QuestWithIcon>,
+        sortType: SortType?,
+        sortOrder: SortOrder?
+    ) : List<QuestWithIcon> {
+        if (sortType == null) {
+            return quests
+        }
+
+        val questSortOrder = sortOrder ?: SortOrder.ASC
+
+        return if (questSortOrder == SortOrder.ASC) {
+            when (sortType) {
+                SortType.NAME -> quests.sortedBy { it.activeQuest.name }
+                SortType.DIFFICULTY -> quests.sortedBy { it.activeQuest.difficulty }
+                else -> quests.sortedBy { it.activeQuest.dateCreated }
+            }
+        } else {
+            when (sortType) {
+                SortType.NAME -> quests.sortedByDescending { it.activeQuest.name }
+                SortType.DIFFICULTY -> quests.sortedByDescending { it.activeQuest.difficulty }
+                else -> quests.sortedByDescending { it.activeQuest.dateCreated }
+            }
+        }
     }
 
     private fun setupSort() {
         setupSortTrigger()
         setupSortButton()
 
-        viewModel.settings.observe(viewLifecycleOwner) { _ ->
+        viewModel.settings.observe(viewLifecycleOwner) { settings ->
             changeSortIcon()
-            viewModel.questList.value?.let { reloadQuestList(it) }
+
+            viewModel.questList.value?.let { quests ->
+                val sortType = settings?.questListSortType
+                val sortOrder = settings?.questListSortOrder
+                val sortedQuests: List<QuestWithIcon> = sortQuests(quests, sortType, sortOrder)
+                reloadLazyQuestGrid(sortedQuests)
+            }
         }
     }
 
     private fun activateDefaultMode() {
         viewModel.selectedQuestIds.clear()
-        viewModel.selectedQuestIconIds.clear()
         activateNewQuestButton()
         activateShopButton()
         activateSettingsButton()
@@ -323,106 +355,42 @@ class QuestList: Fragment(R.layout.quest_list) {
         if (viewModel.mode.value == Mode.DEFAULT) navigateToNewQuest(questId)
     }
 
-    private fun setCheckIcon(button: FloatingActionButton) {
-        val checkIcon = ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.check_icon_green_large,
-            requireContext().theme
-        )
-
-        button.setImageDrawable(checkIcon)
-    }
-
-    private fun checkQuest(quest: Quest, button: FloatingActionButton) {
+    private fun checkQuest(quest: Quest) {
         Log.i(TAG, "Select quest ${quest.name}")
         viewModel.selectedQuestIds.add(quest.id)
-        viewModel.selectedQuestIconIds.add(button.id)
-        setCheckIcon(button)
     }
 
-    private fun changeButtonIcon(button: FloatingActionButton, iconId : Int?) {
-        buttonConverter.changeQuestIcon(
-            button = button,
-            iconId = iconId,
-            iconReader = viewModel,
-            lifecycleScope = lifecycleScope
-        )
-    }
-
-    private fun uncheckQuest(quest: Quest, button: FloatingActionButton) {
+    private fun uncheckQuest(quest: Quest) {
         Log.i(TAG, "De-select quest ${quest.name}")
         viewModel.selectedQuestIds.remove(quest.id)
-        viewModel.selectedQuestIconIds.remove(button.id)
-        changeButtonIcon(button, quest.iconId)
     }
 
-    private fun selectQuestIcon(quest: Quest, button: FloatingActionButton) {
-        if (!isSelected(quest.id)) checkQuest(quest, button) else uncheckQuest(quest, button)
+    private fun selectQuestCard(card: QuestCard) {
+        card.selected = !card.selected
+        val quest = card.quest
+        if (!isSelected(quest.id)) checkQuest(quest) else uncheckQuest(quest)
         val targetMode = if (viewModel.selectedQuestIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
         viewModel.switchMode(targetMode)
     }
 
-    private fun createQuestCard(quest: Quest, isSelected: Boolean = false) : QuestCardView {
-        val difficultyColorId = cardGenerator.difficultyColorMap[quest.difficulty]
-            ?: throw IllegalArgumentException("Given card difficulty is not a valid value.")
+    // Add quest cards to lazy vertical grid
+    private fun reloadLazyQuestGrid(questsWithIcon: List<QuestWithIcon>) {
+        latestQuests = questsWithIcon.toMutableList()
+        if (questsWithIcon.isEmpty()) showNoQuestsMessage() else hideNoQuestsMessage()
 
-        val view = requireView()
-        val colorInt: Int = resources.getColor(difficultyColorId, view.context.theme)
-        val questName = quest.name ?: getString(R.string.placeholder_text)
-
-        val newCard = cardGenerator.createSimpleCard(
-            name = questName,
-            backgroundColorInt = colorInt,
-            iconId = quest.iconId,
-            isSelected = isSelected,
-            view = view,
-            iconReader = viewModel,
-            lifecycleScope = lifecycleScope
-        )
-
-        newCard.setOnCardClickListener {
-            editQuest(quest.id)
+        val cards: List<QuestCard> = questsWithIcon.map {
+            QuestCard(it.activeQuest, it.icon, isSelected(it.activeQuest.id))
         }
 
-        newCard.setOnQuestLongClickListener{
-            editQuest(quest.id)
-            true
+        val composeView = requireView().findViewById<ComposeView>(R.id.QuestListComposeView)
+
+        composeView.setContent {
+            cardCreator.QuestGridView(
+                cards = cards,
+                cardAction = ::editQuest,
+                iconAction = ::selectQuestCard
+            )
         }
-
-        newCard.setOnIconClickListener {
-            selectQuestIcon(quest, newCard.iconButton)
-        }
-
-        return newCard
-    }
-
-    private fun reloadQuestList(questList: List<Quest>) {
-        val view = requireView()
-        val questListLayout = view.findViewById<LinearLayout>(R.id.QuestLinearLayout)
-        questListLayout.removeAllViews()
-        val settings: Settings? = viewModel.settings.value
-
-        var sortedQuestList = when (settings?.questListSortType) {
-            SortType.NAME -> questList.sortedBy { it.name }
-            SortType.DIFFICULTY -> questList.sortedBy { it.difficulty }
-            else -> questList.sortedBy { it.dateCreated }
-        }
-
-        if (settings?.questListSortOrder == SortOrder.ASC) {
-            sortedQuestList = sortedQuestList.reversed()
-        }
-
-        // Since card buttons are being remade, need to track their new IDs
-        viewModel.selectedQuestIconIds.clear()
-
-        for (quest in sortedQuestList) {
-            val isSelected: Boolean = viewModel.selectedQuestIds.contains(quest.id)
-            val newCard = createQuestCard(quest, isSelected)
-            if (isSelected) viewModel.selectedQuestIconIds.add(newCard.iconButton.id)
-            questListLayout.addView(newCard)
-        }
-
-        if (questList.isEmpty()) showNoQuestsMessage() else hideNoQuestsMessage()
     }
 
     private fun showNoQuestsMessage() {
@@ -509,7 +477,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         }
 
         viewModel.questList.observe(viewLifecycleOwner) {
-            reloadQuestList(it)
+            reloadLazyQuestGrid(it)
         }
 
         viewModel.player.observe(viewLifecycleOwner) {
@@ -532,12 +500,11 @@ class QuestList: Fragment(R.layout.quest_list) {
         lifecycleScope.launch(Dispatchers.Main) {
             Log.i(TAG, "On Quest List page")
             viewModel.selectedQuestIds.clear()
-            viewModel.selectedQuestIconIds.clear()
             setupSettings()
             setupUsernameNavigation()
             activateQuestHistoryButton()
-            setupSort()
             setupObservables()
+            setupSort()
         }
     }
 

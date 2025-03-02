@@ -27,9 +27,10 @@ class QuestListViewModel @Inject constructor(
     private val difficultyRepository: DifficultyRepository,
     private val iconRepository: IconRepository
 ) : BaseViewModel(), IconReader {
-    private val _questList: LiveData<List<Quest>> = questRepository.observeAll().asLiveData()
+    private val _questList: LiveData<List<QuestWithIcon>> =
+        questRepository.observeAll().asLiveData()
 
-    val questList: LiveData<List<Quest>>
+    val questList: LiveData<List<QuestWithIcon>>
         get() = _questList
 
     private val _player: LiveData<Player> = playerRepository.observe().asLiveData()
@@ -49,8 +50,6 @@ class QuestListViewModel @Inject constructor(
     )
 
     val selectedQuestIds: MutableSet<Int> = mutableSetOf()
-
-    val selectedQuestIconIds: MutableSet<Int> = mutableSetOf()
 
     init {
         validModes = listOf(Mode.DEFAULT, Mode.SELECT)

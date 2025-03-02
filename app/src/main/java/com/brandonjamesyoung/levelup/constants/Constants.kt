@@ -1,5 +1,8 @@
 package com.brandonjamesyoung.levelup.constants
 
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+
 const val DATABASE_NAME = "levelup-db"
 const val BASE_EXP = 2500
 
@@ -69,3 +72,6 @@ const val ICON_SCALE_UP_RATE: Int = 4
 
 // Shop/Item History constants
 const val ITEM_ROW_LANDSCAPE_WIDTH_DP = 500f
+
+// Quest Card constants
+val QUEST_CARD_WIDTH: Dp = 160.dp

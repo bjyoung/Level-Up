@@ -4,6 +4,19 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.8.3
+
+### Added
+
+- Animate quest cards in quest list on remove, complete, delete and sort
+
+### Changed
+
+- Update Quest List and Quest History to use a Compose grid instead of the XML LinearLayout
+- Long press on quest cards or their icons in Quest List no longer transitions to Edit Quest
+
+---
+
 ## 0.8.2
 
 ### Added

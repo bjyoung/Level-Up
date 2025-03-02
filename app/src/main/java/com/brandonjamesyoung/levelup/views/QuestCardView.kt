@@ -43,19 +43,6 @@ class QuestCardView @JvmOverloads constructor(
         nameView.text = name
     }
 
-    fun setOnCardClickListener(listener: OnClickListener) {
-        super.setOnClickListener(listener)
-    }
-
-    fun setOnIconClickListener(listener: OnClickListener) {
-        iconButton.setOnClickListener(listener)
-    }
-
-    fun setOnQuestLongClickListener(listener: OnLongClickListener) {
-        iconButton.setOnLongClickListener(listener)
-        setOnLongClickListener(listener)
-    }
-
     companion object {
         fun make(viewGroup: ViewGroup): QuestCardView {
             return LayoutInflater.from(viewGroup.context).inflate(

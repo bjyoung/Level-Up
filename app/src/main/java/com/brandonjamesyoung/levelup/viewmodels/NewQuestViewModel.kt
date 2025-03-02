@@ -36,7 +36,7 @@ class NewQuestViewModel @Inject constructor(
         validModes = listOf(Mode.DEFAULT, Mode.EDIT)
     }
 
-    fun getQuest(id: Int): LiveData<Quest> {
+    fun getQuest(id: Int): LiveData<ActiveQuest> {
         return questRepository.observe(id).asLiveData()
     }
 
@@ -45,32 +45,32 @@ class NewQuestViewModel @Inject constructor(
     }
 
     fun saveQuest() {
-        val quest = Quest(
+        val activeQuest = ActiveQuest(
             name = name,
             difficulty = selectedDifficulty,
             iconId = iconId
         )
 
         if (mode.value == Mode.DEFAULT) {
-            insert(quest)
+            insert(activeQuest)
         } else if (mode.value == Mode.EDIT) {
-            quest.id = editQuestId!!
-            update(quest)
+            activeQuest.id = editQuestId!!
+            update(activeQuest)
         }
     }
 
-    private fun logQuestSave(quest: Quest, isEdit: Boolean = false) {
+    private fun logQuestSave(activeQuest: ActiveQuest, isEdit: Boolean = false) {
         var logMessage = if (!isEdit) {
-            "Add new ${quest.difficulty} quest with "
+            "Add new ${activeQuest.difficulty} quest with "
         } else {
-            "Edit quest to ${quest.difficulty} difficulty with "
+            "Edit quest to ${activeQuest.difficulty} difficulty with "
         }
 
-        logMessage += if (quest.name != null) "name '${quest.name}'" else "no name"
+        logMessage += if (activeQuest.name != null) "name '${activeQuest.name}'" else "no name"
         logMessage += " and "
 
-        logMessage += if (quest.iconId != null) {
-            "icon '${quest.iconId}'"
+        logMessage += if (activeQuest.iconId != null) {
+            "icon '${activeQuest.iconId}'"
         } else {
             "no icon"
         }
@@ -78,22 +78,22 @@ class NewQuestViewModel @Inject constructor(
         Log.i(TAG, logMessage)
     }
 
-    fun insert(quest: Quest) = viewModelScope.launch(ioDispatcher) {
-        questRepository.insert(quest)
-        logQuestSave(quest)
+    fun insert(activeQuest: ActiveQuest) = viewModelScope.launch(ioDispatcher) {
+        questRepository.insert(activeQuest)
+        logQuestSave(activeQuest)
     }
 
-    fun update(quest: Quest) = viewModelScope.launch(ioDispatcher) {
-        val currentQuest: Quest = questRepository.get(quest.id)
+    fun update(activeQuest: ActiveQuest) = viewModelScope.launch(ioDispatcher) {
+        val currentActiveQuest: ActiveQuest = questRepository.get(activeQuest.id)
 
-        currentQuest.apply {
-            name = quest.name
-            difficulty = quest.difficulty
-            iconId = quest.iconId
+        currentActiveQuest.apply {
+            name = activeQuest.name
+            difficulty = activeQuest.difficulty
+            iconId = activeQuest.iconId
         }
 
-        questRepository.update(currentQuest)
-        logQuestSave(quest = currentQuest, isEdit = true)
+        questRepository.update(currentActiveQuest)
+        logQuestSave(activeQuest = currentActiveQuest, isEdit = true)
     }
 
     fun resetPage() {

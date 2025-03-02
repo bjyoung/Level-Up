@@ -107,22 +107,14 @@
         style="@style/Guideline.FarBottom_Land"
         android:id="@+id/QuestListBottomGuideline" />
 
-    <ScrollView
-        android:id="@+id/QuestScrollView"
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/QuestListComposeView"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:scrollbars="none"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ProgressBar">
-
-        <LinearLayout
-            android:id="@+id/QuestLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/ProgressBar" />
 
     <TextView
         android:id="@+id/NextLvlExpLabel"

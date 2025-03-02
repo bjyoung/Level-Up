@@ -1,6 +1,5 @@
 package com.brandonjamesyoung.levelup.fragments
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
@@ -18,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.data.Quest
+import com.brandonjamesyoung.levelup.data.ActiveQuest
 import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.utility.IconHelper.Companion.getDefaultIcon
 import com.brandonjamesyoung.levelup.constants.Mode
@@ -225,13 +224,13 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
         dateLabelManager.setupDateCreatedLabel(dateCreated, dateCreatedView)
     }
 
-    private fun loadQuest(quest: Quest) {
+    private fun loadQuest(activeQuest: ActiveQuest) {
         val view = requireView()
         val nameInput = view.findViewById<EditText>(R.id.NameInput)
-        nameInput.setText(quest.name)
-        setSelectedDifficulty(quest.difficulty)
-        changeIcon(quest.iconId)
-        setupDate(quest.dateCreated)
+        nameInput.setText(activeQuest.name)
+        setSelectedDifficulty(activeQuest.difficulty)
+        changeIcon(activeQuest.iconId)
+        setupDate(activeQuest.dateCreated)
     }
 
     private fun activateEditMode() {

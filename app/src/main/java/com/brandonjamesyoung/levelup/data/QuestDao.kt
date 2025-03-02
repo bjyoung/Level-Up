@@ -6,35 +6,36 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface QuestDao {
-    @Query("SELECT * FROM Quest")
-    fun observeAll(): Flow<List<Quest>>
+    @Transaction
+    @Query("SELECT * FROM ActiveQuest")
+    fun observeAll(): Flow<List<QuestWithIcon>>
 
-    @Query("SELECT * FROM Quest WHERE id = :id")
-    fun observe(id: Int): Flow<Quest>
+    @Query("SELECT * FROM ActiveQuest WHERE id = :id")
+    fun observe(id: Int): Flow<ActiveQuest>
 
     // TODO Add LIMIT 1 (and test) to ensure that only one quest is returned
     //  Also update similar queries elsewhere
-    @Query("SELECT * FROM Quest WHERE id = :id")
-    fun get(id: Int): Quest
+    @Query("SELECT * FROM ActiveQuest WHERE id = :id")
+    fun get(id: Int): ActiveQuest
 
-    @Query("SELECT * FROM Quest WHERE id IN (:ids)")
-    fun get(ids: Set<Int>): List<Quest>
+    @Query("SELECT * FROM ActiveQuest WHERE id IN (:ids)")
+    fun get(ids: Set<Int>): List<ActiveQuest>
 
-    @Query("SELECT difficulty FROM Quest WHERE id IN (:ids)")
+    @Query("SELECT difficulty FROM ActiveQuest WHERE id IN (:ids)")
     fun getDifficulties(ids: Set<Int>): List<Difficulty>
 
     @Insert
-    suspend fun insert(quest: Quest)
+    suspend fun insert(activeQuest: ActiveQuest)
 
     @Update
-    suspend fun update(quest: Quest)
+    suspend fun update(activeQuest: ActiveQuest)
 
-    @Query("UPDATE Quest SET iconId = null WHERE iconId IN (:iconIds)")
+    @Query("UPDATE ActiveQuest SET iconId = null WHERE iconId IN (:iconIds)")
     suspend fun clearDeletedIcons(iconIds: Set<Int>)
 
-    @Query("UPDATE Quest SET iconId = null")
+    @Query("UPDATE ActiveQuest SET iconId = null")
     suspend fun clearAllIcons()
 
-    @Query("DELETE FROM Quest WHERE id IN (:ids)")
+    @Query("DELETE FROM ActiveQuest WHERE id IN (:ids)")
     suspend fun delete(ids: Set<Int>)
 }

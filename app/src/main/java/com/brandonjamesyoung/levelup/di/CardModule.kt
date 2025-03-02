@@ -1,7 +1,7 @@
 package com.brandonjamesyoung.levelup.di
 
 import android.content.Context
-import com.brandonjamesyoung.levelup.utility.CardGenerator
+import com.brandonjamesyoung.levelup.utility.CardGridCreator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class CardModule {
     @Singleton
     @Provides
-    fun provideCardGenerator(@ApplicationContext context: Context): CardGenerator {
-        return CardGenerator(context)
+    fun provideCardGridCreator(@ApplicationContext context: Context): CardGridCreator {
+        return CardGridCreator(context)
     }
 }

@@ -1,7 +1,11 @@
 package com.brandonjamesyoung.levelup.data
 
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -20,7 +24,7 @@ data class Icon(
     @ColumnInfo var iconGroup: IconGroup = IconGroup.SPADES,
     @ColumnInfo val dateCreated: Instant? = Instant.now(),
 ) {
-    override fun equals(other: Any?): Boolean {
+    override fun equals(other: Any?) : Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
@@ -37,7 +41,7 @@ data class Icon(
         return true
     }
 
-    override fun hashCode(): Int {
+    override fun hashCode() : Int {
         var result = id
         result = 31 * result + (name?.hashCode() ?: 0)
         result = 31 * result + image.contentHashCode()
@@ -48,8 +52,21 @@ data class Icon(
         return result
     }
 
+    // TODO remove this if unneeded after the compose updates are all done
     // Return the icon image as a drawable
     fun getDrawable(resources: Resources): Drawable {
         return scaleUpByteArray(image, imageWidth, imageHeight, ICON_SCALE_UP_RATE, resources)
+    }
+
+    fun toImageBitmap() : ImageBitmap {
+        val bitmap = BitmapFactory.decodeByteArray(image, 0, image.size)
+
+        // Scale up so the icons are not blurry
+        return Bitmap.createScaledBitmap(
+            bitmap,
+            imageWidth * ICON_SCALE_UP_RATE,
+            imageHeight * ICON_SCALE_UP_RATE,
+            false
+        ).asImageBitmap()
     }
 }

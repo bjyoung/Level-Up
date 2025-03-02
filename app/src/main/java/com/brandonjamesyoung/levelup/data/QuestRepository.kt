@@ -15,9 +15,9 @@ class QuestRepository @Inject constructor(
     private val difficultyDao: DifficultyDao,
     private val questHistoryDao: QuestHistoryDao,
 ) {
-    fun observeAll() = questDao.observeAll()
-
     fun observe(id: Int) = questDao.observe(id)
+
+    fun observeAll() = questDao.observeAll()
 
     fun get(id: Int) = questDao.get(id)
 
@@ -26,13 +26,13 @@ class QuestRepository @Inject constructor(
     suspend fun getDifficulties(ids: Set<Int>) = questDao.getDifficulties(ids)
 
     @WorkerThread
-    suspend fun insert(quest: Quest) = externalScope.launch {
-        questDao.insert(quest)
+    suspend fun insert(activeQuest: ActiveQuest) = externalScope.launch {
+        questDao.insert(activeQuest)
     }
 
     @WorkerThread
-    suspend fun update(quest: Quest) = externalScope.launch {
-        questDao.update(quest)
+    suspend fun update(activeQuest: ActiveQuest) = externalScope.launch {
+        questDao.update(activeQuest)
     }
 
     @WorkerThread
@@ -41,28 +41,28 @@ class QuestRepository @Inject constructor(
     }
 
     private fun convertToCompletedQuest(
-        quest: Quest,
+        activeQuest: ActiveQuest,
         difficultyMap: Map<DifficultyCode, Difficulty>
     ) : CompletedQuest {
-        val questDifficulty = difficultyMap[quest.difficulty]
+        val questDifficulty = difficultyMap[activeQuest.difficulty]
 
         return CompletedQuest(
-            name = quest.name,
-            difficulty = quest.difficulty,
-            iconId = quest.iconId,
+            name = activeQuest.name,
+            difficulty = activeQuest.difficulty,
+            iconId = activeQuest.iconId,
             expEarned = questDifficulty?.expReward,
             pointsEarned = questDifficulty?.pointsReward,
-            dateCreated = quest.dateCreated
+            dateCreated = activeQuest.dateCreated
         )
     }
 
     @WorkerThread
     suspend fun complete(ids: Set<Int>) = externalScope.launch {
-        val quests: List<Quest> = questDao.get(ids)
+        val activeQuests: List<ActiveQuest> = questDao.get(ids)
         val difficulties: List<Difficulty> = difficultyDao.getAll()
         val difficultyMap = difficulties.associateBy { it.code }
 
-        val completedQuests: List<CompletedQuest> = quests.map {
+        val completedQuests: List<CompletedQuest> = activeQuests.map {
             convertToCompletedQuest(it, difficultyMap)
         }
 

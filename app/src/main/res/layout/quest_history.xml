@@ -49,22 +49,14 @@
         android:id="@+id/QuestHistoryBottomGuideline"
         style="@style/Guideline.FarBottom" />
 
-    <ScrollView
-        android:id="@+id/QuestHistoryScrollView"
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/QuestHistoryComposeView"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:scrollbars="none"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questHistoryProgressBar" >
-
-        <LinearLayout
-            android:id="@+id/QuestHistoryLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/questHistoryProgressBar" />
 
     <TextView
         android:id="@+id/NoQuestsMessage"

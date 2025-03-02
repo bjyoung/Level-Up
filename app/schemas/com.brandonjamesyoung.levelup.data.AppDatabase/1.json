@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3bfe5f11e2c5ba9faba57791b701dc35",
+    "identityHash": "7f91d68d334e531cf999d729384c4d57",
     "entities": [
       {
-        "tableName": "Quest",
+        "tableName": "ActiveQuest",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `difficulty` TEXT NOT NULL, `iconId` INTEGER, `dateCreated` TEXT)",
         "fields": [
           {
@@ -404,7 +404,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3bfe5f11e2c5ba9faba57791b701dc35')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7f91d68d334e531cf999d729384c4d57')"
     ]
   }
 }

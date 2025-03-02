@@ -7,13 +7,10 @@ import com.brandonjamesyoung.levelup.constants.Difficulty
 import java.time.Instant
 
 @Entity
-data class CompletedQuest(
+data class ActiveQuest(
     @PrimaryKey(autoGenerate = true) override var id: Int = 0,
     @ColumnInfo override var name: String? = null,
-    @ColumnInfo override var difficulty: Difficulty,
+    @ColumnInfo override var difficulty: Difficulty = Difficulty.EASY,
     @ColumnInfo override var iconId: Int? = null,
-    @ColumnInfo val expEarned: Int? = null,
-    @ColumnInfo val pointsEarned: Int? = null,
-    @ColumnInfo override val dateCreated: Instant? = null,
-    @ColumnInfo val dateCompleted: Instant = Instant.now()
+    @ColumnInfo override val dateCreated: Instant? = Instant.now(),
 ) : Quest()

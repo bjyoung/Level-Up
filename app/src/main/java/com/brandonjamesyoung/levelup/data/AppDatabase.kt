@@ -8,7 +8,7 @@ import kotlinx.coroutines.*
 
 @Database(
     entities = [
-        Quest::class,
+        ActiveQuest::class,
         CompletedQuest::class,
         Player::class,
         Settings::class,
