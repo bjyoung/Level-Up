@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.constants.HISTORY_CARD_SHADER_SRC
 import com.brandonjamesyoung.levelup.data.CompletedQuestWithIcon
 import com.brandonjamesyoung.levelup.data.QuestCard
 import com.brandonjamesyoung.levelup.utility.CardGridCreator
@@ -60,7 +61,10 @@ class QuestHistory: Fragment(R.layout.quest_history) {
         val composeView = requireView().findViewById<ComposeView>(R.id.QuestHistoryComposeView)
 
         composeView.setContent {
-            cardCreator.QuestGridView(cards)
+            cardCreator.QuestGridView(
+                cards = cards,
+                cardShader = HISTORY_CARD_SHADER_SRC
+            )
         }
     }
 
@@ -82,6 +86,5 @@ class QuestHistory: Fragment(R.layout.quest_history) {
 
     companion object {
         private const val TAG = "QuestHistory"
-        private const val DARKNESS_FACTOR = 0.15F
     }
 }

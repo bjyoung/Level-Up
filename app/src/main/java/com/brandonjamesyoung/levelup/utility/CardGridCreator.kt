@@ -1,6 +1,7 @@
 package com.brandonjamesyoung.levelup.utility
 
 import android.content.Context
+import android.graphics.RuntimeShader
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -8,21 +9,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -41,63 +34,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.constants.QUEST_CARD_WIDTH
-import com.brandonjamesyoung.levelup.constants.TEXT_COLOR_SECONDARY
-import com.brandonjamesyoung.levelup.data.Quest
-import com.brandonjamesyoung.levelup.data.Icon
-import com.brandonjamesyoung.levelup.data.QuestCard
+import com.brandonjamesyoung.levelup.constants.*
+import com.brandonjamesyoung.levelup.data.*
 
 class CardGridCreator(val context: Context) {
     @Composable
-    fun QuestGridView(
-        cards: List<QuestCard>,
-        cardAction: ((Int) -> Unit)? = null,
-        iconAction: ((QuestCard) -> Unit)? = null
-    ) {
-        val inPortraitMode = OrientationManager.inPortraitMode(context.resources)
-
-        // To move the grid just below the EXP progress bar
-        val topPadding = if (inPortraitMode) 26.dp else 21.dp
-        val botPadding = if (inPortraitMode) 40.dp else 15.dp
-
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(QUEST_CARD_WIDTH),
-            horizontalArrangement = Arrangement.Center,
-            verticalArrangement = Arrangement.spacedBy(
-                20.dp,
-                alignment = Alignment.Top
-            ),
-            modifier = Modifier
-                .width(QUEST_CARD_WIDTH)
-                .padding(0.dp, topPadding, 0.dp, botPadding),
-            contentPadding = PaddingValues(0.dp, 15.dp)
-        ) {
-            items(
-                items = cards,
-                key = { it.quest.id }
-            ) { card ->
-                Row(Modifier.animateItem(
-                    fadeInSpec = tween(durationMillis = 500),
-                    fadeOutSpec = tween(durationMillis = 200),
-                    placementSpec = spring(
-                        stiffness = Spring.StiffnessLow,
-                        dampingRatio = Spring.DampingRatioLowBouncy
-                    )
-                )) {
-                    QuestCardView(card, cardAction, iconAction)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun QuestCardView(
+    fun QuestCardContents(
         card: QuestCard,
-        cardAction: ((Int) -> Unit)?,
-        iconAction: ((QuestCard) -> Unit)?
+        iconAction: ((QuestCard) -> Unit)?,
     ) {
-        val quest: Quest = card.quest
-        val cardBackgroundColor = quest.getColor()
+        val quest = card.quest
 
         var selected: Boolean by remember(key1 = card.selected) {
             mutableStateOf(card.selected)
@@ -122,21 +68,7 @@ class CardGridCreator(val context: Context) {
             iconContentDescription = "Question Mark Icon"
         }
 
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = cardBackgroundColor
-            ),
-            modifier = Modifier
-                .size(width = QUEST_CARD_WIDTH, height = QUEST_CARD_WIDTH)
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) {
-                    if (cardAction != null) {
-                        cardAction(quest.id)
-                    }
-                }
-        ) {
+        Column {
             Text(
                 text = quest.getName(context),
                 color = Color(TEXT_COLOR_SECONDARY),
@@ -172,6 +104,98 @@ class CardGridCreator(val context: Context) {
                         }
                     }
             )
+        }
+    }
+
+    @Composable
+    fun QuestCardView(
+        card: QuestCard,
+        cardAction: ((Int) -> Unit)?,
+        iconAction: ((QuestCard) -> Unit)?,
+        cardShaderSrc: String = BASIC_COLOR_SHADER_SRC
+    ) {
+        val quest: Quest = card.quest
+
+        val shader by remember {
+            val runtimeShader = RuntimeShader(cardShaderSrc)
+
+            runtimeShader.setFloatUniform(
+                "iResolution",
+                QUEST_CARD_WIDTH.value.toFloat(),
+                QUEST_CARD_WIDTH.value.toFloat()
+            )
+
+            runtimeShader.setColorUniform(
+                "iColor",
+                quest.getGraphicsColor()
+            )
+
+            mutableStateOf(runtimeShader)
+        }
+
+        Card(
+            modifier = Modifier
+                .size(width = QUEST_CARD_WIDTH, height = QUEST_CARD_WIDTH)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) {
+                    if (cardAction != null) {
+                        cardAction(quest.id)
+                    }
+                }
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(brush = ShaderBrush(shader))
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                QuestCardContents(card, iconAction)
+            }
+        }
+    }
+
+    @Composable
+    fun QuestGridView(
+        cards: List<QuestCard>,
+        cardAction: ((Int) -> Unit)? = null,
+        iconAction: ((QuestCard) -> Unit)? = null,
+        cardShader: String = BASIC_COLOR_SHADER_SRC
+    ) {
+        val inPortraitMode = OrientationManager.inPortraitMode(context.resources)
+
+        // To move the grid just below the EXP progress bar
+        val topPadding = if (inPortraitMode) 30.dp else 21.dp
+        val botPadding = if (inPortraitMode) 40.dp else 15.dp
+
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(QUEST_CARD_WIDTH),
+            horizontalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.spacedBy(
+                20.dp,
+                alignment = Alignment.Top
+            ),
+            modifier = Modifier
+                .width(QUEST_CARD_WIDTH)
+                .padding(0.dp, topPadding, 0.dp, botPadding),
+            contentPadding = PaddingValues(0.dp, 15.dp)
+        ) {
+            items(
+                items = cards,
+                key = { it.quest.id }
+            ) { card ->
+                Row(Modifier.animateItem(
+                    fadeInSpec = tween(durationMillis = 500),
+                    fadeOutSpec = tween(durationMillis = 200),
+                    placementSpec = spring(
+                        stiffness = Spring.StiffnessLow,
+                        dampingRatio = Spring.DampingRatioLowBouncy
+                    )
+                )) {
+                    QuestCardView(card, cardAction, iconAction, cardShader)
+                }
+            }
         }
     }
 }

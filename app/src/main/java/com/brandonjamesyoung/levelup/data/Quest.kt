@@ -1,7 +1,7 @@
 package com.brandonjamesyoung.levelup.data
 
 import android.content.Context
-import androidx.compose.ui.graphics.Color
+import android.graphics.Color as GraphicsColor
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.Difficulty
 import com.brandonjamesyoung.levelup.constants.EASY_COLOR
@@ -21,15 +21,16 @@ abstract class Quest {
         return name ?: context.getString(R.string.placeholder_text)
     }
 
-    // Get the compose color corresponding to the quest's difficulty
-    fun getColor() : Color {
-        val colorHex = when(difficulty) {
+    fun getColorHex() : Long {
+        return when(difficulty) {
             Difficulty.EASY -> EASY_COLOR
             Difficulty.MEDIUM -> MEDIUM_COLOR
             Difficulty.HARD -> HARD_COLOR
             Difficulty.EXPERT -> EXPERT_COLOR
         }
+    }
 
-        return Color(colorHex)
+    fun getGraphicsColor() : GraphicsColor {
+        return GraphicsColor.valueOf(getColorHex().toInt())
     }
 }
