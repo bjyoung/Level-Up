@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.constants.HISTORY_CARD_SHADER_SRC
+import com.brandonjamesyoung.levelup.constants.STRIPE_SHADER_SRC
 import com.brandonjamesyoung.levelup.data.CompletedQuestWithIcon
 import com.brandonjamesyoung.levelup.data.QuestCard
 import com.brandonjamesyoung.levelup.utility.CardGridCreator
@@ -63,7 +63,7 @@ class QuestHistory: Fragment(R.layout.quest_history) {
         composeView.setContent {
             cardCreator.QuestGridView(
                 cards = cards,
-                cardShader = HISTORY_CARD_SHADER_SRC
+                cardShader = STRIPE_SHADER_SRC
             )
         }
     }

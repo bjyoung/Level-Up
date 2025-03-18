@@ -2,12 +2,12 @@ package com.brandonjamesyoung.levelup.utility
 
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.core.content.res.ResourcesCompat
 import com.brandonjamesyoung.levelup.R
+import androidx.core.graphics.scale
+import androidx.core.graphics.drawable.toDrawable
 
 class IconHelper {
     companion object {
@@ -27,16 +27,8 @@ class IconHelper {
             resources: Resources
         ): Drawable {
             val bitmap = BitmapFactory.decodeByteArray(image, 0, image.size)
-
-            // Scale up so the icons are not blurry
-            val scaledBitmap = Bitmap.createScaledBitmap(
-                bitmap,
-                width * scaleUpRate,
-                height * scaleUpRate,
-                false
-            )
-
-            return BitmapDrawable(resources, scaledBitmap)
+            val scaledBitmap = bitmap.scale(width * scaleUpRate, height * scaleUpRate, false)
+            return scaledBitmap.toDrawable(resources)
         }
     }
 }

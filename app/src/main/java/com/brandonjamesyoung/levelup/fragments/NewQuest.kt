@@ -180,7 +180,7 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
         button.setImageDrawable(buttonDrawable)
     }
 
-    // TODO Might not be needed if I update this page to use Compose
+    // TODO Won't be needed if I update this page to use Compose
     private fun changeIcon(iconId : Int?) {
         viewModel.iconId = iconId
         val view = requireView()

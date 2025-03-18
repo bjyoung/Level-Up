@@ -1,7 +1,6 @@
 package com.brandonjamesyoung.levelup.data
 
 import android.content.res.Resources
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import androidx.compose.ui.graphics.ImageBitmap
@@ -13,6 +12,7 @@ import com.brandonjamesyoung.levelup.constants.ICON_SCALE_UP_RATE
 import com.brandonjamesyoung.levelup.constants.IconGroup
 import com.brandonjamesyoung.levelup.utility.IconHelper.Companion.scaleUpByteArray
 import java.time.Instant
+import androidx.core.graphics.scale
 
 @Entity
 data class Icon(
@@ -62,8 +62,7 @@ data class Icon(
         val bitmap = BitmapFactory.decodeByteArray(image, 0, image.size)
 
         // Scale up so the icons are not blurry
-        return Bitmap.createScaledBitmap(
-            bitmap,
+        return bitmap.scale(
             imageWidth * ICON_SCALE_UP_RATE,
             imageHeight * ICON_SCALE_UP_RATE,
             false

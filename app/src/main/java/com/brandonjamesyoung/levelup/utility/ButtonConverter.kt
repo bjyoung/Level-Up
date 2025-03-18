@@ -43,31 +43,4 @@ class ButtonConverter (val context: Context) {
 
         button.tooltipText = tooltip
     }
-
-    // Change quest's floating action button icon
-    fun changeQuestIcon(
-        button: FloatingActionButton,
-        iconId : Int?,
-        iconReader: IconReader,
-        lifecycleScope: LifecycleCoroutineScope,
-    ) {
-        if (iconId == null) {
-            val drawable = IconHelper.getDefaultIcon(context)
-            button.setImageDrawable(drawable)
-            return
-        }
-
-        lifecycleScope.launch(Dispatchers.Main + CoroutineName("Load Icons")) {
-            val icon = iconReader.getIcon(iconId)
-
-            if (icon == null) {
-                val drawable = IconHelper.getDefaultIcon(context)
-                button.setImageDrawable(drawable)
-            } else {
-                val resources = context.resources
-                val iconDrawable = icon.getDrawable(resources)
-                button.setImageDrawable(iconDrawable)
-            }
-        }
-    }
 }

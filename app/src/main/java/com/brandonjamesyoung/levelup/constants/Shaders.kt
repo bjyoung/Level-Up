@@ -13,7 +13,7 @@ const val BASIC_COLOR_SHADER_SRC = """
 """
 
 @Language("AGSL")
-const val HISTORY_CARD_SHADER_SRC = """
+const val STRIPE_SHADER_SRC = """
     uniform float2 iResolution;
     layout(color) uniform half4 iColor;
     
