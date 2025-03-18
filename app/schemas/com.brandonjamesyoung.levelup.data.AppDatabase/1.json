@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7f91d68d334e531cf999d729384c4d57",
+    "identityHash": "75894c37c15ff852bd6aff6803496de9",
     "entities": [
       {
         "tableName": "ActiveQuest",
@@ -45,7 +45,17 @@
             "id"
           ]
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_ActiveQuest_iconId",
+            "unique": false,
+            "columnNames": [
+              "iconId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ActiveQuest_iconId` ON `${TABLE_NAME}` (`iconId`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
@@ -107,7 +117,17 @@
             "id"
           ]
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_CompletedQuest_iconId",
+            "unique": false,
+            "columnNames": [
+              "iconId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CompletedQuest_iconId` ON `${TABLE_NAME}` (`iconId`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
@@ -404,7 +424,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7f91d68d334e531cf999d729384c4d57')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '75894c37c15ff852bd6aff6803496de9')"
     ]
   }
 }
