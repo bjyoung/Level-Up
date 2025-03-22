@@ -18,14 +18,25 @@
     <dimen name="elevation_ui">50dp</dimen>
     <dimen name="elevation_background">-1dp</dimen>
 
+    <!-- Quest Card -->
+    <dimen name="quest_card_width">160dp</dimen>
+    <dimen name="quest_card_font_size">9sp</dimen>
+    <dimen name="quest_card_line_height">12dp</dimen>
+    <dimen name="quest_name_min_height">30dp</dimen>
+    <dimen name="quest_name_max_height">60dp</dimen>
+    <dimen name="quest_name_side_padding">6dp</dimen>
+    <dimen name="quest_name_bottom_padding">8dp</dimen>
+    <dimen name="quest_card_icon_size">66dp</dimen>
+    <dimen name="quest_card_icon_padding">15dp</dimen>
+    <dimen name="quest_card_spacing">20dp</dimen>
+    <dimen name="quest_list_vertical_padding">15dp</dimen>
+
     <!-- Quest List -->
     <dimen name="quest_card_corner_radius">12dp</dimen>
     <dimen name="quest_card_margin">15dp</dimen>
-    <dimen name="quest_card_width">160dp</dimen>
     <dimen name="quest_card_height">160dp</dimen>
     <dimen name="quest_card_padding">10dp</dimen>
     <dimen name="quest_card_elevation">0dp</dimen>
-    <dimen name="quest_card_font_size">9sp</dimen>
     <dimen name="quest_icon_size">32dp</dimen>
     <dimen name="point_left_margin">30dp</dimen>
 
