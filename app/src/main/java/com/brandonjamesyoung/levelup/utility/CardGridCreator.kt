@@ -10,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -42,6 +43,7 @@ class CardGridCreator(val context: Context) {
     fun QuestCardContents(
         card: QuestCard,
         iconAction: ((QuestCard) -> Unit)?,
+        backgroundShaderSrc: String
     ) {
         val quest = card.quest
 
@@ -68,21 +70,46 @@ class CardGridCreator(val context: Context) {
             iconContentDescription = "Question Mark Icon"
         }
 
-        Column {
-            Text(
-                text = quest.getName(context),
-                color = Color(TEXT_COLOR_SECONDARY),
-                style = MaterialTheme.typography.titleSmall,
-                textAlign = TextAlign.Center,
-                fontSize = 9.sp,
-                fontFamily = FontFamily(Font(R.font.press_start_2p)),
-                lineHeight = 16.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(6.dp)
-                    .wrapContentHeight(align = Alignment.CenterVertically)
+        val shader by remember {
+            val runtimeShader = RuntimeShader(backgroundShaderSrc)
+
+            runtimeShader.setFloatUniform(
+                "iResolution",
+                QUEST_CARD_WIDTH.value.toFloat(),
+                QUEST_CARD_WIDTH.value.toFloat()
             )
+
+            runtimeShader.setColorUniform(
+                "iColor",
+                quest.getGraphicsColor()
+            )
+
+            mutableStateOf(runtimeShader)
+        }
+
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+                .background(brush = ShaderBrush(shader))
+        ) {
+            if (quest.name != null) {
+                Text(
+                    text = quest.getName(context),
+                    color = Color(TEXT_COLOR_SECONDARY),
+                    style = MaterialTheme.typography.titleSmall,
+                    textAlign = TextAlign.Center,
+                    fontSize = 9.sp,
+                    fontFamily = FontFamily(Font(R.font.press_start_2p)),
+                    lineHeight = 16.sp,
+                    modifier = Modifier
+                        .heightIn(min = 30.dp, max = 60.dp)
+                        .fillMaxWidth()
+                        .padding(6.dp, 0.dp, 0.dp, 8.dp)
+                )
+            }
+
             Image(
                 bitmap = iconBitmap,
                 contentDescription = iconContentDescription,
@@ -104,6 +131,10 @@ class CardGridCreator(val context: Context) {
                         }
                     }
             )
+
+            if (quest.name != null) {
+                Spacer(Modifier.height(10.dp))
+            }
         }
     }
 
@@ -115,23 +146,6 @@ class CardGridCreator(val context: Context) {
         cardShaderSrc: String = BASIC_COLOR_SHADER_SRC
     ) {
         val quest: Quest = card.quest
-
-        val shader by remember {
-            val runtimeShader = RuntimeShader(cardShaderSrc)
-
-            runtimeShader.setFloatUniform(
-                "iResolution",
-                QUEST_CARD_WIDTH.value.toFloat(),
-                QUEST_CARD_WIDTH.value.toFloat()
-            )
-
-            runtimeShader.setColorUniform(
-                "iColor",
-                quest.getGraphicsColor()
-            )
-
-            mutableStateOf(runtimeShader)
-        }
 
         Card(
             modifier = Modifier
@@ -145,14 +159,7 @@ class CardGridCreator(val context: Context) {
                     }
                 }
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(brush = ShaderBrush(shader))
-                    .align(Alignment.CenterHorizontally)
-            ) {
-                QuestCardContents(card, iconAction)
-            }
+            QuestCardContents(card, iconAction, cardShaderSrc)
         }
     }
 

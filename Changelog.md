@@ -14,7 +14,8 @@ This document tracks all notables changes to the Level Up app.
 
 - Update Quest List and Quest History to use a Compose lazy grid instead of the XML LinearLayout
 - Long press on quest cards or their icons in Quest List no longer transitions to Edit Quest
-- Add striped background to Quest History cards to differentiate them from Quest List cards
+- Change darkened background for Quest History cards to a striped background
+- Quests with no name no longer show the default "???" value
 
 ---
 
