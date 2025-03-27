@@ -12,7 +12,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
@@ -200,35 +200,33 @@ class CardGridCreator(val context: Context) {
         val inPortraitMode = OrientationManager.inPortraitMode(context.resources)
 
         // To move the grid just below the EXP progress bar
-        val topPadding = if (inPortraitMode) 30.dp else 21.dp
-        val botPadding = if (inPortraitMode) 40.dp else 15.dp
+        val topPadding = if (inPortraitMode) 40.dp else 65.dp
+        val botPadding = if (inPortraitMode) 0.dp else 70.dp
 
         val questCardWidth = dimensionResource(R.dimen.quest_card_width)
         val cardSpacing = dimensionResource(R.dimen.quest_card_spacing)
-        val verticalPadding = dimensionResource(R.dimen.quest_list_vertical_padding)
 
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(questCardWidth),
-            horizontalArrangement = Arrangement.Center,
-            verticalArrangement = Arrangement.spacedBy(
-                space = cardSpacing,
-                alignment = Alignment.Top
-            ),
+        LazyHorizontalGrid (
+            rows = GridCells.FixedSize(questCardWidth),
+            horizontalArrangement = Arrangement.spacedBy(cardSpacing),
+            verticalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier
-                .width(questCardWidth)
+                .height(670.dp)
                 .padding(0.dp, topPadding, 0.dp, botPadding),
-            contentPadding = PaddingValues(0.dp, verticalPadding)
+            contentPadding = PaddingValues(25.dp, 0.dp)
         ) {
             items(
                 items = cards,
                 key = { it.quest.id }
             ) { card ->
-                Row(Modifier.animateItem(
-                    fadeInSpec = tween(durationMillis = 500),
-                    fadeOutSpec = tween(durationMillis = 200),
-                    placementSpec = spring(
-                        stiffness = Spring.StiffnessLow,
-                        dampingRatio = Spring.DampingRatioLowBouncy
+                Row(
+                    Modifier
+                        .animateItem(
+                        fadeInSpec = tween(durationMillis = 500),
+                        fadeOutSpec = tween(durationMillis = 200),
+                        placementSpec = spring(
+                            stiffness = Spring.StiffnessLow,
+                            dampingRatio = Spring.DampingRatioLowBouncy
                     )
                 )) {
                     QuestCardView(card, cardAction, iconAction, cardShader)

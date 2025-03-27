@@ -16,6 +16,8 @@ This document tracks all notables changes to the Level Up app.
 - Long press on quest cards or their icons in Quest List no longer transitions to Edit Quest
 - Change darkened background for Quest History cards to a striped background
 - Quests with no name no longer show the default "???" value
+- Change Quest List and Quest History cards to scroll horizontally instead of vertically
+  - Move the Quest List sort trigger to the bottom of the screen between the Add Item and Shop buttons
 
 ---
 

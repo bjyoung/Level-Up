@@ -114,7 +114,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ProgressBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/NextLvlExpLabel"
@@ -161,9 +161,9 @@
         style="@style/InvisibleTrigger"
         android:layout_width="@dimen/trigger_landscape_width"
         android:layout_height="@dimen/trigger_landscape_height"
-        app:layout_constraintBottom_toTopOf="@+id/AddNewQuestButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/QuestHistoryButton" />
+        app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
