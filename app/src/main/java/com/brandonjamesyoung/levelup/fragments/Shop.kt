@@ -154,6 +154,8 @@ class Shop : Fragment(R.layout.shop) {
 
     private fun deleteItems() {
         viewModel.deleteItems(selectedItemIds.toSet())
+        hideTotalCost()
+        resetTotalCost()
         viewModel.switchMode(Mode.DEFAULT)
     }
 
@@ -214,23 +216,74 @@ class Shop : Fragment(R.layout.shop) {
         itemRow.setBackgroundColor(selectedColor)
     }
 
-    private fun selectItem(itemId: Int, itemRow: ConstraintLayout) {
-        Log.i(TAG, "Selecting item $itemId")
-        selectedItemIds.add(itemId)
+    private fun updateTotalCostAmount(selectedItemCost: Int) {
+        val totalCostView = requireView().findViewById<TextView>(R.id.TotalCostAmount)
+
+        var total: Int = try {
+            Integer.parseInt(totalCostView.text as String) + selectedItemCost
+        } catch (_: Exception) {
+            0
+        }
+
+        totalCostView.text = total.toString()
+    }
+
+    private fun resetTotalCost() {
+        val totalCost = requireView().findViewById<TextView>(R.id.TotalCostAmount)
+        totalCost.text = "0"
+    }
+
+    private fun showTotalCost() {
+        val view = requireView()
+        val totalCostLabel = view.findViewById<TextView>(R.id.TotalCostLabel)
+        val totalCostAmount = view.findViewById<TextView>(R.id.TotalCostAmount)
+        totalCostLabel.visibility = View.VISIBLE
+        totalCostAmount.visibility = View.VISIBLE
+    }
+
+    private fun hideTotalCost() {
+        val view = requireView()
+        val totalCostLabel = view.findViewById<TextView>(R.id.TotalCostLabel)
+        val totalCostAmount = view.findViewById<TextView>(R.id.TotalCostAmount)
+        totalCostLabel.visibility = View.INVISIBLE
+        totalCostAmount.visibility = View.INVISIBLE
+    }
+
+    private fun updateTotalCost(selectedItemCost: Int) {
+        if (selectedItemIds.isNotEmpty()) {
+            updateTotalCostAmount(selectedItemCost)
+            showTotalCost()
+        } else {
+            hideTotalCost()
+            resetTotalCost()
+        }
+    }
+
+    private fun selectItem(shopItem: ShopItem, itemRow: ConstraintLayout) {
+        Log.i(TAG, "Selecting item ${shopItem.id}")
+        selectedItemIds.add(shopItem.id)
         selectedItemRowIds.add(itemRow.id)
         highlightRow(itemRow)
+        updateTotalCost(shopItem.cost)
     }
 
-    private fun deselectItem(itemId: Int, itemRow: ConstraintLayout) {
-        Log.i(TAG, "De-selecting item $itemId")
-        selectedItemIds.remove(itemId)
+    private fun deselectItem(shopItem: ShopItem, itemRow: ConstraintLayout) {
+        Log.i(TAG, "De-selecting item ${shopItem.id}")
+        selectedItemIds.remove(shopItem.id)
         selectedItemRowIds.remove(itemRow.id)
         itemRow.setBackgroundColor(Color.TRANSPARENT)
+        updateTotalCost(-shopItem.cost)
     }
 
-    private fun tapItem(itemId: Int, itemRow: ConstraintLayout) {
+    private fun tapItem(shopItem: ShopItem, itemRow: ConstraintLayout) {
         if (!viewModel.mode.hasObservers()) setupModeObserver()
-        if (!isSelected(itemId)) selectItem(itemId, itemRow) else deselectItem(itemId, itemRow)
+
+        if (!isSelected(shopItem.id)) {
+            selectItem(shopItem, itemRow)
+        } else {
+            deselectItem(shopItem, itemRow)
+        }
+
         val targetMode = if (selectedItemIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
         viewModel.switchMode(targetMode)
     }
@@ -258,7 +311,7 @@ class Shop : Fragment(R.layout.shop) {
         }
 
         itemRow.setOnClickListener{
-            tapItem(shopItem.id, itemRow)
+            tapItem(shopItem, itemRow)
         }
 
         itemRow.setOnLongClickListener {

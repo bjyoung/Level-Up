@@ -144,6 +144,7 @@
     <string name="points_amount">0</string>
     <string name="points_acronym">BP</string>
     <string name="points_acronym_default">BP</string>
+    <string name="total_cost_label">Total</string>
     <string name="name_sort_icon_content_description">White arrow pointing down</string>
     <string name="quest_list_button_tooltip">Quest List</string>
     <string name="quest_list_button_description">Navigate to the Quest List page</string>

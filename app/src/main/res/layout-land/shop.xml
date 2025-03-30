@@ -98,6 +98,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/TotalCostLabel"
+        style="@style/Text"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:hint="@string/placeholder_text"
+        android:minHeight="48dp"
+        android:text="@string/total_cost_label"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/ShopSettingsButton"
+        app:layout_constraintStart_toEndOf="@+id/ShopLabel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <TextView
+        android:id="@+id/TotalCostAmount"
+        style="@style/Text"
+        android:text="@string/points_amount"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/TotalCostLabel"
+        app:layout_constraintStart_toStartOf="@+id/TotalCostLabel"
+        app:layout_constraintTop_toBottomOf="@+id/TotalCostLabel" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/ShopTopGuideline"
         style="@style/Guideline.Top_Land" />

@@ -9,6 +9,7 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - Animate quest cards in quest list on remove, complete, delete and sort
+- Show the total cost of selected items in the Shop
 
 ### Changed
 
