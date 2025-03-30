@@ -17,7 +17,7 @@
         <item name="android:layout_marginStart">10dp</item>
     </style>
     <style name="PointsLabel" parent="Text">
-        <item name="android:text">RT</item>
+        <item name="android:text">X</item>
         <item name="android:layout_marginStart">10dp</item>
     </style>
     <style name="Message" parent="Text">

@@ -22,6 +22,7 @@ This document tracks all notables changes to the Level Up app.
 ### Fixed
 
 - Fix system UI overlapping with app UI
+- Fix incorrect level up multiplier label in Settings
 
 ---
 
