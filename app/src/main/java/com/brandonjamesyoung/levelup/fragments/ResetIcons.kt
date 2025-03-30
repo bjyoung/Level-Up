@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.ResetIconsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,6 +63,7 @@ class ResetIcons : Fragment(R.layout.reset_icons){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        InsetHandler.addInsetPadding(requireView())
 
         lifecycleScope.launch {
             Log.i(TAG, "On Reset Icons page")

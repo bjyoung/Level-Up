@@ -24,6 +24,7 @@ import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.data.Icon
 import com.brandonjamesyoung.levelup.interfaces.Resettable
 import com.brandonjamesyoung.levelup.utility.DateLabelManager
+import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -278,6 +279,7 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        InsetHandler.addInsetPadding(requireView())
 
         lifecycleScope.launch {
             Log.i(TAG, "On New Quest page")

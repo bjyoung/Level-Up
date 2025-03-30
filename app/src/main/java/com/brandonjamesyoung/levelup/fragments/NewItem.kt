@@ -16,6 +16,7 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.ShopItem
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.utility.DateLabelManager
+import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -157,6 +158,7 @@ class NewItem : Fragment(R.layout.new_item) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        InsetHandler.addInsetPadding(requireView())
 
         lifecycleScope.launch {
             Log.i(TAG, "On New Item page")

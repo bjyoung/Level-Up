@@ -15,6 +15,7 @@ import com.brandonjamesyoung.levelup.constants.STRIPE_SHADER_SRC
 import com.brandonjamesyoung.levelup.data.CompletedQuestWithIcon
 import com.brandonjamesyoung.levelup.data.QuestCard
 import com.brandonjamesyoung.levelup.utility.CardGridCreator
+import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.viewmodels.QuestHistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -76,6 +77,7 @@ class QuestHistory: Fragment(R.layout.quest_history) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        InsetHandler.addInsetPadding(requireView())
 
         lifecycleScope.launch{
             Log.i(TAG, "On Quest History page")

@@ -21,6 +21,7 @@ import com.brandonjamesyoung.levelup.constants.POP_UP_BUTTON_WAIT_PERIOD
 import com.brandonjamesyoung.levelup.constants.SortOrder
 import com.brandonjamesyoung.levelup.constants.SortType
 import com.brandonjamesyoung.levelup.data.Settings
+import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.utility.ItemTableManager
 import com.brandonjamesyoung.levelup.utility.PointsDisplay
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
@@ -426,6 +427,7 @@ class Shop : Fragment(R.layout.shop) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        InsetHandler.addInsetPadding(requireView())
 
         lifecycleScope.launch(Dispatchers.Main) {
             Log.i(TAG, "On Shop page")

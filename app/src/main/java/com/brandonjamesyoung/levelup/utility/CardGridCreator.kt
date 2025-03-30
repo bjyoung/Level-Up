@@ -220,8 +220,7 @@ class CardGridCreator(val context: Context) {
                 key = { it.quest.id }
             ) { card ->
                 Row(
-                    Modifier
-                        .animateItem(
+                    Modifier.animateItem(
                         fadeInSpec = tween(durationMillis = 500),
                         fadeOutSpec = tween(durationMillis = 200),
                         placementSpec = spring(

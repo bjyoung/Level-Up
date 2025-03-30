@@ -19,6 +19,10 @@ This document tracks all notables changes to the Level Up app.
 - Change Quest List and Quest History cards to scroll horizontally instead of vertically
   - Move the Quest List sort trigger to the bottom of the screen between the Add Item and Shop buttons
 
+### Fixed
+
+- Fix system UI overlapping with app UI
+
 ---
 
 ## 0.8.2

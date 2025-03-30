@@ -14,6 +14,7 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.BackupDbError
 import com.brandonjamesyoung.levelup.constants.RestoreDbError
 import com.brandonjamesyoung.levelup.utility.BackupManager
+import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper
 import com.brandonjamesyoung.levelup.viewmodels.AdvancedSettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -235,6 +236,7 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        InsetHandler.addInsetPadding(requireView())
 
         lifecycleScope.launch {
             Log.i(TAG, "On Advanced Settings page")

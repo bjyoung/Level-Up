@@ -659,6 +659,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        InsetHandler.addInsetPadding(requireView())
 
         lifecycleScope.launch {
             Log.i(TAG, "On Icon Select page")

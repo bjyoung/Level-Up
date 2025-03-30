@@ -12,6 +12,7 @@ import com.brandonjamesyoung.levelup.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import com.brandonjamesyoung.levelup.BuildConfig
+import com.brandonjamesyoung.levelup.utility.InsetHandler
 
 @AndroidEntryPoint
 class About : Fragment(R.layout.about) {
@@ -38,6 +39,7 @@ class About : Fragment(R.layout.about) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        InsetHandler.addInsetPadding(requireView())
 
         lifecycleScope.launch {
             Log.i(TAG, "On $TAG page")

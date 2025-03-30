@@ -17,6 +17,7 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Difficulty
 import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.interfaces.Resettable
+import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.SettingsViewModel
@@ -397,6 +398,7 @@ class SettingsFragment : Fragment(R.layout.settings), Resettable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        InsetHandler.addInsetPadding(requireView())
 
         lifecycleScope.launch {
             Log.i(TAG, "On Settings page")

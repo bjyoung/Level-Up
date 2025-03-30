@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.PurchasedItem
 import com.brandonjamesyoung.levelup.utility.ButtonConverter
+import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.utility.ItemTableManager
 import com.brandonjamesyoung.levelup.viewmodels.ItemHistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,6 +81,7 @@ class ItemHistory : Fragment(R.layout.item_history) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        InsetHandler.addInsetPadding(requireView())
 
         lifecycleScope.launch{
             Log.i(TAG, "On Item History page")
