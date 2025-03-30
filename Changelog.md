@@ -23,7 +23,7 @@ This document tracks all notables changes to the Level Up app.
 
 - Fix system UI overlapping with app UI
 - Fix incorrect level up multiplier label in Settings
-- Increase text field height to make it easer to scroll through them
+- Make it easier to scroll through text fields
 
 ---
 
