@@ -48,7 +48,7 @@
     <style name="TextInput" parent="EditText">
         <item name="android:background">@drawable/rounded_rectangle</item>
         <item name="android:backgroundTint">@color/background_secondary</item>
-        <item name="android:minHeight">48dp</item>
+        <item name="android:minHeight">60dp</item>
         <item name="android:paddingHorizontal">15dp</item>
         <item name="android:paddingVertical">10dp</item>
         <item name="android:textColor">@color/text_secondary</item>
