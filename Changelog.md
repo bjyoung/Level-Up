@@ -19,12 +19,16 @@ This document tracks all notables changes to the Level Up app.
 - Quests with no name no longer show the default "???" value
 - Change Quest List and Quest History cards to scroll horizontally instead of vertically
   - Move the Quest List sort trigger to the bottom of the screen between the Add Item and Shop buttons
+- Update Icon Select to use a Compose lazy grid instead of RecyclerView
+- Improve Icon Select performance
 
 ### Fixed
 
 - Fix system UI overlapping with app UI
 - Fix incorrect level up multiplier label in Settings
 - Make it easier to scroll through text fields
+- Fix selected icons in Icon Select moving seemingly randomly when scrolling offscreen and back
+- Fix Icon Select not showing the correct icons after data or default icon restore
 
 ---
 

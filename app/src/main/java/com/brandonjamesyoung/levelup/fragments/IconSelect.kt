@@ -7,20 +7,17 @@ import android.view.ViewPropertyAnimator
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.brandonjamesyoung.levelup.constants.IconGroup
-import com.brandonjamesyoung.levelup.constants.MAX_NUM_LOOPS
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.R
-import com.brandonjamesyoung.levelup.adapters.IconGridAdapter
 import com.brandonjamesyoung.levelup.data.Icon
-import com.brandonjamesyoung.levelup.data.SelectedIcon
+import com.brandonjamesyoung.levelup.data.SelectableIcon
 import com.brandonjamesyoung.levelup.utility.*
 import com.brandonjamesyoung.levelup.utility.OrientationManager.Companion.inPortraitMode
 import com.brandonjamesyoung.levelup.utility.ScreenHelper.Companion.getScreenHeight
@@ -28,28 +25,19 @@ import com.brandonjamesyoung.levelup.utility.ScreenHelper.Companion.getScreenWid
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.viewmodels.IconSelectViewModel
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
 class IconSelect : Fragment(R.layout.icon_select) {
     private val viewModel: IconSelectViewModel by activityViewModels()
 
-    private val iconGroupAdapterMap = mutableMapOf<IconGroup, IconGridAdapter>()
-
-    private val iconGroupIconsMap = mutableMapOf<IconGroup, MutableList<Icon>>()
+    private var latestIcons: MutableList<Icon> = mutableListOf()
 
     @Inject lateinit var buttonConverter: ButtonConverter
 
-    private fun clearSelectedIcons() {
-        val currentIconGroupAdapter = iconGroupAdapterMap[viewModel.currentIconGroup]
-        currentIconGroupAdapter?.clearSelectedIcons(this)
-    }
+    @Inject lateinit var iconGridCreator: IconGridCreator
 
     private fun convertButton(
         targetId: Int,
@@ -105,12 +93,13 @@ class IconSelect : Fragment(R.layout.icon_select) {
         )
     }
 
-    private fun activateDefaultMode() {
-        Log.i(TAG, "In default mode")
+    private fun activateSelectMode() {
+        Log.i(TAG, "In select mode")
         activateEditModeButton()
         activateBackButton()
         activateAddIconButton()
-        clearSelectedIcons()
+        viewModel.selectedIconIds.clear()
+        setupIconGrid(latestIcons)
     }
 
     private fun activateSelectModeButton() {
@@ -118,55 +107,24 @@ class IconSelect : Fragment(R.layout.icon_select) {
             targetId = R.id.EditButton,
             iconDrawableId = R.drawable.pencil_icon_large,
             iconColorId = R.color.icon_primary,
-            buttonMethod = { viewModel.switchMode(Mode.DEFAULT) },
+            buttonMethod = { viewModel.switchMode(Mode.SELECT) },
             tooltip = getString(R.string.select_mode_button_tooltip)
         )
     }
 
     private fun deleteIcons() {
-        if (!areIconsSelected()) {
+        if (viewModel.selectedIconIds.isEmpty()) {
             val message = getString(R.string.no_icons_selected_message)
             viewModel.showSnackbar(message)
             return
         }
 
-        val currentAdapter = iconGroupAdapterMap[viewModel.currentIconGroup]
-
-        if (currentAdapter == null) {
-            viewModel.switchMode(Mode.EDIT)
-            Log.e(TAG, "No RecyclerView adapter found")
-            return
-        }
-
-        val selectedIcons: List<SelectedIcon> = currentAdapter.getSelectedIcons()
-            .sortedByDescending { it.adapterPosition }
-
-        currentAdapter.clearSelectedIcons(this)
-        val selectedIconIds: List<Int> = selectedIcons.map { it.id }
-        val currentIconList: MutableList<Icon>? = iconGroupIconsMap[viewModel.currentIconGroup]
-
-        if (currentIconList == null) {
-            Log.e(TAG, "No icon list found for icon group ${viewModel.currentIconGroup}")
-            return
-        }
-
-        for (selectedIcon in selectedIcons) {
-            val targetIcon: Icon? = currentIconList.find { it.id == selectedIcon.id }
-
-            if (targetIcon == null) {
-                val errorMessage = "Icon with id $selectedIcon.id " +
-                        "not found in ${viewModel.currentIconGroup} icon group"
-
-                Log.e(TAG, errorMessage)
-                continue
-            }
-
-            currentIconList.remove(targetIcon)
-            currentAdapter.notifyItemRemoved(selectedIcon.adapterPosition)
-        }
-
-        if (currentIconList.isEmpty()) showNoIconsMessage()
-        viewModel.deleteIcons(selectedIconIds)
+        val selectedIconIdsCopy: Set<Int> = viewModel.selectedIconIds.toSet()
+        viewModel.deleteIcons(selectedIconIdsCopy)
+        latestIcons.removeAll { it.id in selectedIconIdsCopy }
+        viewModel.selectedIconIds.clear()
+        setupIconGrid(latestIcons)
+        viewModel.switchMode(Mode.EDIT)
     }
 
     private fun activateDeleteButton() {
@@ -179,19 +137,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
         )
     }
 
-    private fun areIconsSelected() : Boolean {
-        val currentAdapter = iconGroupAdapterMap[viewModel.currentIconGroup]
-
-        if (currentAdapter == null) {
-            Log.e(TAG, "No RecyclerView adapter found")
-            return false
-        }
-
-        return currentAdapter.getSelectedIcons().isNotEmpty()
-    }
-
-    private fun setMoveMode() {
-        if (!areIconsSelected()) {
+    private fun setupMoveMode() {
+        if (viewModel.selectedIconIds.isEmpty()) {
             val message = getString(R.string.no_icons_selected_message)
             viewModel.showSnackbar(message)
             return
@@ -204,31 +151,9 @@ class IconSelect : Fragment(R.layout.icon_select) {
         convertButton(
             targetId = R.id.AddNewIconButton,
             iconDrawableId = R.drawable.dash_icon_large,
-            buttonMethod = ::setMoveMode,
+            buttonMethod = ::setupMoveMode,
             tooltip = getString(R.string.move_icons_button_tooltip)
         )
-    }
-
-    private fun enableIconButtons() {
-        val currentAdapter = iconGroupAdapterMap[viewModel.currentIconGroup] ?: return
-        val view = requireView()
-        val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
-        val layoutManager = iconGrid.layoutManager ?: return
-
-        for (i in 0 until currentAdapter.itemCount) {
-            val layoutChild: View = layoutManager.findViewByPosition(i) ?: continue
-            val iconButton: FloatingActionButton = layoutChild.findViewById(R.id.QuestIcon)
-            iconButton.alpha = 1.0F
-            iconButton.isEnabled = true
-            val iconText: TextView = layoutChild.findViewById(R.id.IconName)
-            iconText.alpha = 1.0F
-        }
-    }
-
-    private fun enableIconGridScrolling() {
-        val view = requireView()
-        val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
-        iconGrid.suppressLayout(false)
     }
 
     private fun enableButton(id: Int) {
@@ -239,8 +164,6 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun enableNonMoveModeButtons() {
-        enableIconButtons()
-        enableIconGridScrolling()
         enableButton(R.id.BackButton)
         enableButton(R.id.EditButton)
     }
@@ -253,28 +176,9 @@ class IconSelect : Fragment(R.layout.icon_select) {
         activateDeleteButton()
         activateMoveButton()
         setupSwappableIconGroups()
-    }
 
-    private fun disableIconButtons() {
-        val currentAdapter = iconGroupAdapterMap[viewModel.currentIconGroup] ?: return
-        val view = requireView()
-        val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
-        val layoutManager = iconGrid.layoutManager ?: return
-
-        for (i in 0 until currentAdapter.itemCount) {
-            val layoutChild: View = layoutManager.findViewByPosition(i) ?: continue
-            val iconButton: FloatingActionButton = layoutChild.findViewById(R.id.QuestIcon)
-            iconButton.alpha = DISABLE_TRANSPARENCY
-            iconButton.isEnabled = false
-            val iconText: TextView = layoutChild.findViewById(R.id.IconName)
-            iconText.alpha = DISABLE_TRANSPARENCY
-        }
-    }
-
-    private fun disableIconGridScrolling() {
-        val view = requireView()
-        val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
-        iconGrid.suppressLayout(true)
+        // To re-enable icon scrolling and icon buttons if needed
+        setupIconGrid(latestIcons)
     }
 
     private fun disableButton(id: Int) {
@@ -285,66 +189,15 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun disableNonMoveModeButtons() {
-        disableIconButtons()
-        disableIconGridScrolling()
         disableButton(R.id.BackButton)
         disableButton(R.id.EditButton)
     }
 
     private fun moveIcons(iconGroup: IconGroup) {
-        val currentAdapter = iconGroupAdapterMap[viewModel.currentIconGroup]
-
-        if (currentAdapter == null) {
-            viewModel.switchMode(Mode.EDIT)
-            Log.e(TAG, "No RecyclerView adapter found")
-            return
-        }
-
-        val selectedIcons: List<SelectedIcon> = currentAdapter.getSelectedIcons()
-            .sortedByDescending { it.adapterPosition }
-
-        enableNonMoveModeButtons()
-        currentAdapter.clearSelectedIcons(this)
-        val selectedIconIds: List<Int> = selectedIcons.map { it.id }
-
-        // Remove icons from icon list tracked in fragment while updating adapter
-        val startingIconList: MutableList<Icon>? = iconGroupIconsMap[viewModel.currentIconGroup]
-        val destinationIconList: MutableList<Icon>? = iconGroupIconsMap[iconGroup]
-        val destinationAdapter: IconGridAdapter? = iconGroupAdapterMap[iconGroup]
-
-        if (startingIconList != null && destinationIconList != null && destinationAdapter != null) {
-            for (selectedIcon in selectedIcons) {
-                val targetIcon: Icon? = startingIconList.find { it.id == selectedIcon.id }
-
-                if (targetIcon == null) {
-                    val errorMessage = "Icon with id $selectedIcon.id " +
-                            "not found in ${viewModel.currentIconGroup} icon group"
-
-                    Log.e(TAG, errorMessage)
-                    continue
-                }
-
-                targetIcon.iconGroup = iconGroup
-                startingIconList.remove(targetIcon)
-                currentAdapter.notifyItemRemoved(selectedIcon.adapterPosition)
-                val targetPosition = findInsertPosition(targetIcon, destinationIconList)
-                destinationIconList.add(targetPosition, targetIcon)
-                destinationAdapter.notifyItemInserted(targetPosition)
-            }
-
-            if (startingIconList.isEmpty()) showNoIconsMessage()
-        }
-
-        viewModel.moveIcons(selectedIconIds, iconGroup)
+        val selectedIconIdsCopy: Set<Int> = viewModel.selectedIconIds.toSet()
+        viewModel.moveIcons(selectedIconIdsCopy, iconGroup)
+        latestIcons.removeAll { it.id in selectedIconIdsCopy }
         viewModel.switchMode(Mode.EDIT)
-    }
-
-    private fun findInsertPosition(icon: Icon, iconList: MutableList<Icon>) : Int {
-        val targetPosition = iconList.binarySearch {
-            String.CASE_INSENSITIVE_ORDER.compare(it.name, icon.name)
-        }
-
-        return targetPosition.absoluteValue - 1
     }
 
     // Calculate zoom-in deltas to translate to (center of screen, spread out horizontally)
@@ -380,7 +233,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     // Move icon group buttons to center of screen and change to move icons on press
-    private fun setupSelectableIconGroups() {
+    private fun setupIconGroupSelect() {
         val iconGroupIdAnimMap = mapOf(
             R.id.SpadesGroupButton to IconGroup.SPADES,
             R.id.DiamondsGroupButton to IconGroup.DIAMONDS,
@@ -397,7 +250,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
             animateZoomIn(imageButton, iconGroupPosition)
             val iconGroup = iconGroupIdAnimMap[buttonId] ?: continue
 
-            if (iconGroup == viewModel.currentIconGroup) {
+            if (iconGroup == viewModel.selectedIconGroup.value) {
                 imageButton.setOnClickListener{
                     val message = getString(R.string.select_another_icon_group_message)
                     viewModel.showSnackbar(message)
@@ -424,18 +277,21 @@ class IconSelect : Fragment(R.layout.icon_select) {
 
     private fun activateMoveMode() {
         Log.i(TAG, "In move mode")
-        disableNonMoveModeButtons()
-        setupSelectableIconGroups()
-        activateCancelButton()
         changeTitle("Select an Icon Group")
+        disableNonMoveModeButtons()
+        activateCancelButton()
+        setupIconGroupSelect()
+
+        // Reload icon grid to disable scrolling and icon buttons
+        setupIconGrid(latestIcons)
     }
 
     private fun setupMode() {
-        viewModel.switchMode(Mode.DEFAULT)
+        viewModel.switchMode(Mode.SELECT)
 
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
             when (mode) {
-                Mode.DEFAULT -> activateDefaultMode()
+                Mode.SELECT -> activateSelectMode()
                 Mode.EDIT -> activateEditMode()
                 Mode.MOVE -> activateMoveMode()
                 else -> Log.e(TAG, "Unknown mode detected")
@@ -446,6 +302,12 @@ class IconSelect : Fragment(R.layout.icon_select) {
     private fun navigateToNewQuest() {
         findNavController().navigate(R.id.action_iconSelect_to_newQuest)
         Log.i(TAG, "Going from Icon Select to Quest List")
+    }
+
+    private fun navigateToNewQuest(icon: Icon) {
+        val action = IconSelectDirections.actionIconSelectToNewQuest(iconId = icon.id)
+        findNavController().navigate(action)
+        Log.i(TAG, "Selected ${icon.name} icon. Going from Icon Select to New Quest.")
     }
 
     // Move icon groups back to their original position and sizes
@@ -478,6 +340,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
                 iconGroupMap[buttonId]?.let { it1 -> viewModel.selectedIconGroup.value = it1 }
             }
 
+            // TODO check if the line below is necessary
             animateZoomOut(imageButton)
         }
     }
@@ -500,7 +363,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         return buttonId
     }
 
-    private fun useDefaultColor(iconGroup: IconGroup) {
+    private fun applyDefaultColor(iconGroup: IconGroup) {
         val buttonId = getIconGroupButtonId(iconGroup) ?: return
         val view = requireView()
         val button = view.findViewById<ImageButton>(buttonId)
@@ -516,7 +379,7 @@ class IconSelect : Fragment(R.layout.icon_select) {
         button.imageTintList = resources.getColorStateList(R.color.icon_secondary, theme)
     }
 
-    private fun useSelectedColor(iconGroup: IconGroup) {
+    private fun applySelectedColor(iconGroup: IconGroup) {
         val buttonId = getIconGroupButtonId(iconGroup) ?: return
         val view = requireView()
         val button = view.findViewById<ImageButton>(buttonId)
@@ -527,29 +390,45 @@ class IconSelect : Fragment(R.layout.icon_select) {
     }
 
     private fun highlightSelectedGroup(selectedIconGroup: IconGroup) {
-        val currentIconGroup = viewModel.currentIconGroup
-        if (currentIconGroup != null) useDefaultColor(currentIconGroup)
-        useSelectedColor(selectedIconGroup)
+        val currentIconGroup = viewModel.selectedIconGroup.value
+        if (currentIconGroup != null) applyDefaultColor(currentIconGroup)
+        applySelectedColor(selectedIconGroup)
     }
 
-    private fun setupIconGrid() {
-        val view = requireView()
-        val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
-
-        val numGridRows = if (inPortraitMode(resources)) {
-            resources.getInteger(R.integer.grid_rows_port)
-        } else {
-            resources.getInteger(R.integer.grid_rows_land)
-        }
-
-        val horizontalGridLayoutManager = GridLayoutManager(
-            view.context,
-            numGridRows,
-            GridLayoutManager.HORIZONTAL,
-            false
+    private fun removeHighlightFromOtherGroups(iconGroupToSkip: IconGroup) {
+        val iconGroups: MutableList<IconGroup> = mutableListOf(
+            IconGroup.SPADES,
+            IconGroup.DIAMONDS,
+            IconGroup.HEARTS,
+            IconGroup.CLUBS
         )
 
-        iconGrid.layoutManager = horizontalGridLayoutManager
+        iconGroups.remove(iconGroupToSkip)
+        iconGroups.forEach { applyDefaultColor(it) }
+    }
+
+    private fun setupIconGrid(icons: List<Icon>?) {
+        if(icons == null) return
+        if (icons.isEmpty()) showNoIconsMessage() else hideNoIconsMessage()
+        latestIcons = icons.toMutableList()
+
+        val selectableIcons: List<SelectableIcon> = icons.map { icon ->
+            SelectableIcon(
+                icon = icon,
+                selected = icon.id in viewModel.selectedIconIds
+            )
+        }
+
+        val composeView = requireView().findViewById<ComposeView>(R.id.IconSelectComposeView)
+
+        composeView.setContent {
+            iconGridCreator.IconSelectGridView(
+                icons = selectableIcons,
+                iconAction = ::selectIcon,
+                pageMode = { viewModel.mode.value }
+            )
+        }
+
     }
 
     private fun showNoIconsMessage() {
@@ -564,88 +443,44 @@ class IconSelect : Fragment(R.layout.icon_select) {
         noIconsMessage.visibility = View.GONE
     }
 
-    private fun loadIcons(iconGroup: IconGroup) {
-        val view = requireView()
-        val iconGrid: RecyclerView = view.findViewById(R.id.IconGrid)
-        val newAdapter: IconGridAdapter? = iconGroupAdapterMap[iconGroup]
+    private fun selectIcon(selectableIcon: SelectableIcon) {
+        val icon = selectableIcon.icon
 
-        if (newAdapter == null) {
-            Log.e(TAG, "No adapter found for iconGroup: $iconGroup")
+        // If an icon is selected while in default mode, return selected icon id back to New Quest
+        if (viewModel.mode.value == Mode.SELECT) {
+            navigateToNewQuest(icon)
             return
         }
 
-        Log.d(TAG, "Icon ids in ${iconGroup.name}: " + newAdapter.getIconIds().contentToString())
-        if (newAdapter.itemCount == 0) showNoIconsMessage() else hideNoIconsMessage()
+        selectableIcon.selected = !selectableIcon.selected
 
-        when (iconGrid.adapter) {
-            null -> iconGrid.adapter = newAdapter
-            newAdapter -> return
-            else -> iconGrid.swapAdapter(newAdapter, false)
+        if (icon.id !in viewModel.selectedIconIds) {
+            Log.i(TAG, "Select icon ${icon.name}")
+            viewModel.selectedIconIds.add(icon.id)
+        } else {
+            Log.i(TAG, "De-select icon ${icon.name}")
+            viewModel.selectedIconIds.remove(icon.id)
         }
     }
 
-    private fun switchIconGroup(iconGroup: IconGroup?) {
+    // Change selected icon group and trigger icon grid reload
+    private fun swapIconGroup(iconGroup: IconGroup?) {
         if (iconGroup == null) return
-        clearSelectedIcons()
-        highlightSelectedGroup(iconGroup)
-        loadIcons(iconGroup)
-        viewModel.currentIconGroup = iconGroup
         Log.i(TAG, "Switch to ${iconGroup.name} icon group")
+        viewModel.selectedIconIds.clear()
+        highlightSelectedGroup(iconGroup)
+        removeHighlightFromOtherGroups(iconGroup)
+        viewModel.loadIconGroup(iconGroup)
     }
 
-    private fun addToIconGroupMap(iconGroup: IconGroup, iconList: List<Icon>) {
-        if (iconGroupAdapterMap[iconGroup] != null) return
-        val sortedIcons = iconList.sortedBy { it.name }.toMutableList()
-        iconGroupIconsMap[iconGroup] = sortedIcons
-        val newAdapter = IconGridAdapter(sortedIcons)
-
-        newAdapter.setGetModeCallback {
-            viewModel.mode.value
-        }
-
-        iconGroupAdapterMap[iconGroup] = newAdapter
-    }
-
-    private suspend fun waitForIconGroupData() {
-        try {
-            var numLoops = 0
-
-            while (iconGroupAdapterMap[viewModel.initSelectedGroup] == null) {
-                numLoops += 1
-                if (numLoops > MAX_NUM_LOOPS) throw CancellationException()
-                delay(1L)
-            }
-        } catch (ex: CancellationException) {
-            Log.e(TAG, "Initial icon group data loading timed out")
-        }
-    }
-
-    private suspend fun setupObservables() {
-        val viewModelIconLists = mapOf(
-            IconGroup.SPADES to viewModel.spadesIcons,
-            IconGroup.DIAMONDS to viewModel.diamondsIcons,
-            IconGroup.HEARTS to viewModel.heartsIcons,
-            IconGroup.CLUBS to viewModel.clubsIcons
-        )
-
-        for (groupIconsPair in viewModelIconLists) {
-            val iconGroup = groupIconsPair.key
-            val liveIcons = groupIconsPair.value
-
-            liveIcons.observe(viewLifecycleOwner) { icons ->
-                addToIconGroupMap(iconGroup, icons)
-            }
-        }
-
-        // TODO there has to be a cleaner way of waiting for data from database,
-        //  instead of waiting for icons to load
-        waitForIconGroupData()
-
+    private fun setupObservables() {
         viewModel.selectedIconGroup.observe(viewLifecycleOwner) { selectedIconGroup ->
-            switchIconGroup(selectedIconGroup)
+            swapIconGroup(selectedIconGroup)
         }
 
-        viewModel.selectedIconGroup.value = viewModel.initSelectedGroup
+        viewModel.displayedIcons.observe(viewLifecycleOwner) { icons ->
+            setupIconGrid(icons)
+        }
 
         // TODO Can make base fragment observe view model message to reduce repeat code
         viewModel.message.observe(viewLifecycleOwner) { message ->
@@ -664,7 +499,6 @@ class IconSelect : Fragment(R.layout.icon_select) {
         lifecycleScope.launch {
             Log.i(TAG, "On Icon Select page")
             setupMode()
-            setupIconGrid()
             setupSwappableIconGroups()
             setupObservables()
         }

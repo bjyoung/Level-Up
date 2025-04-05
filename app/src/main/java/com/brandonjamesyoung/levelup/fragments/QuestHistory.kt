@@ -14,7 +14,7 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.STRIPE_SHADER_SRC
 import com.brandonjamesyoung.levelup.data.CompletedQuestWithIcon
 import com.brandonjamesyoung.levelup.data.QuestCard
-import com.brandonjamesyoung.levelup.utility.CardGridCreator
+import com.brandonjamesyoung.levelup.utility.QuestGridCreator
 import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.viewmodels.QuestHistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +26,7 @@ import kotlin.collections.map
 class QuestHistory: Fragment(R.layout.quest_history) {
     private val viewModel: QuestHistoryViewModel by activityViewModels()
 
-    @Inject lateinit var cardCreator: CardGridCreator
+    @Inject lateinit var cardCreator: QuestGridCreator
 
     private fun navigateToQuestList() {
         findNavController().navigate(R.id.action_questHistory_to_questList)

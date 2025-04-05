@@ -120,16 +120,14 @@
         app:srcCompat="@drawable/diamond_icon"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/IconGrid"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layoutManager="GridLayoutManager"
-        app:spanCount="@integer/grid_rows_port"
-        app:layout_constraintBottom_toTopOf="@+id/IconSelectBottomGuideline"
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/IconSelectComposeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/IconSelectTopGuideline" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/NoIconsMessage"

@@ -16,37 +16,40 @@ class IconRepository @Inject constructor(
     private val questDao: QuestDao,
     private val questHistoryDao: QuestHistoryDao,
 ) {
-    fun observeGroup(iconGroup: IconGroup) = iconDao.observeGroup(iconGroup)
-
     @WorkerThread
     fun get(id: Int): Icon {
         return iconDao.get(id)
     }
 
     @WorkerThread
-    suspend fun insert(icon: Icon) = externalScope.launch {
+    fun getIcons(iconGroup: IconGroup): List<Icon> {
+        return iconDao.getIcons(iconGroup)
+    }
+
+    @WorkerThread
+    fun insert(icon: Icon) = externalScope.launch {
         iconDao.insert(icon)
     }
 
     @WorkerThread
-    suspend fun update(icon: Icon) = externalScope.launch {
+    fun update(icon: Icon) = externalScope.launch {
         iconDao.update(icon)
     }
 
     @WorkerThread
-    suspend fun moveToNewIconGroup(iconIds: List<Int>, iconGroup: IconGroup) = externalScope.launch {
+    fun moveToNewIconGroup(iconIds: Set<Int>, iconGroup: IconGroup) = externalScope.launch {
         iconDao.moveToNewIconGroup(iconIds, iconGroup)
     }
 
     @WorkerThread
-    suspend fun delete(ids: Set<Int>) = externalScope.launch {
+    fun delete(ids: Set<Int>) = externalScope.launch {
         questDao.clearDeletedIcons(ids)
         questHistoryDao.clearDeletedIcons(ids)
         iconDao.delete(ids)
     }
 
     @WorkerThread
-    suspend fun resetToDefault(context: Context) = externalScope.launch {
+    fun resetToDefault(context: Context) = externalScope.launch {
         val initDatabase = InitDatabase()
         initDatabase.initializeDefaultIcons(iconDao, context)
         questDao.clearAllIcons()

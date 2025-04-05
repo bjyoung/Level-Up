@@ -18,7 +18,6 @@ import com.brandonjamesyoung.levelup.constants.POP_UP_BUTTON_WAIT_PERIOD
 import com.brandonjamesyoung.levelup.constants.PROGRESS_BAR_ANIM_DURATION
 import com.brandonjamesyoung.levelup.constants.SortOrder
 import com.brandonjamesyoung.levelup.constants.SortType
-import com.brandonjamesyoung.levelup.data.Quest
 import com.brandonjamesyoung.levelup.data.Player
 import com.brandonjamesyoung.levelup.data.QuestCard
 import com.brandonjamesyoung.levelup.data.QuestWithIcon
@@ -41,7 +40,7 @@ class QuestList: Fragment(R.layout.quest_list) {
 
     private var latestQuests: List<QuestWithIcon> = mutableListOf()
 
-    @Inject lateinit var cardCreator: CardGridCreator
+    @Inject lateinit var cardCreator: QuestGridCreator
 
     @Inject lateinit var buttonConverter: ButtonConverter
 
@@ -355,20 +354,18 @@ class QuestList: Fragment(R.layout.quest_list) {
         if (viewModel.mode.value == Mode.DEFAULT) navigateToNewQuest(questId)
     }
 
-    private fun checkQuest(quest: Quest) {
-        Log.i(TAG, "Select quest ${quest.name}")
-        viewModel.selectedQuestIds.add(quest.id)
-    }
-
-    private fun uncheckQuest(quest: Quest) {
-        Log.i(TAG, "De-select quest ${quest.name}")
-        viewModel.selectedQuestIds.remove(quest.id)
-    }
-
     private fun selectQuestCard(card: QuestCard) {
         card.selected = !card.selected
         val quest = card.quest
-        if (!isSelected(quest.id)) checkQuest(quest) else uncheckQuest(quest)
+
+        if (!isSelected(quest.id)) {
+            Log.i(TAG, "Select quest ${quest.name}")
+            viewModel.selectedQuestIds.add(quest.id)
+        } else {
+            Log.i(TAG, "De-select quest ${quest.name}")
+            viewModel.selectedQuestIds.remove(quest.id)
+        }
+
         val targetMode = if (viewModel.selectedQuestIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
         viewModel.switchMode(targetMode)
     }

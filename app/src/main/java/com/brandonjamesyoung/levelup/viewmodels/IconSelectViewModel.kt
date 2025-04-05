@@ -1,9 +1,7 @@
 package com.brandonjamesyoung.levelup.viewmodels
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.brandonjamesyoung.levelup.data.*
 import com.brandonjamesyoung.levelup.di.IoDispatcher
@@ -19,35 +17,33 @@ class IconSelectViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val iconRepository: IconRepository,
 ) : BaseViewModel() {
-    val initSelectedGroup = IconGroup.SPADES
-
-    var currentIconGroup: IconGroup? = null
+    val initIconGroup = IconGroup.SPADES
 
     var selectedIconGroup: MutableLiveData<IconGroup?> = MutableLiveData(null)
 
-    val spadesIcons: LiveData<List<Icon>> =
-        iconRepository.observeGroup(IconGroup.SPADES).asLiveData()
+    var displayedIcons: MutableLiveData<List<Icon>> = MutableLiveData(null)
 
-    val heartsIcons: LiveData<List<Icon>> =
-        iconRepository.observeGroup(IconGroup.HEARTS).asLiveData()
-
-    val diamondsIcons: LiveData<List<Icon>> =
-        iconRepository.observeGroup(IconGroup.DIAMONDS).asLiveData()
-
-    val clubsIcons: LiveData<List<Icon>> =
-        iconRepository.observeGroup(IconGroup.CLUBS).asLiveData()
+    val selectedIconIds: MutableSet<Int> = mutableSetOf()
 
     init {
-        validModes = listOf(Mode.DEFAULT, Mode.EDIT, Mode.MOVE)
+        validModes = listOf(Mode.SELECT, Mode.EDIT, Mode.MOVE)
+        selectedIconGroup.value = initIconGroup
+        loadIconGroup(initIconGroup)
     }
 
-    fun deleteIcons(iconIds: List<Int>) = viewModelScope.launch(ioDispatcher) {
+    fun loadIconGroup(iconGroup: IconGroup) = viewModelScope.launch(ioDispatcher) {
+        Log.i(TAG, "Loading $iconGroup icons")
+        displayedIcons.postValue(iconRepository.getIcons(iconGroup))
+        Log.i(TAG, "Successfully loaded $iconGroup icons")
+    }
+
+    fun deleteIcons(iconIds: Set<Int>) = viewModelScope.launch(ioDispatcher) {
         iconRepository.delete(iconIds.toSet())
         val iconIdsString = "[" + iconIds.joinToString(", ") + "]"
         Log.i(TAG, "Delete icons with ids $iconIdsString")
     }
 
-    fun moveIcons(iconIds: List<Int>, iconGroup: IconGroup) = viewModelScope.launch(ioDispatcher) {
+    fun moveIcons(iconIds: Set<Int>, iconGroup: IconGroup) = viewModelScope.launch(ioDispatcher) {
         iconRepository.moveToNewIconGroup(iconIds, iconGroup)
         val iconIdsString = "[" + iconIds.joinToString(", ") + "]"
         Log.i(TAG, "Move icons with ids $iconIdsString to $iconGroup icon group")

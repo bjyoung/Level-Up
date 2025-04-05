@@ -10,7 +10,7 @@ interface IconDao {
     fun observe(id: Int): Flow<Icon>
 
     @Query("SELECT * FROM Icon WHERE iconGroup = :iconGroup")
-    fun observeGroup(iconGroup: IconGroup): Flow<List<Icon>>
+    fun getIcons(iconGroup: IconGroup): List<Icon>
 
     @Query("SELECT * FROM Icon WHERE id = :id")
     fun get(id: Int): Icon
@@ -22,7 +22,7 @@ interface IconDao {
     suspend fun update(icon: Icon)
 
     @Query("UPDATE Icon SET iconGroup = :iconGroup WHERE id IN (:iconIds)")
-    suspend fun moveToNewIconGroup(iconIds: List<Int>, iconGroup: IconGroup)
+    suspend fun moveToNewIconGroup(iconIds: Set<Int>, iconGroup: IconGroup)
 
     @Query("DELETE FROM Icon WHERE id IN (:ids)")
     suspend fun delete(ids: Set<Int>)

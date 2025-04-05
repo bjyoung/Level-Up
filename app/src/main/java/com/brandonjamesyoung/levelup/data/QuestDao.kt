@@ -13,8 +13,6 @@ interface QuestDao {
     @Query("SELECT * FROM ActiveQuest WHERE id = :id")
     fun observe(id: Int): Flow<ActiveQuest>
 
-    // TODO Add LIMIT 1 (and test) to ensure that only one quest is returned
-    //  Also update similar queries elsewhere
     @Query("SELECT * FROM ActiveQuest WHERE id = :id")
     fun get(id: Int): ActiveQuest
 

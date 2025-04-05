@@ -40,7 +40,7 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.*
 import com.brandonjamesyoung.levelup.data.*
 
-class CardGridCreator(val context: Context) {
+class QuestGridCreator(val context: Context) {
     @Composable
     fun QuestNameView(questName: String) {
         val nameFontSize = dimensionResource(R.dimen.quest_card_font_size).value.sp
@@ -87,7 +87,7 @@ class CardGridCreator(val context: Context) {
         if (selected) {
             iconBitmap = ImageBitmap.imageResource(R.drawable.check_icon_green_large)
             iconContentDescription = "Green Checkmark Icon"
-        } else if (hasIcon) {
+        } else if (hasIcon && card.icon != null) {
             val icon: Icon = card.icon!!
             iconBitmap = icon.toImageBitmap()
             iconContentDescription = "${icon.name} Icon"
