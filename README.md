@@ -41,7 +41,7 @@ Level Up is an Android app for tracking to-do tasks with a classic arcade game a
 
 Level Up
 
-Copyright (c) 2022 Brandon Young
+Copyright (c) 2025 Brandon Young
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
