@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Max length restrictions -->
+    <integer name="max_quest_name_length">40</integer>
+    <integer name="max_player_name_length">7</integer>
+    <integer name="max_item_name_length">40</integer>
+    <integer name="max_icon_name_length">16</integer>
+    <integer name="max_cost_length">5</integer>
+    <integer name="max_points_acronym_length">3</integer>
+    <integer name="max_level_up_bonus_length">3</integer>
+
+    <!-- Number of rows for icon select grid -->
+    <integer name="grid_rows_port">5</integer>
+    <integer name="grid_rows_land">2</integer>
+
+    <!-- Animation lengths -->
+    <integer name="very_long_anim_time">600</integer>
+</resources>

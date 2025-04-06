@@ -4,11 +4,9 @@ Level Up is an Android app for tracking to-do tasks with a classic arcade game a
 
 ## How to install?
 
-1. Visit the [repository](https://github.com/bjyoung/Horizon-Guide/releases) and download the latest HorizonGuideSetup.zip
-1. Unzip and run the installer
-1. Navigate to the installation folder and run 'Horizon Guide.exe'
+1. TBD
 
-## Setup Development Environment
+## Setup Development Environment (Windows)
 
 1. Download and install [Android Studio](https://developer.android.com/studio)
 1. Clone the [repository](https://github.com/bjyoung/Level-Up)
@@ -22,8 +20,18 @@ Level Up is an Android app for tracking to-do tasks with a classic arcade game a
     1. Setup android emulator: open Device Manager > Create device > select 'Pixel 2 XL' > Next > choose 'R', API level 30 > Next > Finish
 1. Setup markdown file editor
     1. Download [Visual Studio Code](https://code.visualstudio.com/download)
-    2. Open Visual Studio Code and go to Extensions section (four squares icon in left bar)
-    3. Search for the 'markdownlint' extension and install it
+    1. Open Visual Studio Code and go to Extensions section (four squares icon in left bar)
+    1. Search for the 'markdownlint' extension and install it
+1. Setup Android Studio emulator command line tools
+    1. Open Android Studio and go to File > Project Structure > SDK Location > copy path under 'Android SDK location'
+    1. Create a system environment variable ANDROID_HOME set to the copied path
+    1. Edit the PATH system environment variable and add the paths below
+        1. %ANDROID_HOME%\tools
+        1. %ANDROID_HOME%\tools\bin
+        1. %ANDROID_HOME%\platform-tools
+    1. Click OK out of the system windows to save the changes
+    1. Open the command prompt, type in 'adb' and press ENTER to see if 'adb' is setup correctly
+        1. Should get a bunch of text and not a default error message
 
 ## Links
 

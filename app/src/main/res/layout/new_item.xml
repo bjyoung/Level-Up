@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/NewItem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        style="@style/Text"
+        android:id="@+id/CostAcronymLabel"
+        android:layout_marginStart="10dp"
+        android:text="@string/points_acronym"
+        app:layout_constraintBottom_toBottomOf="@+id/CostInput"
+        app:layout_constraintStart_toEndOf="@+id/CostInput"
+        app:layout_constraintTop_toTopOf="@+id/CostInput" />
+
+    <EditText
+        style="@style/NumInput"
+        android:id="@+id/CostInput"
+        android:layout_width="175dp"
+        android:layout_height="48dp"
+        android:autofillHints="@string/cost_input_autofill_hint"
+        android:ems="10"
+        android:hint="@string/cost_input_hint"
+        android:maxLength="@integer/max_cost_length"
+        app:layout_constraintBottom_toBottomOf="@+id/CostLabel"
+        app:layout_constraintEnd_toEndOf="@+id/ItemNameInput"
+        app:layout_constraintStart_toEndOf="@+id/CostLabel"
+        app:layout_constraintTop_toTopOf="@+id/CostLabel" />
+
+    <TextView
+        style="@style/Text"
+        android:id="@+id/NewItemLabel"
+        android:text="@string/new_item_label"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        style="@style/Label"
+        android:id="@+id/ItemNameLabel"
+        android:text="@string/name_label"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
+        app:layout_constraintEnd_toEndOf="@+id/ItemNameInput"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ItemNameInput"
+        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintVertical_bias="0.32" />
+
+    <TextView
+        style="@style/Label"
+        android:id="@+id/CostLabel"
+        android:layout_marginTop="80dp"
+        android:text="@string/cost_input_label"
+        app:layout_constraintStart_toStartOf="@+id/ItemNameInput"
+        app:layout_constraintTop_toBottomOf="@+id/ItemNameInput" />
+
+    <EditText
+        style="@style/TextInput"
+        android:id="@+id/ItemNameInput"
+        android:layout_width="325dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints="item_name"
+        android:ems="10"
+        android:hint="@string/name_hint"
+        android:inputType="textPersonName"
+        android:maxLength="@integer/max_item_name_length"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ItemNameLabel" />
+
+    <Button
+        android:id="@+id/CancelButton"
+        style="@style/ActionButton.Small"
+        android:contentDescription="@string/cancel_button_content_description"
+        app:icon="@drawable/times_icon_red_large"
+        app:iconTint="@color/warning_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/NewItemBottomGuideline" />
+
+    <Button
+        style="@style/SaveButton"
+        android:id="@+id/ConfirmButton"
+        app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/CancelButton"
+        app:layout_constraintTop_toTopOf="@+id/CancelButton"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <TextView
+        android:id="@+id/DateCreatedLabel"
+        style="@style/Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_created_label"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        style="@style/Guideline.Top"
+        android:id="@+id/NewItemTopGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        style="@style/Guideline.FarBottom"
+        android:id="@+id/NewItemBottomGuideline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

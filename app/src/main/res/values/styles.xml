@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text -->
+    <style name="Text" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">@font/press_start_2p</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="Label" parent="Text">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="XpLabel" parent="Text">
+        <item name="android:text">XP</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+    <style name="PointsLabel" parent="Text">
+        <item name="android:text">X</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+    <style name="Message" parent="Text">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/rpg_snackbar_background</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:text">Default message</item>
+        <item name="android:lineSpacingExtra">7dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="NotFoundMessage" parent="Message">
+        <item name="android:visibility">invisible</item>
+    </style>
+    <style name="Text.About">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- Input Fields -->
+    <style name="EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/press_start_2p</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+    <style name="TextInput" parent="EditText">
+        <item name="android:background">@drawable/rounded_rectangle</item>
+        <item name="android:backgroundTint">@color/background_secondary</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="android:paddingHorizontal">15dp</item>
+        <item name="android:paddingVertical">10dp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textCursorDrawable">@drawable/input_cursor_black</item>
+    </style>
+    <style name="NumInput" parent="EditText">
+        <item name="android:background">@drawable/white_border</item>
+        <item name="android:inputType">numberSigned</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/hint_primary</item>
+        <item name="android:textCursorDrawable">@drawable/input_cursor_white</item>
+    </style>
+    <style name="NumInput.Small">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:ems">10</item>
+    </style>
+    <style name="ExpInput" parent="NumInput.Small">
+        <item name="android:autofillHints">@string/exp_input_autofill_hint</item>
+        <item name="android:maxLength">4</item>
+    </style>
+    <style name="PointsInput" parent="NumInput.Small">
+        <item name="android:autofillHints">@string/points_input_autofill_hint</item>
+        <item name="android:maxLength">4</item>
+    </style>
+
+    <!-- Buttons -->
+    <style name="NavButton" parent="Widget.Material3.Button">
+        <item name="android:layout_width">@dimen/nav_button</item>
+        <item name="android:layout_height">@dimen/nav_button</item>
+        <item name="android:background">@drawable/nav_button_background</item>
+        <item name="iconTint">@color/nav_button_icon</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconSize">24dp</item>
+        <item name="backgroundTint">@null</item>
+    </style>
+    <style name="QuestIcon" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/question_mark_icon_large</item>
+        <item name="android:backgroundTint">@color/quest_card_icon_background</item>
+        <item name="android:clickable">true</item>
+        <item name="elevation">@dimen/quest_card_elevation</item>
+        <item name="fabCustomSize">@dimen/big_round_button</item>
+        <item name="maxImageSize">@dimen/quest_icon_size</item>
+    </style>
+    <style name="ActionButton" parent="TextAppearance.AppCompat.Button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/action_button_background</item>
+        <item name="iconTint">@color/action_button_icon</item>
+        <item name="iconSize">20dp</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/press_start_2p</item>
+    </style>
+    <style name="ActionButton.Small">
+        <item name="android:layout_width">@dimen/action_button_width</item>
+        <item name="android:src">@drawable/question_mark_icon</item>
+        <item name="iconSize">24dp</item>
+    </style>
+    <style name="ActionButton.Large">
+        <item name="android:layout_width">@dimen/action_button_width_long</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="SortButton" parent="ActionButton">
+        <item name="android:layout_width">@dimen/action_button_width_medium</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:text">@string/sort_button_text</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">@dimen/elevation_ui</item>
+        <item name="iconSize">0dp</item>
+        <item name="iconGravity">textEnd</item>
+        <item name="icon">@drawable/sort_date_down_icon</item>
+    </style>
+    <style name="DifficultyButton" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">@dimen/difficulty_button_width</item>
+        <item name="android:layout_height">@dimen/difficulty_button_height</item>
+        <item name="android:background">@drawable/rounded_rectangle</item>
+        <item name="android:fontFamily">@font/press_start_2p</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/difficulty_font_size</item>
+    </style>
+    <style name="DifficultyButton.Small">
+        <item name="android:layout_height">@dimen/difficulty_button_small_height</item>
+    </style>
+    <style name="IconGroupSelector" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">@dimen/icon_group_button_width</item>
+        <item name="android:layout_height">@dimen/icon_group_button_height</item>
+        <item name="android:background">@drawable/white_border_thin</item>
+        <item name="tint">@color/icon_secondary</item>
+    </style>
+    <!-- TODO Probably don't need a separate style for save button
+    just adjust in the layout file itself -->
+    <style name="SaveButton" parent="ActionButton.Small">
+        <item name="android:contentDescription">@string/confirm_button_content_description</item>
+        <item name="icon">@drawable/check_icon_green_large</item>
+        <item name="iconTint">@color/confirm_icon</item>
+    </style>
+
+    <style name="InvisibleTrigger" parent="TextAppearance.AppCompat.Button">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">@dimen/elevation_background</item>
+    </style>
+
+    <!-- Guidelines -->
+    <style name="Guideline">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="Guideline.Top">
+        <item name="layout_constraintGuide_percent">0.1</item>
+    </style>
+    <style name="Guideline.Top_Land">
+        <item name="layout_constraintGuide_percent">0.16</item>
+    </style>
+    <style name="Guideline.Bottom">
+        <item name="layout_constraintGuide_percent">0.8</item>
+    </style>
+    <style name="Guideline.Bottom_Land">
+        <item name="layout_constraintGuide_percent">0.85</item>
+    </style>
+    <style name="Guideline.FarBottom">
+        <item name="layout_constraintGuide_percent">0.85</item>
+    </style>
+    <style name="Guideline.FarBottom_Land">
+        <item name="layout_constraintGuide_percent">0.79</item>
+    </style>
+    <style name="Guideline.Left">
+        <item name="layout_constraintGuide_percent">0.15</item>
+    </style>
+    <style name="Guideline.FarLeft">
+        <item name="layout_constraintGuide_percent">0.05</item>
+    </style>
+    <style name="Guideline.Right">
+        <item name="layout_constraintGuide_percent">0.85</item>
+    </style>
+    <style name="Guideline.FarRight">
+        <item name="layout_constraintGuide_percent">0.95</item>
+    </style>
+</resources>

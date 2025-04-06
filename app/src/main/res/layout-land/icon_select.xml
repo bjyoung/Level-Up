@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/IconSelect"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        style="@style/ActionButton.Small"
+        android:id="@+id/EditButton"
+        android:tooltipText="@string/edit_icons_button_tooltip"
+        android:contentDescription="@string/edit_icons_button_content_description"
+        app:icon="@drawable/pencil_icon_large"
+        app:iconTint="@color/icon_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/AddNewIconButton"
+        app:layout_constraintStart_toEndOf="@+id/BackButton"
+        app:layout_constraintTop_toTopOf="@+id/IconSelectBottomGuideline" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
+        android:id="@+id/BackButton"
+        android:contentDescription="@string/shop_button_description"
+        app:icon="@drawable/arrow_left_icon_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/IconSelectBottomGuideline" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
+        android:id="@+id/AddNewIconButton"
+        android:tooltipText="@string/add_icon_button_tooltip"
+        android:contentDescription="@string/new_quest_button_description"
+        app:icon="@drawable/plus_icon_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/IconSelectBottomGuideline" />
+
+    <TextView
+        style="@style/Text"
+        android:id="@+id/IconSelectLabel"
+        android:text="@string/icon_select_label"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/IconSelectTopGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/IconSelectBottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <ImageButton
+        android:id="@+id/SpadesGroupButton"
+        style="@style/IconGroupSelector"
+        android:contentDescription="@string/spades_icon_group_content_description"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/spades_icon"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/HeartsGroupButton"
+        style="@style/IconGroupSelector"
+        android:contentDescription="@string/hearts_icon_group_content_description"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/heart_icon"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/ClubsGroupButton"
+        style="@style/IconGroupSelector"
+        android:contentDescription="@string/clubs_icon_group_content_description"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
+        app:layout_constraintStart_toEndOf="@+id/HeartsGroupButton"
+        app:layout_constraintTop_toTopOf="@+id/HeartsGroupButton"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/clubs_icon"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/DiamondsGroupButton"
+        style="@style/IconGroupSelector"
+        android:contentDescription="@string/diamonds_icon_group_content_description"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
+        app:layout_constraintStart_toEndOf="@+id/SpadesGroupButton"
+        app:layout_constraintTop_toTopOf="@+id/SpadesGroupButton"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/diamond_icon"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/IconSelectComposeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/NoIconsMessage"
+        style="@style/Message"
+        android:text="@string/no_icons_found_message"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

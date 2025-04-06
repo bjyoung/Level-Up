@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.brandonjamesyoung.levelup.views.QuestCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/QuestCardLayout"
+    android:layout_width="@dimen/quest_card_width"
+    android:layout_height="@dimen/quest_card_height"
+    android:layout_margin="@dimen/quest_card_margin"
+    app:cardBackgroundColor="@color/easy"
+    app:cardCornerRadius="@dimen/quest_card_corner_radius"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    />

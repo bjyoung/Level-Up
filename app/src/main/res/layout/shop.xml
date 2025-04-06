@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Shop"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/ShopNameLabel"
+        style="@style/Text"
+        android:layout_marginBottom="2dp"
+        android:text="@string/name_label"
+        app:layout_constraintBottom_toTopOf="@+id/TableDivider"
+        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline" />
+
+    <TextView
+        android:id="@+id/PriceLabel"
+        style="@style/Text"
+        android:layout_marginBottom="2dp"
+        android:text="@string/price_column_label"
+        app:layout_constraintBottom_toTopOf="@+id/ItemListScrollView"
+        app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
+        android:id="@+id/QuestListButton"
+        android:tooltipText="@string/quest_list_button_tooltip"
+        android:contentDescription="@string/quest_list_button_description"
+        app:icon="@drawable/bullet_list_icon_large"
+        app:layout_constraintBottom_toBottomOf="@+id/AddNewItemButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ShopRightGuideline"
+        app:layout_constraintTop_toTopOf="@+id/AddNewItemButton" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
+        android:id="@+id/AddNewItemButton"
+        android:tooltipText="@string/add_item_button_tooltip"
+        android:contentDescription="@string/add_item_button_description"
+        app:icon="@drawable/plus_icon_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ShopLeftGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ShopBottomGuideline" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/NavButton"
+        android:id="@+id/ShopSettingsButton"
+        android:tooltipText="@string/settings_button_tooltip"
+        android:contentDescription="@string/settings_button_description"
+        app:icon="@drawable/gear_icon_large"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintEnd_toEndOf="@+id/QuestListButton"
+        app:layout_constraintStart_toStartOf="@+id/QuestListButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/ItemHistoryButton"
+        style="@style/NavButton"
+        android:tooltipText="@string/item_history_button_tooltip"
+        android:contentDescription="@string/item_history_button_description"
+        app:icon="@drawable/clock_icon_large"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/ShopLeftGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/PointsLabel"
+        style="@style/Text"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:hint="@string/placeholder_text"
+        android:minHeight="48dp"
+        android:text="@string/points_acronym"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/ShopLabel"
+        app:layout_constraintStart_toEndOf="@+id/ItemHistoryButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <TextView
+        style="@style/Text"
+        android:id="@+id/PointsAmount"
+        android:text="@string/points_amount"
+        app:layout_constraintEnd_toEndOf="@+id/PointsLabel"
+        app:layout_constraintStart_toStartOf="@+id/PointsLabel"
+        app:layout_constraintTop_toBottomOf="@+id/PointsLabel" />
+
+    <TextView
+        style="@style/Text"
+        android:id="@+id/ShopLabel"
+        android:text="@string/shop_label"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/TotalCostLabel"
+        style="@style/Text"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:hint="@string/placeholder_text"
+        android:minHeight="48dp"
+        android:text="@string/total_cost_label"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/ShopTopGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/ShopSettingsButton"
+        app:layout_constraintStart_toEndOf="@+id/ShopLabel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <TextView
+        android:id="@+id/TotalCostAmount"
+        style="@style/Text"
+        android:text="@string/points_amount"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/TotalCostLabel"
+        app:layout_constraintStart_toStartOf="@+id/TotalCostLabel"
+        app:layout_constraintTop_toBottomOf="@+id/TotalCostLabel" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ShopTopGuideline"
+        style="@style/Guideline.Top" />
+
+    <androidx.constraintlayout.widget.Guideline
+        style="@style/Guideline.FarBottom"
+        android:id="@+id/ShopBottomGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        style="@style/Guideline.Left"
+        android:orientation="vertical"
+        android:id="@+id/ShopLeftGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        style="@style/Guideline.Right"
+        android:orientation="vertical"
+        android:id="@+id/ShopRightGuideline" />
+
+    <View
+        android:id="@+id/TableDivider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:background="#c0c0c0"
+        app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
+        app:layout_constraintTop_toTopOf="@+id/ShopTopGuideline" />
+
+    <ScrollView
+        android:id="@+id/ItemListScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ShopRightGuideline"
+        app:layout_constraintStart_toEndOf="@+id/ShopBottomGuideline"
+        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/TableDivider"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:id="@+id/ItemListLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/NoItemsMessage"
+        style="@style/NotFoundMessage"
+        android:text="@string/no_items_found_message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/SortButton"
+        style="@style/SortButton"
+        android:contentDescription="@string/shop_sort_button_message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/TableDivider"
+        app:layout_constraintStart_toStartOf="@+id/ShopLeftGuideline"
+        app:layout_constraintTop_toTopOf="@+id/ShopBottomGuideline" />
+
+    <Button
+        android:id="@+id/SortTrigger"
+        style="@style/InvisibleTrigger"
+        android:layout_width="@dimen/trigger_portrait_width"
+        android:layout_height="@dimen/trigger_portrait_height"
+        app:layout_constraintBottom_toTopOf="@+id/SortButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ShopSettingsButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

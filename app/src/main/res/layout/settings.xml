@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Settings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/SettingsMediumButton"
+        style="@style/DifficultyButton.Small"
+        android:backgroundTint="@color/medium"
+        android:text="@string/medium_label"
+        app:layout_constraintBottom_toBottomOf="@+id/SettingsEasyButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/SettingsRightGuideline"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/SettingsEasyButton"
+        app:layout_constraintTop_toTopOf="@+id/SettingsEasyButton"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/SettingsExpertButton"
+        style="@style/DifficultyButton.Small"
+        android:backgroundTint="@color/expert"
+        android:text="@string/expert_label"
+        app:layout_constraintBottom_toBottomOf="@+id/SettingsHardButton"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsMediumButton"
+        app:layout_constraintStart_toStartOf="@+id/SettingsMediumButton"
+        app:layout_constraintTop_toTopOf="@+id/SettingsHardButton"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/SettingsEasyButton"
+        style="@style/DifficultyButton.Small"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="@color/easy"
+        android:text="@string/easy_label"
+        app:layout_constraintEnd_toStartOf="@+id/SettingsMediumButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DifficultySettingsLabel"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/SettingsHardButton"
+        style="@style/DifficultyButton.Small"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/hard"
+        android:text="@string/hard_label"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsEasyButton"
+        app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
+        app:layout_constraintTop_toBottomOf="@+id/EasyPointsInput"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/SettingsLabel"
+        style="@style/Text"
+        android:text="@string/settings_label"
+        app:layout_constraintBottom_toTopOf="@+id/SettingsTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/DifficultySettingsLabel"
+        style="@style/Label"
+        android:text="@string/difficulty_settings_label"
+        app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
+        app:layout_constraintTop_toTopOf="@+id/SettingsTopGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/SettingsTopGuideline"
+        style="@style/Guideline.Top" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/SettingsBottomGuideline"
+        style="@style/Guideline.Bottom" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/SettingsLeftGuideline"
+        style="@style/Guideline.FarLeft"
+        android:orientation="vertical" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/SettingsRightGuideline"
+        style="@style/Guideline.FarRight"
+        android:orientation="vertical" />
+
+    <TextView
+        android:id="@+id/PointsAcronymLabel"
+        style="@style/Text"
+        android:text="@string/points_acronym_label"
+        app:layout_constraintBottom_toTopOf="@+id/LevelUpBonusLabel"
+        app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/HardPointsInput"
+        app:layout_constraintVertical_bias="0.66" />
+
+    <TextView
+        android:id="@+id/LevelUpBonusLabel"
+        style="@style/Text"
+        android:text="@string/level_up_bonus_label"
+        android:tooltipText="@string/level_up_mult_tooltip"
+        app:layout_constraintBottom_toTopOf="@+id/SettingsBottomGuideline"
+        app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/PointsAcronymLabel" />
+
+    <TextView
+        android:id="@+id/EasyExpLabel"
+        style="@style/XpLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/EasyExpInput"
+        app:layout_constraintStart_toEndOf="@+id/EasyExpInput"
+        app:layout_constraintTop_toTopOf="@+id/EasyExpInput"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/ExpertExpLabel"
+        style="@style/XpLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/ExpertExpInput"
+        app:layout_constraintStart_toEndOf="@+id/ExpertExpInput"
+        app:layout_constraintTop_toTopOf="@+id/ExpertExpInput"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/HardExpLabel"
+        style="@style/XpLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/HardExpInput"
+        app:layout_constraintStart_toEndOf="@+id/HardExpInput"
+        app:layout_constraintTop_toTopOf="@+id/HardExpInput"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/MediumExpLabel"
+        style="@style/XpLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/MediumExpInput"
+        app:layout_constraintStart_toEndOf="@+id/MediumExpInput"
+        app:layout_constraintTop_toTopOf="@+id/MediumExpInput"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/EasyPointsLabel"
+        style="@style/PointsLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/EasyPointsInput"
+        app:layout_constraintStart_toEndOf="@+id/EasyPointsInput"
+        app:layout_constraintTop_toTopOf="@+id/EasyPointsInput"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/HardPointsLabel"
+        style="@style/PointsLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/HardPointsInput"
+        app:layout_constraintStart_toEndOf="@+id/HardPointsInput"
+        app:layout_constraintTop_toTopOf="@+id/HardPointsInput"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/ExpertPointsLabel"
+        style="@style/PointsLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/ExpertPointsInput"
+        app:layout_constraintStart_toEndOf="@+id/ExpertPointsInput"
+        app:layout_constraintTop_toTopOf="@+id/ExpertPointsInput" />
+
+    <TextView
+        android:id="@+id/LevelUpBonusPointsLabel"
+        style="@style/Text"
+        android:layout_marginStart="10dp"
+        android:text="X"
+        app:layout_constraintBottom_toBottomOf="@+id/LevelUpBonusInput"
+        app:layout_constraintStart_toEndOf="@+id/LevelUpBonusInput"
+        app:layout_constraintTop_toTopOf="@+id/LevelUpBonusInput"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/MediumPointsLabel"
+        style="@style/PointsLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/MediumPointsInput"
+        app:layout_constraintStart_toEndOf="@+id/MediumPointsInput"
+        app:layout_constraintTop_toTopOf="@+id/MediumPointsInput"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <EditText
+        android:id="@+id/EasyExpInput"
+        style="@style/ExpInput"
+        android:layout_marginTop="10dp"
+        android:hint="@string/easy_exp_input_hint"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsEasyButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
+        app:layout_constraintTop_toBottomOf="@+id/SettingsEasyButton" />
+
+    <EditText
+        android:id="@+id/HardExpInput"
+        style="@style/ExpInput"
+        android:layout_marginTop="10dp"
+        android:hint="@string/hard_exp_input_hint"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsHardButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/SettingsHardButton"
+        app:layout_constraintTop_toBottomOf="@+id/SettingsHardButton" />
+
+    <EditText
+        android:id="@+id/ExpertExpInput"
+        style="@style/ExpInput"
+        android:layout_marginTop="10dp"
+        android:hint="@string/expert_exp_input_hint"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsExpertButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/SettingsExpertButton"
+        app:layout_constraintTop_toBottomOf="@+id/SettingsExpertButton" />
+
+    <EditText
+        android:id="@+id/MediumExpInput"
+        style="@style/ExpInput"
+        android:layout_marginTop="10dp"
+        android:hint="@string/medium_exp_input_hint"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsMediumButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/SettingsMediumButton"
+        app:layout_constraintTop_toBottomOf="@+id/SettingsMediumButton" />
+
+    <EditText
+        android:id="@+id/EasyPointsInput"
+        style="@style/PointsInput"
+        android:layout_marginTop="10dp"
+        android:hint="@string/easy_points_input_hint"
+        app:layout_constraintEnd_toEndOf="@+id/SettingsEasyButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
+        app:layout_constraintTop_toBottomOf="@+id/EasyExpInput" />
+
+    <EditText
+        android:id="@+id/HardPointsInput"
+        style="@style/PointsInput"
+        android:layout_marginTop="10dp"
+        android:hint="@string/hard_points_input_hint"
+        app:layout_constraintEnd_toEndOf="@+id/HardExpInput"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/HardExpInput"
+        app:layout_constraintTop_toBottomOf="@+id/HardExpInput" />
+
+    <EditText
+        android:id="@+id/ExpertPointsInput"
+        style="@style/PointsInput"
+        android:layout_marginTop="10dp"
+        android:hint="@string/expert_points_input_hint"
+        app:layout_constraintEnd_toEndOf="@+id/ExpertExpInput"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/ExpertExpInput"
+        app:layout_constraintTop_toBottomOf="@+id/ExpertExpInput" />
+
+    <EditText
+        android:id="@+id/PointsAcronymInput"
+        style="@style/NumInput.Small"
+        android:layout_marginStart="30dp"
+        android:autofillHints="@string/points_acronym"
+        android:hint="@string/points_acronym"
+        android:inputType="textCapCharacters"
+        android:text="@string/points_acronym"
+        android:maxLength="@integer/max_points_acronym_length"
+        app:layout_constraintBottom_toBottomOf="@+id/PointsAcronymLabel"
+        app:layout_constraintEnd_toEndOf="@+id/ExpertExpInput"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/PointsAcronymLabel"
+        app:layout_constraintTop_toTopOf="@+id/PointsAcronymLabel"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <EditText
+        android:id="@+id/LevelUpBonusInput"
+        style="@style/PointsInput"
+        android:layout_marginStart="30dp"
+        android:hint="@string/level_up_bonus_hint"
+        android:maxLength="@integer/max_level_up_bonus_length"
+        app:layout_constraintBottom_toBottomOf="@+id/LevelUpBonusLabel"
+        app:layout_constraintEnd_toEndOf="@+id/ExpertExpInput"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/PointsAcronymLabel"
+        app:layout_constraintTop_toTopOf="@+id/LevelUpBonusLabel" />
+
+    <EditText
+        android:id="@+id/MediumPointsInput"
+        style="@style/PointsInput"
+        android:layout_marginTop="10dp"
+        android:hint="@string/medium_points_input_hint"
+        app:layout_constraintEnd_toEndOf="@+id/MediumExpInput"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/MediumExpInput"
+        app:layout_constraintTop_toBottomOf="@+id/MediumExpInput" />
+
+    <Button
+        android:id="@+id/AdvancedSettingsButton"
+        style="@style/ActionButton"
+        android:layout_width="@dimen/action_button_width_long"
+        android:contentDescription="@string/advanced_settings_content_description"
+        android:text="@string/advanced_settings_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/SettingsRightGuideline"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
+        app:layout_constraintTop_toTopOf="@+id/SettingsBottomGuideline"
+        app:layout_constraintVertical_bias="0.23000002" />
+
+    <Button
+        android:id="@+id/CancelButton"
+        style="@style/ActionButton.Small"
+        android:contentDescription="@string/cancel_button_content_description"
+        app:icon="@drawable/times_icon_red_large"
+        app:iconTint="@color/warning_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AdvancedSettingsButton" />
+
+    <Button
+        style="@style/SaveButton"
+        android:id="@+id/ConfirmButton"
+        app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/CancelButton"
+        app:layout_constraintTop_toTopOf="@+id/CancelButton"
+        app:layout_constraintVertical_bias="0.95" />
+</androidx.constraintlayout.widget.ConstraintLayout>

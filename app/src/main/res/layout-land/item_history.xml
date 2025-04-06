@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ItemHistory"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/ItemNameLabel"
+        style="@style/Text"
+        android:layout_marginBottom="2dp"
+        android:text="@string/name_label"
+        app:layout_constraintBottom_toTopOf="@+id/TableDivider"
+        app:layout_constraintStart_toStartOf="@+id/ItemHistoryLeftGuideline" />
+
+    <TextView
+        android:id="@+id/CostLabel"
+        style="@style/Text"
+        android:text="@string/cost_column_label"
+        app:layout_constraintBottom_toBottomOf="@+id/ItemNameLabel"
+        app:layout_constraintEnd_toStartOf="@+id/ItemHistoryRightGuideline" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/ShopButton"
+        style="@style/NavButton"
+        android:tooltipText="@string/shop_button_tooltip"
+        android:contentDescription="@string/shop_button_description"
+        app:icon="@drawable/shopping_bag_icon_large"
+        app:layout_constraintBottom_toTopOf="@+id/ItemHistoryTopGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/ItemHistoryLeftGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        style="@style/Text"
+        android:id="@+id/ItemHistoryLabel"
+        android:text="@string/item_history_label"
+        app:layout_constraintBottom_toTopOf="@+id/ItemHistoryTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ItemHistoryTopGuideline"
+        style="@style/Guideline.Top_Land" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ItemHistoryBottomGuideline"
+        style="@style/Guideline.FarBottom_Land" />
+
+    <androidx.constraintlayout.widget.Guideline
+        style="@style/Guideline.Left"
+        android:orientation="vertical"
+        android:id="@+id/ItemHistoryLeftGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        style="@style/Guideline.Right"
+        android:orientation="vertical"
+        android:id="@+id/ItemHistoryRightGuideline" />
+
+    <View
+        android:id="@+id/TableDivider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        app:layout_constraintEnd_toStartOf="@+id/ItemHistoryRightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/ItemHistoryLeftGuideline"
+        app:layout_constraintTop_toTopOf="@+id/ItemHistoryTopGuideline" />
+
+    <ScrollView
+        android:id="@+id/ItemHistoryScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ItemHistoryRightGuideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ItemHistoryBottomGuideline"
+        app:layout_constraintStart_toStartOf="@+id/ItemHistoryLeftGuideline"
+        app:layout_constraintTop_toTopOf="@+id/ItemHistoryTopGuideline"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:id="@+id/ItemHistoryLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/NoItemsMessage"
+        style="@style/NotFoundMessage"
+        android:text="@string/no_items_found_message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

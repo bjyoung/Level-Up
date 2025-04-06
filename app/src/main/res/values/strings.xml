@@ -1,7 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Level Up</string>
-    <string name="username_level_header">Lvl %1$d %2$s</string>
-    <string name="placeholder_username">Username</string>
-    <string name="placeholder_level">\?\?\?</string>
-    <string name="placeholder_quest_name">\?\?\?</string>
+
+    <!-- Snackbar strings -->
+    <string name="default_snackbar_message">Default message</string>
+
+    <!-- Name Entry strings -->
+    <string name="name_entry_title">Enter Your Name</string>
+    <string name="player_name_length_error">
+        Please enter a name with 7 or less characters
+    </string>
+    <string name="player_name_invalid_char_error">Only alphanumeric characters are allowed</string>
+
+    <!-- Quest List strings -->
+    <string name="quest_list_label">Quest List</string>
+    <string name="level_label">Lvl</string>
+    <string name="username_level_header_placeholder">Lvl 1 Player</string>
+    <string name="username_level_header">Lvl %1$s %2$s</string>
+    <string name="placeholder_text">\?\?\?</string>
+    <string name="new_quest_button_tooltip">New Quest</string>
+    <string name="new_quest_button_description">Navigate to the New Quest page</string>
+    <string name="settings_button_tooltip">Settings</string>
+    <string name="settings_button_description">Navigate to the Settings page</string>
+    <string name="shop_button_tooltip">Shop</string>
+    <string name="shop_button_description">Navigate to the Shop page</string>
+    <string name="quest_history_button_tooltip">Quest History</string>
+    <string name="quest_history_button_description">Navigate to the Quest History page</string>
+    <string name="quest_icon_description">Quest icon</string>
+    <string name="next_lvl_exp_label">Next Lvl Exp</string>
+    <string name="next_lvl_exp_default">0</string>
+    <string name="no_quests_found_message">No quests found</string>
+    <string name="quest_list_sort_button_message">Sort quests</string>
+
+    <!-- New Quest strings -->
+    <string name="new_quest_label">New Quest</string>
+    <string name="edit_quest_label">Edit Quest</string>
+    <string name="name_label">Name</string>
+    <string name="name_hint">Enter name here</string>
+    <string name="quest_name_length_error">Please enter a name with less than 30 characters</string>
+    <string name="name_invalid_char_error">
+        Only alphanumeric and the following punctuation are allowed: !#$%&amp;:?()@_+/,.-
+    </string>
+    <string name="difficulty_selector_label">Difficulty</string>
+    <string name="icon_input_label">Icon</string>
+    <string name="icon_input_content_description">Icon selector</string>
+    <string name="cancel_button_content_description">Red cross</string>
+    <string name="confirm_button_content_description">Green check</string>
+    <string name="difficulty_select_box_content_description">White box</string>
+    <string name="date_created_label">Created: %1$s</string>
+
+    <!-- Difficulty strings -->
+    <string name="easy_label">Easy</string>
+    <string name="medium_label">Medium</string>
+    <string name="hard_label">Hard</string>
+    <string name="expert_label">Expert</string>
+
+    <!-- Settings strings -->
+    <string name="settings_label">Settings</string>
+    <string name="difficulty_settings_label">Difficulty Settings</string>
+    <string name="exp_input_autofill_hint">experience</string>
+    <string name="easy_exp_input_hint">100</string>
+    <string name="medium_exp_input_hint">250</string>
+    <string name="hard_exp_input_hint">600</string>
+    <string name="expert_exp_input_hint">2500</string>
+    <string name="points_input_autofill_hint">points</string>
+    <string name="easy_points_input_hint">1</string>
+    <string name="medium_points_input_hint">4</string>
+    <string name="hard_points_input_hint">10</string>
+    <string name="expert_points_input_hint">40</string>
+    <string name="exp_acronym">XP</string>
+    <string name="points_acronym_label">Points Acronym</string>
+    <string name="points_acronym_autofill_hint">pointsAcronym</string>
+    <string name="level_up_bonus_label">Level Up Mult</string>
+    <string name="level_up_mult_tooltip">Affects points earned on level up (mult * lvl)</string>
+    <string name="level_up_bonus_hint">5</string>
+    <string name="level_up_bonus_autofill_hint">levelUpBonus</string>
+    <string name="font_size_selector_label">Font Size</string>
+    <string name="small_size_label">Small</string>
+    <string name="medium_size_label">Medium</string>
+    <string name="large_size_label">Large</string>
+    <string name="not_a_number_error">Please input a number</string>
+    <string name="num_out_of_range_error">Please input a number between %1$d and %2$d</string>
+    <string name="num_too_small_error">Please input a number greater than or equal to %1$d</string>
+    <string name="num_too_large_error">Please input a number less than or equal to %1$d</string>
+    <string name="no_acronym_error">Please input an acronym</string>
+    <string name="only_alpha_allowed_error">Only letters are allowed</string>
+    <string name="three_characters_limit_error">Must be 3 characters or less</string>
+    <string name="advanced_settings_content_description">Navigate to Advanced Settings</string>
+
+    <!-- Advanced Settings strings -->
+    <string name="advanced_settings_label">Advanced Settings</string>
+    <string name="backup_button_label">Back Up</string>
+    <string name="backup_button_tooltip">Save a copy of the app\'s data to your phone</string>
+    <string name="backup_button_content_description">Back Up data</string>
+    <string name="restore_data_button_label">Restore Data</string>
+    <string name="restore_data_button_tooltip">Restore app data using a backup file</string>
+    <string name="restore_data_button_content_description">Restore data from a backup</string>
+    <string name="about_button_label">About</string>
+    <string name="about_button_content_description">Navigate to About page</string>
+    <string name="advanced_settings_back_button_content_description">
+        Navigate to Settings page
+    </string>
+    <string name="restore_defaults_button_content_description">
+        Reset app and restore default values
+    </string>
+    <string name="restore_defaults_button_label">Restore Defaults</string>
+    <string name="restore_defaults_tooltip">Restore icons or settings to default values</string>
+
+    <!-- Restore Defaults strings -->
+    <string name="restore_defaults_label">Restore Defaults</string>
+    <string name="restore_defaults_back_button_description">Go back to Advanced Settings</string>
+
+    <!-- Reset Icons strings -->
+    <string name="reset_icons_label">Reset Icons</string>
+    <string name="reset_icons_description">
+        Replace all Icon Select icons with the default ones
+    </string>
+    <string name="reset_icons_warning">
+        Are you sure you want to restore default icons? All quest
+        icons will be reset to default too.
+    </string>
+    <string name="reset_icons_confirm_button_description">
+        Restore default icons and go back to Restore Defaults page
+    </string>
+    <string name="reset_icons_cancel_button_description">Go back to Restore Defaults</string>
+
+    <!-- Reset Settings strings -->
+    <string name="reset_settings_label">Reset Settings</string>
+    <string name="reset_settings_description">
+        Reset all settings back to their default values
+    </string>
+    <string name="reset_settings_warning">
+        Are you sure you want to restore default settings?
+    </string>
+    <string name="reset_settings_confirm_button_description">
+        Restore default settings and go back to Restore Defaults page
+    </string>
+    <string name="reset_settings_cancel_button_description">Go back to Restore Defaults</string>
+
+    <!-- Shop strings -->
+    <string name="shop_label">Shop</string>
+    <string name="price_column_label">Price</string>
+    <string name="points_amount">0</string>
+    <string name="points_acronym">BP</string>
+    <string name="points_acronym_default">BP</string>
+    <string name="total_cost_label">Total</string>
+    <string name="name_sort_icon_content_description">White arrow pointing down</string>
+    <string name="quest_list_button_tooltip">Quest List</string>
+    <string name="quest_list_button_description">Navigate to the Quest List page</string>
+    <string name="item_history_button_tooltip">Item History</string>
+    <string name="item_history_button_description">Navigate to the Item History page</string>
+    <string name="add_item_button_tooltip">New Item</string>
+    <string name="add_item_button_description">Navigate to the New Item page</string>
+    <string name="example_item_name">Item Name</string>
+    <string name="example_item_cost">1</string>
+    <string name="no_items_found_message">No items found</string>
+    <string name="shop_sort_button_message">Sort shop items</string>
+    <string name="sort_button_text">Sort By:</string>
+
+    <!-- Item History strings -->
+    <string name="item_history_label">Item History</string>
+    <string name="cost_column_label">Cost</string>
+
+    <!-- New Item strings -->
+    <string name="new_item_label">New Item</string>
+    <string name="edit_item_label">Edit Item</string>
+    <string name="cost_input_label">Cost</string>
+    <string name="cost_input_hint">15</string>
+    <string name="cost_input_autofill_hint">costInput</string>
+
+    <!-- Icon Select strings -->
+    <string name="icon_select_label">Select an Icon</string>
+    <string name="spades_icon_group_content_description">Spades icon group</string>
+    <string name="diamonds_icon_group_content_description">Diamonds icon group</string>
+    <string name="hearts_icon_group_content_description">Hearts icon group</string>
+    <string name="clubs_icon_group_content_description">Clubs icon group</string>
+    <string name="edit_icons_button_tooltip">Switch to Edit mode</string>
+    <string name="edit_icons_button_content_description">Pencil icon</string>
+    <string name="default_icon_name">Icon</string>
+    <string name="no_icons_found_message">No icons found</string>
+    <string name="no_icons_selected_message">No icons selected</string>
+    <string name="select_another_icon_group_message">Choose another icon group</string>
+    <string name="add_icon_button_tooltip">Add icon</string>
+    <string name="select_mode_button_tooltip">Switch to Select mode</string>
+    <string name="delete_icons_button_tooltip">Delete selected icons</string>
+    <string name="move_icons_button_tooltip">Move selected icons to another icon group</string>
+
+    <!-- New Icon strings -->
+    <string name="new_icon_label">New Icon</string>
+
+    <!-- Quest History strings -->
+    <string name="quest_history_label">Quest History</string>
+
+    <!-- About strings -->
+    <string name="authorship">By Brandon Young</string>
+    <string name="app_version">Version %1$s</string>
+    <string name="back_button_content_description">Back button</string>
 </resources>

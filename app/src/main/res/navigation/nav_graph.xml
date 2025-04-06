@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/questList">
+    <fragment
+        android:id="@+id/questList"
+        android:name="com.brandonjamesyoung.levelup.fragments.QuestList"
+        android:label="quest_list"
+        tools:layout="@layout/quest_list" >
+        <action
+            android:id="@+id/action_questList_to_newQuest"
+            app:destination="@id/newQuest"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_questList_to_settings"
+            app:destination="@id/settings"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
+        <action
+            android:id="@+id/action_questList_to_shop"
+            app:destination="@id/shop"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_questList_to_questHistory"
+            app:destination="@id/questHistory"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
+        <action
+            android:id="@+id/action_questList_to_nameEntry"
+            app:destination="@id/nameEntry"
+            app:enterAnim="@anim/zoom_in_from_front"
+            app:exitAnim="@anim/zoom_to_back"
+            app:popEnterAnim="@anim/zoom_in_from_back"
+            app:popExitAnim="@anim/zoom_to_front" />
+    </fragment>
+    <fragment
+        android:id="@+id/newQuest"
+        android:name="com.brandonjamesyoung.levelup.fragments.NewQuest"
+        android:label="NewQuest"
+        tools:layout="@layout/new_quest">
+        <action
+            android:id="@+id/action_newQuest_to_questList"
+            app:destination="@id/questList"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <argument
+            android:name="questId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_newQuest_to_iconSelect"
+            app:destination="@id/iconSelect"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="iconId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.brandonjamesyoung.levelup.fragments.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/settings">
+        <action
+            android:id="@+id/action_settings_to_questList"
+            app:destination="@id/questList"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
+        <action
+            android:id="@+id/action_settings_to_shop"
+            app:destination="@id/shop"
+            app:enterAnim="@anim/slide_in_up_right"
+            app:exitAnim="@anim/slide_out_up_right"
+            app:popEnterAnim="@anim/slide_in_down_left"
+            app:popExitAnim="@anim/slide_out_down_left"/>
+        <argument
+            android:name="fragmentId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_settings_to_advancedSettings"
+            app:destination="@id/advancedSettings"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
+    </fragment>
+    <fragment
+        android:id="@+id/shop"
+        android:name="com.brandonjamesyoung.levelup.fragments.Shop"
+        android:label="Shop"
+        tools:layout="@layout/shop">
+        <action
+            android:id="@+id/action_shop_to_questList"
+            app:destination="@id/questList"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_shop_to_settings"
+            app:destination="@id/settings"
+            app:enterAnim="@anim/slide_in_down_left"
+            app:exitAnim="@anim/slide_out_down_left"
+            app:popEnterAnim="@anim/slide_in_up_right"
+            app:popExitAnim="@anim/slide_out_up_right" />
+        <action
+            android:id="@+id/action_shop_to_newItem"
+            app:destination="@id/newItem"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_shop_to_itemHistory"
+            app:destination="@id/itemHistory"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/newItem"
+        android:name="com.brandonjamesyoung.levelup.fragments.NewItem"
+        android:label="NewItem"
+        tools:layout="@layout/new_item" >
+        <action
+            android:id="@+id/action_newItem_to_shop"
+            app:destination="@id/shop"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="itemId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/iconSelect"
+        android:name="com.brandonjamesyoung.levelup.fragments.IconSelect"
+        android:label="IconSelect"
+        tools:layout="@layout/icon_select" >
+        <action
+            android:id="@+id/action_iconSelect_to_newQuest"
+            app:destination="@id/newQuest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_iconSelect_to_newIcon"
+            app:destination="@id/newIcon"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nameEntry"
+        android:name="com.brandonjamesyoung.levelup.fragments.NameEntry"
+        android:label="NameEntry"
+        tools:layout="@layout/name_entry" >
+        <action
+            android:id="@+id/action_nameEntry_to_questList"
+            app:destination="@id/questList"
+            app:enterAnim="@anim/zoom_in_from_back"
+            app:exitAnim="@anim/zoom_to_front"
+            app:popEnterAnim="@anim/zoom_in_from_front"
+            app:popExitAnim="@anim/zoom_to_back" />
+    </fragment>
+    <fragment
+        android:id="@+id/newIcon"
+        android:name="com.brandonjamesyoung.levelup.fragments.NewIcon"
+        android:label="NewIcon"
+        tools:layout="@layout/new_icon" >
+        <action
+            android:id="@+id/action_newIcon_to_iconSelect"
+            app:destination="@id/iconSelect"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/restoreDefaults"
+        android:name="com.brandonjamesyoung.levelup.fragments.RestoreDefaults"
+        android:label="RestoreDefaults"
+        tools:layout="@layout/restore_defaults">
+        <action
+            android:id="@+id/action_restoreDefaults_to_advancedSettings"
+            app:destination="@id/advancedSettings"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_restoreDefaults_to_resetIcons"
+            app:destination="@id/resetIcons"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
+        <action
+            android:id="@+id/action_restoreDefaults_to_resetSettings"
+            app:destination="@id/resetSettings"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetSettings"
+        android:name="com.brandonjamesyoung.levelup.fragments.ResetSettings"
+        android:label="ResetSettings"
+        tools:layout="@layout/reset_settings">
+        <action
+            android:id="@+id/action_resetSettings_to_restoreDefaults"
+            app:destination="@id/restoreDefaults"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetIcons"
+        android:name="com.brandonjamesyoung.levelup.fragments.ResetIcons"
+        android:label="ResetIcons"
+        tools:layout="@layout/reset_icons">
+        <action
+            android:id="@+id/action_resetIcons_to_restoreDefaults"
+            app:destination="@id/restoreDefaults"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/questHistory"
+        android:name="com.brandonjamesyoung.levelup.fragments.QuestHistory"
+        android:label="QuestHistory"
+        tools:layout="@layout/quest_history">
+        <action
+            android:id="@+id/action_questHistory_to_questList"
+            app:destination="@id/questList"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
+    </fragment>
+    <fragment
+        android:id="@+id/advancedSettings"
+        android:name="com.brandonjamesyoung.levelup.fragments.AdvancedSettings"
+        android:label="AdvancedSettings"
+        tools:layout="@layout/advanced_settings">
+        <action
+            android:id="@+id/action_advancedSettings_to_settings"
+            app:destination="@id/settings"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
+        <action
+            android:id="@+id/action_advancedSettings_to_about"
+            app:destination="@id/about"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
+        <action
+            android:id="@+id/action_advancedSettings_to_restoreDefaults"
+            app:destination="@id/restoreDefaults"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemHistory"
+        android:name="com.brandonjamesyoung.levelup.fragments.ItemHistory"
+        android:label="ItemHistory"
+        tools:layout="@layout/item_history"
+        >
+        <action
+            android:id="@+id/action_itemHistory_to_shop"
+            app:destination="@id/shop"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up" />
+    </fragment>
+    <fragment android:id="@+id/about"
+        android:name="com.brandonjamesyoung.levelup.fragments.About"
+        android:label="About"
+        tools:layout="@layout/about"
+        >
+        <action
+            android:id="@+id/action_about_to_advancedSettings"
+            app:destination="@id/advancedSettings"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_down" />
+    </fragment>
+</navigation>

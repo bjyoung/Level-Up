@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/NewQuest"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/NewQuestLabel"
+        style="@style/Text"
+        android:text="@string/new_quest_label"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/DifficultyLabel"
+        style="@style/Label"
+        android:text="@string/difficulty_selector_label"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/NameLabel"
+        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <TextView
+        android:id="@+id/IconLabel"
+        style="@style/Label"
+        android:text="@string/icon_input_label"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
+        app:layout_constraintStart_toStartOf="@+id/DifficultyLabel"
+        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintVertical_bias="0.83" />
+
+    <TextView
+        android:id="@+id/NameLabel"
+        style="@style/Label"
+        android:text="@string/name_label"
+        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/NameInput"
+        style="@style/TextInput"
+        android:layout_width="450dp"
+        android:layout_marginTop="15dp"
+        android:autofillHints="event_name"
+        android:ems="10"
+        android:hint="@string/name_hint"
+        android:inputType="textPersonName"
+        android:maxLength="@integer/max_quest_name_length"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/NameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/NameLabel" />
+
+    <ImageView
+        android:id="@+id/DifficultySelectBox"
+        android:layout_width="@dimen/select_box_width"
+        android:layout_height="@dimen/select_box_height"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/difficulty_select_box_content_description"
+        app:layout_constraintBottom_toBottomOf="@+id/EasyButton"
+        app:layout_constraintEnd_toEndOf="@+id/EasyButton"
+        app:layout_constraintStart_toStartOf="@+id/EasyButton"
+        app:layout_constraintTop_toTopOf="@+id/EasyButton"
+        app:srcCompat="@drawable/white_border" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/EasyButton"
+        style="@style/DifficultyButton"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/easy"
+        android:text="@string/easy_label"
+        app:layout_constraintEnd_toStartOf="@+id/MediumButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/DifficultyLabel"
+        app:layout_constraintTop_toBottomOf="@+id/DifficultyLabel" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/MediumButton"
+        style="@style/DifficultyButton"
+        android:backgroundTint="@color/medium"
+        android:text="@string/medium_label"
+        app:layout_constraintBottom_toBottomOf="@+id/EasyButton"
+        app:layout_constraintEnd_toEndOf="@+id/NameInput"
+        app:layout_constraintEnd_toStartOf="@+id/HardButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/EasyButton"
+        app:layout_constraintTop_toTopOf="@+id/EasyButton" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/HardButton"
+        style="@style/DifficultyButton"
+        android:backgroundTint="@color/hard"
+        android:text="@string/hard_label"
+        app:layout_constraintBottom_toBottomOf="@+id/MediumButton"
+        app:layout_constraintEnd_toStartOf="@+id/ExpertButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/MediumButton"
+        app:layout_constraintTop_toTopOf="@+id/MediumButton" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ExpertButton"
+        style="@style/DifficultyButton"
+        android:backgroundTint="@color/expert"
+        android:text="@string/expert_label"
+        app:layout_constraintBottom_toBottomOf="@+id/HardButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/HardButton"
+        app:layout_constraintTop_toTopOf="@+id/HardButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/IconButton"
+        style="@style/QuestIcon"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/icon_input_content_description"
+        app:layout_constraintBottom_toBottomOf="@+id/IconLabel"
+        app:layout_constraintStart_toEndOf="@+id/IconLabel"
+        app:layout_constraintTop_toTopOf="@+id/IconLabel"
+        app:srcCompat="@drawable/question_mark_icon_large" />
+
+    <Button
+        android:id="@+id/CancelButton"
+        style="@style/ActionButton.Small"
+        android:contentDescription="@string/cancel_button_content_description"
+        app:icon="@drawable/times_icon_red_large"
+        app:iconTint="@color/warning_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/NewItemBottomGuideline" />
+
+    <Button
+        style="@style/SaveButton"
+        android:id="@+id/ConfirmButton"
+        app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/CancelButton"
+        app:layout_constraintTop_toTopOf="@+id/CancelButton"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <TextView
+        android:id="@+id/DateCreatedLabel"
+        style="@style/Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_created_label"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/ConfirmButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/IconButton"
+        app:layout_constraintTop_toBottomOf="@+id/HardButton" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/NewItemTopGuideline"
+        style="@style/Guideline.Top" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/NewItemBottomGuideline"
+        style="@style/Guideline.FarBottom" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
