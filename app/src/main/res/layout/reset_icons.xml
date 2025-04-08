@@ -10,10 +10,11 @@
         android:id="@+id/RestIconsLabel"
         style="@style/Text"
         android:text="@string/reset_icons_label"
-        app:layout_constraintBottom_toTopOf="@+id/ResetIconsTopGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/title_vertical_bias" />
 
     <TextView
         android:id="@+id/ResetSettingsWarning"
@@ -26,16 +27,6 @@
         app:layout_constraintTop_toBottomOf="@+id/RestIconsLabel" />
 
     <Button
-        android:id="@+id/ConfirmButton"
-        style="@style/SaveButton"
-        app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/CancelButton"
-        app:layout_constraintTop_toTopOf="@+id/CancelButton"
-        app:layout_constraintVertical_bias="0.95" />
-
-    <Button
         android:id="@+id/CancelButton"
         style="@style/ActionButton.Small"
         android:contentDescription="@string/cancel_button_content_description"
@@ -43,16 +34,16 @@
         app:iconTint="@color/warning_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ResetIconsBottomGuideline" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/action_button_vertical_bias" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ResetIconsTopGuideline"
-        style="@style/Guideline.Top" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ResetIconsBottomGuideline"
-        style="@style/Guideline.Bottom" />
+    <Button
+        android:id="@+id/ConfirmButton"
+        style="@style/SaveButton"
+        app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/CancelButton"
+        app:layout_constraintTop_toTopOf="@+id/CancelButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

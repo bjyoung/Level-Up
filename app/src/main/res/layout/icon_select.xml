@@ -6,70 +6,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/IconSelectLabel"
+        style="@style/Text"
+        android:text="@string/icon_select_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/title_vertical_bias" />
+
     <Button
-        style="@style/ActionButton.Small"
         android:id="@+id/EditButton"
-        android:tooltipText="@string/edit_icons_button_tooltip"
+        style="@style/ActionButton.Small"
         android:contentDescription="@string/edit_icons_button_content_description"
+        android:tooltipText="@string/edit_icons_button_tooltip"
         app:icon="@drawable/pencil_icon_large"
         app:iconTint="@color/icon_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/AddNewIconButton"
         app:layout_constraintStart_toEndOf="@+id/BackButton"
-        app:layout_constraintTop_toTopOf="@+id/IconSelectBottomGuideline" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/action_button_vertical_bias" />
 
     <com.google.android.material.button.MaterialButton
-        style="@style/NavButton"
         android:id="@+id/BackButton"
+        style="@style/NavButton"
         android:contentDescription="@string/shop_button_description"
         app:icon="@drawable/arrow_left_icon_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="@dimen/left_nav_button_horizontal_bias_portrait"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/IconSelectBottomGuideline" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/bottom_nav_button_vertical_bias_portrait" />
 
     <com.google.android.material.button.MaterialButton
-        style="@style/NavButton"
         android:id="@+id/AddNewIconButton"
-        android:tooltipText="@string/add_icon_button_tooltip"
+        style="@style/NavButton"
         android:contentDescription="@string/new_quest_button_description"
+        android:tooltipText="@string/add_icon_button_tooltip"
         app:icon="@drawable/plus_icon_large"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/BackButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/IconSelectBottomGuideline" />
-
-    <TextView
-        style="@style/Text"
-        android:id="@+id/IconSelectLabel"
-        android:text="@string/icon_select_label"
-        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/IconSelectTopGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/IconSelectBottomGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9015048" />
+        app:layout_constraintTop_toTopOf="@+id/BackButton" />
 
     <ImageButton
         android:id="@+id/SpadesGroupButton"
         style="@style/IconGroupSelector"
         android:contentDescription="@string/spades_icon_group_content_description"
         android:translationZ="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
         app:layout_constraintEnd_toStartOf="@+id/DiamondsGroupButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -79,44 +67,38 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <ImageButton
-        style="@style/IconGroupSelector"
         android:id="@+id/HeartsGroupButton"
+        style="@style/IconGroupSelector"
         android:contentDescription="@string/hearts_icon_group_content_description"
         android:translationZ="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
         app:layout_constraintEnd_toStartOf="@+id/ClubsGroupButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/DiamondsGroupButton"
         app:layout_constraintTop_toTopOf="@+id/DiamondsGroupButton"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/heart_icon"
         tools:ignore="TouchTargetSizeCheck" />
 
     <ImageButton
-        style="@style/IconGroupSelector"
         android:id="@+id/ClubsGroupButton"
+        style="@style/IconGroupSelector"
         android:contentDescription="@string/clubs_icon_group_content_description"
         android:translationZ="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
         app:layout_constraintEnd_toEndOf="@+id/IconSelectLabel"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/HeartsGroupButton"
         app:layout_constraintTop_toTopOf="@+id/HeartsGroupButton"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/clubs_icon"
         tools:ignore="TouchTargetSizeCheck" />
 
     <ImageButton
-        style="@style/IconGroupSelector"
         android:id="@+id/DiamondsGroupButton"
+        style="@style/IconGroupSelector"
         android:contentDescription="@string/diamonds_icon_group_content_description"
         android:translationZ="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/IconSelectTopGuideline"
         app:layout_constraintEnd_toStartOf="@+id/HeartsGroupButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/SpadesGroupButton"
         app:layout_constraintTop_toTopOf="@+id/SpadesGroupButton"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/diamond_icon"
         tools:ignore="TouchTargetSizeCheck" />
 

@@ -4,7 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/Settings"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/SettingsLabel"
+        style="@style/Text"
+        android:text="@string/settings_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/title_vertical_bias" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/SettingsMediumButton"
@@ -12,11 +22,11 @@
         android:backgroundTint="@color/medium"
         android:text="@string/medium_label"
         app:layout_constraintBottom_toBottomOf="@+id/SettingsEasyButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/SettingsRightGuideline"
-        app:layout_constraintHorizontal_bias="0.33"
-        app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
+        app:layout_constraintEnd_toStartOf="@+id/SettingsHardButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/SettingsEasyButton"
         app:layout_constraintTop_toTopOf="@+id/SettingsEasyButton"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -25,21 +35,24 @@
         android:backgroundTint="@color/expert"
         android:text="@string/expert_label"
         app:layout_constraintBottom_toBottomOf="@+id/SettingsMediumButton"
-        app:layout_constraintEnd_toStartOf="@+id/SettingsRightGuideline"
-        app:layout_constraintHorizontal_bias="0.97"
-        app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/SettingsHardButton"
         app:layout_constraintTop_toTopOf="@+id/SettingsMediumButton"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/SettingsEasyButton"
         style="@style/DifficultyButton.Small"
-        android:layout_marginTop="10dp"
         android:backgroundTint="@color/easy"
         android:text="@string/easy_label"
-        app:layout_constraintStart_toStartOf="@+id/SettingsLeftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/DifficultySettingsLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/SettingsMediumButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SettingsLabel"
+        app:layout_constraintVertical_bias="0.078"
         tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -48,56 +61,21 @@
         android:backgroundTint="@color/hard"
         android:text="@string/hard_label"
         app:layout_constraintBottom_toBottomOf="@+id/SettingsMediumButton"
-        app:layout_constraintEnd_toStartOf="@+id/SettingsRightGuideline"
-        app:layout_constraintHorizontal_bias="0.66"
-        app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
+        app:layout_constraintEnd_toStartOf="@+id/SettingsExpertButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/SettingsMediumButton"
         app:layout_constraintTop_toTopOf="@+id/SettingsMediumButton"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="TouchTargetSizeCheck" />
-
-    <TextView
-        android:id="@+id/SettingsLabel"
-        style="@style/Text"
-        android:text="@string/settings_label"
-        app:layout_constraintBottom_toTopOf="@+id/SettingsTopGuideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/DifficultySettingsLabel"
-        style="@style/Label"
-        android:text="@string/difficulty_settings_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/SettingsTopGuideline" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/SettingsTopGuideline"
-        app:layout_constraintGuide_percent=".12"
-        style="@style/Guideline" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/SettingsBottomGuideline"
-        style="@style/Guideline.Bottom_Land" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/SettingsLeftGuideline"
-        style="@style/Guideline.FarLeft"
-        android:orientation="vertical" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/SettingsRightGuideline"
-        style="@style/Guideline.FarRight"
-        android:orientation="vertical" />
 
     <TextView
         android:id="@+id/PointsAcronymLabel"
         style="@style/Text"
         android:text="@string/points_acronym_label"
-        app:layout_constraintBottom_toTopOf="@+id/SettingsBottomGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/PointsAcronymInput"
         app:layout_constraintTop_toBottomOf="@+id/EasyPointsInput"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.20" />
 
     <TextView
         android:id="@+id/LevelUpBonusLabel"
@@ -187,7 +165,8 @@
         app:layout_constraintEnd_toEndOf="@+id/SettingsEasyButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
-        app:layout_constraintTop_toBottomOf="@+id/SettingsEasyButton" />
+        app:layout_constraintTop_toBottomOf="@+id/SettingsEasyButton"
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/HardExpInput"
@@ -197,7 +176,8 @@
         app:layout_constraintEnd_toEndOf="@+id/SettingsHardButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/SettingsHardButton"
-        app:layout_constraintTop_toBottomOf="@+id/SettingsHardButton" />
+        app:layout_constraintTop_toBottomOf="@+id/SettingsHardButton"
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/ExpertExpInput"
@@ -207,7 +187,8 @@
         app:layout_constraintEnd_toEndOf="@+id/SettingsExpertButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/SettingsExpertButton"
-        app:layout_constraintTop_toBottomOf="@+id/SettingsExpertButton" />
+        app:layout_constraintTop_toBottomOf="@+id/SettingsExpertButton"
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/MediumExpInput"
@@ -217,7 +198,8 @@
         app:layout_constraintEnd_toEndOf="@+id/SettingsMediumButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/SettingsMediumButton"
-        app:layout_constraintTop_toBottomOf="@+id/SettingsMediumButton" />
+        app:layout_constraintTop_toBottomOf="@+id/SettingsMediumButton"
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/EasyPointsInput"
@@ -227,7 +209,8 @@
         app:layout_constraintEnd_toEndOf="@+id/SettingsEasyButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/SettingsEasyButton"
-        app:layout_constraintTop_toBottomOf="@+id/EasyExpInput" />
+        app:layout_constraintTop_toBottomOf="@+id/EasyExpInput"
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/HardPointsInput"
@@ -237,7 +220,8 @@
         app:layout_constraintEnd_toEndOf="@+id/HardExpInput"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/HardExpInput"
-        app:layout_constraintTop_toBottomOf="@+id/HardExpInput" />
+        app:layout_constraintTop_toBottomOf="@+id/HardExpInput"
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/ExpertPointsInput"
@@ -247,7 +231,8 @@
         app:layout_constraintEnd_toEndOf="@+id/ExpertExpInput"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/ExpertExpInput"
-        app:layout_constraintTop_toBottomOf="@+id/ExpertExpInput" />
+        app:layout_constraintTop_toBottomOf="@+id/ExpertExpInput"
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/PointsAcronymInput"
@@ -272,7 +257,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/PointsAcronymInput"
         app:layout_constraintEnd_toEndOf="@+id/ConfirmButton"
         app:layout_constraintStart_toStartOf="@+id/ConfirmButton"
-        app:layout_constraintTop_toTopOf="@+id/PointsAcronymInput" />
+        app:layout_constraintTop_toTopOf="@+id/PointsAcronymInput"
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/MediumPointsInput"
@@ -282,20 +268,20 @@
         app:layout_constraintEnd_toEndOf="@+id/MediumExpInput"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/MediumExpInput"
-        app:layout_constraintTop_toBottomOf="@+id/MediumExpInput" />
+        app:layout_constraintTop_toBottomOf="@+id/MediumExpInput"
+        tools:ignore="Autofill,TextFields" />
 
     <Button
         android:id="@+id/AdvancedSettingsButton"
         style="@style/ActionButton"
         android:layout_width="173dp"
-        android:layout_height="46dp"
+        android:layout_height="48dp"
         android:contentDescription="@string/advanced_settings_content_description"
         android:text="@string/advanced_settings_label"
-        app:layout_constraintBottom_toTopOf="@+id/SettingsTopGuideline"
-        app:layout_constraintEnd_toStartOf="@+id/SettingsRightGuideline"
+        app:layout_constraintBottom_toBottomOf="@+id/SettingsLabel"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/SettingsLabel"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/SettingsLabel" />
 
     <Button
         android:id="@+id/CancelButton"
@@ -305,18 +291,16 @@
         app:iconTint="@color/warning_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PointsAcronymInput" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/action_button_vertical_bias" />
 
     <Button
-        style="@style/SaveButton"
         android:id="@+id/ConfirmButton"
+        style="@style/SaveButton"
         app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/CancelButton"
-        app:layout_constraintTop_toTopOf="@+id/CancelButton"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintTop_toTopOf="@+id/CancelButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

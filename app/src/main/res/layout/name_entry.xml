@@ -10,10 +10,11 @@
         android:id="@+id/NewItemLabel"
         style="@style/Text"
         android:text="@string/name_entry_title"
-        app:layout_constraintBottom_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/title_vertical_bias" />
 
     <EditText
         android:id="@+id/PlayerNameInput"
@@ -24,10 +25,10 @@
         android:hint="@string/name_hint"
         android:inputType="textPersonName"
         android:maxLength="@integer/max_player_name_length"
-        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
+        app:layout_constraintBottom_toTopOf="@+id/ConfirmButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline" />
+        app:layout_constraintTop_toBottomOf="@+id/NewItemLabel" />
 
     <Button
         android:id="@+id/ConfirmButton"
@@ -35,14 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/NewItemBottomGuideline" />
-
-    <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.Top"
-        android:id="@+id/NewItemTopGuideline" />
-
-    <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.FarBottom"
-        android:id="@+id/NewItemBottomGuideline" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/action_button_vertical_bias" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

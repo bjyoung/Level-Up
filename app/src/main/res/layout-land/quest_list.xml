@@ -6,62 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/ShopButton"
-        style="@style/NavButton"
-        android:tooltipText="@string/shop_button_tooltip"
-        android:contentDescription="@string/shop_button_description"
-        app:icon="@drawable/shopping_bag_icon_large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/SettingsButton"
-        style="@style/NavButton"
-        android:tooltipText="@string/settings_button_tooltip"
-        android:contentDescription="@string/settings_button_description"
-        app:icon="@drawable/gear_icon_large"
-        app:layout_constraintBottom_toTopOf="@+id/QuestListTopGuideline"
-        app:layout_constraintEnd_toEndOf="@+id/AddNewQuestButton"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="@+id/AddNewQuestButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/AddNewQuestButton"
-        style="@style/NavButton"
-        android:tooltipText="@string/new_quest_button_tooltip"
-        android:contentDescription="@string/new_quest_button_description"
-        app:icon="@drawable/plus_icon_large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/QuestHistoryButton"
-        style="@style/NavButton"
-        android:contentDescription="@string/quest_history_button_description"
-        android:tooltipText="@string/quest_history_button_tooltip"
-        app:icon="@drawable/clock_icon_large"
-        app:layout_constraintBottom_toTopOf="@+id/QuestListTopGuideline"
-        app:layout_constraintEnd_toEndOf="@+id/ShopButton"
-        app:layout_constraintStart_toStartOf="@+id/ShopButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        style="@style/Text"
         android:id="@+id/Username"
+        style="@style/Text"
         android:text="@string/username_level_header_placeholder"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/QuestListTopGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/title_vertical_bias" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
@@ -76,6 +30,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Username" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/QuestHistoryButton"
+        style="@style/NavButton"
+        android:contentDescription="@string/quest_history_button_description"
+        android:tooltipText="@string/quest_history_button_tooltip"
+        app:icon="@drawable/clock_icon_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ShopButton"
+        app:layout_constraintStart_toStartOf="@+id/ShopButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/top_nav_button_vertical_bias_landscape" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/SettingsButton"
+        style="@style/NavButton"
+        android:contentDescription="@string/settings_button_description"
+        android:tooltipText="@string/settings_button_tooltip"
+        app:icon="@drawable/gear_icon_large"
+        app:layout_constraintBottom_toBottomOf="@+id/QuestHistoryButton"
+        app:layout_constraintEnd_toEndOf="@+id/AddNewQuestButton"
+        app:layout_constraintStart_toStartOf="@+id/AddNewQuestButton"
+        app:layout_constraintTop_toTopOf="@+id/QuestHistoryButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/AddNewQuestButton"
+        style="@style/NavButton"
+        android:contentDescription="@string/new_quest_button_description"
+        android:tooltipText="@string/new_quest_button_tooltip"
+        app:icon="@drawable/plus_icon_large"
+        app:layout_constraintBottom_toBottomOf="@+id/ShopButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="@dimen/right_nav_button_horizontal_bias_landscape"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ShopButton" />
+
     <TextView
         android:id="@+id/PointsLabel"
         style="@style/Text"
@@ -85,11 +74,11 @@
         android:minHeight="48dp"
         android:text="@string/points_acronym"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/QuestListTopGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ProgressBar"
         app:layout_constraintStart_toEndOf="@+id/QuestHistoryButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35000002" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <TextView
         style="@style/Text"
@@ -98,14 +87,6 @@
         app:layout_constraintEnd_toEndOf="@+id/PointsLabel"
         app:layout_constraintStart_toStartOf="@+id/PointsLabel"
         app:layout_constraintTop_toBottomOf="@+id/PointsLabel" />
-
-    <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.Top_Land"
-        android:id="@+id/QuestListTopGuideline" />
-
-    <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.FarBottom_Land"
-        android:id="@+id/QuestListBottomGuideline" />
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/QuestListComposeView"
@@ -123,11 +104,11 @@
         android:layout_height="30dp"
         android:text="@string/next_lvl_exp_label"
         android:textSize="11sp"
-        app:layout_constraintBottom_toTopOf="@+id/PointsAmount"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/SettingsButton"
         app:layout_constraintStart_toEndOf="@+id/ProgressBar"
-        app:layout_constraintTop_toTopOf="@+id/PointsLabel"
-        app:layout_constraintVertical_bias="0.32999998" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.03" />
 
     <TextView
         style="@style/Text"
@@ -137,6 +118,19 @@
         app:layout_constraintEnd_toEndOf="@+id/NextLvlExpLabel"
         app:layout_constraintStart_toStartOf="@+id/NextLvlExpLabel"
         app:layout_constraintTop_toBottomOf="@+id/NextLvlExpLabel" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/ShopButton"
+        style="@style/NavButton"
+        android:contentDescription="@string/shop_button_description"
+        android:tooltipText="@string/shop_button_tooltip"
+        app:icon="@drawable/shopping_bag_icon_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="@dimen/left_nav_button_horizontal_bias_landscape"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/bottom_nav_button_vertical_bias_landscape" />
 
     <TextView
         android:id="@+id/NoQuestsMessage"
@@ -151,10 +145,10 @@
         android:id="@+id/SortButton"
         style="@style/SortButton"
         android:contentDescription="@string/quest_list_sort_button_message"
-        app:layout_constraintBottom_toBottomOf="@+id/AddNewQuestButton"
+        app:layout_constraintBottom_toBottomOf="@+id/ShopButton"
         app:layout_constraintEnd_toStartOf="@+id/AddNewQuestButton"
         app:layout_constraintStart_toEndOf="@+id/ShopButton"
-        app:layout_constraintTop_toTopOf="@+id/AddNewQuestButton" />
+        app:layout_constraintTop_toTopOf="@+id/ShopButton" />
 
     <Button
         android:id="@+id/SortTrigger"
@@ -163,7 +157,6 @@
         android:layout_height="@dimen/trigger_landscape_height"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/QuestListBottomGuideline" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

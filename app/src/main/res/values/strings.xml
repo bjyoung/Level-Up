@@ -87,6 +87,8 @@
     <string name="only_alpha_allowed_error">Only letters are allowed</string>
     <string name="three_characters_limit_error">Must be 3 characters or less</string>
     <string name="advanced_settings_content_description">Navigate to Advanced Settings</string>
+    <string name="multiplier_label">X</string>
+
 
     <!-- Advanced Settings strings -->
     <string name="advanced_settings_label">Advanced Settings</string>
@@ -157,6 +159,8 @@
     <string name="no_items_found_message">No items found</string>
     <string name="shop_sort_button_message">Sort shop items</string>
     <string name="sort_button_text">Sort By:</string>
+    <string name="sort_trigger_button_description">Invisible trigger to get shop sort button to appear</string>
+    <string name="shop_list_description">A scrollable list of items available in the shop</string>
 
     <!-- Item History strings -->
     <string name="item_history_label">Item History</string>
@@ -196,4 +200,5 @@
     <string name="authorship">By Brandon Young</string>
     <string name="app_version">Version %1$s</string>
     <string name="back_button_content_description">Back button</string>
+    <string name="app_icon_description">Level Up app icon</string>
 </resources>

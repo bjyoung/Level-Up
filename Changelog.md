@@ -21,6 +21,8 @@ This document tracks all notables changes to the Level Up app.
   - Move the Quest List sort trigger to the bottom of the screen between the Add Item and Shop buttons
 - Update Icon Select to use a Compose lazy grid instead of RecyclerView
 - Improve Icon Select performance
+- Change Shop sort trigger to activate when any blank outer area is pressed
+- Adjust layouts to make pages easier to read and to have more uniform spacing
 
 ### Fixed
 
