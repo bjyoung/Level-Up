@@ -15,7 +15,7 @@ Level Up is an Android app for tracking to-do tasks with a classic arcade game a
     1. Have an existing repo admin generate a token with repo, workflow and read:org access
     1. Paste the token in the 'Token' field
     1. Choose 'Level-Up' project > Clone
-        1. May have to run the command again because sometimse nothing happens.
+        1. May have to run the command again because sometimes nothing happens.
 1. Setup project
     1. Setup android emulator: open Device Manager > Create device > select 'Pixel 2 XL' > Next > choose 'R', API level 30 > Next > Finish
 1. Setup markdown file editor

@@ -11,10 +11,14 @@ This document tracks all notables changes to the Level Up app.
 - Animate quest cards in quest list on remove, complete, delete and sort
 - Show the total cost of selected items in the Shop
 
+### Removed
+
+- Long press on quest cards or their icons in Quest List no longer transitions to Edit Quest
+- Remove the "Difficulty Settings" label in Settings because it was unnecessary and took up space
+
 ### Changed
 
 - Update Quest List and Quest History to use a Compose lazy grid instead of the XML LinearLayout
-- Long press on quest cards or their icons in Quest List no longer transitions to Edit Quest
 - Change darkened background for Quest History cards to a striped background
 - Quests with no name no longer show the default "???" value
 - Change Quest List and Quest History cards to scroll horizontally instead of vertically
@@ -31,6 +35,7 @@ This document tracks all notables changes to the Level Up app.
 - Make it easier to scroll through text fields
 - Fix selected icons in Icon Select moving seemingly randomly when scrolling offscreen and back
 - Fix Icon Select not showing the correct icons after data or default icon restore
+- Center pop-up messages (especially noticeable in landscape mode)
 
 ---
 
