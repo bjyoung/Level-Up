@@ -175,11 +175,10 @@
         android:id="@+id/SortButton"
         style="@style/SortButton"
         android:contentDescription="@string/shop_sort_button_message"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/QuestListButton"
         app:layout_constraintEnd_toEndOf="@+id/TableDivider"
         app:layout_constraintStart_toEndOf="@+id/AddNewItemButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.955" />
+        app:layout_constraintTop_toTopOf="@+id/QuestListButton" />
 
     <Button
         android:id="@+id/SortTrigger"

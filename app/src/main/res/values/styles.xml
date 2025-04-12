@@ -80,8 +80,8 @@
 
     <!-- Buttons -->
     <style name="NavButton" parent="Widget.Material3.Button">
-        <item name="android:layout_width">@dimen/nav_button</item>
-        <item name="android:layout_height">@dimen/nav_button</item>
+        <item name="android:layout_width">@dimen/nav_button_width</item>
+        <item name="android:layout_height">@dimen/nav_button_width</item>
         <item name="android:background">@drawable/nav_button_background</item>
         <item name="iconTint">@color/nav_button_icon</item>
         <item name="iconGravity">textStart</item>
@@ -152,14 +152,21 @@
         <item name="android:background">@drawable/white_border_thin</item>
         <item name="tint">@color/icon_secondary</item>
     </style>
-    <!-- TODO Probably don't need a separate style for save button
-    just adjust in the layout file itself -->
-    <style name="SaveButton" parent="ActionButton.Small">
+    <style name="NavButton.Large" parent="NavButton">
+        <item name="iconSize">32dp</item>
+        <item name="android:layout_width">@dimen/nav_button_large_width</item>
+        <item name="android:layout_height">@dimen/nav_button_large_width</item>
+    </style>
+    <style name="CancelButton" parent="NavButton.Large">
+        <item name="android:contentDescription">@string/cancel_button_content_description</item>
+        <item name="icon">@drawable/times_icon_red_large</item>
+        <item name="iconTint">@color/warning_icon</item>
+    </style>
+    <style name="SaveButton" parent="NavButton.Large">
         <item name="android:contentDescription">@string/confirm_button_content_description</item>
         <item name="icon">@drawable/check_icon_green_large</item>
         <item name="iconTint">@color/confirm_icon</item>
     </style>
-
     <style name="InvisibleTrigger" parent="TextAppearance.AppCompat.Button">
         <item name="android:contentDescription">@string/confirm_button_content_description</item>
         <item name="android:background">@android:color/transparent</item>

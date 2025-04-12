@@ -27,6 +27,7 @@ This document tracks all notables changes to the Level Up app.
 - Improve Icon Select performance
 - Change Shop sort trigger to activate when any blank outer area is pressed
 - Adjust layouts to make pages easier to read and to have more uniform spacing
+- Change save and cancel buttons to look like navigation-based buttons (icon with white border, black background)
 
 ### Fixed
 
@@ -517,7 +518,7 @@ This document tracks all notables changes to the Level Up app.
   - Select default difficulty (easy) when creating a new quest
 - In Quest List page
   - Add username, user level and experience bar UI
-  - Add New Quest, Settings and Shop nav buttons
+  - Add New Quest, Settings and Shop navigation (nav) buttons
 - Create basic pages for Quest List, New Quest, Settings and Shop
 - Add README
 - Add changelog

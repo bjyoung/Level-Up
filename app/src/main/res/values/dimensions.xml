@@ -3,7 +3,8 @@
     <!-- General -->
     <dimen name="screen_padding">16dp</dimen>
     <dimen name="round_button">36dp</dimen>
-    <dimen name="nav_button">48dp</dimen>
+    <dimen name="nav_button_width">48dp</dimen>
+    <dimen name="nav_button_large_width">64dp</dimen>
     <dimen name="big_round_button">64dp</dimen>
     <dimen name="action_button_width">150dp</dimen>
     <dimen name="action_button_width_medium">250dp</dimen>
@@ -31,6 +32,7 @@
     <dimen name="left_nav_button_horizontal_bias_landscape">0.025</dimen>
     <dimen name="right_nav_button_horizontal_bias_landscape">0.975</dimen>
     <dimen name="action_button_vertical_bias">0.97</dimen>
+    <dimen name="save_button_vertical_bias">0.92</dimen>
 
     <!-- Quest Card -->
     <dimen name="quest_card_width">160dp</dimen>
@@ -63,6 +65,8 @@
 
     <!-- Settings -->
     <dimen name="difficulty_button_small_height">36dp</dimen>
+    <dimen name="settings_save_button_horizontal_bias">0.95</dimen>
+    <dimen name="settings_cancel_button_horizontal_bias">0.05</dimen>
 
     <!-- Restore Defaults -->
     <dimen name="reset_warning_width">350dp</dimen>

@@ -133,15 +133,12 @@
 
     <Button
         android:id="@+id/CancelButton"
-        style="@style/ActionButton.Small"
-        android:contentDescription="@string/cancel_button_content_description"
-        app:icon="@drawable/times_icon_red_large"
-        app:iconTint="@color/warning_icon"
+        style="@style/CancelButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="@dimen/action_button_vertical_bias" />
+        app:layout_constraintVertical_bias="@dimen/save_button_vertical_bias" />
 
     <Button
         style="@style/SaveButton"
