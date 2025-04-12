@@ -276,15 +276,13 @@
 
     <Button
         android:id="@+id/AdvancedSettingsButton"
-        style="@style/ActionButton"
-        android:layout_width="173dp"
-        android:layout_height="48dp"
+        style="@style/NavButton"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         android:contentDescription="@string/advanced_settings_content_description"
-        android:text="@string/advanced_settings_label"
-        app:layout_constraintBottom_toBottomOf="@+id/SettingsLabel"
+        app:icon="@drawable/gear_plus_icon_large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/SettingsLabel"
-        app:layout_constraintTop_toTopOf="@+id/SettingsLabel" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/CancelButton"

@@ -28,6 +28,7 @@ This document tracks all notables changes to the Level Up app.
 - Change Shop sort trigger to activate when any blank outer area is pressed
 - Adjust layouts to make pages easier to read and to have more uniform spacing
 - Change save and cancel buttons to look like navigation-based buttons (icon with white border, black background)
+- Change advanced settings button to an icon-based button
 
 ### Fixed
 
