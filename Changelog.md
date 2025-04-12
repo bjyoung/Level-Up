@@ -4,7 +4,17 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.8.3
+## 0.8.4 In-Progress
+
+### Added
+
+### Changed
+
+### Fixed
+
+---
+
+## 0.8.3 Compose Update
 
 ### Added
 
@@ -41,7 +51,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.8.2
+## 0.8.2 Backup & Restore
 
 ### Added
 
@@ -65,7 +75,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.8.1
+## 0.8.1 Add Sort Buttons
 
 ### Added
 
@@ -90,7 +100,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.8.0
+## 0.8.0 Add Launcher Icon
 
 ### Added
 
@@ -120,7 +130,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.9
+## 0.7.9 Item History & About Pages
 
 ### Added
 
@@ -148,7 +158,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.8
+## 0.7.8 Advanced Settings
 
 ### Added
 
@@ -172,7 +182,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.7
+## 0.7.7 Quest History
 
 ### Added
 
@@ -196,7 +206,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.6
+## 0.7.6 Delete Icon
 
 ### Added
 
@@ -209,7 +219,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.5
+## 0.7.5 Icon Select Update
 
 ### Added
 
@@ -237,7 +247,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.4
+## 0.7.4 Name Entry
 
 ### Added
 
@@ -249,7 +259,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.3
+## 0.7.3 Icon Groups
 
 ### Added
 
@@ -268,7 +278,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.2
+## 0.7.2 Adjust Nav Button Design
 
 ### Added
 
@@ -285,7 +295,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.1
+## 0.7.1 Pop-Up Messages
 
 ### Added
 
@@ -299,7 +309,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.0
+## 0.7.0 Add Icon Select
 
 ### Added
 
@@ -319,7 +329,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.6.1
+## 0.6.1 Allow Negatives
 
 ### Added
 
@@ -334,7 +344,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.6.0
+## 0.6.0 Edit Options
 
 ### Added
 
@@ -345,7 +355,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.5.1
+## 0.5.1 Update Shop
 
 ### Added
 
@@ -364,7 +374,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.5.0
+## 0.5.0 Add Shop
 
 ### Added
 
