@@ -16,7 +16,7 @@ class ItemHistoryRepository @Inject constructor(
     fun observeAll() = itemHistoryDao.observeAll()
 
     @WorkerThread
-    suspend fun insert(purchasedItem: PurchasedItem) = externalScope.launch {
+    fun insert(purchasedItem: PurchasedItem) = externalScope.launch {
         itemHistoryDao.insert(purchasedItem)
     }
 
@@ -31,7 +31,7 @@ class ItemHistoryRepository @Inject constructor(
     }
 
     @WorkerThread
-    suspend fun record(itemIds: Set<Int>) = externalScope.launch {
+    fun record(itemIds: Set<Int>) = externalScope.launch {
         val shopItems: List<ShopItem> = shopItemDao.get(itemIds)
 
         val purchasedItems: List<PurchasedItem> = shopItems.map {

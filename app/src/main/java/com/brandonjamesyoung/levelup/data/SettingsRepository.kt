@@ -21,12 +21,12 @@ class SettingsRepository @Inject constructor(
     suspend fun get() = settingsDao.getById(1)
 
     @WorkerThread
-    suspend fun update(settings: Settings) = externalScope.launch {
+    fun update(settings: Settings) = externalScope.launch {
         settingsDao.update(settings)
     }
 
     @WorkerThread
-    suspend fun resetToDefault() = externalScope.launch {
+    fun resetToDefault() = externalScope.launch {
         val settings: Settings = get()
         settings.lvlUpBonus = DEFAULT_LVL_UP_BONUS
         settings.pointsAcronym = DEFAULT_POINTS_ACRONYM

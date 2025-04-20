@@ -10,6 +10,8 @@ This document tracks all notables changes to the Level Up app.
 
 ### Changed
 
+- Update the Quest History limit from 200 to 750
+
 ### Fixed
 
 ---
