@@ -4,7 +4,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.8.4 In-Progress
+## 0.8.4 Quest History Details
 
 ### Added
 
@@ -13,8 +13,7 @@ This document tracks all notables changes to the Level Up app.
 ### Changed
 
 - Update the Quest History limit from 200 to 750
-
-### Fixed
+- Move save and cancel buttons on most landscape layouts to the bottom corners
 
 ---
 

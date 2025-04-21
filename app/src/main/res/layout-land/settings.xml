@@ -287,9 +287,8 @@
     <Button
         android:id="@+id/CancelButton"
         style="@style/CancelButton"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="@dimen/settings_cancel_button_horizontal_bias"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="@dimen/action_button_vertical_bias" />
@@ -297,10 +296,9 @@
     <Button
         android:id="@+id/ConfirmButton"
         style="@style/SaveButton"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="@dimen/settings_save_button_horizontal_bias"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/CancelButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

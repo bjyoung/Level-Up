@@ -21,10 +21,10 @@
         style="@style/Message"
         android:layout_width="@dimen/reset_warning_width"
         android:text="@string/reset_settings_warning"
-        app:layout_constraintBottom_toTopOf="@+id/CancelButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ResetSettingsLabel" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/CancelButton"
