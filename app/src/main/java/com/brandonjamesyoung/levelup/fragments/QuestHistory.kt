@@ -33,6 +33,15 @@ class QuestHistory: Fragment(R.layout.quest_history) {
         Log.i(TAG, "Going from Quest History to Quest List")
     }
 
+    private fun navigateToQuestHistoryDetails(completedQuestId: Int) {
+        val action = QuestHistoryDirections.actionQuestHistoryToQuestHistoryDetails(
+            completedQuestId
+        )
+
+        findNavController().navigate(action)
+        Log.i(TAG, "Going from Quest History to Quest History Details")
+    }
+
     private fun activateQuestListButton() {
         val view = requireView()
         val questListButton = view.findViewById<Button>(R.id.QuestListQuestHistoryButton)
@@ -64,6 +73,7 @@ class QuestHistory: Fragment(R.layout.quest_history) {
         composeView.setContent {
             cardCreator.QuestGridView(
                 cards = cards,
+                fullCardAction = ::navigateToQuestHistoryDetails,
                 cardShader = STRIPE_SHADER_SRC
             )
         }

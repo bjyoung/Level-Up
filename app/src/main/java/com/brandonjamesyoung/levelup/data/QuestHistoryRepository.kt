@@ -14,6 +14,8 @@ class QuestHistoryRepository @Inject constructor(
 ) {
     fun observeAll() = questHistoryDao.observeAll()
 
+    fun get(id: Int) = questHistoryDao.get(id)
+
     @WorkerThread
     fun insert(completedQuest: CompletedQuest) = externalScope.launch {
         questHistoryDao.insert(completedQuest)

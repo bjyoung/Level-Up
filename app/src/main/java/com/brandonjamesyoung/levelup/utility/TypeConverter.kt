@@ -18,7 +18,8 @@ class TypeConverter {
             return stream.toByteArray()
         }
 
-        fun convertInstantToString(date: Instant) : String {
+        fun convertInstantToString(date: Instant?) : String {
+            if (date == null) return ""
             val timeZoneId: ZoneId = TimeZone.getDefault().toZoneId()
             val zonedDate = date.atZone(timeZoneId)
             val dateFormatter = DateTimeFormatter.ofPattern("M/d/uuuu")

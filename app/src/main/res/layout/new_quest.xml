@@ -10,7 +10,7 @@
         android:id="@+id/NewQuestLabel"
         style="@style/Text"
         android:text="@string/new_quest_label"
-        app:layout_constraintBottom_toBottomOf="@+id/DateCreatedLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

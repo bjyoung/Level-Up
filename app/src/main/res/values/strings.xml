@@ -196,6 +196,13 @@
     <!-- Quest History strings -->
     <string name="quest_history_label">Quest History</string>
 
+    <!-- Quest History Details strings -->
+    <string name="history_details_label">Quest History Details</string>
+    <string name="history_details_created_on_label">Created On:</string>
+    <string name="history_details_completed_on_label">Completed On:</string>
+    <string name="history_details_exp_label">Exp Earned:</string>
+    <string name="history_details_points_label">Points Earned:</string>
+
     <!-- About strings -->
     <string name="authorship">By Brandon Young</string>
     <string name="app_version">Version %1$s</string>

@@ -69,6 +69,7 @@ class QuestGridCreator(val context: Context) {
     fun QuestIconView(
         card: QuestCard,
         iconAction: ((QuestCard) -> Unit)?,
+        fullCardAction: ((Int) -> Unit)?
     ) {
         val iconSize = dimensionResource(R.dimen.quest_card_icon_size)
         val iconPadding = dimensionResource(R.dimen.quest_card_icon_padding)
@@ -110,7 +111,9 @@ class QuestGridCreator(val context: Context) {
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
                 ) {
-                    if(iconAction != null) {
+                    if (fullCardAction != null) {
+                        fullCardAction(card.quest.id)
+                    } else if (iconAction != null) {
                         selected = !selected
                         iconAction(card)
                     }
@@ -122,6 +125,7 @@ class QuestGridCreator(val context: Context) {
     fun QuestCardContents(
         card: QuestCard,
         iconAction: ((QuestCard) -> Unit)?,
+        fullCardAction: ((Int) -> Unit)?,
         backgroundShaderSrc: String
     ) {
         val quest = card.quest
@@ -156,7 +160,7 @@ class QuestGridCreator(val context: Context) {
                 QuestNameView(quest.getName(context))
             }
 
-            QuestIconView(card, iconAction)
+            QuestIconView(card, iconAction, fullCardAction)
 
             if (quest.name != null) {
                 Spacer(Modifier.height(10.dp))
@@ -169,6 +173,7 @@ class QuestGridCreator(val context: Context) {
         card: QuestCard,
         cardAction: ((Int) -> Unit)?,
         iconAction: ((QuestCard) -> Unit)?,
+        fullCardAction: ((Int) -> Unit)?,
         cardShaderSrc: String = BASIC_COLOR_SHADER_SRC
     ) {
         val quest: Quest = card.quest
@@ -181,20 +186,25 @@ class QuestGridCreator(val context: Context) {
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
                 ) {
-                    if (cardAction != null) {
+                    if (fullCardAction != null) {
+                        fullCardAction(quest.id)
+                    } else if (cardAction != null) {
                         cardAction(quest.id)
                     }
                 }
         ) {
-            QuestCardContents(card, iconAction, cardShaderSrc)
+            QuestCardContents(card, iconAction, fullCardAction, cardShaderSrc)
         }
     }
 
+    // Set up and display a list of cards
+    // fullCardAction overrides cardAction and iconAction when set
     @Composable
     fun QuestGridView(
         cards: List<QuestCard>,
         cardAction: ((Int) -> Unit)? = null,
         iconAction: ((QuestCard) -> Unit)? = null,
+        fullCardAction: ((Int) -> Unit)? = null,
         cardShader: String = BASIC_COLOR_SHADER_SRC
     ) {
         val inPortraitMode = OrientationManager.inPortraitMode(context.resources)
@@ -228,7 +238,7 @@ class QuestGridCreator(val context: Context) {
                             dampingRatio = Spring.DampingRatioLowBouncy
                     )
                 )) {
-                    QuestCardView(card, cardAction, iconAction, cardShader)
+                    QuestCardView(card, cardAction, iconAction, fullCardAction, cardShader)
                 }
             }
         }

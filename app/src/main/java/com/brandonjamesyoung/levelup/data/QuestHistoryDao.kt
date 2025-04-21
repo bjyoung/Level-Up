@@ -9,6 +9,10 @@ interface QuestHistoryDao {
     @Query("SELECT * FROM CompletedQuest")
     fun observeAll(): Flow<List<CompletedQuestWithIcon>>
 
+    @Transaction
+    @Query("SELECT * FROM CompletedQuest WHERE id = :id")
+    fun get(id: Int): CompletedQuestWithIcon
+
     @Insert
     suspend fun insert(completedQuest: CompletedQuest)
 

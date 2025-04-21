@@ -101,6 +101,11 @@
         <item name="shapeAppearance">@style/ShapeAppearanceOverlay.Material3.Button</item>
         <item name="tint">@color/icon_primary</item>
     </style>
+    <style name="QuestIcon.Large">
+        <item name="android:clickable">false</item>
+        <item name="fabCustomSize">@dimen/bigger_round_button</item>
+        <item name="maxImageSize">@dimen/large_quest_icon_size</item>
+    </style>
     <style name="ActionButton" parent="TextAppearance.AppCompat.Button">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:backgroundTint">@color/action_button_background</item>

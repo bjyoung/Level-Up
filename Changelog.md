@@ -8,6 +8,8 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
+- Add Quest History Details page, where users can view extra details about completed quests by tapping on their cards in Quest History
+
 ### Changed
 
 - Update the Quest History limit from 200 to 750

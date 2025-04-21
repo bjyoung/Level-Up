@@ -6,6 +6,7 @@
     <dimen name="nav_button_width">48dp</dimen>
     <dimen name="nav_button_large_width">64dp</dimen>
     <dimen name="big_round_button">64dp</dimen>
+    <dimen name="bigger_round_button">80dp</dimen>
     <dimen name="action_button_width">150dp</dimen>
     <dimen name="action_button_width_medium">250dp</dimen>
     <dimen name="action_button_width_long">320dp</dimen>
@@ -53,6 +54,7 @@
     <dimen name="quest_card_height">160dp</dimen>
     <dimen name="quest_card_elevation">0dp</dimen>
     <dimen name="quest_icon_size">32dp</dimen>
+    <dimen name="large_quest_icon_size">48dp</dimen>
     <dimen name="point_left_margin">30dp</dimen>
 
     <!-- New Quest -->
@@ -85,4 +87,8 @@
 
     <!-- About -->
     <dimen name="about_description_margin">25dp</dimen>
+
+    <!-- Quest History Details -->
+    <dimen name="history_label_text_size">24sp</dimen>
+    <dimen name="label_value_spacing">8dp</dimen>
 </resources>
