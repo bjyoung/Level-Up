@@ -10,5 +10,5 @@ data class ShopItem(
     @PrimaryKey(autoGenerate = true) override var id: Int = 0,
     @ColumnInfo override var name: String? = null,
     @ColumnInfo override var cost: Int,
-    @ColumnInfo override val dateCreated: Instant? = Instant.now()
+    @ColumnInfo val dateCreated: Instant? = Instant.now()
 ) : Item

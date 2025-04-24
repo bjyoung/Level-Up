@@ -25,8 +25,7 @@ class ItemHistoryRepository @Inject constructor(
     ) : PurchasedItem {
         return PurchasedItem(
             name = shopItem.name,
-            cost = shopItem.cost,
-            dateCreated = shopItem.dateCreated
+            cost = shopItem.cost
         )
     }
 
