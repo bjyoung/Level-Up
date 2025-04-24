@@ -12,7 +12,8 @@ This document tracks all notables changes to the Level Up app.
 
 ### Changed
 
-- Update the Quest History limit from 200 to 750
+- Increase Quest History limit from 200 to 750
+- Increase Item History limit from 200 to 400
 - Move save and cancel buttons on most landscape layouts to the bottom corners
 
 ---

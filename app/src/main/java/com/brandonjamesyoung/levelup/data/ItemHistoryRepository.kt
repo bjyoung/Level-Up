@@ -50,6 +50,6 @@ class ItemHistoryRepository @Inject constructor(
     }
 
     companion object {
-        private const val PURCHASED_ITEMS_LIMIT = 200
+        private const val PURCHASED_ITEMS_LIMIT = 400
     }
 }
