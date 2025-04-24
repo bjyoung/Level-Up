@@ -21,6 +21,8 @@ class QuestRepository @Inject constructor(
 
     fun get(id: Int) = questDao.get(id)
 
+    fun getWithIcon(id: Int) = questDao.getWithIcon(id)
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getDifficulties(ids: Set<Int>) = questDao.getDifficulties(ids)

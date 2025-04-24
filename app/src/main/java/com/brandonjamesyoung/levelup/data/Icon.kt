@@ -5,12 +5,12 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.core.graphics.drawable.toDrawable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.brandonjamesyoung.levelup.constants.ICON_SCALE_UP_RATE
 import com.brandonjamesyoung.levelup.constants.IconGroup
-import com.brandonjamesyoung.levelup.utility.IconHelper.Companion.scaleUpByteArray
 import java.time.Instant
 import androidx.core.graphics.scale
 
@@ -50,6 +50,18 @@ data class Icon(
         result = 31 * result + iconGroup.hashCode()
         result = 31 * result + (dateCreated?.hashCode() ?: 0)
         return result
+    }
+
+    fun scaleUpByteArray(
+        image: ByteArray,
+        width: Int,
+        height: Int,
+        scaleUpRate: Int,
+        resources: Resources
+    ): Drawable {
+        val bitmap = BitmapFactory.decodeByteArray(image, 0, image.size)
+        val scaledBitmap = bitmap.scale(width * scaleUpRate, height * scaleUpRate, false)
+        return scaledBitmap.toDrawable(resources)
     }
 
     // TODO remove this if unneeded after the compose updates are all done
