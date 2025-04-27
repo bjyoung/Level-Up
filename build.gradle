@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        kotlin_version = '1.8.0'
+        kotlin_version = '2.1.20'
     }
 
     dependencies {
@@ -20,7 +20,7 @@ plugins {
     alias libs.plugins.android.library apply false
     alias libs.plugins.kotlin.android apply false
     alias libs.plugins.devtools.ksp apply false
-//    alias libs.plugins.compose.compiler apply false
+    alias libs.plugins.compose.compiler apply false
 }
 
 tasks.register('clean', Delete) {
