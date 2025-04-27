@@ -16,6 +16,7 @@ interface QuestDao {
     @Query("SELECT * FROM ActiveQuest WHERE id = :id")
     fun get(id: Int): ActiveQuest
 
+    @Transaction
     @Query("SELECT * FROM ActiveQuest WHERE id = :id")
     fun getWithIcon(id: Int): QuestWithIcon
 

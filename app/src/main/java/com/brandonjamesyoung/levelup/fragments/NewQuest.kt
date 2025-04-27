@@ -157,7 +157,7 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
         Log.i(TAG, "Going from New Quest to Icon Select")
     }
 
-    private fun getDefaultIcon(): Drawable {
+    private fun getDefaultIcon(): Drawable? {
         val context = requireContext()
 
         return ResourcesCompat.getDrawable(
