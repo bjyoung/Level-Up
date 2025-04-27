@@ -5,6 +5,7 @@ plugins {
     alias libs.plugins.kotlin.kapt
     alias libs.plugins.hilt.android.plugin
     alias libs.plugins.androidx.navigation.safeargs
+//    alias libs.plugins.compose.compiler
 }
 
 android {
@@ -77,6 +78,7 @@ dependencies {
     kapt libs.hilt.compiler
 
     // Compose dependencies
+    implementation platform(libs.androidx.compose.bom)
     implementation libs.androidx.ui.android
     implementation libs.androidx.foundation.android
     debugImplementation libs.androidx.compose.ui.tooling
