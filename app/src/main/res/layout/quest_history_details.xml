@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/QuestHistoryDetails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/HistoryDetailsBorder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/difficulty_select_box_content_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/white_border_thin"
+        app:tint="@color/easy" />
+
+    <TextView
+        android:id="@+id/QuestHistoryDetailsTitle"
+        style="@style/Text"
+        android:maxWidth="376dp"
+        android:text="@string/history_details_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/HistoryDetailsBorder"
+        app:layout_constraintStart_toStartOf="@+id/HistoryDetailsBorder"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/title_vertical_bias" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/QuestHistoryDetailsIconButton"
+        style="@style/QuestIcon.Large"
+        android:contentDescription="@string/icon_input_content_description"
+        app:layout_constraintBottom_toTopOf="@+id/CreatedOnLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/QuestHistoryDetailsTitle"
+        app:layout_constraintVertical_weight="0.5"
+        app:srcCompat="@drawable/question_mark_icon_large" />
+
+    <TextView
+        android:id="@+id/CreatedOnLabel"
+        style="@style/Label"
+        android:text="@string/history_details_created_on_label"
+        android:textSize="@dimen/history_label_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/CompletedOnLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/QuestHistoryDetailsIconButton" />
+
+    <TextView
+        android:id="@+id/CreatedOnValue"
+        style="@style/Label"
+        android:textSize="@dimen/history_label_text_size"
+        android:layout_marginTop="@dimen/label_value_spacing"
+        app:layout_constraintStart_toStartOf="@+id/CreatedOnLabel"
+        app:layout_constraintTop_toBottomOf="@+id/CreatedOnLabel" />
+
+    <TextView
+        android:id="@+id/CompletedOnLabel"
+        style="@style/Label"
+        android:text="@string/history_details_completed_on_label"
+        android:textSize="@dimen/history_label_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/ExpEarnedLabel"
+        app:layout_constraintStart_toStartOf="@+id/CreatedOnLabel"
+        app:layout_constraintTop_toBottomOf="@+id/CreatedOnLabel" />
+
+    <TextView
+        android:id="@+id/CompletedOnValue"
+        style="@style/Label"
+        android:textSize="@dimen/history_label_text_size"
+        android:layout_marginTop="@dimen/label_value_spacing"
+        app:layout_constraintStart_toStartOf="@+id/CompletedOnLabel"
+        app:layout_constraintTop_toBottomOf="@+id/CompletedOnLabel" />
+
+    <TextView
+        android:id="@+id/ExpEarnedLabel"
+        style="@style/Label"
+        android:text="@string/history_details_exp_label"
+        android:textSize="@dimen/history_label_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/PointsEarnedLabel"
+        app:layout_constraintStart_toStartOf="@+id/CreatedOnLabel"
+        app:layout_constraintTop_toBottomOf="@+id/CompletedOnLabel" />
+
+    <TextView
+        android:id="@+id/ExpEarnedValue"
+        style="@style/Label"
+        android:textSize="@dimen/history_label_text_size"
+        android:layout_marginTop="@dimen/label_value_spacing"
+        app:layout_constraintStart_toStartOf="@+id/ExpEarnedLabel"
+        app:layout_constraintTop_toBottomOf="@+id/ExpEarnedLabel" />
+
+    <TextView
+        android:id="@+id/PointsEarnedLabel"
+        style="@style/Label"
+        android:text="@string/history_details_points_label"
+        android:textSize="@dimen/history_label_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/HistoryDetailsBackButton"
+        app:layout_constraintStart_toStartOf="@+id/CreatedOnLabel"
+        app:layout_constraintTop_toBottomOf="@+id/ExpEarnedLabel" />
+
+    <TextView
+        android:id="@+id/PointsEarnedValue"
+        style="@style/Label"
+        android:textSize="@dimen/history_label_text_size"
+        android:layout_marginTop="@dimen/label_value_spacing"
+        app:layout_constraintStart_toStartOf="@+id/PointsEarnedLabel"
+        app:layout_constraintTop_toBottomOf="@+id/PointsEarnedLabel" />
+
+    <Button
+        android:id="@+id/HistoryDetailsBackButton"
+        style="@style/ActionButton.Large"
+        android:contentDescription="@string/advanced_settings_back_button_content_description"
+        app:icon="@drawable/arrow_left_icon_large"
+        app:iconSize="@dimen/button_icon_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/action_button_vertical_bias" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

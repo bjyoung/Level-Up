@@ -4,23 +4,46 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.8.3
+## 0.8.4 Quest History Details
+
+### Added
+
+- Add Quest History Details page, where users can view extra details about completed quests by tapping on their cards in Quest History
+
+### Changed
+
+- Increase Quest History limit from 200 to 750
+- Increase Item History limit from 200 to 400
+- Move save and cancel buttons on most landscape layouts to the bottom corners
+- Improve New/Edit Quest performance
+
+---
+
+## 0.8.3 Compose Update
 
 ### Added
 
 - Animate quest cards in quest list on remove, complete, delete and sort
 - Show the total cost of selected items in the Shop
 
+### Removed
+
+- Long press on quest cards or their icons in Quest List no longer transitions to Edit Quest
+- Remove the "Difficulty Settings" label in Settings because it was unnecessary and took up space
+
 ### Changed
 
 - Update Quest List and Quest History to use a Compose lazy grid instead of the XML LinearLayout
-- Long press on quest cards or their icons in Quest List no longer transitions to Edit Quest
 - Change darkened background for Quest History cards to a striped background
 - Quests with no name no longer show the default "???" value
 - Change Quest List and Quest History cards to scroll horizontally instead of vertically
   - Move the Quest List sort trigger to the bottom of the screen between the Add Item and Shop buttons
 - Update Icon Select to use a Compose lazy grid instead of RecyclerView
 - Improve Icon Select performance
+- Change Shop sort trigger to activate when any blank outer area is pressed
+- Adjust layouts to make pages easier to read and to have more uniform spacing
+- Change save and cancel buttons to look like navigation-based buttons (icon with white border, black background)
+- Change advanced settings button to an icon-based button
 
 ### Fixed
 
@@ -29,10 +52,11 @@ This document tracks all notables changes to the Level Up app.
 - Make it easier to scroll through text fields
 - Fix selected icons in Icon Select moving seemingly randomly when scrolling offscreen and back
 - Fix Icon Select not showing the correct icons after data or default icon restore
+- Center pop-up messages (especially noticeable in landscape mode)
 
 ---
 
-## 0.8.2
+## 0.8.2 Backup & Restore
 
 ### Added
 
@@ -56,7 +80,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.8.1
+## 0.8.1 Add Sort Buttons
 
 ### Added
 
@@ -81,7 +105,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.8.0
+## 0.8.0 Add Launcher Icon
 
 ### Added
 
@@ -111,7 +135,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.9
+## 0.7.9 Item History & About Pages
 
 ### Added
 
@@ -139,7 +163,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.8
+## 0.7.8 Advanced Settings
 
 ### Added
 
@@ -163,7 +187,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.7
+## 0.7.7 Quest History
 
 ### Added
 
@@ -187,7 +211,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.6
+## 0.7.6 Delete Icon
 
 ### Added
 
@@ -200,7 +224,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.5
+## 0.7.5 Icon Select Update
 
 ### Added
 
@@ -228,7 +252,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.4
+## 0.7.4 Name Entry
 
 ### Added
 
@@ -240,7 +264,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.3
+## 0.7.3 Icon Groups
 
 ### Added
 
@@ -259,7 +283,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.2
+## 0.7.2 Adjust Nav Button Design
 
 ### Added
 
@@ -276,7 +300,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.1
+## 0.7.1 Pop-Up Messages
 
 ### Added
 
@@ -290,7 +314,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.7.0
+## 0.7.0 Add Icon Select
 
 ### Added
 
@@ -310,7 +334,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.6.1
+## 0.6.1 Allow Negatives
 
 ### Added
 
@@ -325,7 +349,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.6.0
+## 0.6.0 Edit Options
 
 ### Added
 
@@ -336,7 +360,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.5.1
+## 0.5.1 Update Shop
 
 ### Added
 
@@ -355,7 +379,7 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.5.0
+## 0.5.0 Add Shop
 
 ### Added
 
@@ -510,7 +534,7 @@ This document tracks all notables changes to the Level Up app.
   - Select default difficulty (easy) when creating a new quest
 - In Quest List page
   - Add username, user level and experience bar UI
-  - Add New Quest, Settings and Shop nav buttons
+  - Add New Quest, Settings and Shop navigation (nav) buttons
 - Create basic pages for Quest List, New Quest, Settings and Shop
 - Add README
 - Add changelog

@@ -16,7 +16,7 @@ class ItemHistoryRepository @Inject constructor(
     fun observeAll() = itemHistoryDao.observeAll()
 
     @WorkerThread
-    suspend fun insert(purchasedItem: PurchasedItem) = externalScope.launch {
+    fun insert(purchasedItem: PurchasedItem) = externalScope.launch {
         itemHistoryDao.insert(purchasedItem)
     }
 
@@ -25,13 +25,12 @@ class ItemHistoryRepository @Inject constructor(
     ) : PurchasedItem {
         return PurchasedItem(
             name = shopItem.name,
-            cost = shopItem.cost,
-            dateCreated = shopItem.dateCreated
+            cost = shopItem.cost
         )
     }
 
     @WorkerThread
-    suspend fun record(itemIds: Set<Int>) = externalScope.launch {
+    fun record(itemIds: Set<Int>) = externalScope.launch {
         val shopItems: List<ShopItem> = shopItemDao.get(itemIds)
 
         val purchasedItems: List<PurchasedItem> = shopItems.map {
@@ -51,6 +50,6 @@ class ItemHistoryRepository @Inject constructor(
     }
 
     companion object {
-        private const val PURCHASED_ITEMS_LIMIT = 200
+        private const val PURCHASED_ITEMS_LIMIT = 400
     }
 }

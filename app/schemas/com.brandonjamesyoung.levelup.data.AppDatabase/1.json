@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "75894c37c15ff852bd6aff6803496de9",
+    "identityHash": "4f0e28fc9529a59b73afada8142877f4",
     "entities": [
       {
         "tableName": "ActiveQuest",
@@ -322,7 +322,7 @@
       },
       {
         "tableName": "PurchasedItem",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `cost` INTEGER NOT NULL, `dateCreated` TEXT, `datePurchased` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `cost` INTEGER NOT NULL, `datePurchased` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -341,12 +341,6 @@
             "columnName": "cost",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "dateCreated",
-            "columnName": "dateCreated",
-            "affinity": "TEXT",
-            "notNull": false
           },
           {
             "fieldPath": "datePurchased",
@@ -424,7 +418,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '75894c37c15ff852bd6aff6803496de9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4f0e28fc9529a59b73afada8142877f4')"
     ]
   }
 }

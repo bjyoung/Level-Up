@@ -68,8 +68,8 @@ class IconGridCreator(val context: Context) {
             mutableStateOf(selectableIcon.selected)
         }
 
-        var iconBitmap = icon.toImageBitmap()
-        var iconContentDescription = "${icon.name} Icon"
+        var iconBitmap: ImageBitmap = ImageBitmap.imageResource(R.drawable.question_mark_icon_large)
+        var iconContentDescription: String
 
         if (selected && pageMode() != Mode.SELECT) {
             iconBitmap = ImageBitmap.imageResource(R.drawable.check_icon_green_large)

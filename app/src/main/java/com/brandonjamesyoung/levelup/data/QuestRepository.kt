@@ -21,22 +21,24 @@ class QuestRepository @Inject constructor(
 
     fun get(id: Int) = questDao.get(id)
 
+    fun getWithIcon(id: Int) = questDao.getWithIcon(id)
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getDifficulties(ids: Set<Int>) = questDao.getDifficulties(ids)
 
     @WorkerThread
-    suspend fun insert(activeQuest: ActiveQuest) = externalScope.launch {
+    fun insert(activeQuest: ActiveQuest) = externalScope.launch {
         questDao.insert(activeQuest)
     }
 
     @WorkerThread
-    suspend fun update(activeQuest: ActiveQuest) = externalScope.launch {
+    fun update(activeQuest: ActiveQuest) = externalScope.launch {
         questDao.update(activeQuest)
     }
 
     @WorkerThread
-    suspend fun delete(ids: Set<Int>) = externalScope.launch {
+    fun delete(ids: Set<Int>) = externalScope.launch {
         questDao.delete(ids)
     }
 
@@ -57,7 +59,7 @@ class QuestRepository @Inject constructor(
     }
 
     @WorkerThread
-    suspend fun complete(ids: Set<Int>) = externalScope.launch {
+    fun complete(ids: Set<Int>) = externalScope.launch {
         val activeQuests: List<ActiveQuest> = questDao.get(ids)
         val difficulties: List<Difficulty> = difficultyDao.getAll()
         val difficultyMap = difficulties.associateBy { it.code }
@@ -81,6 +83,6 @@ class QuestRepository @Inject constructor(
     }
 
     companion object {
-        private const val COMPLETED_QUEST_LIMIT = 200
+        private const val COMPLETED_QUEST_LIMIT = 750
     }
 }

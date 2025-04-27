@@ -6,6 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <TextView
+        android:id="@+id/questHistoryLabel"
+        style="@style/Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/quest_history_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/title_vertical_bias" />
+
     <ProgressBar
         android:id="@+id/questHistoryProgressBar"
         android:layout_width="210dp"
@@ -18,36 +30,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questHistoryLabel" />
 
-    <TextView
-        android:id="@+id/questHistoryLabel"
-        style="@style/Text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/quest_history_label"
-        app:layout_constraintBottom_toTopOf="@+id/QuestHistoryTopGuideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/QuestListQuestHistoryButton"
         style="@style/NavButton"
-        android:tooltipText="@string/quest_list_button_tooltip"
         android:contentDescription="@string/settings_button_description"
+        android:tooltipText="@string/quest_list_button_tooltip"
         app:icon="@drawable/bullet_list_icon_large"
-        app:layout_constraintBottom_toTopOf="@+id/QuestHistoryTopGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="@dimen/left_nav_button_horizontal_bias_landscape"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/QuestHistoryTopGuideline"
-        style="@style/Guideline.Top_Land" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/QuestHistoryBottomGuideline"
-        style="@style/Guideline.FarBottom_Land" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/top_nav_button_vertical_bias_landscape" />
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/QuestHistoryComposeView"

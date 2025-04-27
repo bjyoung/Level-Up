@@ -10,6 +10,5 @@ data class PurchasedItem(
     @PrimaryKey(autoGenerate = true) override var id: Int = 0,
     @ColumnInfo override var name: String? = null,
     @ColumnInfo override var cost: Int,
-    @ColumnInfo override val dateCreated: Instant?,
     @ColumnInfo val datePurchased: Instant = Instant.now()
 ) : Item

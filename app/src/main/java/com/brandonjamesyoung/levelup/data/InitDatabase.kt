@@ -117,6 +117,7 @@ class InitDatabase {
             Triple("Folder", R.drawable.folder_icon, IconGroup.SPADES),
             Triple("Gate", R.drawable.gate_icon, IconGroup.CLUBS),
             Triple("Gear", R.drawable.gear_icon, IconGroup.SPADES),
+            Triple("Gear (Plus)", R.drawable.gear_plus_icon, IconGroup.SPADES),
             Triple("Glasses", R.drawable.glasses_icon, IconGroup.HEARTS),
             Triple("Group", R.drawable.group_icon, IconGroup.SPADES),
             Triple("Headphones", R.drawable.headphones_icon, IconGroup.HEARTS),

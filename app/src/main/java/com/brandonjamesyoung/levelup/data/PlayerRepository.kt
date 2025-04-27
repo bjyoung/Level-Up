@@ -19,7 +19,7 @@ class PlayerRepository @Inject constructor(
     suspend fun get() = playerDao.getById(1)
 
     @WorkerThread
-    suspend fun update(player: Player) = externalScope.launch {
+    fun update(player: Player) = externalScope.launch {
         playerDao.update(player)
     }
 }

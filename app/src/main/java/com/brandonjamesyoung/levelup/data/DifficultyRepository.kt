@@ -20,12 +20,12 @@ class DifficultyRepository @Inject constructor(
     suspend fun getAll() = difficultyDao.getAll()
 
     @WorkerThread
-    suspend fun update(difficulties: List<Difficulty>) = externalScope.launch {
+    fun update(difficulties: List<Difficulty>) = externalScope.launch {
         difficultyDao.update(difficulties)
     }
 
     @WorkerThread
-    suspend fun resetToDefault() = externalScope.launch {
+    fun resetToDefault() = externalScope.launch {
         val existingDifficulties: List<Difficulty> = getAll()
         val initDb = InitDatabase()
 

@@ -10,41 +10,43 @@
         android:id="@+id/NewQuestLabel"
         style="@style/Text"
         android:text="@string/new_quest_label"
-        app:layout_constraintBottom_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/title_vertical_bias" />
 
     <TextView
         android:id="@+id/DifficultyLabel"
         style="@style/Label"
         android:text="@string/difficulty_selector_label"
-        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/NameLabel"
-        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintTop_toBottomOf="@+id/NameInput"
+        app:layout_constraintVertical_bias="0.12" />
 
     <TextView
         android:id="@+id/IconLabel"
         style="@style/Label"
         android:text="@string/icon_input_label"
-        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
-        app:layout_constraintStart_toStartOf="@+id/DifficultyLabel"
-        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintBottom_toBottomOf="@+id/NameLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/NameInput"
+        app:layout_constraintTop_toTopOf="@+id/NameLabel" />
 
     <TextView
         android:id="@+id/NameLabel"
         style="@style/Label"
         android:text="@string/name_label"
-        app:layout_constraintBottom_toTopOf="@+id/NewItemBottomGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/NewQuestLabel"
+        app:layout_constraintVertical_bias="0.03" />
 
     <EditText
         android:id="@+id/NameInput"
@@ -81,7 +83,7 @@
         android:text="@string/easy_label"
         app:layout_constraintEnd_toStartOf="@+id/MediumButton"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/DifficultyLabel"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DifficultyLabel" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -122,35 +124,29 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/IconButton"
         style="@style/QuestIcon"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="8dp"
         android:contentDescription="@string/icon_input_content_description"
-        app:layout_constraintBottom_toBottomOf="@+id/IconLabel"
-        app:layout_constraintStart_toEndOf="@+id/IconLabel"
-        app:layout_constraintTop_toTopOf="@+id/IconLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/NameInput"
+        app:layout_constraintStart_toStartOf="@+id/IconLabel"
+        app:layout_constraintTop_toTopOf="@+id/NameInput"
         app:srcCompat="@drawable/question_mark_icon_large" />
 
     <Button
         android:id="@+id/CancelButton"
-        style="@style/ActionButton.Small"
-        android:contentDescription="@string/cancel_button_content_description"
-        app:icon="@drawable/times_icon_red_large"
-        app:iconTint="@color/warning_icon"
+        style="@style/CancelButton"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/NewItemBottomGuideline" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/action_button_vertical_bias" />
 
     <Button
-        style="@style/SaveButton"
         android:id="@+id/ConfirmButton"
+        style="@style/SaveButton"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/CancelButton"
         app:layout_constraintTop_toTopOf="@+id/CancelButton"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="@dimen/action_button_vertical_bias" />
 
     <TextView
         android:id="@+id/DateCreatedLabel"
@@ -159,17 +155,9 @@
         android:layout_height="wrap_content"
         android:text="@string/date_created_label"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/ConfirmButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/IconButton"
-        app:layout_constraintTop_toBottomOf="@+id/HardButton" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/NewItemTopGuideline"
-        style="@style/Guideline.Top" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/NewItemBottomGuideline"
-        style="@style/Guideline.FarBottom" />
+        app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
+        app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
+        app:layout_constraintStart_toEndOf="@+id/CancelButton"
+        app:layout_constraintTop_toTopOf="@+id/CancelButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

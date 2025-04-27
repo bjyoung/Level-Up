@@ -20,6 +20,10 @@ class NewQuestViewModel @Inject constructor(
     private val questRepository: QuestRepository,
     private val iconRepository: IconRepository
 ) : BaseViewModel(), IconReader {
+    var quest: MutableLiveData<ActiveQuest?> = MutableLiveData(null)
+
+    var questIcon: MutableLiveData<Icon?> = MutableLiveData(null)
+
     var name: String? = null
 
     var selectedDifficulty: Difficulty = Difficulty.EASY
@@ -36,8 +40,22 @@ class NewQuestViewModel @Inject constructor(
         validModes = listOf(Mode.DEFAULT, Mode.EDIT)
     }
 
-    fun getQuest(id: Int): LiveData<ActiveQuest> {
-        return questRepository.observe(id).asLiveData()
+    fun loadQuestWithIcon(questId: Int) = viewModelScope.launch(ioDispatcher) {
+        Log.i(TAG, "Loading quest with id: $questId")
+        val questWithIcon = questRepository.getWithIcon(questId)
+        quest.postValue(questWithIcon.activeQuest)
+        val icon: Icon? = questWithIcon.icon
+        questIcon.postValue(icon)
+        if (icon != null) iconId = icon.id
+        Log.i(TAG, "Successfully loaded quest: ${questWithIcon.activeQuest.name}")
+    }
+
+    fun loadIcon(id: Int) = viewModelScope.launch(ioDispatcher) {
+        Log.i(TAG, "Loading icon with id: $id")
+        val icon: Icon = iconRepository.get(id)
+        questIcon.postValue(icon)
+        iconId = icon.id
+        Log.i(TAG, "Successfully loaded icon: ${icon.name}")
     }
 
     override suspend fun getIcon(id: Int): Icon = withContext(ioDispatcher){
@@ -102,11 +120,12 @@ class NewQuestViewModel @Inject constructor(
         iconId = null
         dateCreated = null
         editQuestId = null
-        switchMode(Mode.DEFAULT)
         questDataLoaded = false
+        editQuestId = INVALID_QUEST_ID
     }
 
     companion object {
         private const val TAG = "NewQuestViewModel"
+        private const val INVALID_QUEST_ID = 0
     }
 }

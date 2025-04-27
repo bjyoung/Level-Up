@@ -266,6 +266,30 @@
             app:exitAnim="@anim/slide_out_down"
             app:popEnterAnim="@anim/slide_in_up"
             app:popExitAnim="@anim/slide_out_up" />
+        <action
+            android:id="@+id/action_questHistory_to_questHistoryDetails"
+            app:destination="@id/questHistoryDetails"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/questHistoryDetails"
+        android:name="com.brandonjamesyoung.levelup.fragments.QuestHistoryDetails"
+        android:label="QuestHistoryDetails"
+        tools:layout="@layout/quest_history_details">
+        <action
+            android:id="@+id/action_questHistoryDetails_to_questHistory"
+            app:destination="@id/questHistory"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+        <argument
+            android:name="completedQuestId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/advancedSettings"

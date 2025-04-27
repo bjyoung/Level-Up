@@ -23,17 +23,17 @@ class ShopItemRepository @Inject constructor(
     suspend fun getCosts(ids: Set<Int>) = shopItemDao.getCosts(ids)
 
     @WorkerThread
-    suspend fun insert(shopItem: ShopItem) = externalScope.launch {
+    fun insert(shopItem: ShopItem) = externalScope.launch {
         shopItemDao.insert(shopItem)
     }
 
     @WorkerThread
-    suspend fun update(shopItem: ShopItem) = externalScope.launch {
+    fun update(shopItem: ShopItem) = externalScope.launch {
         shopItemDao.update(shopItem)
     }
 
     @WorkerThread
-    suspend fun delete(ids: Set<Int>) = externalScope.launch {
+    fun delete(ids: Set<Int>) = externalScope.launch {
         shopItemDao.delete(ids)
     }
 }

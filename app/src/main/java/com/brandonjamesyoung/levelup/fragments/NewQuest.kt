@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,7 +20,6 @@ import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.ActiveQuest
 import com.brandonjamesyoung.levelup.constants.Difficulty
-import com.brandonjamesyoung.levelup.utility.IconHelper.Companion.getDefaultIcon
 import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.data.Icon
 import com.brandonjamesyoung.levelup.interfaces.Resettable
@@ -29,9 +29,7 @@ import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.Instant
 import javax.inject.Inject
 
@@ -159,42 +157,21 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
         Log.i(TAG, "Going from New Quest to Icon Select")
     }
 
-    private fun setIconDrawable(iconId: Int) = lifecycleScope.launch(Dispatchers.Main) {
-        val icon: Icon = withContext(Dispatchers.IO) {
-            viewModel.getIcon(iconId)
-        }
+    private fun getDefaultIcon(): Drawable? {
+        val context = requireContext()
 
-        val view = requireView()
-        val button = view.findViewById<FloatingActionButton>(R.id.IconButton)
-        val buttonDrawable: Drawable?
-
-        // In case icon is still null, use default icon instead
-        if (icon == null) {
-            val pageName = if (viewModel.mode.value == Mode.EDIT) "Edit Quest" else "New Quest"
-            Log.e(TAG, "No icon found in $pageName page. Setting default icon instead.")
-            val context = requireContext()
-            buttonDrawable = getDefaultIcon(context)
-        } else {
-            buttonDrawable = icon.getDrawable(resources)
-        }
-
-        button.setImageDrawable(buttonDrawable)
+        return ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.question_mark_icon_large,
+            context.theme
+        )
     }
 
-    // TODO Won't be needed if I update this page to use Compose
-    private fun changeIcon(iconId : Int?) {
-        viewModel.iconId = iconId
+    private fun setIcon(icon: Icon?) {
         val view = requireView()
         val button = view.findViewById<FloatingActionButton>(R.id.IconButton)
-
-        if (iconId == null) {
-            val context = requireContext()
-            val drawable = getDefaultIcon(context)
-            button.setImageDrawable(drawable)
-            return
-        }
-
-        setIconDrawable(iconId)
+        val drawable = icon?.getDrawable(view.resources) ?: getDefaultIcon()
+        button.setImageDrawable(drawable)
     }
 
     private fun setupIconSelectButton() {
@@ -203,9 +180,13 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
 
         if (args.iconId != INVALID_ICON_ID) {
             viewModel.iconId = args.iconId
-            changeIcon(args.iconId)
+            viewModel.loadIcon(args.iconId)
         } else if (viewModel.iconId != null) {
-            changeIcon(viewModel.iconId as Int)
+            viewModel.loadIcon(viewModel.iconId as Int)
+        }
+
+        viewModel.questIcon.observe(viewLifecycleOwner) { icon ->
+            setIcon(icon)
         }
 
         button.setOnClickListener{
@@ -225,47 +206,79 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
         dateLabelManager.setupDateCreatedLabel(dateCreated, dateCreatedView)
     }
 
-    private fun loadQuest(activeQuest: ActiveQuest) {
+    private fun fillInFields(quest: ActiveQuest?) {
+        if (quest == null) return
         val view = requireView()
         val nameInput = view.findViewById<EditText>(R.id.NameInput)
-        nameInput.setText(activeQuest.name)
-        setSelectedDifficulty(activeQuest.difficulty)
-        changeIcon(activeQuest.iconId)
-        setupDate(activeQuest.dateCreated)
+        nameInput.setText(quest.name)
+        setSelectedDifficulty(quest.difficulty)
+        setupDate(quest.dateCreated)
+    }
+
+    private fun activateDefaultMode() {
+        Log.d(TAG, "Changing to Default mode in New Quest")
+
+        val pageLabel = requireView().findViewById<TextView>(R.id.NewQuestLabel)
+        pageLabel.text = getString(R.string.new_quest_label)
+
+        // Only need to reset when moving from Quest List to New Quest
+        val mustResetIcon = !viewModel.questDataLoaded
+                && args.questId == INVALID_QUEST_ID
+                && args.iconId == INVALID_ICON_ID
+
+        if (mustResetIcon) {
+            viewModel.questIcon.postValue(null)
+        }
     }
 
     private fun activateEditMode() {
+        Log.d(TAG, "Changing to Edit mode in New Quest")
         val view = requireView()
         val pageLabel = view.findViewById<TextView>(R.id.NewQuestLabel)
         pageLabel.text = getString(R.string.edit_quest_label)
 
         if (!viewModel.questDataLoaded) {
-            viewModel.getQuest(viewModel.editQuestId as Int).observe(viewLifecycleOwner) { quest ->
-                loadQuest(quest)
-                viewModel.questDataLoaded = true
+            if (viewModel.editQuestId == null) {
+                Log.d(TAG, "Edit Quest's quest id is null. Switching to DEFAULT mode.")
+                viewModel.switchMode(Mode.DEFAULT)
+                return
             }
+
+            viewModel.loadQuestWithIcon(viewModel.editQuestId as Int)
+
+            viewModel.quest.observe(viewLifecycleOwner) { quest ->
+                fillInFields(quest)
+            }
+
+            viewModel.questDataLoaded = true
         } else {
             setupDate(viewModel.dateCreated)
         }
+    }
+
+    // Determines when quest data should be loaded
+    // Should only be triggered when navigating from Quest List to New/Edit Quest
+    private fun needToLoadQuest() : Boolean {
+        return args.questId != INVALID_QUEST_ID
     }
 
     private fun setupMode() {
         if (needToLoadQuest()) {
             viewModel.switchMode(Mode.EDIT)
             viewModel.editQuestId = args.questId
+        } else if (viewModel.editQuestId != INVALID_QUEST_ID) {
+            viewModel.switchMode(Mode.EDIT )
+        } else {
+            viewModel.switchMode(Mode.DEFAULT)
         }
 
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
             when (mode) {
-                Mode.DEFAULT -> Unit
+                Mode.DEFAULT -> activateDefaultMode()
                 Mode.EDIT -> activateEditMode()
                 else -> Log.e(TAG, "Unknown mode detected")
             }
         }
-    }
-
-    private fun needToLoadQuest() : Boolean {
-        return args.questId != INVALID_QUEST_ID
     }
 
     private fun setupBackNavigation() {

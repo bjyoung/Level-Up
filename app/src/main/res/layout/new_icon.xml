@@ -7,22 +7,25 @@
     android:layout_height="match_parent" >
 
     <TextView
-        style="@style/Text"
         android:id="@+id/NewIconLabel"
+        style="@style/Text"
         android:text="@string/new_item_label"
-        app:layout_constraintBottom_toTopOf="@+id/NewItemTopGuideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/title_vertical_bias" />
 
     <TextView
         android:id="@+id/IconNameLabel"
         style="@style/Label"
         android:text="@string/name_label"
+        app:layout_constraintBottom_toTopOf="@+id/CancelButton"
         app:layout_constraintEnd_toEndOf="@+id/IconNameInput"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/IconNameInput"
-        app:layout_constraintTop_toTopOf="@+id/NewItemTopGuideline" />
+        app:layout_constraintTop_toBottomOf="@+id/NewIconLabel"
+        app:layout_constraintVertical_bias="0.06" />
 
     <EditText
         style="@style/TextInput"
@@ -49,7 +52,8 @@
         app:layout_constraintEnd_toStartOf="@+id/ConfirmButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/NewItemBottomGuideline" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/action_button_vertical_bias" />
 
     <Button
         style="@style/SaveButton"
@@ -58,15 +62,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/CancelButton"
-        app:layout_constraintTop_toTopOf="@+id/CancelButton"
-        app:layout_constraintVertical_bias="0.95" />
-
-    <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.Top"
-        android:id="@+id/NewItemTopGuideline" />
-
-    <androidx.constraintlayout.widget.Guideline
-        style="@style/Guideline.FarBottom"
-        android:id="@+id/NewItemBottomGuideline" />
+        app:layout_constraintTop_toTopOf="@+id/CancelButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
