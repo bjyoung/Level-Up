@@ -1,4 +1,4 @@
-package com.brandonjamesyoung.levelup.utility
+package com.brandonjamesyoung.levelup.ui
 
 import android.content.Context
 import androidx.compose.animation.core.Spring

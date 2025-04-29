@@ -1,4 +1,4 @@
-package com.brandonjamesyoung.levelup.utility
+package com.brandonjamesyoung.levelup.ui
 
 import android.content.Context
 import android.graphics.RuntimeShader
@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.*
 import com.brandonjamesyoung.levelup.data.*
+import com.brandonjamesyoung.levelup.utility.OrientationManager
 
 class QuestGridCreator(val context: Context) {
     @Composable

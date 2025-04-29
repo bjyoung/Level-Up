@@ -1,7 +1,7 @@
 package com.brandonjamesyoung.levelup.di
 
 import android.content.Context
-import com.brandonjamesyoung.levelup.utility.QuestGridCreator
+import com.brandonjamesyoung.levelup.ui.QuestGridCreator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
