@@ -4,6 +4,14 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.8.5
+
+### Added
+
+- Added a couple more icons
+
+---
+
 ## 0.8.4 Quest History Details
 
 ### Added
