@@ -8,7 +8,11 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Added a couple more icons
+- Added more icons
+
+### Fixed
+
+- Fixed the app crashing on initial install
 
 ---
 

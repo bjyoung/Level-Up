@@ -16,9 +16,22 @@ class SettingsRepository @Inject constructor(
 ) {
     fun observe() = settingsDao.observeById(1)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun get() = settingsDao.getById(1)
+    suspend fun get(): Settings {
+        var settings = settingsDao.getById(1)
+
+        if (settings == null) {
+            insertDefaultSettings()
+            settings = Settings()
+        }
+
+        return settings
+    }
+
+    suspend fun insertDefaultSettings() {
+        val settings = Settings()
+        settingsDao.insert(settings)
+    }
 
     @WorkerThread
     fun update(settings: Settings) = externalScope.launch {
