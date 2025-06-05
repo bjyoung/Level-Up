@@ -12,8 +12,9 @@ This document tracks all notables changes to the Level Up app.
 
 ### Fixed
 
-- Fixed the app crashing on initial install
-- Fixed card colors and icons not updating immediately on edit
+- Fix crash on initial install
+- Fix card colors and icons not updating immediately on edit
+- Fix crash when navigating to the Shop with the default acronym set
 
 ---
 

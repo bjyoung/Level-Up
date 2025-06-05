@@ -481,10 +481,10 @@ class Shop : Fragment(R.layout.shop) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         InsetHandler.addInsetPadding(requireView())
+        loadPointsAcronym()
 
         lifecycleScope.launch(Dispatchers.Main) {
             Log.i(TAG, "On Shop page")
-            loadPointsAcronym()
             setupSortTrigger()
             setupSortButton()
             setupObservables()
