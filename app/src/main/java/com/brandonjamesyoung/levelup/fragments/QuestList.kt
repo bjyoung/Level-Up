@@ -495,12 +495,12 @@ class QuestList: Fragment(R.layout.quest_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         InsetHandler.addInsetPadding(requireView())
-        setupSettings()
 
         lifecycleScope.launch(Dispatchers.Main) {
             Log.i(TAG, "On Quest List page")
             viewModel.selectedQuestIds.clear()
             setupUsernameNavigation()
+            setupSettings()
             activateQuestHistoryButton()
             setupObservables()
             setupSort()
