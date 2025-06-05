@@ -133,7 +133,7 @@ class QuestGridCreator(val context: Context) {
 
         val questCardWidth: Dp = dimensionResource(R.dimen.quest_card_width)
 
-        val shader by remember {
+        val shader by remember(key1 = card.quest.difficulty) {
             val runtimeShader = RuntimeShader(backgroundShaderSrc)
 
             runtimeShader.setFloatUniform(
