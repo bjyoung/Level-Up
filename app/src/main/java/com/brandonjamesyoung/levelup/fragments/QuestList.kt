@@ -371,7 +371,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         viewModel.switchMode(targetMode)
     }
 
-    // Add quest cards to lazy vertical grid
+    // Display quest cards
     private fun reloadLazyQuestGrid(questsWithIcon: List<QuestWithIcon>) {
         latestQuests = questsWithIcon.toMutableList()
         if (questsWithIcon.isEmpty()) showNoQuestsMessage() else hideNoQuestsMessage()

@@ -14,4 +14,21 @@ data class ActiveQuest(
     @ColumnInfo override var difficulty: Difficulty = Difficulty.EASY,
     @ColumnInfo override var iconId: Int? = null,
     @ColumnInfo override val dateCreated: Instant? = Instant.now(),
-) : Quest()
+) : Quest() {
+    override fun equals(other: Any?): Boolean {
+        return (other is ActiveQuest)
+                && id == other.id
+                && name == other.name
+                && iconId == other.iconId
+                && dateCreated == other.dateCreated
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + (iconId ?: 0)
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + difficulty.hashCode()
+        result = 31 * result + (dateCreated?.hashCode() ?: 0)
+        return result
+    }
+}

@@ -135,6 +135,26 @@ data class Player(
         }
     }
 
+    override fun equals(other: Any?): Boolean {
+        return (other is Player)
+                && id == other.id
+                && name == other.name
+                && points == other.points
+                && lvl == other.lvl
+                && totalExp == other.totalExp
+                && currentLvlExp == other.currentLvlExp
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + points
+        result = 31 * result + lvl
+        result = 31 * result + totalExp.hashCode()
+        result = 31 * result + currentLvlExp
+        result = 31 * result + (name?.hashCode() ?: 0)
+        return result
+    }
+
     companion object {
         private const val TAG = "Player"
     }

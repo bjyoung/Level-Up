@@ -25,28 +25,22 @@ data class Icon(
     @ColumnInfo val dateCreated: Instant? = Instant.now(),
 ) {
     override fun equals(other: Any?) : Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Icon
-
-        if (id != other.id) return false
-        if (name != other.name) return false
-        if (!image.contentEquals(other.image)) return false
-        if (imageWidth != other.imageWidth) return false
-        if (imageHeight != other.imageHeight) return false
-        if (iconGroup != other.iconGroup) return false
-        if (dateCreated != other.dateCreated) return false
-
-        return true
+        return (other is Icon)
+                && id == other.id
+                && name == other.name
+                && image == other.image
+                && imageWidth == other.imageWidth
+                && imageHeight == other.imageHeight
+                && iconGroup == other.iconGroup
+                && dateCreated == other.dateCreated
     }
 
-    override fun hashCode() : Int {
+    override fun hashCode(): Int {
         var result = id
+        result = 31 * result + imageWidth
+        result = 31 * result + imageHeight
         result = 31 * result + (name?.hashCode() ?: 0)
         result = 31 * result + image.contentHashCode()
-        result = 31 * result + imageWidth.hashCode()
-        result = 31 * result + imageHeight.hashCode()
         result = 31 * result + iconGroup.hashCode()
         result = 31 * result + (dateCreated?.hashCode() ?: 0)
         return result

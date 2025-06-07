@@ -25,14 +25,6 @@
         app:layout_constraintTop_toBottomOf="@+id/NameInput" />
 
     <TextView
-        style="@style/Label"
-        android:id="@+id/IconLabel"
-        android:layout_marginTop="45dp"
-        android:text="@string/icon_input_label"
-        app:layout_constraintStart_toStartOf="@+id/DifficultyLabel"
-        app:layout_constraintTop_toBottomOf="@+id/HardButton" />
-
-    <TextView
         android:id="@+id/NameLabel"
         style="@style/Label"
         android:text="@string/name_label"
@@ -109,6 +101,14 @@
         app:layout_constraintEnd_toEndOf="@+id/MediumButton"
         app:layout_constraintTop_toTopOf="@+id/HardButton"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        style="@style/Label"
+        android:id="@+id/IconLabel"
+        android:layout_marginTop="45dp"
+        android:text="@string/icon_input_label"
+        app:layout_constraintStart_toStartOf="@+id/DifficultyLabel"
+        app:layout_constraintTop_toBottomOf="@+id/HardButton" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/IconButton"
