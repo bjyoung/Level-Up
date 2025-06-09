@@ -200,6 +200,30 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_newIcon_to_iconEditor"
+            app:destination="@id/iconEditor"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="iconId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/iconEditor"
+        android:name="com.brandonjamesyoung.levelup.fragments.IconEditor"
+        android:label="IconEditor"
+        tools:layout="@layout/icon_editor" >
+        <action
+            android:id="@+id/action_iconEditor_to_newIcon"
+            app:destination="@id/newIcon"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/restoreDefaults"

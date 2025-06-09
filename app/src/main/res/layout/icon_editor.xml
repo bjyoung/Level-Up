@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/IconEditor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/WidthInput"
+        style="@style/NumInput"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:autofillHints="@string/icon_dimen_autofill_hint"
+        android:ems="10"
+        android:hint="@string/icon_dimen_input_hint"
+        android:maxLength="@integer/max_icon_width_length"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/IconDimensionLabel"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <TextView
+        android:id="@+id/IconDimensionLabel"
+        style="@style/Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_dimen_cross_link"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/WidthInput"
+        app:layout_constraintEnd_toStartOf="@+id/HeightInput"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/WidthInput"
+        app:layout_constraintTop_toTopOf="@+id/WidthInput" />
+
+    <EditText
+        android:id="@+id/HeightInput"
+        style="@style/NumInput"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:autofillHints="@string/icon_dimen_autofill_hint"
+        android:ems="10"
+        android:hint="@string/icon_dimen_input_hint"
+        android:maxLength="@integer/max_icon_width_length"
+        app:layout_constraintBottom_toBottomOf="@+id/WidthInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/IconDimensionLabel"
+        app:layout_constraintTop_toTopOf="@+id/WidthInput"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <Button
+        android:id="@+id/DrawButton"
+        style="@style/NavButton.Large"
+        android:contentDescription="@string/draw_button_description"
+        app:icon="@drawable/pencil_icon"
+        app:layout_constraintBottom_toTopOf="@+id/CancelButton"
+        app:layout_constraintEnd_toStartOf="@+id/EraseButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.823" />
+
+    <Button
+        android:id="@+id/PaintButton"
+        style="@style/NavButton.Large"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/filL_button_description"
+        app:icon="@drawable/paint_bucket_icon"
+        app:layout_constraintStart_toStartOf="@+id/DrawButton"
+        app:layout_constraintTop_toBottomOf="@+id/DrawButton" />
+
+    <Button
+        android:id="@+id/paintButton"
+        style="@style/NavButton.Large"
+        android:contentDescription="@string/move_button_description"
+        app:icon="@drawable/move_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/PaintButton"
+        app:layout_constraintEnd_toEndOf="@+id/EraseButton"
+        app:layout_constraintStart_toStartOf="@+id/EraseButton"
+        app:layout_constraintTop_toTopOf="@+id/PaintButton" />
+
+    <Button
+        android:id="@+id/toggleGridButton"
+        style="@style/NavButton.Large"
+        android:contentDescription="@string/toggle_grid_button_description"
+        app:icon="@drawable/grid_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/paintButton"
+        app:layout_constraintEnd_toEndOf="@+id/UndoButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/UndoButton"
+        app:layout_constraintTop_toTopOf="@+id/paintButton"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/EraseButton"
+        style="@style/NavButton.Large"
+        android:contentDescription="@string/eraser_button_description"
+        app:icon="@drawable/eraser_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/DrawButton"
+        app:layout_constraintEnd_toStartOf="@+id/UndoButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/DrawButton"
+        app:layout_constraintTop_toTopOf="@+id/DrawButton"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/UndoButton"
+        style="@style/NavButton.Large"
+        android:contentDescription="@string/undo_button_description"
+        app:icon="@drawable/undo_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/EraseButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/EraseButton"
+        app:layout_constraintTop_toTopOf="@+id/EraseButton" />
+
+    <Button
+        android:id="@+id/CancelButton"
+        style="@style/CancelButton"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/SaveButton"
+        style="@style/SaveButton"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/CancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/CancelButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

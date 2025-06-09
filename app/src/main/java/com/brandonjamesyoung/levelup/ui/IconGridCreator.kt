@@ -6,7 +6,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -51,7 +51,8 @@ class IconGridCreator(val context: Context) {
     @Composable
     fun IconView(
         selectableIcon: SelectableIcon,
-        iconAction: ((SelectableIcon) -> Unit)? = null,
+        iconTapAction: ((SelectableIcon) -> Unit)? = null,
+        iconHoldAction: ((Int) -> Unit)? = null,
         pageMode: () -> Mode?
     ) {
         val iconAlpha: Float by remember(key1 = pageMode) {
@@ -99,15 +100,22 @@ class IconGridCreator(val context: Context) {
                     )
                     .padding(iconPadding)
                     .width(128.dp)
-                    .clickable(
+                    .combinedClickable(
                         interactionSource = remember { MutableInteractionSource() },
-                        indication = null
-                    ) {
-                        if(iconAction != null && pageMode() != Mode.MOVE) {
-                            selected = !selected
-                            iconAction(selectableIcon)
-                        }
-                    }
+                        indication = null,
+                        onClick = {
+                            if (iconTapAction != null && pageMode() != Mode.MOVE) {
+                                selected = !selected
+                                iconTapAction(selectableIcon)
+                            }
+                        },
+                        onLongClick = {
+                            if (iconHoldAction != null) {
+                                iconHoldAction(selectableIcon.icon.id)
+                            }
+                        },
+                        onLongClickLabel = "temp"
+                    )
             )
             Spacer(Modifier.height(16.dp))
             Text(
@@ -128,7 +136,8 @@ class IconGridCreator(val context: Context) {
     @Composable
     fun IconSelectGridView(
         icons: List<SelectableIcon>,
-        iconAction: ((SelectableIcon) -> Unit)? = null,
+        iconTapAction: ((SelectableIcon) -> Unit)? = null,
+        iconHoldAction: ((Int) -> Unit)? = null,
         pageMode: (() -> Mode?)
     ) {
         val inPortraitMode = inPortraitMode(context.resources)
@@ -166,7 +175,7 @@ class IconGridCreator(val context: Context) {
                             dampingRatio = Spring.DampingRatioLowBouncy
                         )
                     )) {
-                    IconView(icon, iconAction, pageMode)
+                    IconView(icon, iconTapAction, iconHoldAction, pageMode)
                 }
             }
         }

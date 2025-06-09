@@ -85,6 +85,12 @@ class IconSelect : Fragment(R.layout.icon_select) {
         Log.i(TAG, "Going from Icon Select to New Icon")
     }
 
+    private fun navigateToEditIcon(iconId: Int) {
+        val action = IconSelectDirections.actionIconSelectToNewIcon(iconId = iconId)
+        findNavController().navigate(action)
+        Log.i(TAG, "Selected icon with id [$iconId]. Going from Icon Select to New Icon.")
+    }
+
     private fun activateAddIconButton() {
         convertButton(
             targetId = R.id.AddNewIconButton,
@@ -425,7 +431,8 @@ class IconSelect : Fragment(R.layout.icon_select) {
         composeView.setContent {
             iconGridCreator.IconSelectGridView(
                 icons = selectableIcons,
-                iconAction = ::selectIcon,
+                iconTapAction = ::selectIcon,
+                iconHoldAction = ::navigateToEditIcon,
                 pageMode = { viewModel.mode.value }
             )
         }

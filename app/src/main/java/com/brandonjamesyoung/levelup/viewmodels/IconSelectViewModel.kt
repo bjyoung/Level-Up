@@ -33,7 +33,9 @@ class IconSelectViewModel @Inject constructor(
 
     fun loadIconGroup(iconGroup: IconGroup) = viewModelScope.launch(ioDispatcher) {
         Log.i(TAG, "Loading $iconGroup icons")
-        displayedIcons.postValue(iconRepository.getIcons(iconGroup))
+        var databaseIcons: List<Icon> = iconRepository.getIcons(iconGroup)
+        databaseIcons = databaseIcons.sortedBy{ icon -> icon.name }.toList()
+        displayedIcons.postValue(databaseIcons)
         Log.i(TAG, "Successfully loaded $iconGroup icons")
     }
 

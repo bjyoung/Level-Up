@@ -62,20 +62,6 @@ class NewQuestViewModel @Inject constructor(
         iconRepository.get(id)
     }
 
-    fun saveQuest() {
-        val activeQuest = ActiveQuest(
-            name = name,
-            difficulty = selectedDifficulty,
-            iconId = iconId
-        )
-
-        if (mode.value == Mode.DEFAULT) {
-            insert(activeQuest)
-        } else if (mode.value == Mode.EDIT) {
-            activeQuest.id = editQuestId!!
-            update(activeQuest)
-        }
-    }
 
     private fun logQuestSave(activeQuest: ActiveQuest, isEdit: Boolean = false) {
         var logMessage = if (!isEdit) {
@@ -112,6 +98,21 @@ class NewQuestViewModel @Inject constructor(
 
         questRepository.update(currentActiveQuest)
         logQuestSave(activeQuest = currentActiveQuest, isEdit = true)
+    }
+
+    fun saveQuest() {
+        val activeQuest = ActiveQuest(
+            name = name,
+            difficulty = selectedDifficulty,
+            iconId = iconId
+        )
+
+        if (mode.value == Mode.DEFAULT) {
+            insert(activeQuest)
+        } else if (mode.value == Mode.EDIT) {
+            activeQuest.id = editQuestId!!
+            update(activeQuest)
+        }
     }
 
     fun resetPage() {

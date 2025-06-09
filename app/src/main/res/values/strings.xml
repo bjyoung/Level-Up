@@ -192,6 +192,7 @@
 
     <!-- New Icon strings -->
     <string name="new_icon_label">New Icon</string>
+    <string name="edit_icon_label">Edit Icon</string>
 
     <!-- Quest History strings -->
     <string name="quest_history_label">Quest History</string>
@@ -208,4 +209,15 @@
     <string name="app_version">Version %1$s</string>
     <string name="back_button_content_description">Back button</string>
     <string name="app_icon_description">Level Up app icon</string>
+
+    <!-- Icon Editor strings -->
+    <string name="icon_dimen_autofill_hint">iconDimension</string>
+    <string name="icon_dimen_input_hint">16</string>
+    <string name="icon_dimen_cross_link">X</string>
+    <string name="draw_button_description">Draw</string>
+    <string name="eraser_button_description">Erase</string>
+    <string name="undo_button_description">Undo</string>
+    <string name="filL_button_description">Fill</string>
+    <string name="move_button_description">Move</string>
+    <string name="toggle_grid_button_description">Toggle Grid</string>
 </resources>

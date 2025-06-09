@@ -15,4 +15,8 @@
 
     <!-- Animation lengths -->
     <integer name="very_long_anim_time">600</integer>
+
+    <!-- Icon Editor -->
+    <integer name="max_icon_width_length">2</integer>
+    <integer name="max_icon_height_length">2</integer>
 </resources>

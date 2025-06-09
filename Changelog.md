@@ -9,6 +9,8 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - Added more icons
+- Added option to edit icon names
+  - Edit icons by going to Icon Select, then pressing and holding on any icon
 
 ### Fixed
 

@@ -267,7 +267,7 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
             viewModel.switchMode(Mode.EDIT)
             viewModel.editQuestId = args.questId
         } else if (viewModel.editQuestId != INVALID_QUEST_ID) {
-            viewModel.switchMode(Mode.EDIT )
+            viewModel.switchMode(Mode.EDIT)
         } else {
             viewModel.switchMode(Mode.DEFAULT)
         }

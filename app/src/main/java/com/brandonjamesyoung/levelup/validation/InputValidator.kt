@@ -14,6 +14,8 @@ private const val MAX_QUEST_NAME_LENGTH = 40
 
 private const val MAX_ITEM_NAME_LENGTH = 40
 
+private const val MAX_ICON_NAME_LENGTH = 25
+
 private val QUEST_NAME_VALIDATION_REGEX = Regex("^[a-zA-Z\\d\\p{L}'\"!#$%&:?,.() @_+/*-]+$")
 
 private const val MAX_ACRONYM_LENGTH = 3
@@ -49,6 +51,10 @@ class InputValidator {
 
     fun isValidItemName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
         return isValidName(MAX_ITEM_NAME_LENGTH, nameField, tag, fragment)
+    }
+
+    fun isValidIconName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
+        return isValidName(MAX_ICON_NAME_LENGTH, nameField, tag, fragment)
     }
 
     fun isValidQuestName(nameField: EditText, tag: String, fragment: Fragment) : Boolean {
