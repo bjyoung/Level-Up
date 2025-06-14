@@ -124,7 +124,7 @@ class NewIcon : Fragment(R.layout.new_icon), Resettable {
         }
 
         button.setOnClickListener{
-            navigateToIconSelect()
+            navigateToIconEditor()
         }
     }
 

@@ -2,6 +2,7 @@ package com.brandonjamesyoung.levelup.di
 
 import android.content.Context
 import com.brandonjamesyoung.levelup.ui.IconGridCreator
+import com.brandonjamesyoung.levelup.ui.IconWorkspaceCreator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,5 +17,11 @@ class IconModule {
     @Provides
     fun provideIconGridCreator(@ApplicationContext context: Context): IconGridCreator {
         return IconGridCreator(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideIconWorkspaceCreator(@ApplicationContext context: Context): IconWorkspaceCreator {
+        return IconWorkspaceCreator(context)
     }
 }

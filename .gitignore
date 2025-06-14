@@ -21,3 +21,4 @@ local.properties
 /.idea/runConfigurations.xml
 /.idea/AndroidProjectSystem.xml
 /.kotlin/sessions/kotlin-compiler-*
+/kotlin/errors//errors-*.log

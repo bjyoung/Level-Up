@@ -4,19 +4,24 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.ui.IconWorkspaceCreator
 import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.viewmodels.IconEditorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class IconEditor : Fragment(R.layout.icon_editor) {
     private val viewModel: IconEditorViewModel by activityViewModels()
+
+    @Inject lateinit var workspaceCreator: IconWorkspaceCreator
 
     private fun navigateToIconSelect() {
         findNavController().navigate(R.id.action_iconEditor_to_newIcon)
@@ -46,6 +51,14 @@ class IconEditor : Fragment(R.layout.icon_editor) {
         setupSaveButton()
     }
 
+    private fun setupWorkspace() {
+        val composeView = requireView().findViewById<ComposeView>(R.id.IconEditorComposeView)
+
+        composeView.setContent {
+            workspaceCreator.IconWorkspaceView(viewModel.workspace)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         InsetHandler.addInsetPadding(requireView())
@@ -53,6 +66,7 @@ class IconEditor : Fragment(R.layout.icon_editor) {
         lifecycleScope.launch {
             Log.i(TAG, "On New Item page")
             setupButtons()
+            setupWorkspace()
         }
     }
 
