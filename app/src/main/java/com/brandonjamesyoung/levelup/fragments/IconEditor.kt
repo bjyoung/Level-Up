@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.ui.IconWorkspaceCreator
+import com.brandonjamesyoung.levelup.utility.IconWorkspace
 import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.viewmodels.IconEditorViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +34,7 @@ class IconEditor : Fragment(R.layout.icon_editor) {
         val cancelButton = view.findViewById<Button>(R.id.CancelButton)
 
         cancelButton.setOnClickListener {
+            viewModel.reset()
             navigateToIconSelect()
         }
     }
@@ -42,6 +44,7 @@ class IconEditor : Fragment(R.layout.icon_editor) {
         val saveButton = view.findViewById<Button>(R.id.SaveButton)
 
         saveButton.setOnClickListener {
+            viewModel.reset()
             navigateToIconSelect()
         }
     }
@@ -51,11 +54,20 @@ class IconEditor : Fragment(R.layout.icon_editor) {
         setupSaveButton()
     }
 
-    private fun setupWorkspace() {
+    private fun reloadPixelGrid(
+        workspace: IconWorkspace?,
+    ) {
+        if (workspace == null) return
         val composeView = requireView().findViewById<ComposeView>(R.id.IconEditorComposeView)
 
         composeView.setContent {
-            workspaceCreator.IconWorkspaceView(viewModel.workspace)
+            workspaceCreator.IconWorkspaceView(workspace, viewModel::paintPixel)
+        }
+    }
+
+    private fun setupWorkspace() {
+        viewModel.workspace.observe(viewLifecycleOwner) {
+            reloadPixelGrid(it)
         }
     }
 

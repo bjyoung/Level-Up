@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,10 +24,6 @@ import com.brandonjamesyoung.levelup.utility.IconWorkspace
 import com.brandonjamesyoung.levelup.utility.OrientationManager
 
 class IconWorkspaceCreator(val context: Context) {
-    fun pixelClickTest(x: Int, y: Int) {
-        Log.d(TAG, "Pixel [$x, $y] clicked")
-    }
-
     fun calculatePixelSize(workspaceWidth: Int, workspaceHeight: Int) : Float {
         val inPortraitMode = OrientationManager.inPortraitMode(context.resources)
         val displayMetrics = context.resources.displayMetrics
@@ -40,28 +38,46 @@ class IconWorkspaceCreator(val context: Context) {
     }
 
     @Composable
-    fun PixelView(x: Int, y: Int, workspace: IconWorkspace) {
+    fun PixelView(
+        x: Int,
+        y: Int,
+        workspace: IconWorkspace,
+        pixelTapAction: (Int, Int) -> Unit
+    ) {
         val pixelSize: Float by remember(key1 = workspace.width, key2 = workspace.height) {
             val boxSize: Float = calculatePixelSize(workspace.width, workspace.height)
             mutableFloatStateOf(boxSize)
+        }
+
+        val intensity = workspace.grid[y][x]
+
+        val pixelColor: Color by remember (key1 = intensity) {
+            val targetColor = if (intensity != EMPTY_PIXEL_INTENSITY) {
+                Color.Black
+            } else {
+                Color.LightGray
+            }
+
+            mutableStateOf(targetColor)
         }
 
         Box(
             modifier = Modifier
                 .size(pixelSize.dp)
                 .clip(DEFAULT_PIXEL_SHAPE)
-                .background(Color.LightGray)
-                .clickable {
-                    pixelClickTest(x, y)
-//                    workspace.paintPixel(x, y)
-                }
+                .background(pixelColor)
+                .clickable { pixelTapAction(x, y) }
         )
     }
 
      // Set up and display a grid of interactable pixels
     @Composable
-    fun IconWorkspaceView(workspace: IconWorkspace) {
+    fun IconWorkspaceView(
+         workspace: IconWorkspace,
+         pixelTapAction: ((Int, Int) -> Unit),
+     ) {
         val inPortraitMode: Boolean = OrientationManager.inPortraitMode(context.resources)
+
         val paddingModifier: Modifier = if (inPortraitMode) {
             Modifier.padding(0.dp, 0.dp, 0.dp, 200.dp)
         } else {
@@ -72,7 +88,7 @@ class IconWorkspaceCreator(val context: Context) {
             for (y in 0..<workspace.height) {
                 Row {
                     for (x in 0..<workspace.width) {
-                        PixelView(x, y, workspace)
+                        PixelView(x, y, workspace, pixelTapAction)
                     }
                 }
             }
@@ -82,5 +98,8 @@ class IconWorkspaceCreator(val context: Context) {
     companion object {
         private val DEFAULT_PIXEL_SHAPE = RectangleShape
         private const val TAG = "IconWorkspaceCreator"
+
+        // TODO Temp, used as placeholder
+        private const val EMPTY_PIXEL_INTENSITY = -1
     }
 }

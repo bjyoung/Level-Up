@@ -5,12 +5,26 @@ import androidx.collection.MutableIntList
 
 class IconWorkspace(
     var width: Int,
-    var height: Int
+    var height: Int,
+    givenGrid: MutableList<MutableIntList>? = null
 ) {
-    var grid: MutableList<MutableIntList> = MutableList<MutableIntList>(
-        height,
-        init = { index -> MutableIntList(width) }
-    )
+    var grid: MutableList<MutableIntList>
+
+    fun createInitGrid() : MutableList<MutableIntList> {
+        val initGrid: MutableList<MutableIntList> = mutableListOf()
+
+        repeat(height) {
+            val row = MutableIntList(width)
+            repeat(width) { row.add(EMPTY_PIXEL_INTENSITY) }
+            initGrid.add(row)
+        }
+
+        return initGrid
+    }
+
+    init {
+        grid = givenGrid?.toMutableList() ?: createInitGrid()
+    }
 
     // Add new rows to the bottom of the grid
     private fun addRows(numNewRows: Int) {
@@ -100,10 +114,10 @@ class IconWorkspace(
 
         if (currIntensity == intensity) {
             grid[y][x] = EMPTY_PIXEL_INTENSITY
-            Log.d(TAG, "Painted pixel [$x, $y] with intensity ($intensity)")
+            Log.d(TAG, "Cleared pixel [$x, $y]")
         } else {
             grid[y][x] = intensity
-            Log.d(TAG, "Cleared pixel [$x, $y]")
+            Log.d(TAG, "Painted pixel [$x, $y] with intensity ($intensity)")
         }
     }
 
@@ -115,6 +129,10 @@ class IconWorkspace(
         }
 
         Log.i(TAG, "Pixel grid cleared")
+    }
+
+    fun getCopy() : IconWorkspace {
+        return IconWorkspace(width, height, grid)
     }
 
     companion object {
