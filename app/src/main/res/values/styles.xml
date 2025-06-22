@@ -164,11 +164,13 @@
     </style>
     <style name="CancelButton" parent="NavButton.Large">
         <item name="android:contentDescription">@string/cancel_button_content_description</item>
+        <item name="android:tooltipText">@string/cancel_button_tooltip</item>
         <item name="icon">@drawable/times_icon_red_large</item>
         <item name="iconTint">@color/warning_icon</item>
     </style>
     <style name="SaveButton" parent="NavButton.Large">
         <item name="android:contentDescription">@string/confirm_button_content_description</item>
+        <item name="android:tooltipText">@string/save_button_tooltip</item>
         <item name="icon">@drawable/check_icon_green_large</item>
         <item name="iconTint">@color/confirm_icon</item>
     </style>

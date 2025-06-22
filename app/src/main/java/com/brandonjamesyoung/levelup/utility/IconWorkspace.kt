@@ -2,6 +2,10 @@ package com.brandonjamesyoung.levelup.utility
 
 import android.util.Log
 import androidx.collection.MutableIntList
+import com.brandonjamesyoung.levelup.constants.DEFAULT_PIXEL_INTENSITY
+import com.brandonjamesyoung.levelup.constants.EMPTY_PIXEL_INTENSITY
+import com.brandonjamesyoung.levelup.constants.MAX_HEIGHT
+import com.brandonjamesyoung.levelup.constants.MAX_WIDTH
 
 class IconWorkspace(
     var width: Int,
@@ -15,7 +19,11 @@ class IconWorkspace(
 
         repeat(height) {
             val row = MutableIntList(width)
-            repeat(width) { row.add(EMPTY_PIXEL_INTENSITY) }
+
+            repeat(width) {
+                row.add(EMPTY_PIXEL_INTENSITY)
+            }
+
             initGrid.add(row)
         }
 
@@ -32,7 +40,7 @@ class IconWorkspace(
 
         repeat (numNewRows) {
             val newRow = MutableIntList(width)
-            for (colNum in 1..width) newRow[colNum] = EMPTY_PIXEL_INTENSITY
+            repeat(width) { newRow.add(EMPTY_PIXEL_INTENSITY) }
             grid.add(newRow)
         }
     }
@@ -43,7 +51,7 @@ class IconWorkspace(
         repeat(numRowsToRemove) { grid.removeAt(grid.lastIndex) }
     }
 
-    fun modifyNumRows(newHeight: Int) {
+    fun modifyHeight(newHeight: Int) {
         if (newHeight < 0 || newHeight > MAX_HEIGHT) {
             throw IllegalArgumentException("# rows must be between 0 and $MAX_HEIGHT")
         }
@@ -59,24 +67,37 @@ class IconWorkspace(
     // Add new rows to the bottom of the grid
     private fun addCols(numNewCols: Int) {
         if (numNewCols == 0) return
-        grid.forEach { it.add(EMPTY_PIXEL_INTENSITY) }
+
+        grid.forEach { row ->
+            repeat (numNewCols) {
+                row.add(EMPTY_PIXEL_INTENSITY)
+            }
+        }
     }
 
     // Remove rows from the bottom of the grid
     private fun removeCols(numRowsToRemove: Int) {
         if (numRowsToRemove == 0) return
-        repeat(numRowsToRemove) { grid.removeAt(grid.lastIndex) }
+
+        repeat(numRowsToRemove) {
+            grid.removeAt(grid.lastIndex)
+        }
     }
 
-    fun modifyNumCols(newWidth: Int) {
+    fun modifyWidth(newWidth: Int) {
         if (newWidth < 0 || newWidth > MAX_WIDTH) {
             throw IllegalArgumentException("# columns must be between 0 and $MAX_WIDTH")
         }
 
         val oldWidth = width
+
+        if (newWidth == oldWidth) {
+            Log.i(TAG, "No width change needed. Width is $oldWidth")
+            return
+        }
+
         val numColDiff = newWidth - oldWidth
-        if (numColDiff == 0) return
-        if (numColDiff < 0) removeRows(numColDiff) else addRows(numColDiff)
+        if (numColDiff < 0) removeCols(numColDiff) else addCols(numColDiff)
         width = newWidth
         Log.i(TAG, "Number of columns changed from $oldWidth to $newWidth")
     }
@@ -136,10 +157,6 @@ class IconWorkspace(
     }
 
     companion object {
-        private const val MAX_HEIGHT = 40
-        private const val MAX_WIDTH = 40
-        private const val DEFAULT_PIXEL_INTENSITY = 0
-        private const val EMPTY_PIXEL_INTENSITY = -1 // Used to tell if cell should be empty or not
         private const val TAG = "IconWorkspace"
     }
 }

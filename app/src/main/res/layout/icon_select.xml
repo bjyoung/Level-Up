@@ -33,6 +33,7 @@
         android:id="@+id/BackButton"
         style="@style/NavButton"
         android:contentDescription="@string/shop_button_description"
+        android:tooltipText="@string/back_button_tooltip"
         app:icon="@drawable/arrow_left_icon_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

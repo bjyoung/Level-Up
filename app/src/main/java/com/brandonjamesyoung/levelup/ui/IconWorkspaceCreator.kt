@@ -1,7 +1,6 @@
 package com.brandonjamesyoung.levelup.ui
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -11,44 +10,28 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.brandonjamesyoung.levelup.constants.EMPTY_PIXEL_INTENSITY
 import com.brandonjamesyoung.levelup.utility.IconWorkspace
-import com.brandonjamesyoung.levelup.utility.OrientationManager
+import com.brandonjamesyoung.levelup.utility.OrientationManager.Companion.inPortraitMode
+import kotlin.math.min
 
 class IconWorkspaceCreator(val context: Context) {
-    fun calculatePixelSize(workspaceWidth: Int, workspaceHeight: Int) : Float {
-        val inPortraitMode = OrientationManager.inPortraitMode(context.resources)
-        val displayMetrics = context.resources.displayMetrics
-
-        return if (inPortraitMode) {
-            val screenWidthDp = displayMetrics.widthPixels/displayMetrics.density
-            screenWidthDp/workspaceWidth.toFloat()
-        } else {
-            val screenHeightDp = displayMetrics.heightPixels/displayMetrics.density
-            screenHeightDp/workspaceHeight.toFloat()
-        }
-    }
-
     @Composable
     fun PixelView(
         x: Int,
         y: Int,
+        pixelSize: Dp,
         workspace: IconWorkspace,
         pixelTapAction: (Int, Int) -> Unit
     ) {
-        val pixelSize: Float by remember(key1 = workspace.width, key2 = workspace.height) {
-            val boxSize: Float = calculatePixelSize(workspace.width, workspace.height)
-            mutableFloatStateOf(boxSize)
-        }
-
         val intensity = workspace.grid[y][x]
 
         val pixelColor: Color by remember (key1 = intensity) {
@@ -63,32 +46,58 @@ class IconWorkspaceCreator(val context: Context) {
 
         Box(
             modifier = Modifier
-                .size(pixelSize.dp)
+                .size(pixelSize)
                 .clip(DEFAULT_PIXEL_SHAPE)
                 .background(pixelColor)
                 .clickable { pixelTapAction(x, y) }
         )
     }
 
-     // Set up and display a grid of interactable pixels
+    fun calculatePixelSize(workspaceWidth: Int, workspaceHeight: Int) : Dp {
+        val inPortraitMode = inPortraitMode(context.resources)
+        val displayMetrics = context.resources.displayMetrics
+
+        val shortDimensionMaxSize: Float
+        val longDimensionMaxSize: Float
+
+        if (inPortraitMode) {
+            val screenWidth = displayMetrics.widthPixels/displayMetrics.density
+            shortDimensionMaxSize = screenWidth/workspaceWidth.toFloat()
+            longDimensionMaxSize = screenWidth/workspaceHeight.toFloat()
+        } else {
+            val screenHeight = displayMetrics.heightPixels/displayMetrics.density
+            shortDimensionMaxSize = screenHeight/workspaceHeight.toFloat()
+            longDimensionMaxSize = screenHeight/workspaceWidth.toFloat()
+        }
+
+        val pixelSize = min(shortDimensionMaxSize, longDimensionMaxSize)
+        return pixelSize.dp
+    }
+
+    // Set up and display a grid of interactable pixels
     @Composable
     fun IconWorkspaceView(
-         workspace: IconWorkspace,
-         pixelTapAction: ((Int, Int) -> Unit),
-     ) {
-        val inPortraitMode: Boolean = OrientationManager.inPortraitMode(context.resources)
+        workspace: IconWorkspace,
+        pixelTapAction: ((Int, Int) -> Unit),
+    ) {
+        val inPortraitMode: Boolean = inPortraitMode(context.resources)
 
-        val paddingModifier: Modifier = if (inPortraitMode) {
+        val paddingModifier = if (inPortraitMode) {
             Modifier.padding(0.dp, 0.dp, 0.dp, 200.dp)
         } else {
             Modifier.padding(100.dp, 0.dp)
         }
 
-        Column (modifier = paddingModifier) {
+        val pixelSize: Dp by remember(key1 = workspace.width, key2 = workspace.height) {
+            val boxSize: Dp = calculatePixelSize(workspace.width, workspace.height)
+            mutableStateOf(boxSize)
+        }
+
+        Column( modifier = paddingModifier) {
             for (y in 0..<workspace.height) {
                 Row {
                     for (x in 0..<workspace.width) {
-                        PixelView(x, y, workspace, pixelTapAction)
+                        PixelView(x, y, pixelSize, workspace, pixelTapAction)
                     }
                 }
             }
@@ -98,8 +107,5 @@ class IconWorkspaceCreator(val context: Context) {
     companion object {
         private val DEFAULT_PIXEL_SHAPE = RectangleShape
         private const val TAG = "IconWorkspaceCreator"
-
-        // TODO Temp, used as placeholder
-        private const val EMPTY_PIXEL_INTENSITY = -1
     }
 }

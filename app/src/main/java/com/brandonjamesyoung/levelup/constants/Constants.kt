@@ -69,3 +69,10 @@ const val ICON_SCALE_UP_RATE: Int = 4
 
 // Shop/Item History constants
 const val ITEM_ROW_LANDSCAPE_WIDTH_DP = 500f
+
+// Icon Editor
+const val MAX_WIDTH = 40
+const val MAX_HEIGHT = 40
+const val DEFAULT_GRID_SIZE = 16
+const val DEFAULT_PIXEL_INTENSITY = 0
+const val EMPTY_PIXEL_INTENSITY = -1

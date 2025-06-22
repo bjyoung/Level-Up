@@ -188,6 +188,7 @@ class InitDatabase {
             Triple("Refresh", R.drawable.refresh_icon, IconGroup.SPADES),
             Triple("Repeat", R.drawable.repeat_icon, IconGroup.SPADES),
             Triple("Replace", R.drawable.replace_icon, IconGroup.SPADES),
+            Triple("Resize", R.drawable.resize_icon, IconGroup.SPADES),
             Triple("Road", R.drawable.road_icon, IconGroup.CLUBS),
             Triple("Save", R.drawable.save_icon, IconGroup.SPADES),
             Triple("Scissors", R.drawable.scissors_icon, IconGroup.DIAMONDS),

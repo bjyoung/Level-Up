@@ -149,8 +149,8 @@ class SettingsFragment : Fragment(R.layout.settings), Resettable {
         val newDifficulties = mutableListOf<Difficulty>()
 
         for ((code, inputIdPair) in difficultyInputMap) {
-            val expInput : EditText = view.findViewById(inputIdPair.first)
-            val rtInput : EditText = view.findViewById(inputIdPair.second)
+            val expInput: EditText = view.findViewById(inputIdPair.first)
+            val rtInput: EditText = view.findViewById(inputIdPair.second)
 
             val newDifficulty = Difficulty(
                 code = code,
@@ -291,16 +291,14 @@ class SettingsFragment : Fragment(R.layout.settings), Resettable {
         val acronymInput: EditText = view.findViewById(R.id.PointsAcronymInput)
 
         acronymInput.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val newAcronym = s.toString()
                 if (newAcronym.isBlank() || acronymIsValid()) updateAcronymLabels(s.toString())
             }
 
-            override fun afterTextChanged(s: Editable?) {
-            }
+            override fun afterTextChanged(s: Editable?) { }
         })
     }
 

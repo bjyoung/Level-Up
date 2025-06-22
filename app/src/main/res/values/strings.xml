@@ -2,6 +2,11 @@
 <resources>
     <string name="app_name">Level Up</string>
 
+    <!-- General strings -->
+    <string name="back_button_tooltip">Back</string>
+    <string name="save_button_tooltip">Save</string>
+    <string name="cancel_button_tooltip">Cancel</string>
+
     <!-- Snackbar strings -->
     <string name="default_snackbar_message">Default message</string>
 
@@ -214,6 +219,7 @@
     <string name="icon_dimen_autofill_hint">iconDimension</string>
     <string name="icon_dimen_input_hint">16</string>
     <string name="icon_dimen_cross_link">X</string>
+    <string name="resize_button_description">Resize</string>
     <string name="draw_button_description">Draw</string>
     <string name="eraser_button_description">Erase</string>
     <string name="undo_button_description">Undo</string>
