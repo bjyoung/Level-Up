@@ -1,7 +1,9 @@
 package com.brandonjamesyoung.levelup.ui
 
 import android.content.Context
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -82,7 +84,7 @@ class IconWorkspaceCreator(val context: Context) {
     ) {
         val inPortraitMode: Boolean = inPortraitMode(context.resources)
 
-        val paddingModifier = if (inPortraitMode) {
+        val workspacePaddingModifier = if (inPortraitMode) {
             Modifier.padding(0.dp, 0.dp, 0.dp, 200.dp)
         } else {
             Modifier.padding(100.dp, 0.dp)
@@ -93,7 +95,9 @@ class IconWorkspaceCreator(val context: Context) {
             mutableStateOf(boxSize)
         }
 
-        Column( modifier = paddingModifier) {
+        Column(modifier = workspacePaddingModifier.border(
+            BorderStroke(WORKSPACE_BORDER_THICKNESS, WORKSPACE_BORDER_COLOR)
+        )) {
             for (y in 0..<workspace.height) {
                 Row {
                     for (x in 0..<workspace.width) {
@@ -107,5 +111,7 @@ class IconWorkspaceCreator(val context: Context) {
     companion object {
         private val DEFAULT_PIXEL_SHAPE = RectangleShape
         private const val TAG = "IconWorkspaceCreator"
+        private val WORKSPACE_BORDER_THICKNESS = 2.dp
+        private val WORKSPACE_BORDER_COLOR = Color.White
     }
 }
