@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.ShopItem
 import com.brandonjamesyoung.levelup.constants.Mode
+import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.utility.DateLabelManager
 import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.validation.InputValidator
@@ -38,14 +39,14 @@ class NewItem : Fragment(R.layout.new_item) {
 
     @Inject lateinit var dateLabelManager: DateLabelManager
 
-    private fun loadPointsAcronym() = lifecycleScope.launch(Dispatchers.IO) {
-        val settings = viewModel.getSettings()
+    private fun loadPointsAcronym() = lifecycleScope.launch {
+        val settings: Settings = withContext(Dispatchers.IO) {
+            viewModel.getSettings()
+        }
+
         val view = requireView()
         val acronymLabel = view.findViewById<TextView>(R.id.CostAcronymLabel)
-
-        withContext(Dispatchers.Main) {
-            acronymLabel.text = settings.pointsAcronym
-        }
+        acronymLabel.text = settings.pointsAcronym
     }
 
     private fun navigateToShop() {
