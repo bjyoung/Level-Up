@@ -55,6 +55,7 @@ class InitDatabase {
     private fun getInitIconData() : List<Triple<String, Int, IconGroup>> {
         return listOf(
             Triple("Alarm", R.drawable.alarm_icon, IconGroup.HEARTS),
+            Triple("Airplane", R.drawable.airplane_icon, IconGroup.CLUBS),
             Triple("Apple", R.drawable.apple_icon, IconGroup.DIAMONDS),
             Triple("Approve", R.drawable.approve_icon, IconGroup.SPADES),
             Triple("Archive", R.drawable.archive_icon, IconGroup.HEARTS),
@@ -72,6 +73,7 @@ class InitDatabase {
             Triple("Bike", R.drawable.bike_icon, IconGroup.CLUBS),
             Triple("Bisect", R.drawable.bisect_icon, IconGroup.SPADES),
             Triple("Boat", R.drawable.boat_icon, IconGroup.CLUBS),
+            Triple("Bookcase", R.drawable.bookcase_icon, IconGroup.HEARTS),
             Triple("Bone", R.drawable.bone_icon, IconGroup.DIAMONDS),
             Triple("Book", R.drawable.book_icon, IconGroup.HEARTS),
             Triple("Bookmark", R.drawable.bookmark_icon, IconGroup.HEARTS),
@@ -85,9 +87,12 @@ class InitDatabase {
             Triple("Cactus", R.drawable.cactus_icon, IconGroup.CLUBS),
             Triple("Cake Slice", R.drawable.cake_slice_icon, IconGroup.DIAMONDS),
             Triple("Calendar", R.drawable.calendar_icon, IconGroup.HEARTS),
+            Triple("Candle", R.drawable.candle_icon, IconGroup.HEARTS),
             Triple("Car", R.drawable.car_icon, IconGroup.CLUBS),
+            Triple("Cassette", R.drawable.cassette_icon, IconGroup.DIAMONDS),
             Triple("Camera", R.drawable.camera_icon, IconGroup.DIAMONDS),
             Triple("Cent", R.drawable.cent_icon, IconGroup.SPADES),
+            Triple("Chart", R.drawable.chart_icon, IconGroup.SPADES),
             Triple("Chat", R.drawable.chat_icon, IconGroup.SPADES),
             Triple("Cheese", R.drawable.cheese_icon, IconGroup.DIAMONDS),
             Triple("Clapperboard", R.drawable.clapperboard_icon, IconGroup.DIAMONDS),
@@ -116,6 +121,7 @@ class InitDatabase {
             Triple("Dot (Filled)", R.drawable.filled_dot_icon, IconGroup.SPADES),
             Triple("Download", R.drawable.download_icon, IconGroup.SPADES),
             Triple("Dumbbell", R.drawable.dumbbell_icon, IconGroup.HEARTS),
+            Triple("Earmuffs", R.drawable.earmuffs_icon, IconGroup.HEARTS),
             Triple("Egg", R.drawable.egg_icon, IconGroup.DIAMONDS),
             Triple("Envelope", R.drawable.envelope_icon, IconGroup.HEARTS),
             Triple("Eraser", R.drawable.eraser_icon, IconGroup.HEARTS),
@@ -125,6 +131,7 @@ class InitDatabase {
             Triple("Film", R.drawable.film_icon, IconGroup.DIAMONDS),
             Triple("Fire", R.drawable.fire_icon, IconGroup.CLUBS),
             Triple("Fish", R.drawable.fish_icon, IconGroup.DIAMONDS),
+            Triple("Flag", R.drawable.flag_icon, IconGroup.CLUBS),
             Triple("Flask", R.drawable.flask_icon, IconGroup.CLUBS),
             Triple("Folder", R.drawable.folder_icon, IconGroup.SPADES),
             Triple("Gate", R.drawable.gate_icon, IconGroup.CLUBS),
@@ -138,8 +145,9 @@ class InitDatabase {
             Triple("Helmet", R.drawable.helmet_icon, IconGroup.CLUBS),
             Triple("House", R.drawable.house_icon, IconGroup.HEARTS),
             Triple("Hourglass", R.drawable.hourglass_icon, IconGroup.HEARTS),
-            Triple("Ice Cream", R.drawable.ice_cream_icon, IconGroup.HEARTS),
+            Triple("Ice Cream", R.drawable.ice_cream_icon, IconGroup.DIAMONDS),
             Triple("In Between", R.drawable.in_between_icon, IconGroup.SPADES),
+            Triple("Jack O' Lantern", R.drawable.jack_o_lantern_icon, IconGroup.CLUBS),
             Triple("Key", R.drawable.key_icon, IconGroup.HEARTS),
             Triple("Landscape", R.drawable.landscape_icon, IconGroup.CLUBS),
             Triple("Layers", R.drawable.layers_icon, IconGroup.SPADES),
@@ -152,6 +160,7 @@ class InitDatabase {
             Triple("Magnet", R.drawable.magnet_icon, IconGroup.HEARTS),
             Triple("Map Marker", R.drawable.map_marker_icon, IconGroup.CLUBS),
             Triple("Martini Glass", R.drawable.martini_glass_icon, IconGroup.DIAMONDS),
+            Triple("Meal", R.drawable.meal_icon, IconGroup.HEARTS),
             Triple("Med Pack", R.drawable.med_pack_icon, IconGroup.HEARTS),
             Triple("Microphone", R.drawable.microphone_icon, IconGroup.SPADES),
             Triple("Minus", R.drawable.minus_icon, IconGroup.SPADES),
@@ -196,6 +205,7 @@ class InitDatabase {
             Triple("Shine", R.drawable.shine_icon, IconGroup.SPADES),
             Triple("Shirt Button", R.drawable.shirt_button_icon, IconGroup.HEARTS),
             Triple("Smart Phone", R.drawable.smart_phone_icon, IconGroup.SPADES),
+            Triple("Snowflake", R.drawable.snowflake_icon, IconGroup.CLUBS),
             Triple("Soap", R.drawable.soap_icon, IconGroup.HEARTS),
             Triple("Spades", R.drawable.spades_icon, IconGroup.SPADES),
             Triple("Spray Bottle", R.drawable.spray_bottle_icon, IconGroup.HEARTS),
@@ -224,8 +234,10 @@ class InitDatabase {
             Triple("Vaccine", R.drawable.vaccine_icon, IconGroup.HEARTS),
             Triple("Video Camera", R.drawable.video_camera_icon, IconGroup.DIAMONDS),
             Triple("Water", R.drawable.water_icon, IconGroup.CLUBS),
+            Triple("Warning Sign", R.drawable.warning_sign_icon, IconGroup.SPADES),
             Triple("Window", R.drawable.window_icon, IconGroup.HEARTS),
-            Triple("Wrench", R.drawable.wrench_icon, IconGroup.DIAMONDS)
+            Triple("Wrench", R.drawable.wrench_icon, IconGroup.DIAMONDS),
+            Triple("Ying Yang", R.drawable.ying_yang_icon, IconGroup.SPADES)
         )
     }
 
