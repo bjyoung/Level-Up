@@ -1,7 +1,7 @@
 package com.brandonjamesyoung.levelup.di
 
 import android.content.Context
-import com.brandonjamesyoung.levelup.utility.ItemTableManager
+import com.brandonjamesyoung.levelup.ui.ItemTableCreator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,10 +11,10 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class ItemModule {
+class ShopModule {
     @Singleton
     @Provides
-    fun provideItemTableManager(@ApplicationContext context: Context): ItemTableManager {
-        return ItemTableManager(context)
+    fun provideItemTableCreator(@ApplicationContext context: Context): ItemTableCreator {
+        return ItemTableCreator(context)
     }
 }

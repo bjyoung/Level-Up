@@ -1,13 +1,11 @@
 package com.brandonjamesyoung.levelup.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,9 +18,10 @@ import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.constants.POP_UP_BUTTON_WAIT_PERIOD
 import com.brandonjamesyoung.levelup.constants.SortOrder
 import com.brandonjamesyoung.levelup.constants.SortType
-import com.brandonjamesyoung.levelup.data.Settings
+import com.brandonjamesyoung.levelup.data.Item
+import com.brandonjamesyoung.levelup.data.ItemRow
+import com.brandonjamesyoung.levelup.ui.ItemTableCreator
 import com.brandonjamesyoung.levelup.utility.InsetHandler
-import com.brandonjamesyoung.levelup.utility.ItemTableManager
 import com.brandonjamesyoung.levelup.utility.PointsDisplay
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar
 import com.brandonjamesyoung.levelup.utility.SortButtonManager
@@ -42,11 +41,11 @@ class Shop : Fragment(R.layout.shop) {
 
     private val selectedItemIds: MutableSet<Int> = mutableSetOf()
 
-    private val selectedItemRowIds: MutableSet<Int> = mutableSetOf()
+    private var latestItems: List<ShopItem> = mutableListOf()
+
+    @Inject lateinit var itemTableCreator: ItemTableCreator
 
     @Inject lateinit var buttonConverter: ButtonConverter
-
-    @Inject lateinit var itemTableManager: ItemTableManager
 
     @Inject lateinit var pointsDisplay: PointsDisplay
 
@@ -125,22 +124,17 @@ class Shop : Fragment(R.layout.shop) {
     private fun activateDefaultMode() {
         Log.i(TAG, "Activating DEFAULT mode in Shop")
         selectedItemIds.clear()
-        selectedItemRowIds.clear()
         activateNewItemButton()
         activateQuestListButton()
         activateSettingsButton()
     }
 
     private fun cancelSelectedItems() {
-        val view = requireView()
-        val selectedRowIdCopy = selectedItemRowIds.toMutableList()
-
-        for (id in selectedRowIdCopy) {
-            // TODO probably better to de-select all programmatically
-            //  instead of simulating button presses
-            val itemRow: ConstraintLayout = view.findViewById(id)
-            itemRow.callOnClick()
-        }
+        selectedItemIds.clear()
+        viewModel.switchMode(Mode.DEFAULT)
+        hideTotalCost()
+        resetTotalCost()
+        reloadLazyItemList(latestItems)
     }
 
     private fun activateCancelButton() {
@@ -207,19 +201,10 @@ class Shop : Fragment(R.layout.shop) {
         return selectedItemIds.contains(itemId)
     }
 
-    private fun highlightRow(itemRow: ConstraintLayout) {
-        val selectedColor: Int = resources.getColor(
-            R.color.selected,
-            requireContext().theme,
-        )
-
-        itemRow.setBackgroundColor(selectedColor)
-    }
-
     private fun updateTotalCostAmount(selectedItemCost: Int) {
         val totalCostView = requireView().findViewById<TextView>(R.id.TotalCostAmount)
 
-        var total: Int = try {
+        val total: Int = try {
             Integer.parseInt(totalCostView.text as String) + selectedItemCost
         } catch (_: Exception) {
             0
@@ -259,67 +244,38 @@ class Shop : Fragment(R.layout.shop) {
         }
     }
 
-    private fun selectItem(shopItem: ShopItem, itemRow: ConstraintLayout) {
-        Log.i(TAG, "Selecting item ${shopItem.id}")
-        selectedItemIds.add(shopItem.id)
-        selectedItemRowIds.add(itemRow.id)
-        highlightRow(itemRow)
-        updateTotalCost(shopItem.cost)
+    private fun selectItem(item: Item) {
+        Log.i(TAG, "Selecting item ${item.id}")
+        selectedItemIds.add(item.id)
+        updateTotalCost(item.cost)
+        reloadLazyItemList(latestItems)
     }
 
-    private fun deselectItem(shopItem: ShopItem, itemRow: ConstraintLayout) {
-        Log.i(TAG, "De-selecting item ${shopItem.id}")
-        selectedItemIds.remove(shopItem.id)
-        selectedItemRowIds.remove(itemRow.id)
-        itemRow.setBackgroundColor(Color.TRANSPARENT)
-        updateTotalCost(-shopItem.cost)
+    private fun deselectItem(item: Item) {
+        Log.i(TAG, "De-selecting item ${item.id}")
+        selectedItemIds.remove(item.id)
+        updateTotalCost(-item.cost)
+        reloadLazyItemList(latestItems)
     }
 
-    private fun tapItem(shopItem: ShopItem, itemRow: ConstraintLayout) {
+    private fun tapItem(item: Item) {
         if (!viewModel.mode.hasObservers()) setupModeObserver()
 
-        if (!isSelected(shopItem.id)) {
-            selectItem(shopItem, itemRow)
+        if (!isSelected(item.id)) {
+            selectItem(item)
         } else {
-            deselectItem(shopItem, itemRow)
+            deselectItem(item)
         }
 
         val targetMode = if (selectedItemIds.isNotEmpty()) Mode.SELECT else Mode.DEFAULT
         viewModel.switchMode(targetMode)
     }
 
-    private fun longPressItemRow(shopItem: ShopItem) {
+    private fun editItem(item: Item) {
         if (viewModel.mode.value == Mode.DEFAULT) {
-            Log.i(TAG, "Item '${shopItem.name}' is long pressed")
-            navigateToNewItem(shopItem.id)
+            Log.i(TAG, "Long press on '${item.name}'")
+            navigateToNewItem(item.id)
         }
-    }
-
-    private fun addItemRow(shopItem: ShopItem) {
-        val view = requireView()
-        val itemListLayout = view.findViewById<LinearLayout>(R.id.ItemListLinearLayout)
-
-        val itemRow: ConstraintLayout = itemTableManager.createItemRow(
-            shopItem,
-            layoutInflater,
-            itemListLayout
-        )
-
-        if (selectedItemIds.contains(shopItem.id)) {
-            highlightRow(itemRow)
-            selectedItemRowIds.add(itemRow.id)
-        }
-
-        itemRow.setOnClickListener{
-            tapItem(shopItem, itemRow)
-        }
-
-        itemRow.setOnLongClickListener {
-            longPressItemRow(shopItem)
-            true
-        }
-
-        itemListLayout.addView(itemRow)
     }
 
     private fun updatePointsDisplay(player: Player?) {
@@ -334,6 +290,7 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun loadPointsAcronym() = lifecycleScope.launch(Dispatchers.IO) {
+        // TO DO Line below causes "must be called on main thread" error sometimes
         val settings = viewModel.getSettings()
         val view = requireView()
         val pointsLabel : TextView = view.findViewById(R.id.PointsLabel)
@@ -425,29 +382,23 @@ class Shop : Fragment(R.layout.shop) {
         )
     }
 
-    private fun reloadItemList(itemList: List<ShopItem>) {
-        val itemListLayout = requireView().findViewById<LinearLayout>(R.id.ItemListLinearLayout)
-        itemListLayout.removeAllViews()
-        val settings: Settings? = viewModel.settings.value
 
-        var sortedItemList = when (settings?.shopSortType) {
-            SortType.NAME -> itemList.sortedBy { it.name }
-            SortType.PRICE -> itemList.sortedBy { it.cost }
-            else -> itemList.sortedBy { it.dateCreated }
+    private fun reloadLazyItemList(items: List<ShopItem>) {
+        latestItems = items.toMutableList()
+        if (items.isEmpty()) showNoItemsMessage() else hideNoItemsMessage()
+
+        val itemRows: List<ItemRow> = items.map {
+            ItemRow(it, isSelected(it.id))
         }
 
-        if (settings?.shopSortOrder == SortOrder.ASC) {
-            sortedItemList = sortedItemList.reversed()
-        }
+        val composeView = requireView().findViewById<ComposeView>(R.id.ShopTableComposeView)
 
-        selectedItemRowIds.clear()
-        sortedItemList.forEach { item -> addItemRow(item) }
-        if (itemList.isEmpty()) showNoItemsMessage() else hideNoItemsMessage()
-    }
-
-    private fun setupItemListObserver() {
-        viewModel.shopItemList.observe(viewLifecycleOwner) { itemList ->
-            reloadItemList(itemList)
+        composeView.setContent {
+            itemTableCreator.ItemTableView(
+                itemRows = itemRows,
+                tapAction = ::tapItem,
+                longPressAction = ::editItem,
+            )
         }
     }
 
@@ -460,16 +411,57 @@ class Shop : Fragment(R.layout.shop) {
         }
     }
 
+    private fun sortItems(
+        items: List<ShopItem>,
+        sortType: SortType?,
+        sortOrder: SortOrder?
+    ) : List<ShopItem> {
+        if (sortType == null) {
+            return items
+        }
+
+        val questSortOrder = sortOrder ?: SortOrder.ASC
+
+        return if (questSortOrder == SortOrder.ASC) {
+            when (sortType) {
+                SortType.DATE_CREATED -> items.sortedBy { it.dateCreated }
+                SortType.NAME -> items.sortedBy { it.name }
+                SortType.PRICE -> items.sortedBy { it.cost }
+                else -> items.sortedBy { it.dateCreated }
+            }
+        } else {
+            when (sortType) {
+                SortType.DATE_CREATED -> items.sortedByDescending { it.dateCreated }
+                SortType.NAME -> items.sortedByDescending { it.name }
+                SortType.PRICE -> items.sortedByDescending { it.cost }
+                else -> items.sortedByDescending { it.dateCreated }
+            }
+        }
+    }
+
+    private fun setupSort() {
+        viewModel.settings.observe(viewLifecycleOwner) { settings ->
+            changeSortIcon()
+
+            viewModel.shopItemList.value?.let { items ->
+                val sortType = settings?.shopSortType
+                val sortOrder = settings?.shopSortOrder
+                val sortedItems: List<ShopItem> = sortItems(items, sortType, sortOrder)
+                reloadLazyItemList(sortedItems)
+            }
+        }
+    }
+
     private fun setupObservables() {
         activateItemHistoryButton()
         viewModel.switchMode(Mode.DEFAULT)
         setupModeObserver()
-        setupItemListObserver()
 
-        viewModel.settings.observe(viewLifecycleOwner) { _ ->
-            changeSortIcon()
-            viewModel.shopItemList.value?.let { reloadItemList(it) }
+        viewModel.shopItemList.observe(viewLifecycleOwner) { itemList ->
+            reloadLazyItemList(itemList)
         }
+
+        setupSort()
 
         viewModel.player.observe(viewLifecycleOwner) { player ->
             updatePointsDisplay(player)

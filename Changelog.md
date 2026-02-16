@@ -4,12 +4,24 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
-## 0.8.5
+## 0.8.6 Shop Compose Update
 
 ### Added
 
-- Added more icons
-- Added option to edit icon names
+- Add more icons
+
+### Changed
+
+- Update Shop to use a Compose lazy column instead of XML LinearLayout
+
+---
+
+## 0.8.5 Edit Icon Names
+
+### Added
+
+- Add more icons
+- Add option to edit icon names
   - Edit icons by going to Icon Select, then pressing and holding on any icon
 
 ### Fixed

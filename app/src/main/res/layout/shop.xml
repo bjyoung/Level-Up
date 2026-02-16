@@ -16,22 +16,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="@dimen/title_vertical_bias" />
 
-    <TextView
-        android:id="@+id/NameColumnLabel"
-        style="@style/Text"
-        android:layout_marginBottom="2dp"
-        android:text="@string/name_label"
-        app:layout_constraintBottom_toTopOf="@+id/TableDivider"
-        app:layout_constraintStart_toStartOf="@+id/TableDivider" />
-
-    <TextView
-        android:id="@+id/PriceColumnLabel"
-        style="@style/Text"
-        android:layout_marginBottom="2dp"
-        android:text="@string/price_column_label"
-        app:layout_constraintBottom_toTopOf="@+id/ItemListScrollView"
-        app:layout_constraintEnd_toEndOf="@+id/TableDivider" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/ItemHistoryButton"
         style="@style/NavButton"
@@ -105,37 +89,14 @@
         app:layout_constraintStart_toStartOf="@+id/TotalCostLabel"
         app:layout_constraintTop_toBottomOf="@+id/TotalCostLabel" />
 
-    <View
-        android:id="@+id/TableDivider"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:background="#c0c0c0"
-        android:layout_marginHorizontal="10dp"
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/ShopTableComposeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/QuestListButton"
-        app:layout_constraintStart_toEndOf="@+id/AddNewItemButton"
-        app:layout_constraintTop_toBottomOf="@+id/ItemHistoryButton"
-        app:layout_constraintVertical_bias="0.045" />
-
-    <ScrollView
-        android:id="@+id/ItemListScrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/shop_list_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/TableDivider"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/NameColumnLabel"
-        app:layout_constraintTop_toBottomOf="@+id/TableDivider"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="SpeakableTextPresentCheck">
-
-        <LinearLayout
-            android:id="@+id/ItemListLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/AddNewItemButton"
@@ -176,7 +137,7 @@
         style="@style/SortButton"
         android:contentDescription="@string/shop_sort_button_message"
         app:layout_constraintBottom_toBottomOf="@+id/QuestListButton"
-        app:layout_constraintEnd_toEndOf="@+id/TableDivider"
+        app:layout_constraintEnd_toStartOf="@+id/QuestListButton"
         app:layout_constraintStart_toEndOf="@+id/AddNewItemButton"
         app:layout_constraintTop_toTopOf="@+id/QuestListButton" />
 

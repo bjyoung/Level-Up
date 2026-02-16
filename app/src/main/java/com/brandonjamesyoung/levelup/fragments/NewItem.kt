@@ -40,10 +40,7 @@ class NewItem : Fragment(R.layout.new_item) {
     @Inject lateinit var dateLabelManager: DateLabelManager
 
     private fun loadPointsAcronym() = lifecycleScope.launch {
-        val settings: Settings = withContext(Dispatchers.IO) {
-            viewModel.getSettings()
-        }
-
+        val settings = viewModel.getSettings()
         val view = requireView()
         val acronymLabel = view.findViewById<TextView>(R.id.CostAcronymLabel)
         acronymLabel.text = settings.pointsAcronym

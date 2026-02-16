@@ -1,10 +1,13 @@
 package com.brandonjamesyoung.levelup.ui
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +29,12 @@ import com.brandonjamesyoung.levelup.utility.OrientationManager.Companion.inPort
 import kotlin.math.min
 
 class IconWorkspaceCreator(val context: Context) {
+    fun togglePixelColor(color: Color): Color {
+        if (color == FILLED_PIXEL_COLOR) return EMPTY_PIXEL_COLOR
+        if (color == EMPTY_PIXEL_COLOR) return FILLED_PIXEL_COLOR
+        return EMPTY_PIXEL_COLOR
+    }
+
     @Composable
     fun PixelView(
         x: Int,
@@ -37,13 +46,21 @@ class IconWorkspaceCreator(val context: Context) {
         val intensity = workspace.grid[y][x]
 
         val pixelColor: Color by remember (key1 = intensity) {
-            val targetColor = if (intensity != EMPTY_PIXEL_INTENSITY) {
-                Color.Black
+            var targetColor = if (intensity != EMPTY_PIXEL_INTENSITY) {
+                FILLED_PIXEL_COLOR
             } else {
-                Color.LightGray
+                EMPTY_PIXEL_COLOR
             }
 
             mutableStateOf(targetColor)
+        }
+
+        val interactionSource = remember { MutableInteractionSource() }
+        val isHovered by interactionSource.collectIsHoveredAsState()
+
+        if (isHovered) {
+            Log.i(TAG, "Pixel [$x, $y] was hovered over")
+            pixelTapAction(x, y)
         }
 
         Box(
@@ -51,7 +68,7 @@ class IconWorkspaceCreator(val context: Context) {
                 .size(pixelSize)
                 .clip(DEFAULT_PIXEL_SHAPE)
                 .background(pixelColor)
-                .clickable { pixelTapAction(x, y) }
+                .hoverable(interactionSource = interactionSource)
         )
     }
 
@@ -113,5 +130,7 @@ class IconWorkspaceCreator(val context: Context) {
         private const val TAG = "IconWorkspaceCreator"
         private val WORKSPACE_BORDER_THICKNESS = 2.dp
         private val WORKSPACE_BORDER_COLOR = Color.White
+        private val FILLED_PIXEL_COLOR = Color.Black
+        private val EMPTY_PIXEL_COLOR = Color.LightGray
     }
 }

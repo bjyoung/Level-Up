@@ -75,7 +75,17 @@
 
     <!-- Shop -->
     <dimen name="table_icon_padding">5dp</dimen>
-    <dimen name="table_header_bottom_padding">5dp</dimen>
+    <dimen name="shop_header_bottom_padding">4dp</dimen>
+    <dimen name="shop_header_font_size">12dp</dimen>
+    <dimen name="shop_table_border_thickness">2dp</dimen>
+    <dimen name="shop_table_height_portrait">880dp</dimen>
+    <dimen name="shop_table_height_landscape">360dp</dimen>
+    <dimen name="shop_table_width_portrait">256dp</dimen>
+    <dimen name="shop_table_width_landscape">700dp</dimen>
+    <dimen name="shop_table_padding_top_portrait">80dp</dimen>
+    <dimen name="shop_table_padding_top_landscape">60dp</dimen>
+    <dimen name="shop_table_row_vertical_padding">8dp</dimen>
+    <dimen name="shop_table_row_name_max_width">180dp</dimen>
 
     <!-- New Item -->
     <dimen name="label_field_padding">8dp</dimen>

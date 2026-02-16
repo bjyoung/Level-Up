@@ -1,17 +1,17 @@
 [versions]
 appcompat = "1.7.1"
-constraintlayout = "2.2.1"
-coreKtx = "1.16.0"
-fragmentKtx = "1.8.8"
-hilt = "2.57"
-lifecycle = "2.9.2"
-material = "1.12.0"
-nav = "2.9.3"
-room = "2.7.2"
-kotlin = "2.2.0"
-android = "8.12.0"
-ksp = "2.1.20-2.0.0"
-androidxComposeBom = "2025.07.00"
+constraintlayout = "2.2.2"
+coreKtx = "1.19.0"
+fragmentKtx = "1.8.9"
+hilt = "2.60.1"
+lifecycle = "2.11.0"
+material = "1.14.0"
+nav = "2.9.8"
+room = "2.8.4"
+kotlin = "2.4.10"
+android = "9.3.1"
+ksp = "2.3.6"
+androidxComposeBom = "2026.06.01"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -29,9 +29,14 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+# KSP
+symbol-processing-gradle-plugin = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
 
 # Compose
 androidx-ui-android = { module = "androidx.compose.ui:ui-android" }
@@ -40,11 +45,9 @@ androidx-foundation-android = { module = "androidx.compose.foundation:foundation
 androidx-material3-android = { module = "androidx.compose.material3:material3-android" }
 
 [plugins]
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "android" }
 android-library = { id = "com.android.library", version.ref = "android"}
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-kotlin-kapt = { id = "kotlin-kapt" }
 hilt-android-plugin = { id = "dagger.hilt.android.plugin" }
 androidx-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
+import com.brandonjamesyoung.levelup.data.ItemRow
 import com.brandonjamesyoung.levelup.data.PurchasedItem
-import com.brandonjamesyoung.levelup.utility.ButtonConverter
+import com.brandonjamesyoung.levelup.ui.ItemTableCreator
 import com.brandonjamesyoung.levelup.utility.InsetHandler
-import com.brandonjamesyoung.levelup.utility.ItemTableManager
 import com.brandonjamesyoung.levelup.viewmodels.ItemHistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -25,9 +24,7 @@ import javax.inject.Inject
 class ItemHistory : Fragment(R.layout.item_history) {
     private val viewModel: ItemHistoryViewModel by activityViewModels()
 
-    @Inject lateinit var buttonConverter: ButtonConverter
-
-    @Inject lateinit var itemTableManager: ItemTableManager
+    @Inject lateinit var itemTableCreator: ItemTableCreator
 
     private fun navigateToShop() {
         findNavController().navigate(R.id.action_itemHistory_to_shop)
@@ -43,19 +40,6 @@ class ItemHistory : Fragment(R.layout.item_history) {
         }
     }
 
-    private fun addItemRow(purchasedItem: PurchasedItem) {
-        val view = requireView()
-        val itemHistoryLinearLayout = view.findViewById<LinearLayout>(R.id.ItemHistoryLinearLayout)
-
-        val itemRow: ConstraintLayout = itemTableManager.createItemRow(
-            purchasedItem,
-            layoutInflater,
-            itemHistoryLinearLayout
-        )
-
-        itemHistoryLinearLayout.addView(itemRow)
-    }
-
     private fun showNoItemsMessage() {
         val view = requireView()
         val noIconsMessage = view.findViewById<TextView>(R.id.NoItemsMessage)
@@ -68,14 +52,26 @@ class ItemHistory : Fragment(R.layout.item_history) {
         noIconsMessage.visibility = View.GONE
     }
 
+    private fun reloadTable(items: List<PurchasedItem>) {
+        if (items.isEmpty()) showNoItemsMessage() else hideNoItemsMessage()
+
+        val itemRows: List<ItemRow> = items.map {
+            ItemRow(it, false)
+        }
+
+        val composeView = requireView().findViewById<ComposeView>(R.id.ItemHistoryTableComposeView)
+
+        composeView.setContent {
+            itemTableCreator.ItemTableView(
+                itemRows = itemRows
+            )
+        }
+    }
+
     private fun setupObservables() {
         viewModel.itemHistoryList.observe(viewLifecycleOwner) { itemList ->
-            val view = requireView()
-            val itemListLayout = view.findViewById<LinearLayout>(R.id.ItemHistoryLinearLayout)
-            itemListLayout.removeAllViews()
-            val sortedItemHistory = itemList.sortedByDescending { it.datePurchased }
-            sortedItemHistory.forEach { item -> addItemRow(item) }
-            if (itemList.isEmpty()) showNoItemsMessage() else hideNoItemsMessage()
+            val sortedItems = itemList.sortedByDescending { it.datePurchased }
+            reloadTable(sortedItems)
         }
     }
 
