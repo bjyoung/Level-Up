@@ -290,13 +290,13 @@ class Shop : Fragment(R.layout.shop) {
     }
 
     private fun loadPointsAcronym() = lifecycleScope.launch(Dispatchers.IO) {
-        // TO DO Line below causes "must be called on main thread" error sometimes
         val settings = viewModel.getSettings()
         val view = requireView()
         val pointsLabel : TextView = view.findViewById(R.id.PointsLabel)
+        val acronym = settings.pointsAcronym
 
         withContext(Dispatchers.Main) {
-            pointsLabel.text = settings.pointsAcronym
+            pointsLabel.text = acronym
         }
     }
 

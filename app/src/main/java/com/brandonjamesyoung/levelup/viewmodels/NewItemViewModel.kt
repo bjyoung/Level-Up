@@ -21,7 +21,7 @@ class NewItemViewModel @Inject constructor(
         return settingsRepository.get()
     }
 
-    fun getItem(id: Int) : LiveData<ShopItem> {
+    fun getItem(id: Int) : LiveData<ShopItem?> {
         return shopItemRepository.observe(id).asLiveData()
     }
 

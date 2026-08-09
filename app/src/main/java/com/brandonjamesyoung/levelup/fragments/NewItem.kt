@@ -15,15 +15,12 @@ import androidx.navigation.fragment.navArgs
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.ShopItem
 import com.brandonjamesyoung.levelup.constants.Mode
-import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.utility.DateLabelManager
 import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.validation.InputValidator
 import com.brandonjamesyoung.levelup.viewmodels.NewItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.Instant
 import javax.inject.Inject
 
@@ -134,7 +131,9 @@ class NewItem : Fragment(R.layout.new_item) {
         pageLabel.text = getString(R.string.edit_item_label)
 
         viewModel.getItem(args.itemId).observe(viewLifecycleOwner) { item ->
-            loadItem(item)
+            if (item != null) {
+                loadItem(item)
+            }
         }
     }
 

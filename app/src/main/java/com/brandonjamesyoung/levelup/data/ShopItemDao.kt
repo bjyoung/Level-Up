@@ -9,7 +9,7 @@ interface ShopItemDao {
     fun observeAll(): Flow<List<ShopItem>>
 
     @Query("SELECT * FROM ShopItem WHERE id = :id")
-    fun observe(id: Int): Flow<ShopItem>
+    fun observe(id: Int): Flow<ShopItem?>
 
     @Query("SELECT * FROM ShopItem WHERE id = :id")
     fun get(id: Int): ShopItem

@@ -14,6 +14,10 @@ This document tracks all notables changes to the Level Up app.
 
 - Update Shop to use a Compose lazy column instead of XML LinearLayout
 
+### Fixed
+
+- Fixed Shop sometimes crashing when deleting an item
+
 ---
 
 ## 0.8.5 Edit Icon Names
