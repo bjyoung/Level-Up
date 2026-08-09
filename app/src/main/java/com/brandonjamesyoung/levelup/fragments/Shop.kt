@@ -370,7 +370,7 @@ class Shop : Fragment(R.layout.shop) {
         val sortOrder: SortOrder? = viewModel.settings.value?.shopSortOrder
 
         val sortIconId: Int = when (sortOrder) {
-            SortOrder.ASC -> possibleSortIcons[1]
+            SortOrder.DESC -> possibleSortIcons[1]
             else -> possibleSortIcons[0]
         }
 
