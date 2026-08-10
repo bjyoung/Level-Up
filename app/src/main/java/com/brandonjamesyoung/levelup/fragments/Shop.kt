@@ -30,7 +30,6 @@ import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.Timer
 import javax.inject.Inject
 import kotlin.concurrent.timer
@@ -291,13 +290,13 @@ class Shop : Fragment(R.layout.shop) {
 
     private fun loadPointsAcronym() = lifecycleScope.launch(Dispatchers.IO) {
         val settings = viewModel.getSettings()
-        val view = requireView()
-        val pointsLabel : TextView = view.findViewById(R.id.PointsLabel)
         val acronym = settings.pointsAcronym
+        setPointsLabel(acronym)
+    }
 
-        withContext(Dispatchers.Main) {
-            pointsLabel.text = acronym
-        }
+    private fun setPointsLabel(acronym: String) = lifecycleScope.launch(Dispatchers.Main) {
+        val pointsLabel : TextView = requireView().findViewById(R.id.PointsLabel)
+        pointsLabel.text = acronym
     }
 
     private fun startSortTimer() {

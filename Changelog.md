@@ -16,8 +16,8 @@ This document tracks all notables changes to the Level Up app.
 
 ### Fixed
 
-- Fix Shop sometimes crashing when deleting an item
-- Correct Shop sort icons
+- Fix Shop sometimes crashing on load and when deleting an item
+- Correct Shop sort icons to match their corresponding sorts
 
 ---
 
