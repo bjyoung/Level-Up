@@ -30,6 +30,7 @@ import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.util.Timer
 import javax.inject.Inject
@@ -475,7 +476,19 @@ class QuestList: Fragment(R.layout.quest_list) {
         }
 
         viewModel.questList.observe(viewLifecycleOwner) {
-            reloadLazyQuestGrid(it)
+            val settings: Settings
+
+            runBlocking {
+                settings = viewModel.getSettings()
+            }
+
+            val sortedQuestList = sortQuests(
+                it,
+                settings.questListSortType,
+                settings.questListSortOrder
+            )
+
+            reloadLazyQuestGrid(sortedQuestList)
         }
 
         viewModel.player.observe(viewLifecycleOwner) {
