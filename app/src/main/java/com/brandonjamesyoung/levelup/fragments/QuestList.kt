@@ -289,7 +289,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         val sortOrder: SortOrder? = viewModel.settings.value?.questListSortOrder
 
         val sortIconId: Int = when (sortOrder) {
-            SortOrder.ASC -> possibleSortIcons[1]
+            SortOrder.DESC -> possibleSortIcons[1]
             else -> possibleSortIcons[0]
         }
 
