@@ -20,6 +20,7 @@ import com.brandonjamesyoung.levelup.constants.SortOrder
 import com.brandonjamesyoung.levelup.constants.SortType
 import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.ItemRow
+import com.brandonjamesyoung.levelup.data.Settings
 import com.brandonjamesyoung.levelup.ui.ItemTableCreator
 import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.utility.PointsDisplay
@@ -30,6 +31,7 @@ import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.Timer
 import javax.inject.Inject
 import kotlin.concurrent.timer
@@ -438,7 +440,7 @@ class Shop : Fragment(R.layout.shop) {
         }
     }
 
-    private fun setupSort() {
+    private fun setupSortObserver() {
         viewModel.settings.observe(viewLifecycleOwner) { settings ->
             changeSortIcon()
 
@@ -457,10 +459,17 @@ class Shop : Fragment(R.layout.shop) {
         setupModeObserver()
 
         viewModel.shopItemList.observe(viewLifecycleOwner) { itemList ->
-            reloadLazyItemList(itemList)
+            val settings: Settings
+
+            runBlocking {
+                settings = viewModel.getSettings()
+            }
+
+            val sortedItemList = sortItems(itemList, settings.shopSortType, settings.shopSortOrder)
+            reloadLazyItemList(sortedItemList)
         }
 
-        setupSort()
+        setupSortObserver()
 
         viewModel.player.observe(viewLifecycleOwner) { player ->
             updatePointsDisplay(player)

@@ -18,6 +18,7 @@ This document tracks all notables changes to the Level Up app.
 
 - Fix Shop sometimes crashing on load and when deleting an item
 - Correct Shop and Quest List sort icons to match what their sorts do
+- Fix Shop sort reverting to default after being sent to the background, then re-opened
 
 ---
 
@@ -184,7 +185,7 @@ This document tracks all notables changes to the Level Up app.
 
 ### Changed
 
-- Reduce the max character limit for player name to 7
+- Reduce the max character limit for username to 7
 - Since Name Entry is more accessible now, users can now navigate back to Name Entry using the phone back action
   - This works even after accessing the app for the first time
 
@@ -289,11 +290,11 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Add Name Entry page where the player can enter their name
-  - Page is only shown an app startup and until player enters a valid name
+- Add Name Entry page where the user can enter their name
+  - Page is only shown an app startup and until user enters a valid name
   - Only allows names up to 15 alphanumeric characters long or empty names
   - After the name is submitted, the app starts on the Quest List page from then on
-  - Player is not allowed to go back from Quest List to Name Entry or from Name Entry to Quest List by navigating back
+  - User is not allowed to go back from Quest List to Name Entry or from Name Entry to Quest List by navigating back
 
 ---
 
@@ -337,9 +338,9 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Completing quests in Quest List displays a snackbar showing how much experience and points the player earned
-  - Display a slightly different message when the player levels up
-- Buying items in the Shop displays a message showing how much the player spent or a warning if they do not have enough points
+- Completing quests in Quest List displays a snackbar showing how much experience and points the user earned
+  - Display a slightly different message when the user levels up
+- Buying items in the Shop displays a message showing how much the user spent or a warning if they do not have enough points
 
 ### Changed
 
@@ -351,7 +352,7 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Add Icon Select page where the player can tap on an icon to select it for the quest they are creating or editing
+- Add Icon Select page where the user can tap on an icon to select it for the quest they are creating or editing
 - New Quest stores the selected icon on save
 - Quest List shows each quest's icon or the default question mark icon if there is no icon
 
@@ -361,7 +362,7 @@ This document tracks all notables changes to the Level Up app.
 
 ### Fixed
 
-- Fix player input not being preserved properly when navigating from New Quest to Icon Select and back
+- Fix user input not being preserved properly when navigating from New Quest to Icon Select and back
 - Fix quest creation date being updated when editing a quest
 - Fix bug where editing a quest and selecting an icon
 
@@ -371,7 +372,7 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Player can edit quests in Quest List by pressing and holding anywhere on the quest card
+- User can edit quests in Quest List by pressing and holding anywhere on the quest card
 
 ### Changed
 
@@ -386,10 +387,10 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Tapping on the quest card border in Quest List lets the player edit the selected quest
-  - If any quests are selected, then the player cannot edit quests until they de-select all quests
-- Pressing and holding on an item in the Shop lets the player edit the selected item
-  - If any items are selected, then the player cannot edit quests until they de-select all items
+- Tapping on the quest card border in Quest List lets the user edit the selected quest
+  - If any quests are selected, then the user cannot edit quests until they de-select all quests
+- Pressing and holding on an item in the Shop lets the user edit the selected item
+  - If any items are selected, then the user cannot edit quests until they de-select all items
 
 ---
 
@@ -417,12 +418,12 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - Add Shop page
-  - Displays player's current points on the top-left
+  - Displays user's current points on the top-left
   - Has buttons that lead to the Quest List, Settings and New Item pages
   - A table header shows where the item details are going to go
 - Add New Item page
   - Has an optional name field and a required cost field
-  - Player can create new items that are displayed in the shop
+  - User can create new items that are displayed in the shop
   - Has a cancel button that leads back to the Shop
   - Cost must be between 0 and 99999
 
@@ -436,14 +437,14 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Adds UI to Quest List that displays the experience the player needs to level up
+- Adds UI to Quest List that displays the experience the user needs to level up
 - The settings button on the Quest List page becomes a cancel button when at least one quest is selected
   - Selecting the cancel button de-selects all currently selected quests
 - Link the points acronym in Quest list to the acronym setting
 
 ### Changed
 
-- Move player's points below the points label in Quest List
+- Move user's points below the points label in Quest List
 
 ### Fixed
 
@@ -491,10 +492,10 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Limit the player's max level to 99
-  - At the max level, the player's progress bar stops tracking exp earned, but their total exp earned is still recorded
+- Limit the user's max level to 99
+  - At the max level, the user's progress bar stops tracking exp earned, but their total exp earned is still recorded
 - Limits total exp earned to 999,999,999,999,999,999
-- Progress bar smoothly animates when the player earns exp
+- Progress bar smoothly animates when the user earns exp
 - Sort quests in Quest List by when they are created
 
 ---
@@ -503,8 +504,8 @@ This document tracks all notables changes to the Level Up app.
 
 ### Added
 
-- Completing quests grants player exp and rewards
-- If the player earns enough exp, they level up and gain 5 bonus RT points
+- Completing quests grants user exp and rewards
+- If the user earns enough exp, they level up and gain 5 bonus RT points
   - The level up formula is: expToNextLvl = 2500 + (1750 * currLvl - 1)
 
 ---
@@ -514,11 +515,11 @@ This document tracks all notables changes to the Level Up app.
 ### Added
 
 - In Quest List page
-  - Initialize player stats on app install
-  - Link player stats to the UI
+  - Initialize user stats on app install
+  - Link user stats to the UI
   - User can now select quests and complete or delete them
     - The list is updated accordingly on quest complete/delete
-    - No exp or points are rewarded to the player on quest completion yet
+    - No exp or points are rewarded to the user on quest completion yet
     - Selecting a quest changes the Shop and New Quest buttons to Confirm and Delete buttons
     - If no quests are selected then the Shop and New Quest buttons return
 
