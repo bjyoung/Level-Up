@@ -14,7 +14,7 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.STRIPE_SHADER_SRC
 import com.brandonjamesyoung.levelup.data.CompletedQuestWithIcon
 import com.brandonjamesyoung.levelup.data.QuestCard
-import com.brandonjamesyoung.levelup.ui.QuestGridCreator
+import com.brandonjamesyoung.levelup.compose.QuestGridCreator
 import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.viewmodels.QuestHistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint

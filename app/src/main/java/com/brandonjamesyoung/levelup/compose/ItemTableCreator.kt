@@ -1,4 +1,4 @@
-package com.brandonjamesyoung.levelup.ui
+package com.brandonjamesyoung.levelup.compose
 
 import android.content.Context
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.brandonjamesyoung.levelup.ui
+package com.brandonjamesyoung.levelup.compose
 
 import android.content.Context
 import android.util.Log
@@ -46,7 +46,7 @@ class IconWorkspaceCreator(val context: Context) {
         val intensity = workspace.grid[y][x]
 
         val pixelColor: Color by remember (key1 = intensity) {
-            var targetColor = if (intensity != EMPTY_PIXEL_INTENSITY) {
+            val targetColor = if (intensity != EMPTY_PIXEL_INTENSITY) {
                 FILLED_PIXEL_COLOR
             } else {
                 EMPTY_PIXEL_COLOR

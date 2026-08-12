@@ -18,7 +18,7 @@ import com.brandonjamesyoung.levelup.constants.Mode
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.Icon
 import com.brandonjamesyoung.levelup.data.SelectableIcon
-import com.brandonjamesyoung.levelup.ui.IconGridCreator
+import com.brandonjamesyoung.levelup.compose.IconGridCreator
 import com.brandonjamesyoung.levelup.utility.*
 import com.brandonjamesyoung.levelup.utility.OrientationManager.Companion.inPortraitMode
 import com.brandonjamesyoung.levelup.utility.ScreenHelper.Companion.getScreenHeight

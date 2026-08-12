@@ -1,7 +1,7 @@
 package com.brandonjamesyoung.levelup.di
 
 import android.content.Context
-import com.brandonjamesyoung.levelup.ui.ItemTableCreator
+import com.brandonjamesyoung.levelup.compose.ItemTableCreator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

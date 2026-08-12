@@ -21,7 +21,7 @@ import com.brandonjamesyoung.levelup.constants.SortType
 import com.brandonjamesyoung.levelup.data.Item
 import com.brandonjamesyoung.levelup.data.ItemRow
 import com.brandonjamesyoung.levelup.data.Settings
-import com.brandonjamesyoung.levelup.ui.ItemTableCreator
+import com.brandonjamesyoung.levelup.compose.ItemTableCreator
 import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.utility.PointsDisplay
 import com.brandonjamesyoung.levelup.utility.SnackbarHelper.Companion.showSnackbar

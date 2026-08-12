@@ -1,4 +1,4 @@
-package com.brandonjamesyoung.levelup.ui
+package com.brandonjamesyoung.levelup.compose
 
 import android.content.Context
 import androidx.compose.animation.core.Spring
@@ -69,7 +69,7 @@ class IconGridCreator(val context: Context) {
             mutableStateOf(selectableIcon.selected)
         }
 
-        var iconBitmap: ImageBitmap = ImageBitmap.imageResource(R.drawable.question_mark_icon_large)
+        var iconBitmap: ImageBitmap
         var iconContentDescription: String
 
         if (selected && pageMode() != Mode.SELECT) {

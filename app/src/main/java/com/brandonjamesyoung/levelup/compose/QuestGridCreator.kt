@@ -1,4 +1,4 @@
-package com.brandonjamesyoung.levelup.ui
+package com.brandonjamesyoung.levelup.compose
 
 import android.content.Context
 import android.graphics.RuntimeShader
@@ -138,8 +138,8 @@ class QuestGridCreator(val context: Context) {
 
             runtimeShader.setFloatUniform(
                 "iResolution",
-                questCardWidth.value.toFloat(),
-                questCardWidth.value.toFloat()
+                questCardWidth.value,
+                questCardWidth.value
             )
 
             runtimeShader.setColorUniform(

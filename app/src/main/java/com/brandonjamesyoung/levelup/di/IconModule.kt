@@ -1,8 +1,8 @@
 package com.brandonjamesyoung.levelup.di
 
 import android.content.Context
-import com.brandonjamesyoung.levelup.ui.IconGridCreator
-import com.brandonjamesyoung.levelup.ui.IconWorkspaceCreator
+import com.brandonjamesyoung.levelup.compose.IconGridCreator
+import com.brandonjamesyoung.levelup.compose.IconWorkspaceCreator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

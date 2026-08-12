@@ -16,7 +16,7 @@ import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.constants.DEFAULT_GRID_SIZE
 import com.brandonjamesyoung.levelup.constants.MAX_HEIGHT
 import com.brandonjamesyoung.levelup.constants.MAX_WIDTH
-import com.brandonjamesyoung.levelup.ui.IconWorkspaceCreator
+import com.brandonjamesyoung.levelup.compose.IconWorkspaceCreator
 import com.brandonjamesyoung.levelup.utility.IconWorkspace
 import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.validation.InputValidator

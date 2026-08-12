@@ -228,7 +228,7 @@ class SettingsFragment : Fragment(R.layout.settings), Resettable {
         }
     }
 
-    private suspend fun loadDifficultyData() = lifecycleScope.launch(Dispatchers.IO) {
+    private fun loadDifficultyData() = lifecycleScope.launch(Dispatchers.IO) {
         val difficulties: List<Difficulty> = viewModel.getDifficulties()
         updateDifficultyUi(difficulties)
     }

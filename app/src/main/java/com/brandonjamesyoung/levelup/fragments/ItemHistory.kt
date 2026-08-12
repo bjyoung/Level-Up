@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.brandonjamesyoung.levelup.R
 import com.brandonjamesyoung.levelup.data.ItemRow
 import com.brandonjamesyoung.levelup.data.PurchasedItem
-import com.brandonjamesyoung.levelup.ui.ItemTableCreator
+import com.brandonjamesyoung.levelup.compose.ItemTableCreator
 import com.brandonjamesyoung.levelup.utility.InsetHandler
 import com.brandonjamesyoung.levelup.viewmodels.ItemHistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
