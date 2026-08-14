@@ -82,7 +82,7 @@
         android:id="@+id/LevelUpBonusLabel"
         style="@style/Text"
         android:text="@string/level_up_bonus_label"
-        android:tooltipText="@string/level_up_mult_tooltip"
+        android:tooltipText="@string/level_up_bonus_tooltip"
         app:layout_constraintBottom_toBottomOf="@+id/PointsAcronymLabel"
         app:layout_constraintStart_toStartOf="@+id/LevelUpBonusInput"
         app:layout_constraintTop_toTopOf="@+id/PointsAcronymLabel" />

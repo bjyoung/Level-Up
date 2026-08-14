@@ -79,7 +79,7 @@
         style="@style/Text"
         android:layout_marginStart="20dp"
         android:text="@string/level_up_bonus_label"
-        android:tooltipText="@string/level_up_mult_tooltip"
+        android:tooltipText="@string/level_up_bonus_tooltip"
         app:layout_constraintBottom_toTopOf="@+id/CancelButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PointsAcronymLabel" />
@@ -143,7 +143,7 @@
         android:id="@+id/LevelUpBonusPointsLabel"
         style="@style/Text"
         android:layout_marginStart="10dp"
-        android:text="@string/multiplier_label"
+        android:text="@string/points_acronym_default"
         app:layout_constraintBottom_toBottomOf="@+id/LevelUpBonusInput"
         app:layout_constraintStart_toEndOf="@+id/LevelUpBonusInput"
         app:layout_constraintTop_toTopOf="@+id/LevelUpBonusInput"

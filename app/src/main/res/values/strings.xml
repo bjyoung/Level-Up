@@ -76,8 +76,8 @@
     <string name="exp_acronym">XP</string>
     <string name="points_acronym_label">Points Acronym</string>
     <string name="points_acronym_autofill_hint">pointsAcronym</string>
-    <string name="level_up_bonus_label">Level Up Mult</string>
-    <string name="level_up_mult_tooltip">Affects points earned on level up (mult * lvl)</string>
+    <string name="level_up_bonus_label">Level Up Bonus</string>
+    <string name="level_up_bonus_tooltip">Bonus points earned on level up</string>
     <string name="level_up_bonus_hint">5</string>
     <string name="level_up_bonus_autofill_hint">levelUpBonus</string>
     <string name="font_size_selector_label">Font Size</string>

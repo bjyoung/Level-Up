@@ -278,7 +278,8 @@ class SettingsFragment : Fragment(R.layout.settings), Resettable {
             R.id.EasyPointsLabel,
             R.id.MediumPointsLabel,
             R.id.HardPointsLabel,
-            R.id.ExpertPointsLabel
+            R.id.ExpertPointsLabel,
+            R.id.LevelUpBonusPointsLabel
         )
 
         val view = requireView()

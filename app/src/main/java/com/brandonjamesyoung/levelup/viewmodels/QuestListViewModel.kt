@@ -156,7 +156,7 @@ class QuestListViewModel @Inject constructor(
             higherLvl = startingLvl
         }
 
-        for (lvl in lowerLvl until higherLvl) totalLvlUpBonus += lvlUpBonus * lvl
+        for (lvl in lowerLvl until higherLvl) totalLvlUpBonus += lvlUpBonus
         val gainedLevels: Boolean = levelsEarned >= 0
         if (!gainedLevels) totalLvlUpBonus *= -1
 
