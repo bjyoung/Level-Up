@@ -12,9 +12,10 @@ This document tracks all notables changes to the Level Up app.
 
 ### Changed
 
-- Update Shop to use a Compose lazy column instead of XML LinearLayout
-- Reverted the level up bonus from a multiplier to a flat bonus per level
-  - The multiplier was unintuitive, even if it scaled with level
+- Update Shop and Item History to use Compose instead of XML
+- Revert the level up bonus from a multiplier to a flat bonus per level
+  - The multiplier was unintuitive, even though it helped with the level scaling issue
+- Rename the "Restore Defaults" buttons and pages to "Revert to Default" for clarity
 
 ### Fixed
 

@@ -111,11 +111,11 @@
     <string name="restore_defaults_button_content_description">
         Reset app and restore default values
     </string>
-    <string name="restore_defaults_button_label">Restore Defaults</string>
-    <string name="restore_defaults_tooltip">Restore icons or settings to default values</string>
+    <string name="restore_defaults_button_label">Reset to Default</string>
+    <string name="restore_defaults_tooltip">Reset icons or settings to default</string>
 
     <!-- Restore Defaults strings -->
-    <string name="restore_defaults_label">Restore Defaults</string>
+    <string name="restore_defaults_label">Reset to Default</string>
     <string name="restore_defaults_back_button_description">Go back to Advanced Settings</string>
 
     <!-- Reset Icons strings -->
@@ -124,13 +124,13 @@
         Replace all Icon Select icons with the default ones
     </string>
     <string name="reset_icons_warning">
-        Are you sure you want to restore default icons? All quest
-        icons will be reset to default too.
+        Are you sure you want to revert to default icons? All quest
+        icons will be cleared.
     </string>
     <string name="reset_icons_confirm_button_description">
         Restore default icons and go back to Restore Defaults page
     </string>
-    <string name="reset_icons_cancel_button_description">Go back to Restore Defaults</string>
+    <string name="reset_icons_cancel_button_description">Go back to Reset to Default</string>
 
     <!-- Reset Settings strings -->
     <string name="reset_settings_label">Reset Settings</string>
@@ -138,12 +138,12 @@
         Reset all settings back to their default values
     </string>
     <string name="reset_settings_warning">
-        Are you sure you want to restore default settings?
+        Are you sure you want to revert settings to default?
     </string>
     <string name="reset_settings_confirm_button_description">
-        Restore default settings and go back to Restore Defaults page
+        Revert to default settings and go back to Restore Defaults page
     </string>
-    <string name="reset_settings_cancel_button_description">Go back to Restore Defaults</string>
+    <string name="reset_settings_cancel_button_description">Go back to Reset to Default</string>
 
     <!-- Shop strings -->
     <string name="shop_label">Shop</string>

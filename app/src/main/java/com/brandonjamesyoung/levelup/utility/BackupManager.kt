@@ -156,7 +156,7 @@ class BackupManager (val context: Context) {
     }
 
     // Restore database using selected file
-    fun restoreData(selectedFileUri: Uri) : RestoreDbError? {
+    fun restoreDb(selectedFileUri: Uri) : RestoreDbError? {
         if (!isValidDbFile(selectedFileUri)) return RestoreDbError.INVALID_FILE
 
         // Create backup of current database in case something goes wrong

@@ -104,7 +104,7 @@ class AdvancedSettings : Fragment(R.layout.advanced_settings) {
             return
         }
 
-        val restoreDbError = backupManager.restoreData(restoreFileUri)
+        val restoreDbError = backupManager.restoreDb(restoreFileUri)
 
         if (restoreDbError != null) {
             when (restoreDbError) {
