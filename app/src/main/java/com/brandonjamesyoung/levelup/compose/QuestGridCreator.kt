@@ -79,8 +79,8 @@ class QuestGridCreator(val context: Context) {
             mutableStateOf(card.selected)
         }
 
-        val hasIcon: Boolean by remember {
-            mutableStateOf(card.icon != null)
+        val hasIcon: Boolean by remember(key1 = card.quest.iconId) {
+            mutableStateOf(card.quest.iconId != null)
         }
 
         val iconContentDescription: String

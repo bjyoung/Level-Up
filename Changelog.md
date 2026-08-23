@@ -20,8 +20,9 @@ This document tracks all notables changes to the Level Up app.
 ### Fixed
 
 - Fix Shop sometimes crashing on load and when deleting an item
-- Correct Shop and Quest List sort icons to match what their sorts do
+- Correct Shop and Quest List sort icons to match what they actually do
 - Fix Shop and Quest List sort reverting to default after minimizing and maximizing
+- Fix icon updates not appearing in Quest List after restoring from backup or resetting icons
 
 ---
 
