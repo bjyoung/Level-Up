@@ -110,6 +110,10 @@ class QuestList: Fragment(R.layout.quest_list) {
             buttonMethod = ::completeQuests,
             view = requireView(),
         )
+
+        val view = requireView()
+        val addQuestButton = view.findViewById<Button>(R.id.AddNewQuestButton)
+        addQuestButton.isEnabled = true
     }
 
     private fun deleteQuests() {
@@ -172,6 +176,18 @@ class QuestList: Fragment(R.layout.quest_list) {
             tooltip = getString(R.string.new_quest_button_tooltip),
             view = requireView()
         )
+
+        val limitReached: Boolean
+
+        runBlocking {
+            limitReached = viewModel.questLimitReached()
+        }
+
+        if (limitReached) {
+            val view = requireView()
+            val addQuestButton = view.findViewById<MaterialButton>(R.id.AddNewQuestButton)
+            addQuestButton.isEnabled = false
+        }
     }
 
     private fun navigateToShop() {

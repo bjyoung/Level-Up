@@ -13,7 +13,7 @@ android {
         targetSdk 37
         compileSdk = 37
         versionCode 6
-        versionName "0.8.6"
+        versionName "0.8.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

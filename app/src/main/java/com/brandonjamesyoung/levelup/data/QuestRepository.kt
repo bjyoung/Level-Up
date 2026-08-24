@@ -1,6 +1,9 @@
 package com.brandonjamesyoung.levelup.data
 
+import android.util.Log
 import androidx.annotation.WorkerThread
+import com.brandonjamesyoung.levelup.constants.QUEST_HISTORY_LIMIT
+import com.brandonjamesyoung.levelup.constants.QUEST_LIST_LIMIT
 import com.brandonjamesyoung.levelup.di.ApplicationScope
 import com.brandonjamesyoung.levelup.constants.Difficulty as DifficultyCode
 import kotlinx.coroutines.CoroutineScope
@@ -23,13 +26,25 @@ class QuestRepository @Inject constructor(
 
     fun getWithIcon(id: Int) = questDao.getWithIcon(id)
 
+    @WorkerThread
+    suspend fun questLimitReached() : Boolean {
+        val numQuests = questDao.getNumQuests()
+        return numQuests >= QUEST_LIST_LIMIT
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getDifficulties(ids: Set<Int>) = questDao.getDifficulties(ids)
 
     @WorkerThread
     fun insert(activeQuest: ActiveQuest) = externalScope.launch {
-        questDao.insert(activeQuest)
+        val numActiveQuests = questDao.getNumQuests()
+
+        if (numActiveQuests < QUEST_LIST_LIMIT) {
+            questDao.insert(activeQuest)
+        } else {
+            Log.d(TAG, "Max quest list limit reached. Cannot add new quests")
+        }
     }
 
     @WorkerThread
@@ -76,13 +91,18 @@ class QuestRepository @Inject constructor(
 
         val numCompletedQuests = questHistoryDao.getNumQuests()
 
-        if (numCompletedQuests > COMPLETED_QUEST_LIMIT) {
-            val numQuestsToDelete = numCompletedQuests - COMPLETED_QUEST_LIMIT
-            questHistoryDao.deleteLatest(numQuestsToDelete)
+        if (numCompletedQuests > QUEST_HISTORY_LIMIT) {
+            val numQuestsToDelete = numCompletedQuests - QUEST_HISTORY_LIMIT
+
+            val questHistoryLimitMessage = "Quest History limit reached. Deleting " +
+                    "oldest $numQuestsToDelete recorded quests"
+
+            Log.d(TAG, questHistoryLimitMessage)
+            questHistoryDao.deleteOldest(numQuestsToDelete)
         }
     }
 
     companion object {
-        private const val COMPLETED_QUEST_LIMIT = 750
+        private const val TAG = "QuestRepository"
     }
 }

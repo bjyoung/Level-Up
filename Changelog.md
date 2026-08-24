@@ -4,6 +4,16 @@ This document tracks all notables changes to the Level Up app.
 
 ---
 
+## 0.8.7
+
+### Added
+
+- Add an active quest limit of 120
+  - To prevent the player from making the list too long and difficult to navigate
+  - Quest List's New Quest and New Quest's confirm buttons get disabled when the limit is reached
+
+---
+
 ## 0.8.6 Shop Compose Update
 
 ### Added

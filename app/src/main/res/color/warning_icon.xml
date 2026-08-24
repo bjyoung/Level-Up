@@ -3,5 +3,8 @@
     <item
         android:state_pressed="true"
         android:color="@color/delete_pressed"/>
+    <item
+        android:state_enabled="false"
+        android:color="@color/disabled"/>
     <item android:color="@color/delete"/>
 </selector>

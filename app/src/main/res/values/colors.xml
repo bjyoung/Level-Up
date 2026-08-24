@@ -36,6 +36,7 @@
     <color name="confirm_pressed">#206B20</color>
     <color name="delete">#FFFF0000</color>
     <color name="delete_pressed">#7E0202</color>
+    <color name="disabled">#474747</color>
     <color name="cancel">#FFFF0000</color>
     <color name="experience_bar_meter">#FF00FFFF</color>
     <color name="experience_bar_meter_default">#FF00FFFF</color>

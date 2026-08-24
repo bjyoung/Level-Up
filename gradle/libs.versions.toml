@@ -1,17 +1,17 @@
 [versions]
-appcompat = "1.7.1"
+appcompat = "1.8.0"
 constraintlayout = "2.2.2"
 coreKtx = "1.19.0"
-fragmentKtx = "1.8.9"
+fragmentKtx = "1.9.0"
 hilt = "2.60.1"
 lifecycle = "2.11.0"
 material = "1.14.0"
 nav = "2.9.8"
 room = "2.8.4"
 kotlin = "2.4.10"
-android = "9.3.1"
+android = "9.3.2"
 ksp = "2.3.6"
-androidxComposeBom = "2026.06.01"
+androidxComposeBom = "2026.08.00"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }

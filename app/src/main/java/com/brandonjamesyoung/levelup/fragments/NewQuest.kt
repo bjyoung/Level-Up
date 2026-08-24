@@ -30,6 +30,7 @@ import com.brandonjamesyoung.levelup.viewmodels.NewQuestViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.time.Instant
 import javax.inject.Inject
 
@@ -134,6 +135,16 @@ class NewQuest : Fragment(R.layout.new_quest), Resettable {
                 viewModel.saveQuest()
                 navigateToQuestList()
             }
+        }
+
+        val questLimitReached: Boolean
+
+        runBlocking {
+            questLimitReached = viewModel.questLimitReached()
+        }
+
+        if (questLimitReached) {
+            saveButton.isEnabled = false
         }
     }
 

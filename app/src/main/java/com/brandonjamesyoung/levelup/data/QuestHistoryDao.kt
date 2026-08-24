@@ -17,7 +17,7 @@ interface QuestHistoryDao {
     suspend fun insert(completedQuest: CompletedQuest)
 
     @Query("DELETE FROM CompletedQuest WHERE id IN (SELECT id FROM CompletedQuest ORDER BY dateCompleted ASC LIMIT (:numToDelete))")
-    suspend fun deleteLatest(numToDelete: Int = 1)
+    suspend fun deleteOldest(numToDelete: Int = 1)
 
     @Query("UPDATE CompletedQuest SET iconId = null WHERE iconId IN (:iconIds)")
     suspend fun clearDeletedIcons(iconIds: Set<Int>)

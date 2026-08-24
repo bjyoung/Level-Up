@@ -67,8 +67,9 @@ const val MAX_POINTS_PER_PURCHASE: Int = INT_LIMIT
 // Icon constants
 const val ICON_SCALE_UP_RATE: Int = 4
 
-// Shop/Item History constants
-const val ITEM_ROW_LANDSCAPE_WIDTH_DP = 500f
+// Quest List/Quest History constants
+const val QUEST_LIST_LIMIT: Int = 120
+const val QUEST_HISTORY_LIMIT: Int = 750
 
 // Icon Editor
 const val MAX_WIDTH = 40

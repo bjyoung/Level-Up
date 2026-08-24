@@ -62,7 +62,6 @@ class NewQuestViewModel @Inject constructor(
         iconRepository.get(id)
     }
 
-
     private fun logQuestSave(activeQuest: ActiveQuest, isEdit: Boolean = false) {
         var logMessage = if (!isEdit) {
             "Add new ${activeQuest.difficulty} quest with "
@@ -80,6 +79,10 @@ class NewQuestViewModel @Inject constructor(
         }
 
         Log.i(TAG, logMessage)
+    }
+
+    suspend fun questLimitReached() : Boolean {
+        return questRepository.questLimitReached()
     }
 
     fun insert(activeQuest: ActiveQuest) = viewModelScope.launch(ioDispatcher) {

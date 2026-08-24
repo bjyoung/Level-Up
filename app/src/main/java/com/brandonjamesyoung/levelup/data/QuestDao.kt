@@ -40,4 +40,7 @@ interface QuestDao {
 
     @Query("DELETE FROM ActiveQuest WHERE id IN (:ids)")
     suspend fun delete(ids: Set<Int>)
+
+    @Query("SELECT COUNT(*) FROM ActiveQuest")
+    suspend fun getNumQuests(): Int
 }

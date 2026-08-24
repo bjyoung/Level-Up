@@ -57,6 +57,10 @@ class QuestListViewModel @Inject constructor(
         validModes = listOf(Mode.DEFAULT, Mode.SELECT)
     }
 
+    suspend fun questLimitReached() : Boolean {
+        return questRepository.questLimitReached()
+    }
+
     suspend fun getSettings() : Settings {
         return settingsRepository.get()
     }
@@ -156,7 +160,8 @@ class QuestListViewModel @Inject constructor(
             higherLvl = startingLvl
         }
 
-        for (lvl in lowerLvl until higherLvl) totalLvlUpBonus += lvlUpBonus
+        val lvlDiff = higherLvl - lowerLvl
+        totalLvlUpBonus += lvlDiff * lvlUpBonus
         val gainedLevels: Boolean = levelsEarned >= 0
         if (!gainedLevels) totalLvlUpBonus *= -1
 
