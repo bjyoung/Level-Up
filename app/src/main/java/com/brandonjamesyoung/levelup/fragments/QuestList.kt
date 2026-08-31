@@ -150,7 +150,7 @@ class QuestList: Fragment(R.layout.quest_list) {
         )
     }
 
-    private fun activateSelectMode() {
+    private fun activateSelectMode() = lifecycleScope.launch (Dispatchers.Main) {
         activateCompleteQuestsButton()
         activateDeleteButton()
         activateCancelButton()
@@ -353,15 +353,21 @@ class QuestList: Fragment(R.layout.quest_list) {
             changeSortIcon()
 
             viewModel.questList.value?.let { quests ->
-                val sortType = settings?.questListSortType
-                val sortOrder = settings?.questListSortOrder
-                val sortedQuests: List<QuestWithIcon> = sortQuests(quests, sortType, sortOrder)
-                reloadLazyQuestGrid(sortedQuests)
+                updateQuestList(quests, settings)
             }
         }
     }
 
-    private fun activateDefaultMode() {
+    private fun switchDisplayMode(mode: Mode) =
+        lifecycleScope.launch (Dispatchers.IO) {
+        when (mode) {
+            Mode.DEFAULT -> activateDefaultMode()
+            Mode.SELECT -> activateSelectMode()
+            else -> Log.e(TAG, "Unknown mode detected")
+        }
+    }
+
+    private fun activateDefaultMode() = lifecycleScope.launch (Dispatchers.Main) {
         viewModel.selectedQuestIds.clear()
         activateNewQuestButton()
         activateShopButton()
@@ -406,6 +412,22 @@ class QuestList: Fragment(R.layout.quest_list) {
                 iconAction = ::selectQuestCard
             )
         }
+    }
+
+    private fun updateQuestList(questList: List<QuestWithIcon>, settings: Settings? = null) =
+        lifecycleScope.launch (Dispatchers.Main) {
+        val currSettings = settings ?: viewModel.getSettings()
+        val sortedQuestList: List<QuestWithIcon>
+
+        withContext(Dispatchers.IO) {
+            sortedQuestList = sortQuests(
+                questList,
+                currSettings.questListSortType,
+                currSettings.questListSortOrder
+            )
+        }
+
+        reloadLazyQuestGrid(sortedQuestList)
     }
 
     private fun showNoQuestsMessage() {
@@ -484,27 +506,11 @@ class QuestList: Fragment(R.layout.quest_list) {
         viewModel.switchMode(Mode.DEFAULT)
 
         viewModel.mode.observe(viewLifecycleOwner) { mode ->
-            when (mode) {
-                Mode.DEFAULT -> activateDefaultMode()
-                Mode.SELECT -> activateSelectMode()
-                else -> Log.e(TAG, "Unknown mode detected")
-            }
+            switchDisplayMode(mode)
         }
 
         viewModel.questList.observe(viewLifecycleOwner) {
-            val settings: Settings
-
-            runBlocking {
-                settings = viewModel.getSettings()
-            }
-
-            val sortedQuestList = sortQuests(
-                it,
-                settings.questListSortType,
-                settings.questListSortOrder
-            )
-
-            reloadLazyQuestGrid(sortedQuestList)
+            updateQuestList(it)
         }
 
         viewModel.player.observe(viewLifecycleOwner) {

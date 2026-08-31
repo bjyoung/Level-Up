@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun playerNameEntered(): Boolean {
-        val settings: Settings? = getSettings().await()
-        return settings != null && settings.nameEntered
+        val settings: Settings = getSettings().await()
+        return settings.nameEntered
     }
 
     private fun changeStartingFragment(navId: Int) {
