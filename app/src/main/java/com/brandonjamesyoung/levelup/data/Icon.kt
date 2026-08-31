@@ -28,7 +28,7 @@ data class Icon(
         return (other is Icon)
                 && id == other.id
                 && name == other.name
-                && image == other.image
+                && image.contentEquals(other.image)
                 && imageWidth == other.imageWidth
                 && imageHeight == other.imageHeight
                 && iconGroup == other.iconGroup
