@@ -12,7 +12,7 @@ android {
         minSdk 33
         targetSdk 37
         compileSdk = 37
-        versionCode 6
+        versionCode 7
         versionName "0.8.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -24,9 +24,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.debug
+            optimization {
+                enable = true
+            }
         }
         debug {
             minifyEnabled false
